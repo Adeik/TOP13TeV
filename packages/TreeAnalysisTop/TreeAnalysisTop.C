@@ -290,10 +290,10 @@ void TreeAnalysisTop::Initialise() {
 	//	PU Reweight
 	//--------------------------------------
 	//PAF_INFO("TreeAnalysisTop", "+ Initialise Pile-Up reweighting tool...");
-	fPUWeight     = new PUWeight(gLumiForPU, Fall2015_25ns_matchData_poisson,"2015_25ns_76"); 
+	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep"); 
 	if (!gIsData) {
-		fPUWeightUp   = new PUWeight(18494.9,    Fall2015_25ns_matchData_poisson,"2015_25ns_76"); //  18494.9 
-		fPUWeightDown = new PUWeight(20441.7,    Fall2015_25ns_matchData_poisson,"2015_25ns_76"); //  20441.7 
+	   fPUWeightUp   = new PUWeight(18494.9, Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
+	   fPUWeightDown = new PUWeight(20441.7, Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
 	}
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco
@@ -719,12 +719,10 @@ void TreeAnalysisTop::InsideLoop() {
 				if (minDRel > lep.DeltaR(jet))  minDRel = lep.DeltaR(jet);
 			}
 		}
-		if(gSelection == 4 || gSelection == 5){
-			TLorentzVector l1; l1.SetPtEtaPhiM(genLep_pt[0], genLep_eta[0], genLep_phi[0], genLep_mass[0]);
-			TLorentzVector l2; l2.SetPtEtaPhiM(genLep_pt[1], genLep_eta[1], genLep_phi[1], genLep_mass[1]);
-			if ( (l1+l2).M() < 20) return;
+		if((gSelection == 4 || gSelection == 5) && !gIsData){
+			if((genElec+genMuon).M() < 20) return;
 		}
-    fHFidu->Fill(0.5);
+		fHFidu->Fill(0.5);
         Int_t nWTree = Get<Int_t>("nLHEweight");
 		for(int i = 0; i<nWeights; i++){
 			fHWeightsFidu->Fill(i, EventWeight*Get<Float_t>("LHEweight_wgt", i));
@@ -1542,9 +1540,25 @@ void TreeAnalysisTop::FillYields(gSystFlag sys){
   if(gSelection == 5){
     EventWeight = gWeight;
     FillYieldsHistograms(ElMu, iDilepton, sys);
-//    ZVeto
-//    if(PassesNGenJetsCut()) FillYieldsHistograms(ElMu, i2jets, sys);
-//    1btag
+    if( (l1+l2).M()>106 || (l1+l2).M()<76){
+      FillYieldsHistograms(ElMu, iZVeto, sys);
+      int ngenJet = Get<Int_t>("ngenJet");
+      int ngenJetsGood = 0; int ngenbJetsGood = 0;
+      TLorentzVector tgenJet; TLorentzVector tJet;
+      for(int k = 0; k<ngenJet; k++){
+        if( abs(Get<Float_t>("genJet_eta", k)) < 2.4 && Get<Float_t>("genJet_pt", k) > 30){
+          ngenJetsGood++;
+          tgenJet.SetPtEtaPhiM(Get<Float_t>("genJet_pt", k), Get<Float_t>("genJet_eta", k), Get<Float_t>("genJet_phi", k), Get<Float_t>("genJet_mass", k));
+          for(int h = 0; h<nJet; h++){
+            if(abs(Get<Int_t>("Jet_mcFlavour", h) == 5)) ngenbJetsGood++;
+          }
+        }
+      }
+      if(ngenJetsGood > 1){ // Passes NJets cut
+        FillYieldsHistograms(ElMu, i2jets, sys);
+        if(ngenbJetsGood > 0 ) FillYieldsHistograms(ElMu, i1btag, sys); // Passes btag
+      }
+    }
   return;
   }
 
@@ -2024,6 +2038,7 @@ int TreeAnalysisTop::getSelectedJets(){
     }
     else {
       Int_t   jetmcflavouri = Get<Int_t>  ("Jet_mcFlavour", i);
+      Int_t   jethadronflavouri = Get<Int_t>  ("Jet_hadronFlavour", i);
       // official b-tag recommendation: use JetHadronFlavour instead of JetPartonFlavor
       /*
 	if(TMath::Abs(Jet_mcFlavour[i]) == 5 || TMath::Abs(Jet_mcFlavour[i]) == 4){ 
@@ -2038,11 +2053,11 @@ int TreeAnalysisTop::getSelectedJets(){
 	if (gSysSource == MisTagUp)   btagSys =  1;
 	if (gSysSource == MisTagDown) btagSys = -1;
 	}*/
-      if      (gSysSource == BtagUp)      isbtag = fBTagSFbUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai); 
-      else if (gSysSource == BtagDown)    isbtag = fBTagSFbDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-      else if (gSysSource == MisTagUp)    isbtag = fBTagSFlUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-      else if (gSysSource == MisTagDown)  isbtag = fBTagSFlDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-      else                                isbtag = fBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+      if      (gSysSource == BtagUp)      isbtag = fBTagSFbUp->IsTagged(jetbtagi, jethadronflavouri, JetPt.at(i), jetetai); 
+      else if (gSysSource == BtagDown)    isbtag = fBTagSFbDo->IsTagged(jetbtagi, jethadronflavouri, JetPt.at(i), jetetai);
+      else if (gSysSource == MisTagUp)    isbtag = fBTagSFlUp->IsTagged(jetbtagi, jethadronflavouri, JetPt.at(i), jetetai);
+      else if (gSysSource == MisTagDown)  isbtag = fBTagSFlDo->IsTagged(jetbtagi, jethadronflavouri, JetPt.at(i), jetetai);
+      else                                isbtag = fBTagSFnom->IsTagged(jetbtagi, jethadronflavouri, JetPt.at(i), jetetai);
       // Use this line only to get raw numbers for syncronization
       //if(Get<Float_t>("Jet_btagCSV", i) > 0.89) isbtag=true;  // WP for 74
     }
@@ -2078,22 +2093,31 @@ void TreeAnalysisTop::SelectedGenLepton() {
   if (!gIsData) {
     nGenElec = 0; nGenMuon = 0;
     int charge1 = 1;
+    genElec = TLorentzVector(0,0,0,0);
+    genMuon = TLorentzVector(0,0,0,0);
     for(int n = 0; n<ngenLep; n++){
-			if(gSelection == 4) //FIUDIAL
+      if(abs(Get<Int_t>("genLep_motherId", n)) != 24) continue;
+      if(gSampleName.Contains("Herwig") &&  abs(Get<Int_t>("genLep_grandmotherId", n)) != 6)  continue;
+      if(gSelection == 4 || gSelection == 5) //FIUDIAL
 				if( (Get<Float_t>("genLep_pt", n) < 20) || (abs(Get<Float_t>("genLep_eta",n)) > 2.4) ) continue; 
 			Int_t id = TMath::Abs(genLep_pdgId[n]);
 			//if(Get<Int_t>("genLep_status", n) != 23) continue; 
 			if (id == 11)  nGenElec++;
+			if (id == 11 && genElec.Pt() == 0) genElec.SetPtEtaPhiM(Get<Float_t>("genLep_pt", n), Get<Float_t>("genLep_eta", n), Get<Float_t>("genLep_phi", n), Get<Float_t>("genLep_mass", n));
 			if (id == 13)  nGenMuon++;
+      if (id == 13 && genMuon.Pt() == 0) genMuon.SetPtEtaPhiM(Get<Float_t>("genLep_pt", n), Get<Float_t>("genLep_eta", n), Get<Float_t>("genLep_phi", n), Get<Float_t>("genLep_mass", n));
 		}
 
 		// add generated leptons (e/mu) from decays of taus from W/Z/h decays
 		for(int n = 0; n<Get<Int_t>("ngenLepFromTau"); n++){
+      if(abs(Get<Int_t>("genLepFromTau_grandmotherId", n)) != 24) continue;
 			if(gSelection == 4 || gSelection == 5) //FIUDIAL
 				if( (Get<Float_t>("genLepFromTau_pt", n) < 20) || (abs(Get<Float_t>("genLepFromTau_eta",n)) > 2.4) ) continue; 
 			Int_t id = TMath::Abs(Get<Int_t>("genLepFromTau_pdgId", n));
 			if (id == 11)  nGenElec++;
+      if (id == 11 && genElec.Pt() == 0) genElec.SetPtEtaPhiM(Get<Float_t>("genLepFromTau_pt", n), Get<Float_t>("genLepFromTau_eta", n), Get<Float_t>("genLepFromTau_phi", n), Get<Float_t>("genLepFromTau_mass", n));
 			if (id == 13)  nGenMuon++;
+      if (id == 13 && genMuon.Pt() == 0) genMuon.SetPtEtaPhiM(Get<Float_t>("genLepFromTau_pt", n), Get<Float_t>("genLepFromTau_eta", n), Get<Float_t>("genLepFromTau_phi", n), Get<Float_t>("genLepFromTau_mass", n));
 		}
 		fHnGenEle->Fill(nGenElec);
 		fHnGenMuo->Fill(nGenMuon);
@@ -2109,6 +2133,20 @@ void TreeAnalysisTop::SelectedGenLepton() {
         fHGenMuoPt->Fill(genLep_pt[i]);
       }
     }
+
+      int ngenJet = Get<Int_t>("ngenJet");
+      ngenJetsGood = 0; ngenbJetsGood = 0;
+      TLorentzVector tgenJet; TLorentzVector tJet;
+      for(int k = 0; k<ngenJet; k++){
+        if( abs(Get<Float_t>("genJet_eta", k)) < 2.4 && Get<Float_t>("genJet_pt", k) > 30){
+          ngenJetsGood++;
+          tgenJet.SetPtEtaPhiM(Get<Float_t>("genJet_pt", k), Get<Float_t>("genJet_eta", k), Get<Float_t>("genJet_phi", k), Get<Float_t>("genJet_mass", k));
+          for(int h = 0; h<nJet; h++){ // loop on reco jets
+						tJet.SetPtEtaPhiM(Get<Float_t>("Jet_pt", h), Get<Float_t>("Jet_eta", h), Get<Float_t>("Jet_phi", h), Get<Float_t>("Jet_mass", h));
+						if(tJet.DeltaR(tgenJet) < 0.4) if(abs(Get<Int_t>("Jet_hadronFlavour", h) == 5)) ngenbJetsGood++;
+					}
+				}
+			}
   }
 }
 
