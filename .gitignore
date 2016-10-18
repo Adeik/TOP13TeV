@@ -1,0 +1,6 @@
+.paf/
+DatasetManager/DatasetManager_C.d
+DatasetManager/DatasetManager_C.so
+DatasetManager/DatasetManager_C_ACLiC_dict_rdict.pcm
+Datasets/
+temp/
