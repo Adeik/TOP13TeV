@@ -45,8 +45,8 @@ void StopAnalyzer::GetParameters(){
 // GetTreeVariables
 //-----------------------------------------------------------------------------------
 void StopAnalyzer::GetTreeVariables(){
-  nLepGood             = Get<Int_t>("nLepGood");
-	nJet                 = Get<Int_t>("nJet");
+	nLepGood           = Get<Int_t>("nLepGood");
+	nJet               = Get<Int_t>("nJet");
 	if(!gIsData){
 		ngenLep              = Get<Int_t>("ngenLep");
 		genWeight            = Get<Float_t>("genWeight");
@@ -189,7 +189,7 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 			fHDelPhiJetMet[ichan][icut][0] = 0; 
 			fHDelPhiPllbMet[ichan][icut][0] = 0; 
 			fHDelPhiLepJet[ichan][icut][0] = 0; 
-      fHMinDelPhiMetJets[ichan][icut][0] = 0;
+			fHMinDelPhiMetJets[ichan][icut][0] = 0;
 
 			fHCSVTag[ichan][icut] = 0; 
 			fHTopD[ichan][icut] = 0;
@@ -208,9 +208,9 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 			fHChi0StopMass[ichan][icut] = 0;
 			fHvertices[ichan][icut] = 0;
 			fHgoodvertices[ichan][icut] = 0;
-      for(unsigned int iSR = 0; iSR < nSR; iSR++){
-           fMT2SR[ichan][icut][iSR] = 0;
-      }
+      		for(unsigned int iSR = 0; iSR < nSR; iSR++){
+				fMT2SR[ichan][icut][iSR] = 0;
+      		}
 
 			for (unsigned int isyst = 1; isyst < gNSYST; isyst++) {
 				fHInvMass[ichan][icut][isyst] = 0;   
@@ -218,7 +218,7 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 				fHSSInvMass[ichan][icut][isyst] = 0;   
 				fHNBtagsNJets[ichan][icut][isyst] = 0; 
 				fHSSNBtagsNJets[ichan][icut][isyst] = 0; 
-			  fHNBtagJets[ichan][icut][isyst] = 0; 
+				fHNBtagJets[ichan][icut][isyst] = 0; 
 
 				/// STOP
 				//fHAbsDelPhiLep[ichan][icut] = 0;
@@ -303,11 +303,11 @@ void StopAnalyzer::Initialise() {
 	//	PU Reweight
 	//--------------------------------------
 	//PAF_INFO("StopAnalyzer", "+ Initialise Pile-Up reweighting tool...");
-  fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
-  if (!gIsData) {
-    fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
-    fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
-  }
+	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
+	if (!gIsData) {
+    	fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
+    	fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
+	}
 
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco

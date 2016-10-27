@@ -130,7 +130,7 @@ void ttHanalysis(TString  sampleName     = "TTbar_Madgraph",
   //----------------------------------------------------------------------------
 	Bool_t G_Use_CSVM = true;
 	TString outputDir = "./temp";
-  if(sampleName.BeginsWith("T2tt")) outputDir += "/Susy";
+  if(sampleName.BeginsWith("T2tt")) outputDir += "/ttH";
 
 	gSystem->mkdir(outputDir, kTRUE);
 
