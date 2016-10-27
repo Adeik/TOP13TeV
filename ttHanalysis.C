@@ -5,7 +5,7 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 /********************************************************
  * Main function
  ********************************************************/
-void RunStopAnalysis(TString  sampleName     = "TTbar_Madgraph",
+void ttHanalysis(TString  sampleName     = "TTbar_Madgraph",
 			Int_t    nSlots         =  1,
 			Bool_t   DoSystStudies  =  false,
 			Long64_t nEvents        = 0,
