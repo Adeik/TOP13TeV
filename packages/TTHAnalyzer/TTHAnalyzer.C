@@ -1,12 +1,12 @@
 //========================================================
-//  StopAnalyzer selector
+//  TTHAnalyzer selector
 //========================================================
 
-#include "StopAnalyzer.h"
+#include "TTHAnalyzer.h"
 #include <iostream>
 #include <math.h>
 
-ClassImp(StopAnalyzer);
+ClassImp(TTHAnalyzer);
 const float gJetEtCut = 30.;
 
 //#define DEBUG
@@ -14,7 +14,7 @@ const float gJetEtCut = 30.;
 //------------------------------------------------------------------------------
 // GetParameters
 //------------------------------------------------------------------------------
-void StopAnalyzer::GetParameters(){
+void TTHAnalyzer::GetParameters(){
   gSampleName    = GetParam<TString>("sampleName");
   gIsData        = GetParam<bool>("IsData");
   gWeight        = GetParam<float>("weight"); // cross section / events in the sample
@@ -30,21 +30,21 @@ void StopAnalyzer::GetParameters(){
   gIsMCatNLO     = GetParam<bool>("IsMCatNLO");
   gCreateTree    = GetParam<bool>("CreateTree");
 
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gDoSystStudies = %d", gDoSystStudies));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gStopMass = %i", gStopMass));
-  PAF_INFO("StopAnalyzer::GetParameters()", Form("gLspMass = %i",gLspMass ));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gDoSystStudies = %d", gDoSystStudies));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gStopMass = %i", gStopMass));
+  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gLspMass = %i",gLspMass ));
 }
 
 //-----------------------------------------------------------------------------------
 // GetTreeVariables
 //-----------------------------------------------------------------------------------
-void StopAnalyzer::GetTreeVariables(){
+void TTHAnalyzer::GetTreeVariables(){
   nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
   evt                  = Get<ULong64_t>("evt");
@@ -126,9 +126,9 @@ const double *getEtaBins (gChannel chan){
 };
 
 //------------------------------------------------------------------------------------
-// StopAnalyzer class constructor (make sure the pointers are initialized to zero)
+// TTHAnalyzer class constructor (make sure the pointers are initialized to zero)
 //------------------------------------------------------------------------------------
-StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
+TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
 	fHTopPtWeight = 0;
@@ -198,7 +198,7 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 			fHDelPhiJetMet[ichan][icut][0] = 0; 
 			fHDelPhiPllbMet[ichan][icut][0] = 0; 
 			fHDelPhiLepJet[ichan][icut][0] = 0; 
-			fHMinDelPhiMetJets[ichan][icut][0] = 0;
+      fHMinDelPhiMetJets[ichan][icut][0] = 0;
 
 			fHCSVTag[ichan][icut] = 0; 
 			fHTopD[ichan][icut] = 0;
@@ -217,9 +217,9 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 			fHChi0StopMass[ichan][icut] = 0;
 			fHvertices[ichan][icut] = 0;
 			fHgoodvertices[ichan][icut] = 0;
-      		for(unsigned int iSR = 0; iSR < nSR; iSR++){
-				fMT2SR[ichan][icut][iSR] = 0;
-      		}
+      for(unsigned int iSR = 0; iSR < nSR; iSR++){
+           fMT2SR[ichan][icut][iSR] = 0;
+      }
 
 			for (unsigned int isyst = 1; isyst < gNSYST; isyst++) {
 				fHInvMass[ichan][icut][isyst] = 0;   
@@ -227,7 +227,7 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 				fHSSInvMass[ichan][icut][isyst] = 0;   
 				fHNBtagsNJets[ichan][icut][isyst] = 0; 
 				fHSSNBtagsNJets[ichan][icut][isyst] = 0; 
-				fHNBtagJets[ichan][icut][isyst] = 0; 
+			  fHNBtagJets[ichan][icut][isyst] = 0; 
 
 				/// STOP
 				//fHAbsDelPhiLep[ichan][icut] = 0;
@@ -272,23 +272,23 @@ StopAnalyzer::StopAnalyzer() : PAFChainItemSelector() {
 //-------------------------------------------------------------------
 // Initialise
 //-------------------------------------------------------------------
-void StopAnalyzer::Initialise() {
-	PAF_INFO("StopAnalyzer", "+ Initializing...");
-	//PAF_INFO("StopAnalyzer", "+ Initializing paramenters...");
+void TTHAnalyzer::Initialise() {
+	PAF_INFO("TTHAnalyzer", "+ Initializing...");
+	//PAF_INFO("TTHAnalyzer", "+ Initializing paramenters...");
 	GetParameters();
-	//PAF_INFO("StopAnalyzer", "+ Sumw2 set for all histograms...");
+	//PAF_INFO("TTHAnalyzer", "+ Sumw2 set for all histograms...");
 	TH1::SetDefaultSumw2();
 	fHDummy = CreateH1F("fHDummy","",1,0,1);
-	//PAF_INFO("StopAnalyzer", "+ Initialise Yield histograms...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise Yield histograms...");
 	InitialiseTree();
 	InitialiseYieldsHistos();
-	//PAF_INFO("StopAnalyzer", "+ Initialise Kinematic histograms...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise Kinematic histograms...");
 	InitialiseKinematicHistos();
 	if (!gIsData) {
-		//PAF_INFO("StopAnalyzer", "+ Initialise Gen histograms...");
+		//PAF_INFO("TTHAnalyzer", "+ Initialise Gen histograms...");
 		InitialiseGenHistos();
 	}
-	//PAF_INFO("StopAnalyzer", "+ Initialise other histograms...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise other histograms...");
 	fHTopPtWeight  = CreateH1F("H_TopPtWeight" ,"TopPt Weight",100, 0, 2);
 
 	fHnGenEle  = CreateH1F("fHnGenEle" , "nGenPromptElecs"  , 11, -1.5, 9.5);
@@ -304,26 +304,26 @@ void StopAnalyzer::Initialise() {
 			gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar") || 
 			gSampleName.Contains("DY") ||
 			gSampleName.Contains("ZJets")){
-		//	PAF_INFO("StopAnalyzer", "+ Initialise Drell-Yan histograms...");
+		//	PAF_INFO("TTHAnalyzer", "+ Initialise Drell-Yan histograms...");
 		InitialiseDYHistos();
 	}
-	PAF_INFO("StopAnalyzer", "+ Initialise histograms for systematics studies...");
+	PAF_INFO("TTHAnalyzer", "+ Initialise histograms for systematics studies...");
 	InitialiseSystematicHistos();
 
 	//	PU Reweight
 	//--------------------------------------
-	//PAF_INFO("StopAnalyzer", "+ Initialise Pile-Up reweighting tool...");
-	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
-	if (!gIsData) {
-    	fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
-    	fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
-	}
+	//PAF_INFO("TTHAnalyzer", "+ Initialise Pile-Up reweighting tool...");
+  fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
+  if (!gIsData) {
+    fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
+    fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
+  }
 
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco
 	//else          fBTagSF   = new BTagSFUtil("CSVT","ABCD");//ReReco 
 
-	//PAF_INFO("StopAnalyzer", "+ Initialise b-tag scale factors...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise b-tag scale factors...");
 	if (gUseCSVM){
 		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
 		fBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Medium",  1);
@@ -339,18 +339,18 @@ void StopAnalyzer::Initialise() {
 		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Tight", -3);
 	}
 
-	//PAF_INFO("StopAnalyzer", "+ Initialise lepton scale factors...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise lepton scale factors...");
 	fLeptonSF = new SusyLeptonSF();
 
-	//PAF_INFO("StopAnalyzer", "+ Initialise random 3...");
+	//PAF_INFO("TTHAnalyzer", "+ Initialise random 3...");
 	fRand3 = new TRandom3(50);
 
 	// No systematics activaded...
 	gSysSource = Norm;
-	PAF_INFO("StopAnalyzer", "+ Initialisation DONE.");
+	PAF_INFO("TTHAnalyzer", "+ Initialisation DONE.");
 }
 
-void StopAnalyzer::InitialiseTree(){
+void TTHAnalyzer::InitialiseTree(){
     fTree = CreateTree("sTopTree","Optimization tree");
 
     fTree->Branch("TWeight",      &TWeight,      "TWeight/F");
@@ -395,12 +395,12 @@ void StopAnalyzer::InitialiseTree(){
     fTree->Branch("TJet_E",            TJet_E,            "TJet_E[TNJets]/F");
 }
 
-void StopAnalyzer::InitialiseGenHistos(){
+void TTHAnalyzer::InitialiseGenHistos(){
 	fHDeltaRLepJet[Muon] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Muon],"",1000,0.,5.);
 	fHDeltaRLepJet[Elec] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Elec],"",1000,0.,5.);  
 }
 
-void StopAnalyzer::InitialiseDYHistos(){
+void TTHAnalyzer::InitialiseDYHistos(){
 	for (size_t ch=0; ch<gNCHANNELS; ch++){
 		for (size_t cut=0; cut<iNCUTS; cut++){
 			TString name = "_"+gChanLabel[ch]+"_"+sCut[cut];
@@ -413,7 +413,7 @@ void StopAnalyzer::InitialiseDYHistos(){
 	}
 }
 
-void StopAnalyzer::InitialiseYieldsHistos(){
+void TTHAnalyzer::InitialiseYieldsHistos(){
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
 		fHyields[Muon][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5); 
@@ -445,12 +445,12 @@ void StopAnalyzer::InitialiseYieldsHistos(){
 	}
 }
 
-void StopAnalyzer::InitialiseKinematicHistos(){
-	//  PAF_DEBUG("StopAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
+void TTHAnalyzer::InitialiseKinematicHistos(){
+	//  PAF_DEBUG("TTHAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
 	//++ Kinematic histograms
 	for (size_t ch=0; ch<gNCHANNELS; ch++){
 		for (size_t cut=0; cut<iNCUTS; cut++){
-			//PAF_DEBUG("StopAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
+			//PAF_DEBUG("TTHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
 			fHLHEweights[ch][cut]  = CreateH1F("H_LHEweights"  +gChanLabel[ch]+"_"+sCut[cut],"LHEweights", nWeights, -0.5, nWeights - 0.5);
 
 			fHLep0Eta[ch][cut]     = CreateH1F("H_Lep0Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep0Eta"   , 50  ,0 ,2.5);
@@ -534,7 +534,7 @@ void StopAnalyzer::InitialiseKinematicHistos(){
 	}
 }
 
-void StopAnalyzer::InitialiseSystematicHistos(){
+void TTHAnalyzer::InitialiseSystematicHistos(){
 	TString histoname = "";
 	for (size_t ch=0; ch<gNCHANNELS; ch++){
 		for (size_t cut=0; cut<iNCUTS; cut++){
@@ -600,7 +600,7 @@ void StopAnalyzer::InitialiseSystematicHistos(){
 //---------------------------------------------------------------------------------------------------
 // Set objets, to be called once per event, saving information in tmp vectors for systematic studies.
 //---------------------------------------------------------------------------------------------------
-void StopAnalyzer::SetOriginalObjects(){
+void TTHAnalyzer::SetOriginalObjects(){
 	ResetHypLeptons();
 	gSysSource = Norm;
 
@@ -647,7 +647,7 @@ void StopAnalyzer::SetOriginalObjects(){
 	MET_Phi = Get<Float_t>("met_phi"); //met
 }
 
-void StopAnalyzer::SetEventObjects(){
+void TTHAnalyzer::SetEventObjects(){
 	ResetHypLeptons();
 
 	fChargeSwitch = false;
@@ -677,7 +677,7 @@ void StopAnalyzer::SetEventObjects(){
 	nBtags   = getNBTags();
 }
 
-void StopAnalyzer::ResetOriginalObjects(){
+void TTHAnalyzer::ResetOriginalObjects(){
 	// Save original values for MET, Jets and Leptons
 	TLorentzVector j;
 	for (Int_t i=0; i < nJet; i++){    
@@ -709,12 +709,12 @@ void StopAnalyzer::ResetOriginalObjects(){
 	setMET(Get<Float_t>("met_pt")); //met
 }
 
-void StopAnalyzer::ResetHypLeptons(){
+void TTHAnalyzer::ResetHypLeptons(){
   TLorentzVector vec(0., 0., 0., 0.);
   fHypLepton1 = lepton(vec, 0, -1, -1);
   fHypLepton2 = lepton(vec, 0, -1, -1);
 }
-void StopAnalyzer::CoutEvent(long unsigned int en, TString t){
+void TTHAnalyzer::CoutEvent(long unsigned int en, TString t){
   //if(en == 1000599168 || en == 1268707665 || en == 157395642 || en == 2726847580 || en == 42879335){
   //if(en == 1519610198 || en == 1559039433 || en == 998619292 || en == 1206329870 || en == 295644557 || en == 686746673 || en == 99957372 || en == 126485808 || en == 249297855){
   if(en == 1347253329 || en == 960559657){
@@ -723,7 +723,7 @@ void StopAnalyzer::CoutEvent(long unsigned int en, TString t){
   else return;
 }
 
-void StopAnalyzer::SetTreeVariables(gChannel chan){ 
+void TTHAnalyzer::SetTreeVariables(gChannel chan){ 
   TWeight     = EventWeight;
   TNJets      = getNJets();
   TNJetsBtag  = getNBTags();
@@ -781,7 +781,7 @@ void StopAnalyzer::SetTreeVariables(gChannel chan){
 //-----------------------------------------------------------------------
 // InsideLoop
 //-----------------------------------------------------------------------
-void StopAnalyzer::InsideLoop() {
+void TTHAnalyzer::InsideLoop() {
   if(gIsT2tt){
  //   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
     if((Get<Int_t>("GenSusyMStop") != gStopMass) || (Get<Int_t>("GenSusyMNeutralino") != gLspMass)) return;
@@ -985,14 +985,14 @@ void StopAnalyzer::InsideLoop() {
   fChargeSwitch = false;
 }
 
-void StopAnalyzer::Summary(){}
+void TTHAnalyzer::Summary(){}
 
 //------------------------------------------------------------------------------
 // TRIGGER INFORMATION
 //------------------------------------------------------------------------------
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopTrigger#Run2015C_D_25_ns_data_with_RunII
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopTrigger#Run2015C_D_25_ns_data_with_RunII
-bool StopAnalyzer::PassTriggerMuMu() {
+bool TTHAnalyzer::PassTriggerMuMu() {
    if(!gIsData) return true;
    //return true;
    Bool_t pass         = false;
@@ -1013,7 +1013,7 @@ bool StopAnalyzer::PassTriggerMuMu() {
 }
 
 
-bool StopAnalyzer::PassTriggerEE(){
+bool TTHAnalyzer::PassTriggerEE(){
    if(!gIsData) return true;
    //return true;
    Bool_t pass         = false;
@@ -1032,7 +1032,7 @@ bool StopAnalyzer::PassTriggerEE(){
 }
 
 
-bool StopAnalyzer::PassTriggerEMu(){
+bool TTHAnalyzer::PassTriggerEMu(){
    if(!gIsData) return true;
    //return true;
    Bool_t pass         = false;
@@ -1060,20 +1060,20 @@ bool StopAnalyzer::PassTriggerEMu(){
 //------------------------------------------------------------------------------
 // Get METHODS
 //------------------------------------------------------------------------------
-float StopAnalyzer::getHT(){
+float TTHAnalyzer::getHT(){
   float ht(0);
   for (unsigned int i=0; i<Jet.size(); i++) ht+=Jet[i].p.Pt();
   return ht;
 }
-float StopAnalyzer::getJetPtIndex(unsigned int ind){
+float TTHAnalyzer::getJetPtIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   return Jet[ind].p.Pt();
 }
-float StopAnalyzer::getJetEtaIndex(unsigned int ind){
+float TTHAnalyzer::getJetEtaIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   return TMath::Abs(Jet[ind].p.Eta());
 }
-float StopAnalyzer::getBtagJetPtIndex(unsigned int ind){
+float TTHAnalyzer::getBtagJetPtIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   Int_t btagInd = 0;
   if (ind==0) btagInd = getLeadingJetbTag();
@@ -1081,14 +1081,14 @@ float StopAnalyzer::getBtagJetPtIndex(unsigned int ind){
   return Jet[btagInd].p.Pt();
 }
 
-float StopAnalyzer::getMT(gChannel chan){
+float TTHAnalyzer::getMT(gChannel chan){
   float ptl1 = fHypLepton1.p.Pt();
 	float ptl2 = fHypLepton2.p.Pt();
 	float dphi = getDelPhill();
 	return TMath::Sqrt(2*ptl1*ptl2*(1-TMath::Cos(dphi)));
 }
 
-float StopAnalyzer::getDPhiLepJet(){
+float TTHAnalyzer::getDPhiLepJet(){
 	if (fHypLepton1.index == -1) return -999.; if (fHypLepton2.index == -1) return -999.;
 	// Int_t ij = getLeadingJetbTag(); if (ij < 0) return -999.; 
 	if(Jet.size()<1) return -999.;
@@ -1098,7 +1098,7 @@ float StopAnalyzer::getDPhiLepJet(){
 	return TMath::Abs(plep.DeltaPhi(jet));
 }
 
-float StopAnalyzer::getMinDPhiMetJets(){
+float TTHAnalyzer::getMinDPhiMetJets(){
 	if (fHypLepton1.index == -1) return -999.; if (fHypLepton2.index == -1) return -999.;
 	if(Jet.size()<2) return -999.;
 	TLorentzVector jet1 = Jet[0].p;
@@ -1109,15 +1109,15 @@ float StopAnalyzer::getMinDPhiMetJets(){
   return MinDelta;
 }
 
-float StopAnalyzer::getDelPhill(){ return fHypLepton1.p.DeltaPhi(fHypLepton2.p);}
+float TTHAnalyzer::getDelPhill(){ return fHypLepton1.p.DeltaPhi(fHypLepton2.p);}
 
-float StopAnalyzer::getDPhiJetMet(){
+float TTHAnalyzer::getDPhiJetMet(){
 	TLorentzVector pmet;
 	pmet.SetPtEtaPhiM(getMET(), 0, getMETPhi(), 0);
 	return getDPhiClosestJet(pmet);
 }
 
-float StopAnalyzer::getDPhiLepMet(){
+float TTHAnalyzer::getDPhiLepMet(){
 	TLorentzVector pmet;
 	pmet.SetPtEtaPhiM(getMET(), 0, getMETPhi(), 0);
 	TLorentzVector plep = fHypLepton1.p;
@@ -1125,7 +1125,7 @@ float StopAnalyzer::getDPhiLepMet(){
 	return TMath::Abs(plep.DeltaPhi(pmet));
 }
 
-float StopAnalyzer::getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, float mass){
+float TTHAnalyzer::getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, float mass){
   double pa[3]; double pb[3]; double pmiss[3];
   pmiss[0] = 0.; // irrelevant
   pmiss[1] = pmet.Px(); pmiss[2] = pmet.Py();
@@ -1138,7 +1138,7 @@ float StopAnalyzer::getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzV
   return MT2;
 }
 
-float StopAnalyzer::getMT2ll(gChannel chan){
+float TTHAnalyzer::getMT2ll(gChannel chan){
   TLorentzVector plep1, plep2;
   if (chan == Muon) {
     plep1.SetPxPyPzE(MuPx.at(0), MuPy.at(0), MuPz.at(0), MuEnergy.at(0));
@@ -1157,7 +1157,7 @@ float StopAnalyzer::getMT2ll(gChannel chan){
   return getMT2(plep1, plep2, pmet, 0.);
 }
 
-float StopAnalyzer::getMT2b(gChannel chan){
+float TTHAnalyzer::getMT2b(gChannel chan){
   if (getNJets() < 2) return -1;
   TLorentzVector plep1, plep2;
   if (chan == Muon) {
@@ -1180,7 +1180,7 @@ float StopAnalyzer::getMT2b(gChannel chan){
   return getMT2(pjet0, pjet1, lv, 80.398);
 }
 
-float StopAnalyzer::getMT2lb(gChannel chan){
+float TTHAnalyzer::getMT2lb(gChannel chan){
   if (getNJets() < 2) return -1;
   TLorentzVector plep1, plep2;
   if (chan == Muon) {
@@ -1220,27 +1220,27 @@ float StopAnalyzer::getMT2lb(gChannel chan){
   return MT2llbb;
 }
 
-float StopAnalyzer::getMeff(){
+float TTHAnalyzer::getMeff(){
 	if(Jet.size()<2) return -999.;
 	TLorentzVector pmet;
 	pmet.SetPtEtaPhiM(getMET(), 0, getMETPhi(), 0);
 	return fHypLepton1.p.Pt() + fHypLepton2.p.Pt() + Jet[0].p.Pt() + Jet[1].p.Pt() + pmet.Pt();
 }
 
-TLorentzVector StopAnalyzer::getPtllb(){
+TLorentzVector TTHAnalyzer::getPtllb(){
 	TLorentzVector pmet; pmet.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.);
 	TLorentzVector pl1 = fHypLepton1.p; TLorentzVector pl2 = fHypLepton2.p;
 	return pl1 + pl2 + pmet;
 }
 
-float StopAnalyzer::getDPhibMet(){
+float TTHAnalyzer::getDPhibMet(){
 	TLorentzVector pmet; pmet.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.);
 	TLorentzVector Ptllb = getPtllb();
 	return pmet.DeltaPhi(Ptllb); 
 }
 
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-float StopAnalyzer::getJERScale(int jet){
+float TTHAnalyzer::getJERScale(int jet){
 	float eta = Jet_eta[ jet];
 	// 8 TeV
 	if(     TMath::Abs(eta) < 0.5) return 1.079;
@@ -1253,7 +1253,7 @@ float StopAnalyzer::getJERScale(int jet){
 }
 
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-float StopAnalyzer::getJERScaleUp(int jet){
+float TTHAnalyzer::getJERScaleUp(int jet){
 	float eta = Jet_eta[ jet];
 	// up, 8 TeV
 	if(	  TMath::Abs(eta) < 0.5) return 1.053;
@@ -1266,7 +1266,7 @@ float StopAnalyzer::getJERScaleUp(int jet){
 }
 
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
-float StopAnalyzer::getJERScaleDown(int jet){
+float TTHAnalyzer::getJERScaleDown(int jet){
 	float eta = Jet_eta[ jet];
 	// down, 8 TeV
 	if(	  TMath::Abs(eta) < 0.5) return 1.105;
@@ -1278,7 +1278,7 @@ float StopAnalyzer::getJERScaleDown(int jet){
 	else  			 return 1.247;
 }
 
-float StopAnalyzer::getErrPt(float Pt, float Eta) {
+float TTHAnalyzer::getErrPt(float Pt, float Eta) {
 	float InvPerr2;
 	float N(0.), S(0.), C(0.), m(0.);
 
@@ -1324,7 +1324,7 @@ float StopAnalyzer::getErrPt(float Pt, float Eta) {
 	return sqrt(InvPerr2);
 }
 
-float StopAnalyzer::getLeptonError(gChannel chan){
+float TTHAnalyzer::getLeptonError(gChannel chan){
 	float err1(0.), err2(0.);
 	if (chan==Muon){
 		err1 = fLeptonSF->GetTightMuonSF_err(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
@@ -1341,7 +1341,7 @@ float StopAnalyzer::getLeptonError(gChannel chan){
 	return TMath::Sqrt(err1*err1+err2*err2);
 }
 
-float StopAnalyzer::getTriggerError(gChannel chan){
+float TTHAnalyzer::getTriggerError(gChannel chan){
 	float trig(0.);
 	if (chan==Muon) trig = fLeptonSF->GetDoubleMuSF_err(fHypLepton1.p.Eta(),fHypLepton2.p.Eta());
 	if (chan==ElMu) trig = fLeptonSF->GetMuEGSF_err    (fHypLepton2.p.Eta(),fHypLepton1.p.Eta());
@@ -1349,7 +1349,7 @@ float StopAnalyzer::getTriggerError(gChannel chan){
 	return trig;
 }
 
-float StopAnalyzer::getSF(gChannel chan) {
+float TTHAnalyzer::getSF(gChannel chan) {
 	if (gIsData)              return 1.; //Don't scale data
 	float id1(1.),id2(1.), trig(1.);
 	float err1(0.), err2(0.), err_trg(0.);
@@ -1384,7 +1384,7 @@ float StopAnalyzer::getSF(gChannel chan) {
   return (SF);
 }
 
-float StopAnalyzer::getTopPtSF(){
+float TTHAnalyzer::getTopPtSF(){
 	// Return SF of the pt pt of the top 
 	// Only apply SF if the process is ttbar...
 	if(!gSampleName.Contains("TTJets") && !gSampleName.Contains("TTbar_Powheg")) return 1.;
@@ -1414,7 +1414,7 @@ float StopAnalyzer::getTopPtSF(){
 //--------------------------------------------------------------------------
 // Fill histograms      
 //------------------------------------------------------------------------
-void StopAnalyzer::FillDYHistograms(){
+void TTHAnalyzer::FillDYHistograms(){
 	float Mll = 0.;
 	if (PassTriggerEMu()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
@@ -1593,7 +1593,7 @@ void StopAnalyzer::FillDYHistograms(){
 	}
 	ResetHypLeptons();
 }
-void StopAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
+void TTHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 #ifdef DEBUG
 	cout << "Filling KinematicHistos("<<chan<<","<<cut<<")... ";
 	cout << fHypLepton1.index << " , " << fHypLepton2.index << endl;
@@ -1659,7 +1659,7 @@ void StopAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 
 }
 
-void StopAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
+void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 #ifdef DEBUG
 	cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")...";
 #endif
@@ -1774,7 +1774,7 @@ void StopAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 #endif
 	return;
 }
-void StopAnalyzer::FillYields(gSystFlag sys){
+void TTHAnalyzer::FillYields(gSystFlag sys){
 	ResetHypLeptons();  
 
 #ifdef DEBUG
@@ -1798,6 +1798,7 @@ void StopAnalyzer::FillYields(gSystFlag sys){
 
 		if(
 				(gCreateTree) && (sys==Norm)        && !(fChargeSwitch) &&
+				PassesZVeto()      &&
 				PassesMllVeto()    &&
 				PassesNJetsCut()){
 			SetTreeVariables(ElMu);
@@ -1975,7 +1976,7 @@ void StopAnalyzer::FillYields(gSystFlag sys){
 //----------------------------------------------------------------------
 // Passes
 //----------------------------------------------------------------------
-bool StopAnalyzer::PassesMuonEta2p1(gChannel chan){
+bool TTHAnalyzer::PassesMuonEta2p1(gChannel chan){
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
 
@@ -1992,7 +1993,7 @@ bool StopAnalyzer::PassesMuonEta2p1(gChannel chan){
 	return false;
 }
 
-bool StopAnalyzer::Passes3rdLeptonVeto(){
+bool TTHAnalyzer::Passes3rdLeptonVeto(){
 	return true; // don't apply third lepton veto...
 	// Return false if there are not 2 signal leptons
 	if (fHypLepton1.index == -1) return false;
@@ -2016,7 +2017,7 @@ bool StopAnalyzer::Passes3rdLeptonVeto(){
 	return true;
 }
 
-bool StopAnalyzer::PassesMllVeto(){
+bool TTHAnalyzer::PassesMllVeto(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -2025,7 +2026,7 @@ bool StopAnalyzer::PassesMllVeto(){
 	return true;
 }
 
-bool StopAnalyzer::PassesZVeto(){
+bool TTHAnalyzer::PassesZVeto(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -2034,7 +2035,7 @@ bool StopAnalyzer::PassesZVeto(){
   return true;
 }
 
-bool StopAnalyzer::PassesTopDCut(){
+bool TTHAnalyzer::PassesTopDCut(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -2042,44 +2043,44 @@ bool StopAnalyzer::PassesTopDCut(){
 	return true;
 }
 
-bool StopAnalyzer::PassesNJetsCut(){
+bool TTHAnalyzer::PassesNJetsCut(){
 	if (getNJets() <= 1) return false;
 	return true;
 }
 
-bool StopAnalyzer::PassesMETCut(){
+bool TTHAnalyzer::PassesMETCut(){
 	if (getMET() < 50.) return false;
 	return true;
 }
 
-bool StopAnalyzer::PassesNBtagCut(){
+bool TTHAnalyzer::PassesNBtagCut(){
 	if (getNBTags() < 1) return false;
 	return true;
 }
 
-bool StopAnalyzer::PassesDYVetoCut(){
+bool TTHAnalyzer::PassesDYVetoCut(){
   if(getMinDPhiMetJets() < 0.25) return false;
   if (getHT() == 0) return false;
   if(getMET()/TMath::Sqrt(getHT()) < 5.0) return false;
   return true;
 }
 
-bool StopAnalyzer::IsElMuEvent(){
+bool TTHAnalyzer::IsElMuEvent(){
 	if (fChargeSwitch){      return (IsDileptonEvent()  == 3);   }
 	return (IsDileptonEvent() == -3);
 }
 
-bool StopAnalyzer::IsMuMuEvent(){
+bool TTHAnalyzer::IsMuMuEvent(){
 	if (fChargeSwitch){  return (IsDileptonEvent()  == 1); }
 	return (IsDileptonEvent() == -1);
 }
 
-bool StopAnalyzer::IsElElEvent(){
+bool TTHAnalyzer::IsElElEvent(){
   if (fChargeSwitch){    return (IsDileptonEvent()  == 2); }
   return (IsDileptonEvent() == -2);
 }
 
-int StopAnalyzer::IsDileptonEvent(){
+int TTHAnalyzer::IsDileptonEvent(){
 #ifdef DEBUG
 	cout << "IsDileptonEvent(): NLeptons =" << Lepton.size()<< endl;
 #endif
@@ -2109,13 +2110,13 @@ int StopAnalyzer::IsDileptonEvent(){
 //------------------------------------------------------------------------------
 bool momentumComparator(lepton i, lepton j){ return (i.p.Pt()>j.p.Pt()); }
 
-vector<lepton> StopAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
+vector<lepton> TTHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
   vector<lepton> theLep = leptons;
   sort (theLep.begin(), theLep.end(), momentumComparator);
   return theLep;
 }
 
-int StopAnalyzer::getSelectedLeptons(){
+int TTHAnalyzer::getSelectedLeptons(){
   // Loops over the total number of Muons and Electrons and returns the Number of Leptons.
   if (Lepton.size() > 0) {
     cout << "[WARNING]: you have called this function previously... RESETTING..."<<endl;
@@ -2173,7 +2174,7 @@ int StopAnalyzer::getSelectedLeptons(){
   return Lepton.size();
 }
 
-bool StopAnalyzer::METFilter(){
+bool TTHAnalyzer::METFilter(){
   if(gSampleName.BeginsWith("T2tt")) return true;
   if (Get<Int_t>("Flag_HBHENoiseFilter") && 
       Get<Int_t>("Flag_HBHENoiseIsoFilter") && 
@@ -2197,7 +2198,7 @@ bool StopAnalyzer::METFilter(){
 //------------------------------------------------------------------------------
 // https://twiki.cern.ch/twiki/bin/view/CMS/TopMUO
 // https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2#Tight_Muon
-bool StopAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
+bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
    if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
    if (LepGood_pt[iMuon]              < ptcut) return false;
    if (TMath::Abs(LepGood_eta[iMuon]) > 2.4)   return false;
@@ -2211,7 +2212,7 @@ bool StopAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
    return true;
 }
 
-float StopAnalyzer::getMuonIso(int iMuon){
+float TTHAnalyzer::getMuonIso(int iMuon){
 	if (iMuon < 0) return 9999.;
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return 9999.;
 	return LepGood_relIso04[iMuon];
@@ -2221,7 +2222,7 @@ float StopAnalyzer::getMuonIso(int iMuon){
 // Electron Selectors
 //------------------------------------------------------------------------------
 // https://twiki.cern.ch/twiki/bin/view/CMS/TopEGM#Spring15_selection_25ns
-bool StopAnalyzer::IsTightElectron(unsigned int iElec, float ptcut){
+bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false; 
 	if (LepGood_pt[iElec] < ptcut) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
@@ -2254,13 +2255,13 @@ bool StopAnalyzer::IsTightElectron(unsigned int iElec, float ptcut){
 	return true;
 }
 
-float StopAnalyzer::getElecIso(int iElec){
+float TTHAnalyzer::getElecIso(int iElec){
 	if (iElec < 0) return 9999.;
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return 9999.;
 	return LepGood_relIso03[iElec];
 }
 
-bool StopAnalyzer::getMultiIso(unsigned int index){
+bool TTHAnalyzer::getMultiIso(unsigned int index){
   //https://www.dropbox.com/s/fsfw0gummwsc61v/lepawareJECv2_bkg_wp_300915.pdf?dl=0
   float max_mRelIso = 0.09;  
   float min_ptRatio = 0.84; // Very tight
@@ -2274,7 +2275,7 @@ bool StopAnalyzer::getMultiIso(unsigned int index){
   return (mRelIso < max_mRelIso && (ptRatio > min_ptRatio || ptRel > min_ptRel));
 }
 
-float StopAnalyzer::getEACorrection(float eta){  // for a 0.3 CONE
+float TTHAnalyzer::getEACorrection(float eta){  // for a 0.3 CONE
 	float abseta = TMath::Abs(eta);
 	// numbers from https://indico.cern.ch/event/370494/contribution/2/material/slides/0.pdf
 	if      (abseta < 0.8)                  return 0.1013; 
@@ -2288,15 +2289,15 @@ float StopAnalyzer::getEACorrection(float eta){  // for a 0.3 CONE
 	return -999999.;
 }
 
-void StopAnalyzer::setMET(float newmet){ MET = newmet;}
+void TTHAnalyzer::setMET(float newmet){ MET = newmet;}
 
-float StopAnalyzer::getMET(){ return MET; }
+float TTHAnalyzer::getMET(){ return MET; }
 
-float StopAnalyzer::getMETPhi(){ return MET_Phi;}
+float TTHAnalyzer::getMETPhi(){ return MET_Phi;}
 
-int StopAnalyzer::getNJets(){ return nJets;}
+int TTHAnalyzer::getNJets(){ return nJets;}
 
-float StopAnalyzer::getDRClosestJet(TLorentzVector lep){
+float TTHAnalyzer::getDRClosestJet(TLorentzVector lep){
 	float minDR = 9999.;
 	for (unsigned int i=0; i<Jet.size(); i++) {
 		if (minDR > lep.DeltaR(Jet[i].p)) minDR = lep.DeltaR(Jet[i].p);
@@ -2304,7 +2305,7 @@ float StopAnalyzer::getDRClosestJet(TLorentzVector lep){
 	return minDR;
 }
 
-float StopAnalyzer::getDPhiClosestJet(TLorentzVector lep){
+float TTHAnalyzer::getDPhiClosestJet(TLorentzVector lep){
 	float minDphi = 9999.;
 	for (unsigned int i=0; i<Jet.size(); i++) {
 		if (minDphi > TMath::Abs(lep.DeltaPhi(Jet[i].p))) minDphi = TMath::Abs(lep.DeltaPhi(Jet[i].p));
@@ -2312,14 +2313,14 @@ float StopAnalyzer::getDPhiClosestJet(TLorentzVector lep){
 	return minDphi;
 }
 
-int StopAnalyzer::getLeadingJetbTag(){
+int TTHAnalyzer::getLeadingJetbTag(){
 	for (unsigned int i=0; i<Jet.size(); i++) {
 		if (Jet[i].isbtag) return i;
 	}
 	return  -1;
 }
 
-int StopAnalyzer::getNBTags(){
+int TTHAnalyzer::getNBTags(){
 	int ntags(0);
 	for(UInt_t i = 0; i <Jet.size(); i++){
 		if (Jet[i].isbtag) ntags++;
@@ -2327,7 +2328,7 @@ int StopAnalyzer::getNBTags(){
 	return ntags;
 }
 
-float StopAnalyzer::getDeltaPhillJet(){
+float TTHAnalyzer::getDeltaPhillJet(){
 	if (fHypLepton1.index == -1) return -999.;
 	if (fHypLepton2.index == -1) return -999.;
 	Int_t ij = getLeadingJetbTag();
@@ -2337,7 +2338,7 @@ float StopAnalyzer::getDeltaPhillJet(){
 	return TMath::Abs(dilep.DeltaPhi(jet));
 }
 
-float StopAnalyzer::getTopD(){
+float TTHAnalyzer::getTopD(){
 	if (fHypLepton1.index == -1) return -999;
 	if (fHypLepton2.index == -1) return -999;
 	// Make Dilepton system
@@ -2349,7 +2350,7 @@ float StopAnalyzer::getTopD(){
 	return TopD;
 }
 
-int StopAnalyzer::getSelectedJets(){
+int TTHAnalyzer::getSelectedJets(){
 	int nj(0);
 	if (Jet.size() > 0) {
 		cout << "[WARNING]: you have called this function previously, RESETTING..."<<endl;
@@ -2404,7 +2405,7 @@ int StopAnalyzer::getSelectedJets(){
   return nj;
 }
 
-bool StopAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
+bool TTHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
   float minDR = 0.4;
 // https://twiki.cern.ch/twiki/bin/view/CMS/TopJME
   TLorentzVector jet;
@@ -2425,7 +2426,7 @@ bool StopAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
 //------------------------------------------------------------------------------
 // SelectedGenLepton
 //------------------------------------------------------------------------------
-void StopAnalyzer::SelectedGenLepton() {
+void TTHAnalyzer::SelectedGenLepton() {
 	if (!gIsData) {
 		for(int n = 0; n<ngenLep; n++){
 			Int_t id = TMath::Abs(genLep_pdgId[n]);
@@ -2455,14 +2456,14 @@ void StopAnalyzer::SelectedGenLepton() {
 	}
 }
 
-void StopAnalyzer::propagateMET(TLorentzVector nVec, TLorentzVector oVec){
+void TTHAnalyzer::propagateMET(TLorentzVector nVec, TLorentzVector oVec){
 	TLorentzVector met;
 	met.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.);
 	// set the pfMET to the old MET minus original vector plus new vector 
 	setMET( (met+oVec-nVec).Pt() );
 }
 
-std::vector<int> StopAnalyzer::CleanedJetIndices(float pt){
+std::vector<int> TTHAnalyzer::CleanedJetIndices(float pt){
 	std::vector<int> cleanJetsInd;
 	for(Int_t i = 0; i <nJet; i++){
 		if (IsGoodJet(i,pt)) cleanJetsInd.push_back(i);
@@ -2470,7 +2471,7 @@ std::vector<int> StopAnalyzer::CleanedJetIndices(float pt){
 	return cleanJetsInd;
 }
 
-void StopAnalyzer::SmearJetPts(int flag){
+void TTHAnalyzer::SmearJetPts(int flag){
 	// Modify the jet pt for systematics studies. Either shifted or smeared propagate to the MET!!
 	if(gIsData)   return; // don't smear data
 	if(flag == 0) return; // 0 makes no sense
@@ -2509,7 +2510,7 @@ void StopAnalyzer::SmearJetPts(int flag){
 	}
 }
 
-void StopAnalyzer::ScaleLeptons(int flag){
+void TTHAnalyzer::ScaleLeptons(int flag){
 	// Shift the lepton pts for systematics studies
 	if(gIsData) return; // don't smear data
 	if(flag == 0) return;
@@ -2540,7 +2541,7 @@ void StopAnalyzer::ScaleLeptons(int flag){
 	return;
 }
 
-float StopAnalyzer::weightNvtx(int nvtx){
+float TTHAnalyzer::weightNvtx(int nvtx){
 	float weight = 1.0;
 	if(gIsData) return weight;
 	// weights from single lepton region based on nVertex
@@ -2589,7 +2590,7 @@ float StopAnalyzer::weightNvtx(int nvtx){
 	return weight;
 }
 
-void StopAnalyzer::ScaleMET(int flag){
+void TTHAnalyzer::ScaleMET(int flag){
 	// first try on MET uncertainty
 	if(gIsData) return; // don't scale data
 	TLorentzVector umet, jets, leps, tmp;
