@@ -50,11 +50,11 @@ enum gFPSwitch{
   Sig
 };
 enum iCut{
-  iDilepton, 
-  iZVeto, 
-  iMET, 
-  i2jets, 
-  i1btag, 
+  iDilepton,
+  iZVeto,
+  iMET,
+  i2jets,
+  i1btag,
   iDYVeto,
   iExact1btag,
   iExact2btag,
@@ -65,7 +65,7 @@ enum SR{
  nSR
 };
 const TString SRlabel[nSR] = {
-	"AA", "AB", "AC", "BA", "BB", "BC", "CA", "CB", "CC"      
+	"AA", "AB", "AC", "BA", "BB", "BC", "CA", "CB", "CC"
 };
 const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 enum gSystFlag{
@@ -185,13 +185,13 @@ const int gNElEtabins = 5;
 const int gNElCMIdbins = 2;
 
 // Muon Binning
-const double gMuFPtBins[gNMuFPtBins+1] = {20., 25., 30., 35., 40., 50., 60.}; 
+const double gMuFPtBins[gNMuFPtBins+1] = {20., 25., 30., 35., 40., 50., 60.};
 const double gMuPPtbins[gNMuPPtbins+1] = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
 const double gMuEtabins[gNMuEtabins+1] = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
 // Electron Binning //////////////////////////////////////////////////////////////
 const double gElFPtBins[gNElFPtBins+1]   = {20., 25., 30., 40., 50., 60., 70., 80., 100.};
-const double gElPPtbins[gNElPPtbins+1]   = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.}; 
+const double gElPPtbins[gNElPPtbins+1]   = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
 const double gElEtabins[gNElEtabins+1]   = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
 
@@ -203,7 +203,7 @@ int     getNEtaBins(gChannel chan);
 const double *getEtaBins (gChannel chan);
 
 // Your selector class
-class TTHAnalyzer : public PAFChainItemSelector 
+class TTHAnalyzer : public PAFChainItemSelector
 {
 	public:
 		// Constructor and destructor
@@ -314,7 +314,7 @@ class TTHAnalyzer : public PAFChainItemSelector
 		bool Passes3rdLeptonVeto();
 		bool PassesMuonEta2p1(gChannel);
 		bool PassesTopDCut();
-		bool PassesDYVetoCut(); 
+		bool PassesDYVetoCut();
 
 		int   getNJets();
 		int   getNBTags();
@@ -383,24 +383,24 @@ class TTHAnalyzer : public PAFChainItemSelector
 		//void GetGenElec();
 		void SelectedGenLepton();
 
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		//    Selecting Methods
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		int  IsDileptonEvent();
 		bool IsMuMuEvent();
 		bool IsElMuEvent();
 		bool IsElElEvent();
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		//    Filling Methods
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		void FillYieldsHistograms(gChannel, iCut, gSystFlag);
 		void FillYields(gSystFlag sys=Norm);
 		void FillDYHistograms();
 		void FillKinematicHistos(gChannel,iCut);
 
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		//    Set/Reset methods
-		///////////////////////////////////////////////////////////////////////////// 
+		/////////////////////////////////////////////////////////////////////////////
 		void SetOriginalObjects();
 		void ResetOriginalObjects();
 		void SetEventObjects();
@@ -432,7 +432,7 @@ class TTHAnalyzer : public PAFChainItemSelector
 		PUWeight *fPUWeight;      //The PU weight utility
 		PUWeight *fPUWeightUp;    //The PU weight utility
 		PUWeight *fPUWeightDown;  //The PU weight utility
-		//BTagSFUtil *fBTagSF[5]; //The new BTag SF utility 
+		//BTagSFUtil *fBTagSF[5]; //The new BTag SF utility
 		BTagSFUtil *fBTagSFnom ;
 		BTagSFUtil *fBTagSFbUp ;
 		BTagSFUtil *fBTagSFbDo ;
@@ -461,111 +461,111 @@ class TTHAnalyzer : public PAFChainItemSelector
 		TH1F* fHWeightyield[gNCHANNELS][gNWEIGHT];
 		TH1F* fHSSyields   [gNCHANNELS][gNSYST];
 		TH1F* fHTopPtWeight;
-		//TH1F* fHpdfWeightSum;
-		//TH1F* fHpdfWeight;
-		//TH1F* fHpdfWeight_1btag;
-		//TH1F* fHpdfWeight_2jets;
-		//TH1F* fHpdfWeight_dilep;
-		TH1F* fHnominal_dilep;
-		TH1F* fHLepSys[gNCHANNELS][iNCUTS];
-		TH1F* fHTrigSys[gNCHANNELS][iNCUTS];
-		TH1F* fHnGenEle;
-		TH1F* fHnGenMuo;
-		TH1F* fHGenElePt;
-		TH1F* fHGenMuoPt;
-
-		TH2F* fHDY_InvMassVsNPV   [gNCHANNELS][iNCUTS];
-		TH2F* fHDY_InvMassVsMET   [gNCHANNELS][iNCUTS];
-		TH2F* fHDY_InvMassVsNjets [gNCHANNELS][iNCUTS];
-		TH2F* fHDY_InvMassVsNbtags[gNCHANNELS][iNCUTS];
-		TH1F* fHDY_InvMass        [gNCHANNELS][iNCUTS];
-
-		//++ Origin Histos
-		//  TH2F* fHSSOrigins[gNCHANNELS][iNCUTS];
-		//  TH2F* fHOrigins[gNCHANNELS][iNCUTS];
-
-		//++ Kinematic  
-		TH1F* fHLHEweights[gNCHANNELS][iNCUTS];
-		TH1F* fHHT2[gNCHANNELS][iNCUTS];        
-		TH1F* fHHT3[gNCHANNELS][iNCUTS];        
-		TH1F* fHHT4[gNCHANNELS][iNCUTS];        
-		TH1F* fHHT5[gNCHANNELS][iNCUTS];        
-		TH1F* fHJet0Eta[gNCHANNELS][iNCUTS];    
-		TH1F* fHJet1Eta[gNCHANNELS][iNCUTS];    
-		TH1F* fHBtagJet0Pt[gNCHANNELS][iNCUTS];
-
-		//------------------------------------------------------------
-		//------------------------------------------------------------
-
-		TH1F* fHDiLepPt[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHLep0Pt[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHLep1Pt[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHJet0Pt[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHJet1Pt[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHLep0Eta[gNCHANNELS][iNCUTS];
-		TH1F* fHLep1Eta[gNCHANNELS][iNCUTS];
-
-		TH1F* fHNJets[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHNBtagJets[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHNBtagsNJets[gNCHANNELS][iNCUTS][gNSYST];
-
-		TH1F* fHInvMass[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMET[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMT2[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMT2b[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMT2lb[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHPtllb[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMeff[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHHT[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMETsqrtHT[gNCHANNELS][iNCUTS][gNSYST];
-
-		TH1F* fHMETHT[gNCHANNELS][iNCUTS][gNSYST];
-
-		TH1F* fHDelPhiLepMet[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHDelPhiJetMet[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHDelPhiPllbMet[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHDelPhiLepJet[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHDelLepPhi[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHCosDelLepPhi[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHMinDelPhiMetJets[gNCHANNELS][iNCUTS][gNSYST];
-
-
-		//------------------------------------------------------------
-		//------------------------------------------------------------
-		TH1F*fMT2SR[gNCHANNELS][iNCUTS][nSR];
-
-		TH1F* fHInvMass2[gNCHANNELS][iNCUTS][gNSYST];   
-		TH1F* fHSSInvMass[gNCHANNELS][iNCUTS][gNSYST];   
-		TH1F* fHSSNBtagsNJets[gNCHANNELS][iNCUTS][gNSYST]; 
-		TH1F* fHCSVTag[gNCHANNELS][iNCUTS]; 
-		TH1F* fHTopD[gNCHANNELS][iNCUTS];
-		TH1F* fHDelPhillJet[gNCHANNELS][iNCUTS];
-
-		TH1F* fHDRLep[gNCHANNELS][iNCUTS];
-		TH1F* fHDRLep0Jet[gNCHANNELS][iNCUTS];
-		TH1F* fHDPhiLep0Jet[gNCHANNELS][iNCUTS];
-		TH1F* fHLep0Iso[gNCHANNELS][iNCUTS];
-		TH1F* fHDRLep1Jet[gNCHANNELS][iNCUTS];
-		TH1F* fHDPhiLep1Jet[gNCHANNELS][iNCUTS];
-		TH1F* fHLep1Iso[gNCHANNELS][iNCUTS];
-
-		/// STOP
-		//TH1F* fHAbsDelPhiLep[gNCHANNELS][iNCUTS];
-		TH1F* fHminDelRJetsLeps[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHSSminDelRJetsLeps[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHdelPhi2LeadJets[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHSSdelPhi2LeadJets[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHAbsDelPhiLeps[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHSSAbsDelPhiLeps[gNCHANNELS][iNCUTS][gNSYST];
-		TH1F* fHStopMass[gNCHANNELS][iNCUTS];
-		TH1F* fHChi0Mass[gNCHANNELS][iNCUTS];
-		TH2F* fHChi0StopMass[gNCHANNELS][iNCUTS];
-		TH1F* fHvertices[gNCHANNELS][iNCUTS];
-		TH1F* fHgoodvertices[gNCHANNELS][iNCUTS];
-
-
-		//++ Gen Info
-		TH1F* fHDeltaRLepJet[gNCHANNELS-1];
+		// //TH1F* fHpdfWeightSum;
+		// //TH1F* fHpdfWeight;
+		// //TH1F* fHpdfWeight_1btag;
+		// //TH1F* fHpdfWeight_2jets;
+		// //TH1F* fHpdfWeight_dilep;
+		// TH1F* fHnominal_dilep;
+		// TH1F* fHLepSys[gNCHANNELS][iNCUTS];
+		// TH1F* fHTrigSys[gNCHANNELS][iNCUTS];
+		// TH1F* fHnGenEle;
+		// TH1F* fHnGenMuo;
+		// TH1F* fHGenElePt;
+		// TH1F* fHGenMuoPt;
+    //
+		// TH2F* fHDY_InvMassVsNPV   [gNCHANNELS][iNCUTS];
+		// TH2F* fHDY_InvMassVsMET   [gNCHANNELS][iNCUTS];
+		// TH2F* fHDY_InvMassVsNjets [gNCHANNELS][iNCUTS];
+		// TH2F* fHDY_InvMassVsNbtags[gNCHANNELS][iNCUTS];
+		// TH1F* fHDY_InvMass        [gNCHANNELS][iNCUTS];
+    //
+		// //++ Origin Histos
+		// //  TH2F* fHSSOrigins[gNCHANNELS][iNCUTS];
+		// //  TH2F* fHOrigins[gNCHANNELS][iNCUTS];
+    //
+		// //++ Kinematic
+		// TH1F* fHLHEweights[gNCHANNELS][iNCUTS];
+		// TH1F* fHHT2[gNCHANNELS][iNCUTS];
+		// TH1F* fHHT3[gNCHANNELS][iNCUTS];
+		// TH1F* fHHT4[gNCHANNELS][iNCUTS];
+		// TH1F* fHHT5[gNCHANNELS][iNCUTS];
+		// TH1F* fHJet0Eta[gNCHANNELS][iNCUTS];
+		// TH1F* fHJet1Eta[gNCHANNELS][iNCUTS];
+		// TH1F* fHBtagJet0Pt[gNCHANNELS][iNCUTS];
+    //
+		// //------------------------------------------------------------
+		// //------------------------------------------------------------
+    //
+		// TH1F* fHDiLepPt[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHLep0Pt[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHLep1Pt[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHJet0Pt[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHJet1Pt[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHLep0Eta[gNCHANNELS][iNCUTS];
+		// TH1F* fHLep1Eta[gNCHANNELS][iNCUTS];
+    //
+		// TH1F* fHNJets[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHNBtagJets[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHNBtagsNJets[gNCHANNELS][iNCUTS][gNSYST];
+    //
+		// TH1F* fHInvMass[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMET[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMT2[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMT2b[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMT2lb[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHPtllb[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMeff[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHHT[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMETsqrtHT[gNCHANNELS][iNCUTS][gNSYST];
+    //
+		// TH1F* fHMETHT[gNCHANNELS][iNCUTS][gNSYST];
+    //
+		// TH1F* fHDelPhiLepMet[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHDelPhiJetMet[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHDelPhiPllbMet[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHDelPhiLepJet[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHDelLepPhi[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHCosDelLepPhi[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHMinDelPhiMetJets[gNCHANNELS][iNCUTS][gNSYST];
+    //
+    //
+		// //------------------------------------------------------------
+		// //------------------------------------------------------------
+		// TH1F*fMT2SR[gNCHANNELS][iNCUTS][nSR];
+    //
+		// TH1F* fHInvMass2[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHSSInvMass[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHSSNBtagsNJets[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHCSVTag[gNCHANNELS][iNCUTS];
+		// TH1F* fHTopD[gNCHANNELS][iNCUTS];
+		// TH1F* fHDelPhillJet[gNCHANNELS][iNCUTS];
+    //
+		// TH1F* fHDRLep[gNCHANNELS][iNCUTS];
+		// TH1F* fHDRLep0Jet[gNCHANNELS][iNCUTS];
+		// TH1F* fHDPhiLep0Jet[gNCHANNELS][iNCUTS];
+		// TH1F* fHLep0Iso[gNCHANNELS][iNCUTS];
+		// TH1F* fHDRLep1Jet[gNCHANNELS][iNCUTS];
+		// TH1F* fHDPhiLep1Jet[gNCHANNELS][iNCUTS];
+		// TH1F* fHLep1Iso[gNCHANNELS][iNCUTS];
+    //
+		// /// STOP
+		// //TH1F* fHAbsDelPhiLep[gNCHANNELS][iNCUTS];
+		// TH1F* fHminDelRJetsLeps[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHSSminDelRJetsLeps[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHdelPhi2LeadJets[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHSSdelPhi2LeadJets[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHAbsDelPhiLeps[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHSSAbsDelPhiLeps[gNCHANNELS][iNCUTS][gNSYST];
+		// TH1F* fHStopMass[gNCHANNELS][iNCUTS];
+		// TH1F* fHChi0Mass[gNCHANNELS][iNCUTS];
+		// TH2F* fHChi0StopMass[gNCHANNELS][iNCUTS];
+		// TH1F* fHvertices[gNCHANNELS][iNCUTS];
+		// TH1F* fHgoodvertices[gNCHANNELS][iNCUTS];
+    //
+    //
+		// //++ Gen Info
+		// TH1F* fHDeltaRLepJet[gNCHANNELS-1];
 
 		lepton fHypLepton1;
 		lepton fHypLepton2;
@@ -619,4 +619,3 @@ class TTHAnalyzer : public PAFChainItemSelector
 
 		ClassDef(TTHAnalyzer,0);
 };
-

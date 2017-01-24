@@ -1614,45 +1614,45 @@ void TTHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 
 	//++ jet info
 	int njets = getNJets();
-	if(getHT()>0){
-		fHHT2[chan][cut]     ->Fill(getHT(),                                 EventWeight);
-		fHHT3[chan][cut]     ->Fill(getHT(),                                 EventWeight);
-		fHHT4[chan][cut]     ->Fill(getHT(),                                 EventWeight);
-		fHHT5[chan][cut]     ->Fill(getHT(),                                 EventWeight);
-	}
-	fHJet0Eta[chan][cut]    ->Fill(getJetEtaIndex(0),			  EventWeight);
-	fHJet1Eta[chan][cut]    ->Fill(getJetEtaIndex(1),			  EventWeight);
-	fHBtagJet0Pt[chan][cut] ->Fill(getBtagJetPtIndex(0),                    EventWeight);
-
-	int ib = getLeadingJetbTag();
-	if (ib>=0)  fHCSVTag[chan][cut] ->Fill(Jet_btagCSV[ib], EventWeight);
-
-	fHTopD[chan][cut] ->Fill(getTopD(), EventWeight);
-	fHDelPhillJet[chan][cut]->Fill(getDeltaPhillJet(), EventWeight);
-
-	//// Top/Z diff topology.
-	fHDRLep[chan][cut]        ->Fill(fHypLepton1.p.DeltaR(fHypLepton2.p),     EventWeight);
-	if (chan == Muon){
-		fHLep0Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton1.index) ,EventWeight);
-		fHLep1Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton2.index), EventWeight);
-	}
-	else if (chan==Elec){
-		fHLep0Iso[chan][cut]      ->Fill(getElecIso(fHypLepton1.index) ,EventWeight);
-		fHLep1Iso[chan][cut]      ->Fill(getElecIso(fHypLepton2.index), EventWeight);
-	}
-	else if (chan == ElMu){
-		fHLep0Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton1.index) ,EventWeight);
-		fHLep1Iso[chan][cut]      ->Fill(getElecIso(fHypLepton2.index), EventWeight);
-	}
-
-	if (njets > 0) {
-		fHDRLep0Jet[chan][cut]    ->Fill(getDRClosestJet(fHypLepton1.p),   EventWeight);
-		fHDRLep1Jet[chan][cut]    ->Fill(getDRClosestJet(fHypLepton2.p),   EventWeight);
-		fHDPhiLep0Jet[chan][cut]  ->Fill(getDPhiClosestJet(fHypLepton1.p), EventWeight);
-		fHDPhiLep1Jet[chan][cut]  ->Fill(getDPhiClosestJet(fHypLepton2.p), EventWeight);
-	}
-	Float_t nVert =  Get<Int_t>("nVert");
-	fHvertices[chan][cut]     ->Fill(nVert, EventWeight); // for now, using the same
+	// if(getHT()>0){
+	// 	fHHT2[chan][cut]     ->Fill(getHT(),                                 EventWeight);
+	// 	fHHT3[chan][cut]     ->Fill(getHT(),                                 EventWeight);
+	// 	fHHT4[chan][cut]     ->Fill(getHT(),                                 EventWeight);
+	// 	fHHT5[chan][cut]     ->Fill(getHT(),                                 EventWeight);
+	// }
+	// fHJet0Eta[chan][cut]    ->Fill(getJetEtaIndex(0),			  EventWeight);
+	// fHJet1Eta[chan][cut]    ->Fill(getJetEtaIndex(1),			  EventWeight);
+	// fHBtagJet0Pt[chan][cut] ->Fill(getBtagJetPtIndex(0),                    EventWeight);
+  //
+	// int ib = getLeadingJetbTag();
+	// if (ib>=0)  fHCSVTag[chan][cut] ->Fill(Jet_btagCSV[ib], EventWeight);
+  //
+	// fHTopD[chan][cut] ->Fill(getTopD(), EventWeight);
+	// fHDelPhillJet[chan][cut]->Fill(getDeltaPhillJet(), EventWeight);
+  //
+	// //// Top/Z diff topology.
+	// fHDRLep[chan][cut]        ->Fill(fHypLepton1.p.DeltaR(fHypLepton2.p),     EventWeight);
+	// if (chan == Muon){
+	// 	fHLep0Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton1.index) ,EventWeight);
+	// 	fHLep1Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton2.index), EventWeight);
+	// }
+	// else if (chan==Elec){
+	// 	fHLep0Iso[chan][cut]      ->Fill(getElecIso(fHypLepton1.index) ,EventWeight);
+	// 	fHLep1Iso[chan][cut]      ->Fill(getElecIso(fHypLepton2.index), EventWeight);
+	// }
+	// else if (chan == ElMu){
+	// 	fHLep0Iso[chan][cut]      ->Fill(getMuonIso(fHypLepton1.index) ,EventWeight);
+	// 	fHLep1Iso[chan][cut]      ->Fill(getElecIso(fHypLepton2.index), EventWeight);
+	// }
+  //
+	// if (njets > 0) {
+	// 	fHDRLep0Jet[chan][cut]    ->Fill(getDRClosestJet(fHypLepton1.p),   EventWeight);
+	// 	fHDRLep1Jet[chan][cut]    ->Fill(getDRClosestJet(fHypLepton2.p),   EventWeight);
+	// 	fHDPhiLep0Jet[chan][cut]  ->Fill(getDPhiClosestJet(fHypLepton1.p), EventWeight);
+	// 	fHDPhiLep1Jet[chan][cut]  ->Fill(getDPhiClosestJet(fHypLepton2.p), EventWeight);
+	// }
+	// Float_t nVert =  Get<Int_t>("nVert");
+	// fHvertices[chan][cut]     ->Fill(nVert, EventWeight); // for now, using the same
 	//fHgoodvertices[chan][cut] ->Fill(nVert, EventWeight); // for now, using the same
 
 #ifdef DEBUG
@@ -1673,104 +1673,104 @@ void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 	int njets  = 0; njets  = getNJets();
 	int nbtags = 0; nbtags = getNBTags();
 
-	if (fChargeSwitch) {
-		//cout << "!!!!!!!"<< endl;
-		fHSSInvMass[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
-		if (njets == 0) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags,        EventWeight);
-		if (njets == 1) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+1,      EventWeight);
-		if (njets == 2) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+3,      EventWeight);
-		if (njets == 3) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+6,      EventWeight);
-		if (njets >= 4) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+10,     EventWeight);
-		fHSSAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
-		if(njets >= 2) fHSSdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
-		if (njets > 1) {
-			double deltaR_temp1 = 999., deltaR_temp2 = 999.;
-			if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
-				deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
-			}else{
-				deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
-			}
-			fHSSminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
-		}
-	}
-	else {
-		fHInvMass[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
-	fHMET[chan][cut][sys]           ->Fill(getMET(),                                EventWeight);
-			fHDiLepPt[chan][cut][sys]         ->Fill((fHypLepton1.p+fHypLepton2.p).Pt(),      EventWeight);
-			fHLep0Pt[chan][cut][sys]          ->Fill(fHypLepton1.p.Pt(),                      EventWeight);
-			fHLep1Pt[chan][cut][sys]          ->Fill(fHypLepton2.p.Pt(),                      EventWeight);
-			fHNJets[chan][cut][sys]         ->Fill(njets,                                   EventWeight);
-			fHNBtagJets[chan][cut][sys]     ->Fill(getNBTags(),                             EventWeight);
-			fHMT2[chan][cut][sys]           ->Fill(getMT2ll(chan),                          EventWeight);
-
-		fHInvMass2[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
-		if (njets == 0) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags,        EventWeight);
-		if (njets == 1) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+1,      EventWeight);
-		if (njets == 2) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+3,      EventWeight);
-		if (njets == 3) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+6,      EventWeight);
-		if (njets >= 4) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+10,     EventWeight);
-		fHAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
-		if( njets >= 2) fHdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
-		if (njets > 1) {
-			double deltaR_temp1 = 999., deltaR_temp2 = 999.;
-			if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
-				deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
-			}else{
-				deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
-			}
-			fHminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
-
-			fHJet0Pt[chan][cut][sys]          ->Fill(getJetPtIndex(0),                        EventWeight);
-			fHJet1Pt[chan][cut][sys]          ->Fill(getJetPtIndex(1),                        EventWeight);
-
-				fHMT2b[chan][cut][sys]          ->Fill(getMT2b(chan),                           EventWeight);
-				fHMT2lb[chan][cut][sys]         ->Fill(getMT2lb(chan),                          EventWeight);
-				if(sys==Norm){
-					float bb = getMT2b(chan);
-					float lb = getMT2lb(chan);
-					int iSR = 0;
-					if     (lb<100 && bb<170)                     iSR = AA;
-					else if(lb<100 && bb>170 && bb<270)           iSR = AB;
-					else if(lb<100 && bb>270)                     iSR = AC;
-					else if(lb<200 && lb>100 && bb<170)           iSR = BA;
-					else if(lb<200 && lb>100 && bb<270)           iSR = BB;
-					else if(lb<200 && lb>100 && bb>270)           iSR = BC;
-					else if(lb>200 && bb<170)                     iSR = CA;
-					else if(lb>200 && bb>170 && bb<270)           iSR = CB;
-					else if(lb>200 && bb>270)                     iSR = CC;
-					else cout << "No region for evt " << Get<Int_t>("evt") << endl;
-
-					fMT2SR[chan][cut][iSR] -> Fill(getMT2ll(chan), EventWeight);
-				}
-			}
-
-			fHPtllb[chan][cut][sys]         ->Fill(getPtllb().Pt(),                         EventWeight);
-			fHMeff[chan][cut][sys]          ->Fill(getMeff(),                               EventWeight);
-			if(getHT()>0){
-				fHHT[chan][cut][sys]            ->Fill(getHT(),                                 EventWeight);
-				fHMETHT[chan][cut][sys]         ->Fill(getMET()/TMath::Sqrt(getHT()),          EventWeight);
-			}
-			fHDelPhiJetMet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiJetMet()), EventWeight);
-			fHDelPhiLepMet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiLepMet()), EventWeight);
-			fHDelPhiPllbMet[chan][cut][sys] ->Fill(TMath::Abs(getDPhibMet()  ), EventWeight);
-			fHDelPhiLepJet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiLepJet()), EventWeight);
-			fHMinDelPhiMetJets[chan][cut][sys]  ->Fill(TMath::Abs(getMinDPhiMetJets()), EventWeight);
-			fHDelLepPhi[chan][cut][sys]     ->Fill(TMath::Abs(fHypLepton1.p.DeltaPhi((fHypLepton2.p))), EventWeight);
-			fHCosDelLepPhi[chan][cut][sys]   ->Fill(TMath::Cos(fHypLepton1.p.DeltaPhi(fHypLepton2.p)), EventWeight);
-      if(sys == Norm){
-				fHLep0Eta[chan][cut]    ->Fill(TMath::Abs(fHypLepton1.p.Eta()),         EventWeight);
-				fHLep1Eta[chan][cut]    ->Fill(TMath::Abs(fHypLepton2.p.Eta()),         EventWeight);
-      }
-	}
-
-	if (!gIsData){
-		fHLepSys[chan][cut] ->Fill(getLeptonError(chan), EventWeight);
-		fHTrigSys[chan][cut]->Fill(getTriggerError(chan),EventWeight);
-	}
+	// if (fChargeSwitch) {
+	// 	//cout << "!!!!!!!"<< endl;
+	// 	fHSSInvMass[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
+	// 	if (njets == 0) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags,        EventWeight);
+	// 	if (njets == 1) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+1,      EventWeight);
+	// 	if (njets == 2) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+3,      EventWeight);
+	// 	if (njets == 3) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+6,      EventWeight);
+	// 	if (njets >= 4) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+10,     EventWeight);
+	// 	fHSSAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
+	// 	if(njets >= 2) fHSSdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
+	// 	if (njets > 1) {
+	// 		double deltaR_temp1 = 999., deltaR_temp2 = 999.;
+	// 		if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
+	// 			deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
+	// 			deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
+	// 		}else{
+	// 			deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
+	// 			deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
+	// 		}
+	// 		fHSSminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
+	// 	}
+	// }
+	// else {
+	// 	fHInvMass[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
+	// fHMET[chan][cut][sys]           ->Fill(getMET(),                                EventWeight);
+	// 		fHDiLepPt[chan][cut][sys]         ->Fill((fHypLepton1.p+fHypLepton2.p).Pt(),      EventWeight);
+	// 		fHLep0Pt[chan][cut][sys]          ->Fill(fHypLepton1.p.Pt(),                      EventWeight);
+	// 		fHLep1Pt[chan][cut][sys]          ->Fill(fHypLepton2.p.Pt(),                      EventWeight);
+	// 		fHNJets[chan][cut][sys]         ->Fill(njets,                                   EventWeight);
+	// 		fHNBtagJets[chan][cut][sys]     ->Fill(getNBTags(),                             EventWeight);
+	// 		fHMT2[chan][cut][sys]           ->Fill(getMT2ll(chan),                          EventWeight);
+  //
+	// 	fHInvMass2[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
+	// 	if (njets == 0) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags,        EventWeight);
+	// 	if (njets == 1) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+1,      EventWeight);
+	// 	if (njets == 2) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+3,      EventWeight);
+	// 	if (njets == 3) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+6,      EventWeight);
+	// 	if (njets >= 4) fHNBtagsNJets[chan][cut][sys]->Fill(nbtags+10,     EventWeight);
+	// 	fHAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
+	// 	if( njets >= 2) fHdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
+	// 	if (njets > 1) {
+	// 		double deltaR_temp1 = 999., deltaR_temp2 = 999.;
+	// 		if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
+	// 			deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
+	// 			deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
+	// 		}else{
+	// 			deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
+	// 			deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
+	// 		}
+	// 		fHminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
+  //
+	// 		fHJet0Pt[chan][cut][sys]          ->Fill(getJetPtIndex(0),                        EventWeight);
+	// 		fHJet1Pt[chan][cut][sys]          ->Fill(getJetPtIndex(1),                        EventWeight);
+  //
+	// 			fHMT2b[chan][cut][sys]          ->Fill(getMT2b(chan),                           EventWeight);
+	// 			fHMT2lb[chan][cut][sys]         ->Fill(getMT2lb(chan),                          EventWeight);
+	// 			if(sys==Norm){
+	// 				float bb = getMT2b(chan);
+	// 				float lb = getMT2lb(chan);
+	// 				int iSR = 0;
+	// 				if     (lb<100 && bb<170)                     iSR = AA;
+	// 				else if(lb<100 && bb>170 && bb<270)           iSR = AB;
+	// 				else if(lb<100 && bb>270)                     iSR = AC;
+	// 				else if(lb<200 && lb>100 && bb<170)           iSR = BA;
+	// 				else if(lb<200 && lb>100 && bb<270)           iSR = BB;
+	// 				else if(lb<200 && lb>100 && bb>270)           iSR = BC;
+	// 				else if(lb>200 && bb<170)                     iSR = CA;
+	// 				else if(lb>200 && bb>170 && bb<270)           iSR = CB;
+	// 				else if(lb>200 && bb>270)                     iSR = CC;
+	// 				else cout << "No region for evt " << Get<Int_t>("evt") << endl;
+  //
+	// 				fMT2SR[chan][cut][iSR] -> Fill(getMT2ll(chan), EventWeight);
+	// 			}
+	// 		}
+  //
+	// 		fHPtllb[chan][cut][sys]         ->Fill(getPtllb().Pt(),                         EventWeight);
+	// 		fHMeff[chan][cut][sys]          ->Fill(getMeff(),                               EventWeight);
+	// 		if(getHT()>0){
+	// 			fHHT[chan][cut][sys]            ->Fill(getHT(),                                 EventWeight);
+	// 			fHMETHT[chan][cut][sys]         ->Fill(getMET()/TMath::Sqrt(getHT()),          EventWeight);
+	// 		}
+	// 		fHDelPhiJetMet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiJetMet()), EventWeight);
+	// 		fHDelPhiLepMet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiLepMet()), EventWeight);
+	// 		fHDelPhiPllbMet[chan][cut][sys] ->Fill(TMath::Abs(getDPhibMet()  ), EventWeight);
+	// 		fHDelPhiLepJet[chan][cut][sys]  ->Fill(TMath::Abs(getDPhiLepJet()), EventWeight);
+	// 		fHMinDelPhiMetJets[chan][cut][sys]  ->Fill(TMath::Abs(getMinDPhiMetJets()), EventWeight);
+	// 		fHDelLepPhi[chan][cut][sys]     ->Fill(TMath::Abs(fHypLepton1.p.DeltaPhi((fHypLepton2.p))), EventWeight);
+	// 		fHCosDelLepPhi[chan][cut][sys]   ->Fill(TMath::Cos(fHypLepton1.p.DeltaPhi(fHypLepton2.p)), EventWeight);
+  //     if(sys == Norm){
+	// 			fHLep0Eta[chan][cut]    ->Fill(TMath::Abs(fHypLepton1.p.Eta()),         EventWeight);
+	// 			fHLep1Eta[chan][cut]    ->Fill(TMath::Abs(fHypLepton2.p.Eta()),         EventWeight);
+  //     }
+	// }
+  //
+	// if (!gIsData){
+	// 	fHLepSys[chan][cut] ->Fill(getLeptonError(chan), EventWeight);
+	// 	fHTrigSys[chan][cut]->Fill(getTriggerError(chan),EventWeight);
+	// }
 #ifdef DEBUG
 	cout << " DONE! " << endl;
 #endif
@@ -1924,50 +1924,50 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		cout << " pass trigger + ee, ";
 #endif
 		// 0.115 = Fraction events with negative weight
-		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
+		// if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
+    //
+		// if(
+		// 	(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
+		// 		PassesZVeto()      &&
+		// 		PassesMllVeto()    &&
+		// 		PassesNJetsCut()){
+		// 	SetTreeVariables(Elec);
+		// 	fTree->Fill();
+		// }
 
-		if(
-			(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
-				PassesZVeto()      &&
-				PassesMllVeto()    &&
-				PassesNJetsCut()){
-			SetTreeVariables(Elec);
-			fTree->Fill();
-		}
-
-		if (PassesMllVeto()){
-			FillYieldsHistograms(Elec,iDilepton, sys);
-			if(sys==Norm) FillKinematicHistos(Elec,iDilepton);
-			if (PassesZVeto())    {
-				FillYieldsHistograms(Elec,iZVeto, sys);
-				if(sys==Norm) FillKinematicHistos(Elec,iZVeto);
-				if (PassesMETCut())   {
-					FillYieldsHistograms(Elec,iMET, sys);
-					if(sys==Norm) FillKinematicHistos(Elec,iMET);
-
-					if (getNBTags() == 1){
-						FillYieldsHistograms(Elec, iExact1btag, sys);
-						if(sys==Norm) FillKinematicHistos(Elec,iExact1btag);
-					}
-					if (getNBTags() == 2){
-						FillYieldsHistograms(Elec, iExact2btag, sys);
-						if(sys==Norm) FillKinematicHistos(Elec,iExact2btag);
-					}
-					if (PassesNJetsCut()) {
-						FillYieldsHistograms(Elec,i2jets, sys);
-						if(sys==Norm) FillKinematicHistos(Elec,i2jets);
-						if (PassesNBtagCut()) {
-							FillYieldsHistograms(Elec,i1btag, sys);
-							if(sys==Norm) FillKinematicHistos(Elec,i1btag);
-							if(PassesDYVetoCut()){
-								FillYieldsHistograms(Elec,iDYVeto, sys);
-								if(sys==Norm) FillKinematicHistos(Elec,iDYVeto);
-              }
-						}
-					}
-				}
-			}
-    }
+		// if (PassesMllVeto()){
+		// 	FillYieldsHistograms(Elec,iDilepton, sys);
+		// 	if(sys==Norm) FillKinematicHistos(Elec,iDilepton);
+		// 	if (PassesZVeto())    {
+		// 		FillYieldsHistograms(Elec,iZVeto, sys);
+		// 		if(sys==Norm) FillKinematicHistos(Elec,iZVeto);
+		// 		if (PassesMETCut())   {
+		// 			FillYieldsHistograms(Elec,iMET, sys);
+		// 			if(sys==Norm) FillKinematicHistos(Elec,iMET);
+    //
+		// 			if (getNBTags() == 1){
+		// 				FillYieldsHistograms(Elec, iExact1btag, sys);
+		// 				if(sys==Norm) FillKinematicHistos(Elec,iExact1btag);
+		// 			}
+		// 			if (getNBTags() == 2){
+		// 				FillYieldsHistograms(Elec, iExact2btag, sys);
+		// 				if(sys==Norm) FillKinematicHistos(Elec,iExact2btag);
+		// 			}
+		// 			if (PassesNJetsCut()) {
+		// 				FillYieldsHistograms(Elec,i2jets, sys);
+		// 				if(sys==Norm) FillKinematicHistos(Elec,i2jets);
+		// 				if (PassesNBtagCut()) {
+		// 					FillYieldsHistograms(Elec,i1btag, sys);
+		// 					if(sys==Norm) FillKinematicHistos(Elec,i1btag);
+		// 					if(PassesDYVetoCut()){
+		// 						FillYieldsHistograms(Elec,iDYVeto, sys);
+		// 						if(sys==Norm) FillKinematicHistos(Elec,iDYVeto);
+    //           }
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+    // }
 }
   ResetHypLeptons();
 #ifdef DEBUG
