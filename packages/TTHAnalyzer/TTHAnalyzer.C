@@ -396,21 +396,21 @@ void TTHAnalyzer::InitialiseTree(){
 }
 
 void TTHAnalyzer::InitialiseGenHistos(){
-	fHDeltaRLepJet[Muon] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Muon],"",1000,0.,5.);
-	fHDeltaRLepJet[Elec] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Elec],"",1000,0.,5.);
+	// fHDeltaRLepJet[Muon] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Muon],"",1000,0.,5.);
+	// fHDeltaRLepJet[Elec] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Elec],"",1000,0.,5.);
 }
 
 void TTHAnalyzer::InitialiseDYHistos(){
-	for (size_t ch=0; ch<gNCHANNELS; ch++){
-		for (size_t cut=0; cut<iNCUTS; cut++){
-			TString name = "_"+gChanLabel[ch]+"_"+sCut[cut];
-			fHDY_InvMassVsNPV   [ch][cut] = CreateH2F("H_DY_InvMassVsNPV"   +name,"",50, -0.5, 49.5, 200, 0, 200);
-			fHDY_InvMassVsMET   [ch][cut] = CreateH2F("H_DY_InvMassVsMET"   +name,"",200, 0  , 200 , 200, 0, 200);
-			fHDY_InvMassVsNjets [ch][cut] = CreateH2F("H_DY_InvMassVsNjets" +name,"",10, -0.5,  9.5, 200, 0, 200);
-			fHDY_InvMassVsNbtags[ch][cut] = CreateH2F("H_DY_InvMassVsNbtags"+name,"",10, -0.5,  9.5, 200, 0, 200);
-			fHDY_InvMass        [ch][cut] = CreateH1F("H_DY_InvMass"        +name,"",                200, 0, 200);
-		}
-	}
+	// for (size_t ch=0; ch<gNCHANNELS; ch++){
+	// 	for (size_t cut=0; cut<iNCUTS; cut++){
+	// 		TString name = "_"+gChanLabel[ch]+"_"+sCut[cut];
+	// 		fHDY_InvMassVsNPV   [ch][cut] = CreateH2F("H_DY_InvMassVsNPV"   +name,"",50, -0.5, 49.5, 200, 0, 200);
+	// 		fHDY_InvMassVsMET   [ch][cut] = CreateH2F("H_DY_InvMassVsMET"   +name,"",200, 0  , 200 , 200, 0, 200);
+	// 		fHDY_InvMassVsNjets [ch][cut] = CreateH2F("H_DY_InvMassVsNjets" +name,"",10, -0.5,  9.5, 200, 0, 200);
+	// 		fHDY_InvMassVsNbtags[ch][cut] = CreateH2F("H_DY_InvMassVsNbtags"+name,"",10, -0.5,  9.5, 200, 0, 200);
+	// 		fHDY_InvMass        [ch][cut] = CreateH1F("H_DY_InvMass"        +name,"",                200, 0, 200);
+	// 	}
+	// }
 }
 
 void TTHAnalyzer::InitialiseYieldsHistos(){
@@ -439,8 +439,8 @@ void TTHAnalyzer::InitialiseYieldsHistos(){
 	}
 	for (size_t chan=0; chan<gNCHANNELS; chan++){
 		for (size_t cut=0; cut<iNCUTS; cut++){
-			fHLepSys [chan][cut] = CreateH1F("H_LepSys_" +gChanLabel[chan]+"_"+sCut[cut],"LepSys" , 400, 0, 0.04);
-			fHTrigSys[chan][cut] = CreateH1F("H_TrigSys_"+gChanLabel[chan]+"_"+sCut[cut],"TrigSys", 400, 0, 0.04);
+			// fHLepSys [chan][cut] = CreateH1F("H_LepSys_" +gChanLabel[chan]+"_"+sCut[cut],"LepSys" , 400, 0, 0.04);
+			// fHTrigSys[chan][cut] = CreateH1F("H_TrigSys_"+gChanLabel[chan]+"_"+sCut[cut],"TrigSys", 400, 0, 0.04);
 		}
 	}
 }
@@ -453,148 +453,148 @@ void TTHAnalyzer::InitialiseKinematicHistos(){
 			//PAF_DEBUG("TTHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
 			fHLHEweights[ch][cut]  = CreateH1F("H_LHEweights"  +gChanLabel[ch]+"_"+sCut[cut],"LHEweights", nWeights, -0.5, nWeights - 0.5);
 
-			fHLep0Eta[ch][cut]     = CreateH1F("H_Lep0Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep0Eta"   , 50  ,0 ,2.5);
-			fHLep1Eta[ch][cut]     = CreateH1F("H_Lep1Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep1Eta"   , 50  ,0 ,2.5);
-			fHHT2[ch][cut]         = CreateH1F("H_HT2_"        +gChanLabel[ch]+"_"+sCut[cut],"HT2"       , 5000,0,500);
-			fHHT3[ch][cut]         = CreateH1F("H_HT3_"        +gChanLabel[ch]+"_"+sCut[cut],"HT3"       , 3000,0,300);
-			fHHT4[ch][cut]         = CreateH1F("H_HT4_"        +gChanLabel[ch]+"_"+sCut[cut],"HT4"       , 1000,0,1000);
-			fHHT5[ch][cut]         = CreateH1F("H_HT5_"        +gChanLabel[ch]+"_"+sCut[cut],"HT5"       , 1200,0,1200);
-			fHJet0Eta[ch][cut]     = CreateH1F("H_Jet0Eta_"	 +gChanLabel[ch]+"_"+sCut[cut],"Jet0Eta"   , 50,0,2.5);
-			fHJet1Eta[ch][cut]     = CreateH1F("H_Jet1Eta_"	 +gChanLabel[ch]+"_"+sCut[cut],"Jet1Eta"   , 50,0,2.5);
-			fHBtagJet0Pt[ch][cut]  = CreateH1F("H_BtagJet0Pt_" +gChanLabel[ch]+"_"+sCut[cut],"BtagJet0Pt", 800,0,800);
+			// fHLep0Eta[ch][cut]     = CreateH1F("H_Lep0Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep0Eta"   , 50  ,0 ,2.5);
+			// fHLep1Eta[ch][cut]     = CreateH1F("H_Lep1Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep1Eta"   , 50  ,0 ,2.5);
+			// fHHT2[ch][cut]         = CreateH1F("H_HT2_"        +gChanLabel[ch]+"_"+sCut[cut],"HT2"       , 5000,0,500);
+			// fHHT3[ch][cut]         = CreateH1F("H_HT3_"        +gChanLabel[ch]+"_"+sCut[cut],"HT3"       , 3000,0,300);
+			// fHHT4[ch][cut]         = CreateH1F("H_HT4_"        +gChanLabel[ch]+"_"+sCut[cut],"HT4"       , 1000,0,1000);
+			// fHHT5[ch][cut]         = CreateH1F("H_HT5_"        +gChanLabel[ch]+"_"+sCut[cut],"HT5"       , 1200,0,1200);
+			// fHJet0Eta[ch][cut]     = CreateH1F("H_Jet0Eta_"	 +gChanLabel[ch]+"_"+sCut[cut],"Jet0Eta"   , 50,0,2.5);
+			// fHJet1Eta[ch][cut]     = CreateH1F("H_Jet1Eta_"	 +gChanLabel[ch]+"_"+sCut[cut],"Jet1Eta"   , 50,0,2.5);
+			// fHBtagJet0Pt[ch][cut]  = CreateH1F("H_BtagJet0Pt_" +gChanLabel[ch]+"_"+sCut[cut],"BtagJet0Pt", 800,0,800);
 
 			// ---------------------------------------------------------------------------------------
 			// ---------------------------------------------------------------------------------------
 
-			fHDiLepPt[ch][cut][0]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut],"DiLepPt"      , 800,0,800);
-			fHLep0Pt[ch][cut][0]        = CreateH1F("H_Lep0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep0Pt"       , 800,0,800);
-			fHLep1Pt[ch][cut][0]        = CreateH1F("H_Lep1Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep1Pt"       , 800,0,800);
-			fHJet0Pt[ch][cut][0]        = CreateH1F("H_Jet0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Jet0Pt"       , 800,0,800);
-			fHJet1Pt[ch][cut][0]        = CreateH1F("H_Jet1Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Jet1Pt"       , 800,0,800);
-
-			fHNJets[ch][cut][0]         = CreateH1F("H_NJets_"        +gChanLabel[ch]+"_"+sCut[cut],"NJets"        , 8 ,-0.5, 7.5);
-			fHNBtagJets[ch][cut][0]     = CreateH1F("H_NBtagJets_"    +gChanLabel[ch]+"_"+sCut[cut],"NBtagJets"    , 4 ,-0.5, 3.5);
-			fHNBtagsNJets[ch][cut][0]   = CreateH1F("H_NBtagsNJets_"  +gChanLabel[ch]+"_"+sCut[cut],"NBtagsNJets"  ,15 , -0.5, 14.5);
-
-			fHInvMass[ch][cut][0]       = CreateH1F("H_InvMass_"      +gChanLabel[ch]+"_"+sCut[cut],"InvMass"      ,  1000,  0., 1000.);
-			fHMET[ch][cut][0]           = CreateH1F("H_MET_"          +gChanLabel[ch]+"_"+sCut[cut],"MET"          , 600, 0,600);
-			for(unsigned int iSR = 0; iSR < nSR; iSR++){
-				fMT2SR[ch][cut][iSR] = CreateH1F("H_MT2_"  +SRlabel[iSR] + "_"  +gChanLabel[ch]+"_"+sCut[cut],"MT2"          , 400,0.,400);
-			}
-			fHMT2[ch][cut][0]           = CreateH1F("H_MT2_"          +gChanLabel[ch]+"_"+sCut[cut],"MT2"          , 400,0.,400);
-			fHMT2b[ch][cut][0]          = CreateH1F("H_MT2bb_"        +gChanLabel[ch]+"_"+sCut[cut],"MT2bb"        , 800,0.,800);
-			fHMT2lb[ch][cut][0]         = CreateH1F("H_MT2lblb_"      +gChanLabel[ch]+"_"+sCut[cut],"MT2lblb"      , 600,0.,600);
-			fHPtllb[ch][cut][0]         = CreateH1F("H_Ptllb_"        +gChanLabel[ch]+"_"+sCut[cut],"PTllb"        , 800,0.,800);
-			fHMeff[ch][cut][0]          = CreateH1F("H_Meff_"         +gChanLabel[ch]+"_"+sCut[cut],"Meff"         , 2000,0.,2000);
-			fHHT[ch][cut][0]            = CreateH1F("H_HT_"           +gChanLabel[ch]+"_"+sCut[cut],"HT"           , 1200,0,1200);
-			fHMETHT[ch][cut][0]         = CreateH1F("H_METHT_"        +gChanLabel[ch]+"_"+sCut[cut],"METHT" , 60,0,60);
-
-			fHDelPhiJetMet[ch][cut][0]  = CreateH1F("H_DelPhiJetMet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiJetMet" , 100,0, TMath::Pi());
-			fHDelPhiLepMet[ch][cut][0]  = CreateH1F("H_DelPhiLepMet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiLepMet" , 100,0, TMath::Pi());
-			fHDelPhiPllbMet[ch][cut][0] = CreateH1F("H_DelPhiPllbMet_"+gChanLabel[ch]+"_"+sCut[cut],"DelPhiPllbMet", 100,0, TMath::Pi());
-			fHDelPhiLepJet[ch][cut][0]  = CreateH1F("H_DelPhiLepJet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiLepJet" , 100,0, TMath::Pi());
-			fHDelLepPhi[ch][cut][0]     = CreateH1F("H_DelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut],"DelLepPhi"    , 100,0, TMath::Pi());
-			fHCosDelLepPhi[ch][cut][0]     = CreateH1F("H_CosDelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut],"CosDelLepPhi"    , 40,-1, 1);
-      fHMinDelPhiMetJets[ch][cut][0] = CreateH1F("H_MinDPhiMetJets_"+gChanLabel[ch]+"_"+sCut[cut], "MinDelPhiMetJets", 100, 0, TMath::Pi());
+			// fHDiLepPt[ch][cut][0]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut],"DiLepPt"      , 800,0,800);
+			// fHLep0Pt[ch][cut][0]        = CreateH1F("H_Lep0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep0Pt"       , 800,0,800);
+			// fHLep1Pt[ch][cut][0]        = CreateH1F("H_Lep1Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep1Pt"       , 800,0,800);
+			// fHJet0Pt[ch][cut][0]        = CreateH1F("H_Jet0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Jet0Pt"       , 800,0,800);
+			// fHJet1Pt[ch][cut][0]        = CreateH1F("H_Jet1Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Jet1Pt"       , 800,0,800);
+      //
+			// fHNJets[ch][cut][0]         = CreateH1F("H_NJets_"        +gChanLabel[ch]+"_"+sCut[cut],"NJets"        , 8 ,-0.5, 7.5);
+			// fHNBtagJets[ch][cut][0]     = CreateH1F("H_NBtagJets_"    +gChanLabel[ch]+"_"+sCut[cut],"NBtagJets"    , 4 ,-0.5, 3.5);
+			// fHNBtagsNJets[ch][cut][0]   = CreateH1F("H_NBtagsNJets_"  +gChanLabel[ch]+"_"+sCut[cut],"NBtagsNJets"  ,15 , -0.5, 14.5);
+      //
+			// fHInvMass[ch][cut][0]       = CreateH1F("H_InvMass_"      +gChanLabel[ch]+"_"+sCut[cut],"InvMass"      ,  1000,  0., 1000.);
+			// fHMET[ch][cut][0]           = CreateH1F("H_MET_"          +gChanLabel[ch]+"_"+sCut[cut],"MET"          , 600, 0,600);
+			// for(unsigned int iSR = 0; iSR < nSR; iSR++){
+			// 	fMT2SR[ch][cut][iSR] = CreateH1F("H_MT2_"  +SRlabel[iSR] + "_"  +gChanLabel[ch]+"_"+sCut[cut],"MT2"          , 400,0.,400);
+			// }
+			// fHMT2[ch][cut][0]           = CreateH1F("H_MT2_"          +gChanLabel[ch]+"_"+sCut[cut],"MT2"          , 400,0.,400);
+			// fHMT2b[ch][cut][0]          = CreateH1F("H_MT2bb_"        +gChanLabel[ch]+"_"+sCut[cut],"MT2bb"        , 800,0.,800);
+			// fHMT2lb[ch][cut][0]         = CreateH1F("H_MT2lblb_"      +gChanLabel[ch]+"_"+sCut[cut],"MT2lblb"      , 600,0.,600);
+			// fHPtllb[ch][cut][0]         = CreateH1F("H_Ptllb_"        +gChanLabel[ch]+"_"+sCut[cut],"PTllb"        , 800,0.,800);
+			// fHMeff[ch][cut][0]          = CreateH1F("H_Meff_"         +gChanLabel[ch]+"_"+sCut[cut],"Meff"         , 2000,0.,2000);
+			// fHHT[ch][cut][0]            = CreateH1F("H_HT_"           +gChanLabel[ch]+"_"+sCut[cut],"HT"           , 1200,0,1200);
+			// fHMETHT[ch][cut][0]         = CreateH1F("H_METHT_"        +gChanLabel[ch]+"_"+sCut[cut],"METHT" , 60,0,60);
+      //
+			// fHDelPhiJetMet[ch][cut][0]  = CreateH1F("H_DelPhiJetMet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiJetMet" , 100,0, TMath::Pi());
+			// fHDelPhiLepMet[ch][cut][0]  = CreateH1F("H_DelPhiLepMet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiLepMet" , 100,0, TMath::Pi());
+			// fHDelPhiPllbMet[ch][cut][0] = CreateH1F("H_DelPhiPllbMet_"+gChanLabel[ch]+"_"+sCut[cut],"DelPhiPllbMet", 100,0, TMath::Pi());
+			// fHDelPhiLepJet[ch][cut][0]  = CreateH1F("H_DelPhiLepJet_" +gChanLabel[ch]+"_"+sCut[cut],"DelPhiLepJet" , 100,0, TMath::Pi());
+			// fHDelLepPhi[ch][cut][0]     = CreateH1F("H_DelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut],"DelLepPhi"    , 100,0, TMath::Pi());
+			// fHCosDelLepPhi[ch][cut][0]     = CreateH1F("H_CosDelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut],"CosDelLepPhi"    , 40,-1, 1);
+      // fHMinDelPhiMetJets[ch][cut][0] = CreateH1F("H_MinDPhiMetJets_"+gChanLabel[ch]+"_"+sCut[cut], "MinDelPhiMetJets", 100, 0, TMath::Pi());
 
 			// ---------------------------------------------------------------------------------------
 			// ---------------------------------------------------------------------------------------
 
-			fHInvMass2[ch][cut][0]      = CreateH1F("H_InvMass2_"   +gChanLabel[ch]+"_"+sCut[cut],"InvMass2"  ,  400, 70., 110.);
-			fHSSInvMass[ch][cut][0]     = CreateH1F("HSS_InvMass_"  +gChanLabel[ch]+"_"+sCut[cut],"InvMass"   ,  300,  0., 300.);
-
-			fHSSNBtagsNJets[ch][cut][0] = CreateH1F("HSS_NBtagsNJets_"+gChanLabel[ch]+"_"+sCut[cut],"SS_NBtagsNJets",15 , -0.5, 14.5);
-
-			fHAbsDelPhiLeps[ch][cut][0]   = CreateH1F("H_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]  ,"AbsDelPhiLeps"   , 20 ,0., 1.);
-			fHSSAbsDelPhiLeps[ch][cut][0] = CreateH1F("HSS_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut],"SS_AbsDelPhiLeps", 20 ,0., 1.);
-
-			fHdelPhi2LeadJets[ch][cut][0]   = CreateH1F("H_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]  ,"delPhi2LeadJets"   , 28,-0.2, 1.2);
-			fHSSdelPhi2LeadJets[ch][cut][0] = CreateH1F("HSS_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut],"SS_delPhi2LeadJets", 28,-0.2, 1.2);
-
-			fHminDelRJetsLeps[ch][cut][0]   = CreateH1F("H_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]  ,"minDelRJetsLeps"   ,   500,0.0, 5.0);
-			fHSSminDelRJetsLeps[ch][cut][0] = CreateH1F("HSS_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut],"SS_minDelRJetsLeps",   500,0.0, 5.0);
+			// fHInvMass2[ch][cut][0]      = CreateH1F("H_InvMass2_"   +gChanLabel[ch]+"_"+sCut[cut],"InvMass2"  ,  400, 70., 110.);
+			// fHSSInvMass[ch][cut][0]     = CreateH1F("HSS_InvMass_"  +gChanLabel[ch]+"_"+sCut[cut],"InvMass"   ,  300,  0., 300.);
+      //
+			// fHSSNBtagsNJets[ch][cut][0] = CreateH1F("HSS_NBtagsNJets_"+gChanLabel[ch]+"_"+sCut[cut],"SS_NBtagsNJets",15 , -0.5, 14.5);
+      //
+			// fHAbsDelPhiLeps[ch][cut][0]   = CreateH1F("H_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]  ,"AbsDelPhiLeps"   , 20 ,0., 1.);
+			// fHSSAbsDelPhiLeps[ch][cut][0] = CreateH1F("HSS_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut],"SS_AbsDelPhiLeps", 20 ,0., 1.);
+      //
+			// fHdelPhi2LeadJets[ch][cut][0]   = CreateH1F("H_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]  ,"delPhi2LeadJets"   , 28,-0.2, 1.2);
+			// fHSSdelPhi2LeadJets[ch][cut][0] = CreateH1F("HSS_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut],"SS_delPhi2LeadJets", 28,-0.2, 1.2);
+      //
+			// fHminDelRJetsLeps[ch][cut][0]   = CreateH1F("H_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]  ,"minDelRJetsLeps"   ,   500,0.0, 5.0);
+			// fHSSminDelRJetsLeps[ch][cut][0] = CreateH1F("HSS_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut],"SS_minDelRJetsLeps",   500,0.0, 5.0);
 
 			// other variables
-			fHCSVTag[ch][cut]      = CreateH1F("H_CSVTag_"     +gChanLabel[ch]+"_"+sCut[cut], "NBtagsNJets"     , 1000, 0.0, 1.0);
-			fHTopD[ch][cut]        = CreateH1F("H_TopD_"       +gChanLabel[ch]+"_"+sCut[cut], "TopDiscriminator", 1000,0.0,1.0);
-			fHDelPhillJet[ch][cut] = CreateH1F("H_DelPhillJet_"+gChanLabel[ch]+"_"+sCut[cut], "DeltaPhi"        , 1000,0.0, TMath::Pi());
+			// fHCSVTag[ch][cut]      = CreateH1F("H_CSVTag_"     +gChanLabel[ch]+"_"+sCut[cut], "NBtagsNJets"     , 1000, 0.0, 1.0);
+			// fHTopD[ch][cut]        = CreateH1F("H_TopD_"       +gChanLabel[ch]+"_"+sCut[cut], "TopDiscriminator", 1000,0.0,1.0);
+			// fHDelPhillJet[ch][cut] = CreateH1F("H_DelPhillJet_"+gChanLabel[ch]+"_"+sCut[cut], "DeltaPhi"        , 1000,0.0, TMath::Pi());
 
 			// Different Top / Z topologies
-			fHDRLep[ch][cut]       = CreateH1F("H_DRLep_"       +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep",       1000,0.0, 5.0);
-			fHDRLep0Jet[ch][cut]   = CreateH1F("H_DRLep0Jet_"   +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep0Jet",   1000,0.0, 5.0);
-			fHDPhiLep0Jet[ch][cut] = CreateH1F("H_DPhiLep0Jet_" +gChanLabel[ch]+"_"+sCut[cut], "DeltaPhiLep0Jet", 1000,0.0, TMath::Pi());
-			fHLep0Iso[ch][cut]     = CreateH1F("H_Lep0Iso_"     +gChanLabel[ch]+"_"+sCut[cut], "Lep0Iso",         1000,0.0, 0.5);
-			fHDRLep1Jet[ch][cut]   = CreateH1F("H_DRLep1Jet_"   +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep1Jet",   1000,0.0, 5.0);
-			fHDPhiLep1Jet[ch][cut] = CreateH1F("H_DPhiLep1Jet_" +gChanLabel[ch]+"_"+sCut[cut], "DeltaPhiLep1Jet", 1000,0.0, TMath::Pi());
-			fHLep1Iso[ch][cut]     = CreateH1F("H_Lep1Iso_"     +gChanLabel[ch]+"_"+sCut[cut], "Lep1Iso",         1000,0.0, 0.5);
-
-			fHvertices[ch][cut]     = CreateH1F("H_Vtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
-			fHgoodvertices[ch][cut] = CreateH1F("H_goodVtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
+			// fHDRLep[ch][cut]       = CreateH1F("H_DRLep_"       +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep",       1000,0.0, 5.0);
+			// fHDRLep0Jet[ch][cut]   = CreateH1F("H_DRLep0Jet_"   +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep0Jet",   1000,0.0, 5.0);
+			// fHDPhiLep0Jet[ch][cut] = CreateH1F("H_DPhiLep0Jet_" +gChanLabel[ch]+"_"+sCut[cut], "DeltaPhiLep0Jet", 1000,0.0, TMath::Pi());
+			// fHLep0Iso[ch][cut]     = CreateH1F("H_Lep0Iso_"     +gChanLabel[ch]+"_"+sCut[cut], "Lep0Iso",         1000,0.0, 0.5);
+			// fHDRLep1Jet[ch][cut]   = CreateH1F("H_DRLep1Jet_"   +gChanLabel[ch]+"_"+sCut[cut], "DeltaRLep1Jet",   1000,0.0, 5.0);
+			// fHDPhiLep1Jet[ch][cut] = CreateH1F("H_DPhiLep1Jet_" +gChanLabel[ch]+"_"+sCut[cut], "DeltaPhiLep1Jet", 1000,0.0, TMath::Pi());
+			// fHLep1Iso[ch][cut]     = CreateH1F("H_Lep1Iso_"     +gChanLabel[ch]+"_"+sCut[cut], "Lep1Iso",         1000,0.0, 0.5);
+      //
+			// fHvertices[ch][cut]     = CreateH1F("H_Vtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
+			// fHgoodvertices[ch][cut] = CreateH1F("H_goodVtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
 		}
 	}
 }
 
 void TTHAnalyzer::InitialiseSystematicHistos(){
 	TString histoname = "";
-	for (size_t ch=0; ch<gNCHANNELS; ch++){
-		for (size_t cut=0; cut<iNCUTS; cut++){
-			for (size_t sys=1; sys<gNSYST; sys++){
-				histoname = "H_InvMass2_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHInvMass2[ch][cut][sys]     = CreateH1F(histoname, "InvMass2"   , 400, 70., 110.);
-
-				histoname = "H_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHAbsDelPhiLeps[ch][cut][sys] = CreateH1F(histoname,"AbsDelPhiLeps", 28,-0.2, 1.2);
-
-				histoname = "H_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHdelPhi2LeadJets[ch][cut][sys] = CreateH1F(histoname,"delPhi2LeadJets", 28,-0.2, 1.2);
-
-				histoname = "H_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHminDelRJetsLeps[ch][cut][sys] = CreateH1F(histoname,"minDelRJetsLeps", 500, 0., 5.0);
-
-				histoname = "HSS_NBtagsNJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHSSNBtagsNJets[ch][cut][sys] = CreateH1F(histoname,"SS_NBtagsNJets", 15 , -0.5, 14.5);
-
-				histoname = "HSS_InvMass_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHSSInvMass[ch][cut][sys]     = CreateH1F(histoname,"SS_InvMass"   , 300, 0., 300.);
-
-				histoname = "HSS_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHSSAbsDelPhiLeps[ch][cut][sys] = CreateH1F(histoname,"SS_AbsDelPhiLeps", 28,-0.2, 1.2);
-
-				histoname = "HSS_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHSSdelPhi2LeadJets[ch][cut][sys] = CreateH1F(histoname,"SS_delPhi2LeadJets", 28,-0.2, 1.2);
-
-				histoname = "HSS_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
-				fHSSminDelRJetsLeps[ch][cut][sys] = CreateH1F(histoname,"SS_minDelRJetsLeps", 500, 0., 5.0);
-
-				fHDiLepPt[ch][cut][sys]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DiLepPt"      , 800,0,800);
-				fHLep0Pt[ch][cut][sys]        = CreateH1F("H_Lep0Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Lep0Pt"       , 800,0,800);
-				fHLep1Pt[ch][cut][sys]        = CreateH1F("H_Lep1Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Lep1Pt"       , 800,0,800);
-				fHJet0Pt[ch][cut][sys]        = CreateH1F("H_Jet0Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Jet0Pt"       , 800,0,800);
-				fHJet1Pt[ch][cut][sys]        = CreateH1F("H_Jet1Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Jet1Pt"       , 800,0,800);
-
-				fHNJets[ch][cut][sys]         = CreateH1F("H_NJets_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NJets"        , 8 ,-0.5, 7.5);
-				fHNBtagJets[ch][cut][sys]     = CreateH1F("H_NBtagJets_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NBtagJets"    , 4 ,-0.5, 3.5);
-				fHNBtagsNJets[ch][cut][sys]   = CreateH1F("H_NBtagsNJets_"  +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NBtagsNJets"  ,15 , -0.5, 14.5);
-				fHInvMass[ch][cut][sys]       = CreateH1F("H_InvMass_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"InvMass"      ,  1000,  0., 1000.);
-				fHMET[ch][cut][sys]           = CreateH1F("H_MET_"          +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MET"          , 600, 0,600);
-				fHMT2[ch][cut][sys]           = CreateH1F("H_MT2_"          +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2"          , 300,0.,300);
-				fHMT2b[ch][cut][sys]          = CreateH1F("H_MT2bb_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2bb"        , 800,0.,800);
-				fHMT2lb[ch][cut][sys]         = CreateH1F("H_MT2lblb_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2lblb"      , 600,0.,600);
-				fHPtllb[ch][cut][sys]         = CreateH1F("H_Ptllb_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"PTllb"        , 800,0.,800);
-				fHMeff[ch][cut][sys]          = CreateH1F("H_Meff_"         +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Meff"         , 2000,0.,2000);
-				fHHT[ch][cut][sys]            = CreateH1F("H_HT_"           +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"HT"           , 1200,0,1200);
-				fHMETHT[ch][cut][sys]         = CreateH1F("H_METHT_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"METHT"        , 60,0,60);
-
-				fHDelPhiJetMet[ch][cut][sys]  = CreateH1F("H_DelPhiJetMet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiJetMet" , 100,0, TMath::Pi());
-				fHDelPhiLepMet[ch][cut][sys]  = CreateH1F("H_DelPhiLepMet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiLepMet" , 100,0, TMath::Pi());
-				fHDelPhiPllbMet[ch][cut][sys] = CreateH1F("H_DelPhiPllbMet_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiPllbMet", 100,0, TMath::Pi());
-				fHDelPhiLepJet[ch][cut][sys]  = CreateH1F("H_DelPhiLepJet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiLepJet" , 100,0, TMath::Pi());
-        fHMinDelPhiMetJets[ch][cut][sys] = CreateH1F("H_MinDPhiMetJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys], "MinDelPhiMetJets", 100, 0, TMath::Pi());
-				fHDelLepPhi[ch][cut][sys]     = CreateH1F("H_DelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelLepPhi"    , 100,0, TMath::Pi());
-				fHCosDelLepPhi[ch][cut][sys]     = CreateH1F("H_CosDelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"CosDelLepPhi"    , 40,-1,1 );
-			}
-		}
-	}
+	// for (size_t ch=0; ch<gNCHANNELS; ch++){
+	// 	for (size_t cut=0; cut<iNCUTS; cut++){
+	// 		for (size_t sys=1; sys<gNSYST; sys++){
+	// 			histoname = "H_InvMass2_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHInvMass2[ch][cut][sys]     = CreateH1F(histoname, "InvMass2"   , 400, 70., 110.);
+  //
+	// 			histoname = "H_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHAbsDelPhiLeps[ch][cut][sys] = CreateH1F(histoname,"AbsDelPhiLeps", 28,-0.2, 1.2);
+  //
+	// 			histoname = "H_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHdelPhi2LeadJets[ch][cut][sys] = CreateH1F(histoname,"delPhi2LeadJets", 28,-0.2, 1.2);
+  //
+	// 			histoname = "H_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHminDelRJetsLeps[ch][cut][sys] = CreateH1F(histoname,"minDelRJetsLeps", 500, 0., 5.0);
+  //
+	// 			histoname = "HSS_NBtagsNJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHSSNBtagsNJets[ch][cut][sys] = CreateH1F(histoname,"SS_NBtagsNJets", 15 , -0.5, 14.5);
+  //
+	// 			histoname = "HSS_InvMass_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHSSInvMass[ch][cut][sys]     = CreateH1F(histoname,"SS_InvMass"   , 300, 0., 300.);
+  //
+	// 			histoname = "HSS_AbsDelPhiLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHSSAbsDelPhiLeps[ch][cut][sys] = CreateH1F(histoname,"SS_AbsDelPhiLeps", 28,-0.2, 1.2);
+  //
+	// 			histoname = "HSS_delPhi2LeadJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHSSdelPhi2LeadJets[ch][cut][sys] = CreateH1F(histoname,"SS_delPhi2LeadJets", 28,-0.2, 1.2);
+  //
+	// 			histoname = "HSS_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys];
+	// 			fHSSminDelRJetsLeps[ch][cut][sys] = CreateH1F(histoname,"SS_minDelRJetsLeps", 500, 0., 5.0);
+  //
+	// 			fHDiLepPt[ch][cut][sys]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DiLepPt"      , 800,0,800);
+	// 			fHLep0Pt[ch][cut][sys]        = CreateH1F("H_Lep0Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Lep0Pt"       , 800,0,800);
+	// 			fHLep1Pt[ch][cut][sys]        = CreateH1F("H_Lep1Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Lep1Pt"       , 800,0,800);
+	// 			fHJet0Pt[ch][cut][sys]        = CreateH1F("H_Jet0Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Jet0Pt"       , 800,0,800);
+	// 			fHJet1Pt[ch][cut][sys]        = CreateH1F("H_Jet1Pt_"       +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Jet1Pt"       , 800,0,800);
+  //
+	// 			fHNJets[ch][cut][sys]         = CreateH1F("H_NJets_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NJets"        , 8 ,-0.5, 7.5);
+	// 			fHNBtagJets[ch][cut][sys]     = CreateH1F("H_NBtagJets_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NBtagJets"    , 4 ,-0.5, 3.5);
+	// 			fHNBtagsNJets[ch][cut][sys]   = CreateH1F("H_NBtagsNJets_"  +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"NBtagsNJets"  ,15 , -0.5, 14.5);
+	// 			fHInvMass[ch][cut][sys]       = CreateH1F("H_InvMass_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"InvMass"      ,  1000,  0., 1000.);
+	// 			fHMET[ch][cut][sys]           = CreateH1F("H_MET_"          +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MET"          , 600, 0,600);
+	// 			fHMT2[ch][cut][sys]           = CreateH1F("H_MT2_"          +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2"          , 300,0.,300);
+	// 			fHMT2b[ch][cut][sys]          = CreateH1F("H_MT2bb_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2bb"        , 800,0.,800);
+	// 			fHMT2lb[ch][cut][sys]         = CreateH1F("H_MT2lblb_"      +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"MT2lblb"      , 600,0.,600);
+	// 			fHPtllb[ch][cut][sys]         = CreateH1F("H_Ptllb_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"PTllb"        , 800,0.,800);
+	// 			fHMeff[ch][cut][sys]          = CreateH1F("H_Meff_"         +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"Meff"         , 2000,0.,2000);
+	// 			fHHT[ch][cut][sys]            = CreateH1F("H_HT_"           +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"HT"           , 1200,0,1200);
+	// 			fHMETHT[ch][cut][sys]         = CreateH1F("H_METHT_"        +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"METHT"        , 60,0,60);
+  //
+	// 			fHDelPhiJetMet[ch][cut][sys]  = CreateH1F("H_DelPhiJetMet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiJetMet" , 100,0, TMath::Pi());
+	// 			fHDelPhiLepMet[ch][cut][sys]  = CreateH1F("H_DelPhiLepMet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiLepMet" , 100,0, TMath::Pi());
+	// 			fHDelPhiPllbMet[ch][cut][sys] = CreateH1F("H_DelPhiPllbMet_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiPllbMet", 100,0, TMath::Pi());
+	// 			fHDelPhiLepJet[ch][cut][sys]  = CreateH1F("H_DelPhiLepJet_" +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelPhiLepJet" , 100,0, TMath::Pi());
+  //       fHMinDelPhiMetJets[ch][cut][sys] = CreateH1F("H_MinDPhiMetJets_"+gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys], "MinDelPhiMetJets", 100, 0, TMath::Pi());
+	// 			fHDelLepPhi[ch][cut][sys]     = CreateH1F("H_DelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"DelLepPhi"    , 100,0, TMath::Pi());
+	// 			fHCosDelLepPhi[ch][cut][sys]     = CreateH1F("H_CosDelLepPhi_"    +gChanLabel[ch]+"_"+sCut[cut]+"_"+SystName[sys],"CosDelLepPhi"    , 40,-1,1 );
+	// 		}
+	// 	}
+	// }
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -1923,17 +1923,17 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 #ifdef DEBUG
 		cout << " pass trigger + ee, ";
 #endif
-		// 0.115 = Fraction events with negative weight
-		// if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
-    //
-		// if(
-		// 	(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
-		// 		PassesZVeto()      &&
-		// 		PassesMllVeto()    &&
-		// 		PassesNJetsCut()){
-		// 	SetTreeVariables(Elec);
-		// 	fTree->Fill();
-		// }
+		0.115 = Fraction events with negative weight
+		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
+
+		if(
+			(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
+				PassesZVeto()      &&
+				PassesMllVeto()    &&
+				PassesNJetsCut()){
+			SetTreeVariables(Elec);
+			fTree->Fill();
+		}
 
 		// if (PassesMllVeto()){
 		// 	FillYieldsHistograms(Elec,iDilepton, sys);
