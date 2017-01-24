@@ -166,41 +166,41 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
                                    fSRs[ichan][icut] = 0;
 */
 
-			//++ Kinematic  
+			//++ Kinematic
 			fHLHEweights[ichan][icut] = 0;
-			fHLep0Eta[ichan][icut] = 0;    
-			fHLep1Eta[ichan][icut] = 0;    
-			fHHT2[ichan][icut] = 0;        
-			fHHT3[ichan][icut] = 0;        
-			fHHT4[ichan][icut] = 0;        
-			fHHT5[ichan][icut] = 0;        
-			fHJet0Eta[ichan][icut] = 0;    
-			fHJet1Eta[ichan][icut] = 0;    
+			fHLep0Eta[ichan][icut] = 0;
+			fHLep1Eta[ichan][icut] = 0;
+			fHHT2[ichan][icut] = 0;
+			fHHT3[ichan][icut] = 0;
+			fHHT4[ichan][icut] = 0;
+			fHHT5[ichan][icut] = 0;
+			fHJet0Eta[ichan][icut] = 0;
+			fHJet1Eta[ichan][icut] = 0;
 			fHBtagJet0Pt[ichan][icut] = 0;
 
-			fHMT2b[ichan][icut][0]  = 0;   
+			fHMT2b[ichan][icut][0]  = 0;
 			fHMT2lb[ichan][icut][0] = 0;
-			fHMET[ichan][icut][0] = 0;       
-			fHDiLepPt[ichan][icut][0] = 0;   
-			fHLep0Pt[ichan][icut][0] = 0;    
-			fHLep1Pt[ichan][icut][0] = 0;    
-			fHJet0Pt[ichan][icut][0] = 0;    
-			fHJet1Pt[ichan][icut][0] = 0;    
-			fHDelLepPhi[ichan][icut][0] = 0; 
-			fHCosDelLepPhi[ichan][icut][0] = 0; 
-			fHNJets[ichan][icut][0] = 0;     
-			fHHT[ichan][icut][0] = 0;        
-			fHMETHT[ichan][icut][0] = 0;        
-			fHMT2[ichan][icut][0] = 0;       
-			fHPtllb[ichan][icut][0] = 0;       
-			fHMeff[ichan][icut][0] = 0;       
-			fHDelPhiLepMet[ichan][icut][0] = 0; 
-			fHDelPhiJetMet[ichan][icut][0] = 0; 
-			fHDelPhiPllbMet[ichan][icut][0] = 0; 
-			fHDelPhiLepJet[ichan][icut][0] = 0; 
+			fHMET[ichan][icut][0] = 0;
+			fHDiLepPt[ichan][icut][0] = 0;
+			fHLep0Pt[ichan][icut][0] = 0;
+			fHLep1Pt[ichan][icut][0] = 0;
+			fHJet0Pt[ichan][icut][0] = 0;
+			fHJet1Pt[ichan][icut][0] = 0;
+			fHDelLepPhi[ichan][icut][0] = 0;
+			fHCosDelLepPhi[ichan][icut][0] = 0;
+			fHNJets[ichan][icut][0] = 0;
+			fHHT[ichan][icut][0] = 0;
+			fHMETHT[ichan][icut][0] = 0;
+			fHMT2[ichan][icut][0] = 0;
+			fHPtllb[ichan][icut][0] = 0;
+			fHMeff[ichan][icut][0] = 0;
+			fHDelPhiLepMet[ichan][icut][0] = 0;
+			fHDelPhiJetMet[ichan][icut][0] = 0;
+			fHDelPhiPllbMet[ichan][icut][0] = 0;
+			fHDelPhiLepJet[ichan][icut][0] = 0;
       fHMinDelPhiMetJets[ichan][icut][0] = 0;
 
-			fHCSVTag[ichan][icut] = 0; 
+			fHCSVTag[ichan][icut] = 0;
 			fHTopD[ichan][icut] = 0;
 			fHDelPhillJet[ichan][icut] = 0;
 
@@ -222,12 +222,12 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
       }
 
 			for (unsigned int isyst = 1; isyst < gNSYST; isyst++) {
-				fHInvMass[ichan][icut][isyst] = 0;   
-				fHInvMass2[ichan][icut][isyst] = 0;   
-				fHSSInvMass[ichan][icut][isyst] = 0;   
-				fHNBtagsNJets[ichan][icut][isyst] = 0; 
-				fHSSNBtagsNJets[ichan][icut][isyst] = 0; 
-			  fHNBtagJets[ichan][icut][isyst] = 0; 
+				fHInvMass[ichan][icut][isyst] = 0;
+				fHInvMass2[ichan][icut][isyst] = 0;
+				fHSSInvMass[ichan][icut][isyst] = 0;
+				fHNBtagsNJets[ichan][icut][isyst] = 0;
+				fHSSNBtagsNJets[ichan][icut][isyst] = 0;
+			  fHNBtagJets[ichan][icut][isyst] = 0;
 
 				/// STOP
 				//fHAbsDelPhiLep[ichan][icut] = 0;
@@ -236,27 +236,27 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
 				fHdelPhi2LeadJets[ichan][icut][isyst] = 0;
 				fHSSdelPhi2LeadJets[ichan][icut][isyst] = 0;
 				fHAbsDelPhiLeps[ichan][icut][isyst] = 0;
-				fHSSAbsDelPhiLeps[ichan][icut][isyst] = 0;	
+				fHSSAbsDelPhiLeps[ichan][icut][isyst] = 0;
 
-				fHMT2b[ichan][icut][isyst]  = 0;   
+				fHMT2b[ichan][icut][isyst]  = 0;
 				fHMT2lb[ichan][icut][isyst] = 0;
-				fHMET[ichan][icut][isyst] = 0;       
-				fHDiLepPt[ichan][icut][isyst] = 0;   
-				fHLep0Pt[ichan][icut][isyst] = 0;    
-				fHLep1Pt[ichan][icut][isyst] = 0;    
-				fHJet0Pt[ichan][icut][isyst] = 0;    
-				fHJet1Pt[ichan][icut][isyst] = 0;    
-				fHDelLepPhi[ichan][icut][isyst] = 0; 
-				fHCosDelLepPhi[ichan][icut][isyst] = 0; 
-				fHNJets[ichan][icut][isyst] = 0;     
-				fHHT[ichan][icut][isyst] = 0;        
-				fHMETHT[ichan][icut][isyst] = 0;        
-				fHMT2[ichan][icut][isyst] = 0;       
-				fHPtllb[ichan][icut][isyst] = 0;       
-				fHMeff[ichan][icut][isyst] = 0;       
-				fHDelPhiLepMet[ichan][icut][isyst] = 0; 
-				fHDelPhiJetMet[ichan][icut][isyst] = 0; 
-				fHDelPhiPllbMet[ichan][icut][isyst] = 0; 
+				fHMET[ichan][icut][isyst] = 0;
+				fHDiLepPt[ichan][icut][isyst] = 0;
+				fHLep0Pt[ichan][icut][isyst] = 0;
+				fHLep1Pt[ichan][icut][isyst] = 0;
+				fHJet0Pt[ichan][icut][isyst] = 0;
+				fHJet1Pt[ichan][icut][isyst] = 0;
+				fHDelLepPhi[ichan][icut][isyst] = 0;
+				fHCosDelLepPhi[ichan][icut][isyst] = 0;
+				fHNJets[ichan][icut][isyst] = 0;
+				fHHT[ichan][icut][isyst] = 0;
+				fHMETHT[ichan][icut][isyst] = 0;
+				fHMT2[ichan][icut][isyst] = 0;
+				fHPtllb[ichan][icut][isyst] = 0;
+				fHMeff[ichan][icut][isyst] = 0;
+				fHDelPhiLepMet[ichan][icut][isyst] = 0;
+				fHDelPhiJetMet[ichan][icut][isyst] = 0;
+				fHDelPhiPllbMet[ichan][icut][isyst] = 0;
 				fHDelPhiLepJet[ichan][icut][isyst] = 0;
 				fHMinDelPhiMetJets[ichan][icut][isyst] = 0;
 			}
@@ -296,12 +296,12 @@ void TTHAnalyzer::Initialise() {
 	fHGenElePt = CreateH1F("fHGenElePt", "GenPromptElecs Pt", 500, 0, 500);
 	fHGenMuoPt = CreateH1F("fHGenMuoPt", "GenPromptMuons Pt", 500, 0, 500);
 
-	if (gSampleName == "DoubleMuon"      ||     
-			gSampleName == "DoubleEG"        || 
-			gSampleName == "SingleMu"        || 
-			gSampleName == "SingleElectron"  || 
-			gSampleName == "MuonEG"	       ||	    
-			gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar") || 
+	if (gSampleName == "DoubleMuon"      ||
+			gSampleName == "DoubleEG"        ||
+			gSampleName == "SingleMu"        ||
+			gSampleName == "SingleElectron"  ||
+			gSampleName == "MuonEG"	       ||
+			gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar") ||
 			gSampleName.Contains("DY") ||
 			gSampleName.Contains("ZJets")){
 		//	PAF_INFO("TTHAnalyzer", "+ Initialise Drell-Yan histograms...");
@@ -315,13 +315,13 @@ void TTHAnalyzer::Initialise() {
 	//PAF_INFO("TTHAnalyzer", "+ Initialise Pile-Up reweighting tool...");
   fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
   if (!gIsData) {
-    fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9 
-    fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7 
+    fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
+    fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
   }
 
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco
-	//else          fBTagSF   = new BTagSFUtil("CSVT","ABCD");//ReReco 
+	//else          fBTagSF   = new BTagSFUtil("CSVT","ABCD");//ReReco
 
 	//PAF_INFO("TTHAnalyzer", "+ Initialise b-tag scale factors...");
 	if (gUseCSVM){
@@ -397,7 +397,7 @@ void TTHAnalyzer::InitialiseTree(){
 
 void TTHAnalyzer::InitialiseGenHistos(){
 	fHDeltaRLepJet[Muon] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Muon],"",1000,0.,5.);
-	fHDeltaRLepJet[Elec] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Elec],"",1000,0.,5.);  
+	fHDeltaRLepJet[Elec] = CreateH1F("H_DeltaRLepJet_"+gChanLabel[Elec],"",1000,0.,5.);
 }
 
 void TTHAnalyzer::InitialiseDYHistos(){
@@ -416,9 +416,9 @@ void TTHAnalyzer::InitialiseDYHistos(){
 void TTHAnalyzer::InitialiseYieldsHistos(){
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
-		fHyields[Muon][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5); 
+		fHyields[Muon][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
 		fHyields[Elec][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHSSyields[Muon][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5); 
+		fHSSyields[Muon][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
 		fHSSyields[Elec][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
 		fHyields[ElMu][Norm]   = CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
 		fHSSyields[ElMu][Norm] = CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
@@ -466,7 +466,7 @@ void TTHAnalyzer::InitialiseKinematicHistos(){
 			// ---------------------------------------------------------------------------------------
 			// ---------------------------------------------------------------------------------------
 
-			fHDiLepPt[ch][cut][0]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut],"DiLepPt"      , 800,0,800); 
+			fHDiLepPt[ch][cut][0]       = CreateH1F("H_DiLepPt_"      +gChanLabel[ch]+"_"+sCut[cut],"DiLepPt"      , 800,0,800);
 			fHLep0Pt[ch][cut][0]        = CreateH1F("H_Lep0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep0Pt"       , 800,0,800);
 			fHLep1Pt[ch][cut][0]        = CreateH1F("H_Lep1Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Lep1Pt"       , 800,0,800);
 			fHJet0Pt[ch][cut][0]        = CreateH1F("H_Jet0Pt_"       +gChanLabel[ch]+"_"+sCut[cut],"Jet0Pt"       , 800,0,800);
@@ -514,7 +514,7 @@ void TTHAnalyzer::InitialiseKinematicHistos(){
 			fHminDelRJetsLeps[ch][cut][0]   = CreateH1F("H_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut]  ,"minDelRJetsLeps"   ,   500,0.0, 5.0);
 			fHSSminDelRJetsLeps[ch][cut][0] = CreateH1F("HSS_minDelRJetsLeps_"+gChanLabel[ch]+"_"+sCut[cut],"SS_minDelRJetsLeps",   500,0.0, 5.0);
 
-			// other variables 
+			// other variables
 			fHCSVTag[ch][cut]      = CreateH1F("H_CSVTag_"     +gChanLabel[ch]+"_"+sCut[cut], "NBtagsNJets"     , 1000, 0.0, 1.0);
 			fHTopD[ch][cut]        = CreateH1F("H_TopD_"       +gChanLabel[ch]+"_"+sCut[cut], "TopDiscriminator", 1000,0.0,1.0);
 			fHDelPhillJet[ch][cut] = CreateH1F("H_DelPhillJet_"+gChanLabel[ch]+"_"+sCut[cut], "DeltaPhi"        , 1000,0.0, TMath::Pi());
@@ -528,8 +528,8 @@ void TTHAnalyzer::InitialiseKinematicHistos(){
 			fHDPhiLep1Jet[ch][cut] = CreateH1F("H_DPhiLep1Jet_" +gChanLabel[ch]+"_"+sCut[cut], "DeltaPhiLep1Jet", 1000,0.0, TMath::Pi());
 			fHLep1Iso[ch][cut]     = CreateH1F("H_Lep1Iso_"     +gChanLabel[ch]+"_"+sCut[cut], "Lep1Iso",         1000,0.0, 0.5);
 
-			fHvertices[ch][cut]     = CreateH1F("H_Vtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5); 
-			fHgoodvertices[ch][cut] = CreateH1F("H_goodVtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5); 
+			fHvertices[ch][cut]     = CreateH1F("H_Vtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
+			fHgoodvertices[ch][cut] = CreateH1F("H_goodVtx_"+gChanLabel[ch]+"_"+sCut[cut],"", 51, -0.5, 50.5);
 		}
 	}
 }
@@ -621,15 +621,15 @@ void TTHAnalyzer::SetOriginalObjects(){
 	int k = 0;
 	// Save original values for MET, Jets and Leptons
 	TLorentzVector j;
-	for (Int_t i=0; i < nJet; i++){    
+	for (Int_t i=0; i < nJet; i++){
 		j.SetPxPyPzE(Jet_px[i], Jet_py[i], Jet_pz[i], Jet_energy[i]);
 		JetEt.push_back(j.Et());
 		JetPt.push_back(j.Pt());
 		JetPhi.push_back(j.Phi());
 	}
-	for (Int_t i=0; i < nLepGood; i++){     
+	for (Int_t i=0; i < nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 11){
-			ElPx.push_back(LepGood_px[i]); 
+			ElPx.push_back(LepGood_px[i]);
 			ElPy.push_back(LepGood_py[i]);
 			ElPz.push_back(LepGood_pz[i]);
 			ElEnergy.push_back(LepGood_energy[i]);
@@ -638,9 +638,9 @@ void TTHAnalyzer::SetOriginalObjects(){
 	for (Int_t i=0; i<nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 13){
 			MuPx.push_back(LepGood_px[i]);
-			MuPy.push_back(LepGood_py[i]); 
-			MuPz.push_back(LepGood_pz[i]); 
-			MuEnergy.push_back(LepGood_energy[i]); 
+			MuPy.push_back(LepGood_py[i]);
+			MuPz.push_back(LepGood_pz[i]);
+			MuEnergy.push_back(LepGood_energy[i]);
 		}
 	}
 	MET     = Get<Float_t>("met_pt"); //met
@@ -680,7 +680,7 @@ void TTHAnalyzer::SetEventObjects(){
 void TTHAnalyzer::ResetOriginalObjects(){
 	// Save original values for MET, Jets and Leptons
 	TLorentzVector j;
-	for (Int_t i=0; i < nJet; i++){    
+	for (Int_t i=0; i < nJet; i++){
 		j.SetPxPyPzE(Jet_px[i],	Jet_py[i], Jet_pz[i],	Jet_energy[i]);
 		JetEt[i]  = j.Et();
 		JetPt[i]  = j.Pt();
@@ -689,7 +689,7 @@ void TTHAnalyzer::ResetOriginalObjects(){
 	int k = 0;
 	for (Int_t i=0; i<nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 11){
-			ElPx[k] = LepGood_px[i]; 
+			ElPx[k] = LepGood_px[i];
 			ElPy[k] = LepGood_py[i];
 			ElPz[k] = LepGood_pz[i];
 			ElEnergy[k] = LepGood_energy[i];
@@ -697,10 +697,10 @@ void TTHAnalyzer::ResetOriginalObjects(){
 		}
 	}
 	k = 0;
-	for (Int_t i=0; i<nLepGood; i++){ 
+	for (Int_t i=0; i<nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 13){
-			MuPx[k] = LepGood_px[i]; 
-			MuPy[k] = LepGood_py[i]; 
+			MuPx[k] = LepGood_px[i];
+			MuPy[k] = LepGood_py[i];
 			MuPz[k] = LepGood_pz[i];
 			MuEnergy[k] = LepGood_energy[i];
 			k++;
@@ -723,7 +723,7 @@ void TTHAnalyzer::CoutEvent(long unsigned int en, TString t){
   else return;
 }
 
-void TTHAnalyzer::SetTreeVariables(gChannel chan){ 
+void TTHAnalyzer::SetTreeVariables(gChannel chan){
   TWeight     = EventWeight;
   TNJets      = getNJets();
   TNJetsBtag  = getNBTags();
@@ -782,14 +782,14 @@ void TTHAnalyzer::SetTreeVariables(gChannel chan){
 // InsideLoop
 //-----------------------------------------------------------------------
 void TTHAnalyzer::InsideLoop() {
-  if(gIsT2tt){
- //   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
+    if(gIsT2tt){
+    //   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
     if((Get<Int_t>("GenSusyMStop") != gStopMass) || (Get<Int_t>("GenSusyMNeutralino") != gLspMass)) return;
-  }
+    }
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
 
-  CoutEvent(evt, Form("Event number = %li", evt));
+    CoutEvent(evt, Form("Event number = %li", evt));
 	// Calculate PU Weight
 	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); //True       //nTruePU
 
@@ -798,64 +798,66 @@ void TTHAnalyzer::InsideLoop() {
 	SetOriginalObjects();
 	SetEventObjects();
 
-	// Get number of generated leptons ........................................................
-	if (!gIsData) {
-		SelectedGenLepton();
-		if (gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar_Powheg")){
-			Float_t Weight = 1.; 
-			TLorentzVector top;
-			for (Int_t t=0; t<Get<Int_t>("nGenTop"); t++){ 
-				top.SetPtEtaPhiM(Get<Float_t>("GenTop_pt",   t), 
-						Get<Float_t>("GenTop_eta",  t), 
-						Get<Float_t>("GenTop_phi",  t),
-						Get<Float_t>("GenTop_mass", t));   
-				Float_t pt    = TMath::Min(top.Pt(), 400.);
-				Float_t topSF = TMath::Exp(0.156 - 0.00137 * pt);
-				Weight *= topSF;
-			}
-			fHTopPtWeight->Fill(TMath::Sqrt(Weight));
-		}
-    bool isEmuDilepton = true;
-		//bool isEmuDilepton = (nGenElec+nGenMuon)>=2;  // for dileptonic selection
-		//bool isEmuDilepton = (nGenElec+nGenMuon)< 2;  // for semileptonic selection
-		if(!isEmuDilepton && (gSampleName.Contains("TTbar") || gSampleName.Contains("TTJets"))) return;
+	// // Get number of generated leptons ........................................................
 
-		// Fill Gen Info 
-		//----------------------------------------------------------------------------
-		TLorentzVector lep,jet;
-		Float_t minDRmu(999.),minDRel(999.);
-		for (Int_t jt = 0; jt < Get<Int_t>("nGenPart"); jt++){ 
-			if (abs(Get<Int_t>("GenPart_pdgId",jt)) != 5) continue; // b-quarks!!
-			jet.SetPtEtaPhiM(Get<Float_t>("GenPart_pt",   jt), 
-					Get<Float_t>("GenPart_eta",  jt), 
-					Get<Float_t>("GenPart_phi",  jt),
-					Get<Float_t>("GenPart_mass", jt));
+	// if (!gIsData) {
+	// 	SelectedGenLepton();
+	// 	if (gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar_Powheg")){
+	// 		Float_t Weight = 1.;
+	// 		TLorentzVector top;
+	// 		for (Int_t t=0; t<Get<Int_t>("nGenTop"); t++){
+	// 			top.SetPtEtaPhiM(Get<Float_t>("GenTop_pt",   t),
+	// 					Get<Float_t>("GenTop_eta",  t),
+	// 					Get<Float_t>("GenTop_phi",  t),
+	// 					Get<Float_t>("GenTop_mass", t));
+	// 			Float_t pt    = TMath::Min(top.Pt(), 400.);
+	// 			Float_t topSF = TMath::Exp(0.156 - 0.00137 * pt);
+	// 			Weight *= topSF;
+	// 		}
+	// 		fHTopPtWeight->Fill(TMath::Sqrt(Weight));
+	// 	}
+    // bool isEmuDilepton = true;
+	// 	//bool isEmuDilepton = (nGenElec+nGenMuon)>=2;  // for dileptonic selection
+	// 	//bool isEmuDilepton = (nGenElec+nGenMuon)< 2;  // for semileptonic selection
+	// 	if(!isEmuDilepton && (gSampleName.Contains("TTbar") || gSampleName.Contains("TTJets"))) return;
+    //
+	// 	// Fill Gen Info
+	// 	//----------------------------------------------------------------------------
+	// 	TLorentzVector lep,jet;
+	// 	Float_t minDRmu(999.),minDRel(999.);
+	// 	for (Int_t jt = 0; jt < Get<Int_t>("nGenPart"); jt++){
+	// 		if (abs(Get<Int_t>("GenPart_pdgId",jt)) != 5) continue; // b-quarks!!
+	// 		jet.SetPtEtaPhiM(Get<Float_t>("GenPart_pt",   jt),
+	// 				Get<Float_t>("GenPart_eta",  jt),
+	// 				Get<Float_t>("GenPart_phi",  jt),
+	// 				Get<Float_t>("GenPart_mass", jt));
+    //
+	// 		for (Int_t mu=0; mu<ngenLep; mu++){
+	// 			if ((TMath::Abs(LepGood_pdgId[mu])) != 13) continue;
+	// 			lep.SetPtEtaPhiM(genLep_pt[mu], genLep_eta[mu], genLep_phi[mu], genLep_mass[mu]);
+    //
+	// 			if (minDRmu > lep.DeltaR(jet))  minDRmu = lep.DeltaR(jet);
+	// 		}
+	// 		for (Int_t el=0; el < ngenLep; el++){
+	// 			if ((TMath::Abs(LepGood_pdgId[el])) != 11) continue;
+	// 			lep.SetPtEtaPhiM(genLep_pt[el],	genLep_eta[el],	genLep_phi[el],	genLep_mass[el]);
+	// 			if (minDRel > lep.DeltaR(jet))  minDRel = lep.DeltaR(jet);
+	// 		}
+	// 	}
+	// 	fHDeltaRLepJet[Muon] -> Fill(minDRmu);
+	// 	fHDeltaRLepJet[Elec] -> Fill(minDRel);
+	// }
 
-			for (Int_t mu=0; mu<ngenLep; mu++){
-				if ((TMath::Abs(LepGood_pdgId[mu])) != 13) continue;
-				lep.SetPtEtaPhiM(genLep_pt[mu], genLep_eta[mu], genLep_phi[mu], genLep_mass[mu]);
-
-				if (minDRmu > lep.DeltaR(jet))  minDRmu = lep.DeltaR(jet);
-			}
-			for (Int_t el=0; el < ngenLep; el++){ 
-				if ((TMath::Abs(LepGood_pdgId[el])) != 11) continue;
-				lep.SetPtEtaPhiM(genLep_pt[el],	genLep_eta[el],	genLep_phi[el],	genLep_mass[el]);
-				if (minDRel > lep.DeltaR(jet))  minDRel = lep.DeltaR(jet);
-			}
-		}
-		fHDeltaRLepJet[Muon] -> Fill(minDRmu);
-		fHDeltaRLepJet[Elec] -> Fill(minDRel);
-	}
 	// Fill Yields ...............................................................
 #ifdef DEBUG
 	cout << "N Leptons: " << Lepton.size() << endl;
-	cout << "PassTriggerEMu/EE/MuMu= " 
+	cout << "PassTriggerEMu/EE/MuMu= "
 		<< PassTriggerEMu() << "/"
 		<< PassTriggerEE() << "/"
 		<< PassTriggerMuMu() << endl;
-	cout << "Is ElMu/ElEl/MuMu Event= " 
-		<< IsElMuEvent() << "/" 
-		<< IsElElEvent() << "/" 
+	cout << "Is ElMu/ElEl/MuMu Event= "
+		<< IsElMuEvent() << "/"
+		<< IsElElEvent() << "/"
 		<< IsMuMuEvent() << endl;
 #endif
 	FillYields();
@@ -866,11 +868,11 @@ void TTHAnalyzer::InsideLoop() {
 	fChargeSwitch = false;
 
 	// Fill DY DD histograms
-	if (gSampleName == "DoubleMuon"      ||     
-			gSampleName == "DoubleEG"        || 
-			gSampleName == "SingleMu"        || 
-			gSampleName == "SingleElectron"  || 
-			gSampleName == "MuonEG"	       ||	  
+	if (gSampleName == "DoubleMuon"      ||
+			gSampleName == "DoubleEG"        ||
+			gSampleName == "SingleMu"        ||
+			gSampleName == "SingleElectron"  ||
+			gSampleName == "MuonEG"	       ||
 			gSampleName.Contains("ZJets")   ||
 			gSampleName.Contains("DY"))  {
 		FillDYHistograms();
@@ -879,19 +881,19 @@ void TTHAnalyzer::InsideLoop() {
 	// Fill Yields for syst. studies (only for MC) ..............................
   if (gIsData)         return;
   if (!gDoSystStudies) return;
-  
+
   // B-tagging systematics .................................................................
   ResetOriginalObjects();
   gSysSource = BtagUp;
   SetEventObjects();
   FillYields(BtagUp);
-  fChargeSwitch = true;  
-  FillYields(BtagUp); /* Get SS yields....*/  
+  fChargeSwitch = true;
+  FillYields(BtagUp); /* Get SS yields....*/
   fChargeSwitch = false;
-  
+
   ResetOriginalObjects();
   gSysSource = BtagDown;
-  SetEventObjects();  
+  SetEventObjects();
   FillYields(BtagDown);
   fChargeSwitch = true;
   FillYields(BtagDown); /// Get SS yields....
@@ -912,7 +914,7 @@ void TTHAnalyzer::InsideLoop() {
   fChargeSwitch = true;
   FillYields(MisTagDown); /// Get SS yields....
   fChargeSwitch = false;
-  
+
 	// JES/JER sytematics ....................................................................
   ResetOriginalObjects();
   SmearJetPts(1);
@@ -922,7 +924,7 @@ void TTHAnalyzer::InsideLoop() {
   fChargeSwitch = true;
   FillYields(JESUp); /// Get SS yields....
   fChargeSwitch = false;
-  
+
   ResetOriginalObjects();
   SmearJetPts(2);
   gSysSource = JESDown;
@@ -931,7 +933,7 @@ void TTHAnalyzer::InsideLoop() {
   fChargeSwitch = true;
   FillYields(JESDown); /// Get SS yields....
   fChargeSwitch = false;
- 
+
   ResetOriginalObjects();
   SmearJetPts(3);
   gSysSource = JER;
@@ -967,14 +969,14 @@ void TTHAnalyzer::InsideLoop() {
   gSysSource = PUUp;
   SetEventObjects();
   FillYields(PUUp);
-  
+
   ResetOriginalObjects();
   if (!gIsData)
     PUSF = fPUWeightDown->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
   gSysSource = PUDown;
   SetEventObjects();
-  FillYields(PUDown); 
-  
+  FillYields(PUDown);
+
   // Top PT ...............................................................................
   ResetOriginalObjects();
   gSysSource = TopPt;
@@ -1090,7 +1092,7 @@ float TTHAnalyzer::getMT(gChannel chan){
 
 float TTHAnalyzer::getDPhiLepJet(){
 	if (fHypLepton1.index == -1) return -999.; if (fHypLepton2.index == -1) return -999.;
-	// Int_t ij = getLeadingJetbTag(); if (ij < 0) return -999.; 
+	// Int_t ij = getLeadingJetbTag(); if (ij < 0) return -999.;
 	if(Jet.size()<1) return -999.;
 	TLorentzVector jet = Jet[0].p;
 	TLorentzVector plep = fHypLepton1.p;
@@ -1236,7 +1238,7 @@ TLorentzVector TTHAnalyzer::getPtllb(){
 float TTHAnalyzer::getDPhibMet(){
 	TLorentzVector pmet; pmet.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.);
 	TLorentzVector Ptllb = getPtllb();
-	return pmet.DeltaPhi(Ptllb); 
+	return pmet.DeltaPhi(Ptllb);
 }
 
 // https://twiki.cern.ch/twiki/bin/viewauth/CMS/JetResolution#JER_Scaling_factors_and_Uncertai
@@ -1361,18 +1363,18 @@ float TTHAnalyzer::getSF(gChannel chan) {
 		trig = fLeptonSF->GetDoubleMuSF (fHypLepton1.p.Pt(),fHypLepton1.p.Eta());
     FS1  = fLeptonSF->GetFastSimMuonSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
     FS2  = fLeptonSF->GetFastSimMuonSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-  } 
+  }
   else if (chan == Elec){
-    id1  = fLeptonSF->GetTightElectronSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta()); 
-    id2  = fLeptonSF->GetTightElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta()); 
-    trig = fLeptonSF->GetDoubleElSF     (fHypLepton1.p.Pt(),fHypLepton1.p.Eta()); 
+    id1  = fLeptonSF->GetTightElectronSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
+    id2  = fLeptonSF->GetTightElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
+    trig = fLeptonSF->GetDoubleElSF     (fHypLepton1.p.Pt(),fHypLepton1.p.Eta());
     FS1  = fLeptonSF->GetFastSimElectronSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
     FS2  = fLeptonSF->GetFastSimElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
   }
   else if (chan == ElMu){
     float leadingPt  = fHypLepton1.p.Pt() > fHypLepton2.p.Pt()? fHypLepton1.p.Pt() : fHypLepton2.p.Pt();
     float leadingEta = fHypLepton1.p.Pt() > fHypLepton2.p.Pt()? fHypLepton1.p.Eta() : fHypLepton2.p.Eta();
-    id1  = fLeptonSF->GetTightMuonSF    (fHypLepton1.p.Pt(), fHypLepton1.p.Eta()); 
+    id1  = fLeptonSF->GetTightMuonSF    (fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
     id2  = fLeptonSF->GetTightElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
     trig = fLeptonSF->GetMuEGSF         (leadingPt,leadingEta);
     FS1  = fLeptonSF->GetFastSimMuonSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
@@ -1385,21 +1387,21 @@ float TTHAnalyzer::getSF(gChannel chan) {
 }
 
 float TTHAnalyzer::getTopPtSF(){
-	// Return SF of the pt pt of the top 
+	// Return SF of the pt pt of the top
 	// Only apply SF if the process is ttbar...
 	if(!gSampleName.Contains("TTJets") && !gSampleName.Contains("TTbar_Powheg")) return 1.;
 	if (gSysSource==TopPt) {
 		TLorentzVector top;
 		Float_t topSF = 0.;
-		Float_t Weight = 1.; 
+		Float_t Weight = 1.;
 		if (!gIsData) {
 			Int_t nGenTop = Get<Int_t>("nGenTop");
-			if (nGenTop != 2) return 1.; 
-			for (Int_t t=0; t<nGenTop; t++){ 
-				top.SetPtEtaPhiM(Get<Float_t>("GenTop_pt",   t), 
-						Get<Float_t>("GenTop_eta",  t), 
-						Get<Float_t>("GenTop_phi",  t), 
-						Get<Float_t>("GenTop_mass", t));   
+			if (nGenTop != 2) return 1.;
+			for (Int_t t=0; t<nGenTop; t++){
+				top.SetPtEtaPhiM(Get<Float_t>("GenTop_pt",   t),
+						Get<Float_t>("GenTop_eta",  t),
+						Get<Float_t>("GenTop_phi",  t),
+						Get<Float_t>("GenTop_mass", t));
 				Float_t pt = TMath::Min(top.Pt(), 400.);
 				topSF = TMath::Exp(0.156 - 0.00137 * pt);
 				Weight *= topSF;
@@ -1412,184 +1414,184 @@ float TTHAnalyzer::getTopPtSF(){
 }
 
 //--------------------------------------------------------------------------
-// Fill histograms      
+// Fill histograms
 //------------------------------------------------------------------------
 void TTHAnalyzer::FillDYHistograms(){
 	float Mll = 0.;
 	if (PassTriggerEMu()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);
-		if(gIsMCatNLO)  EventWeight = EventWeight * genWeight; 
+		if(gIsMCatNLO)  EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
-		if (PassesMllVeto()){
-			fHDY_InvMassVsNPV   [ElMu][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
-			fHDY_InvMassVsMET   [ElMu][iDilepton]->Fill(getMET()   , Mll, EventWeight);
-			fHDY_InvMassVsNjets [ElMu][iDilepton]->Fill(getNJets() , Mll, EventWeight);
-			fHDY_InvMassVsNbtags[ElMu][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
-			fHDY_InvMass        [ElMu][iDilepton]->Fill(             Mll, EventWeight);
-			if (PassesMETCut())   {  // No vut in MET for e-mu channel
-				fHDY_InvMassVsNPV   [ElMu][iMET]->Fill(nGoodVertex, Mll, EventWeight);
-				fHDY_InvMassVsMET   [ElMu][iMET]->Fill(getMET()   , Mll, EventWeight);
-				fHDY_InvMassVsNjets [ElMu][iMET]->Fill(getNJets() , Mll, EventWeight);
-				fHDY_InvMassVsNbtags[ElMu][iMET]->Fill(getNBTags(), Mll, EventWeight);
-				fHDY_InvMass	    [ElMu][iMET]->Fill( 	    Mll, EventWeight);
-
-				if (PassesNJetsCut()) {
-					fHDY_InvMassVsNPV   [ElMu][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [ElMu][i2jets]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [ElMu][i2jets]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[ElMu][i2jets]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [ElMu][i2jets]->Fill(             Mll, EventWeight);
-
-					if (PassesNBtagCut()) {
-						fHDY_InvMassVsNPV   [ElMu][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
-						fHDY_InvMassVsMET   [ElMu][i1btag]->Fill(getMET()   , Mll, EventWeight);
-						fHDY_InvMassVsNjets [ElMu][i1btag]->Fill(getNJets() , Mll, EventWeight);
-						fHDY_InvMassVsNbtags[ElMu][i1btag]->Fill(getNBTags(), Mll, EventWeight);
-						fHDY_InvMass        [ElMu][i1btag]->Fill(             Mll, EventWeight);
-						if(1){
-							fHDY_InvMassVsNPV   [ElMu][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
-							fHDY_InvMassVsMET   [ElMu][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
-							fHDY_InvMassVsNjets [ElMu][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
-							fHDY_InvMassVsNbtags[ElMu][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
-							fHDY_InvMass        [ElMu][iDYVeto]->Fill(             Mll, EventWeight);
-						}
-					}
-				}
-			}
-			if (getNBTags() == 1){
-				fHDY_InvMassVsNPV   [ElMu][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
-				fHDY_InvMassVsMET   [ElMu][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
-				fHDY_InvMassVsNjets [ElMu][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
-				fHDY_InvMassVsNbtags[ElMu][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
-				fHDY_InvMass        [ElMu][iExact1btag]->Fill(             Mll, EventWeight);
-			}
-			if (getNBTags() == 2){
-				fHDY_InvMassVsNPV   [ElMu][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
-				fHDY_InvMassVsMET   [ElMu][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
-				fHDY_InvMassVsNjets [ElMu][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
-				fHDY_InvMassVsNbtags[ElMu][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
-				fHDY_InvMass        [ElMu][iExact2btag]->Fill(             Mll, EventWeight);
-			}
-		}
+		// if (PassesMllVeto()){
+		// 	fHDY_InvMassVsNPV   [ElMu][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
+		// 	fHDY_InvMassVsMET   [ElMu][iDilepton]->Fill(getMET()   , Mll, EventWeight);
+		// 	fHDY_InvMassVsNjets [ElMu][iDilepton]->Fill(getNJets() , Mll, EventWeight);
+		// 	fHDY_InvMassVsNbtags[ElMu][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
+		// 	fHDY_InvMass        [ElMu][iDilepton]->Fill(             Mll, EventWeight);
+		// 	if (PassesMETCut())   {  // No vut in MET for e-mu channel
+		// 		fHDY_InvMassVsNPV   [ElMu][iMET]->Fill(nGoodVertex, Mll, EventWeight);
+		// 		fHDY_InvMassVsMET   [ElMu][iMET]->Fill(getMET()   , Mll, EventWeight);
+		// 		fHDY_InvMassVsNjets [ElMu][iMET]->Fill(getNJets() , Mll, EventWeight);
+		// 		fHDY_InvMassVsNbtags[ElMu][iMET]->Fill(getNBTags(), Mll, EventWeight);
+		// 		fHDY_InvMass	    [ElMu][iMET]->Fill( 	    Mll, EventWeight);
+        //
+		// 		if (PassesNJetsCut()) {
+		// 			fHDY_InvMassVsNPV   [ElMu][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [ElMu][i2jets]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [ElMu][i2jets]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[ElMu][i2jets]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [ElMu][i2jets]->Fill(             Mll, EventWeight);
+        //
+		// 			if (PassesNBtagCut()) {
+		// 				fHDY_InvMassVsNPV   [ElMu][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 				fHDY_InvMassVsMET   [ElMu][i1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 				fHDY_InvMassVsNjets [ElMu][i1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 				fHDY_InvMassVsNbtags[ElMu][i1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 				fHDY_InvMass        [ElMu][i1btag]->Fill(             Mll, EventWeight);
+		// 				if(1){
+		// 					fHDY_InvMassVsNPV   [ElMu][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
+		// 					fHDY_InvMassVsMET   [ElMu][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
+		// 					fHDY_InvMassVsNjets [ElMu][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
+		// 					fHDY_InvMassVsNbtags[ElMu][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
+		// 					fHDY_InvMass        [ElMu][iDYVeto]->Fill(             Mll, EventWeight);
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// 	if (getNBTags() == 1){
+		// 		fHDY_InvMassVsNPV   [ElMu][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 		fHDY_InvMassVsMET   [ElMu][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 		fHDY_InvMassVsNjets [ElMu][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 		fHDY_InvMassVsNbtags[ElMu][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 		fHDY_InvMass        [ElMu][iExact1btag]->Fill(             Mll, EventWeight);
+		// 	}
+		// 	if (getNBTags() == 2){
+		// 		fHDY_InvMassVsNPV   [ElMu][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 		fHDY_InvMassVsMET   [ElMu][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
+		// 		fHDY_InvMassVsNjets [ElMu][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
+		// 		fHDY_InvMassVsNbtags[ElMu][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 		fHDY_InvMass        [ElMu][iExact2btag]->Fill(             Mll, EventWeight);
+		// 	}
+		// }
 	}
-	ResetHypLeptons(); 
+	ResetHypLeptons();
 	if (PassTriggerMuMu() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon);
-		if(gIsMCatNLO)   EventWeight = EventWeight * genWeight; 
+		if(gIsMCatNLO)   EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
 
-		if (PassesMllVeto()){
-			fHDY_InvMassVsNPV   [Muon][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
-			fHDY_InvMassVsMET   [Muon][iDilepton]->Fill(getMET()   , Mll, EventWeight);
-			fHDY_InvMassVsNjets [Muon][iDilepton]->Fill(getNJets() , Mll, EventWeight);
-			fHDY_InvMassVsNbtags[Muon][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
-			fHDY_InvMass        [Muon][iDilepton]->Fill(             Mll, EventWeight);
-
-			if (PassesMETCut())   {
-				fHDY_InvMassVsNPV   [Muon][iMET]->Fill(nGoodVertex, Mll, EventWeight);
-				fHDY_InvMassVsMET   [Muon][iMET]->Fill(getMET()   , Mll, EventWeight);
-				fHDY_InvMassVsNjets [Muon][iMET]->Fill(getNJets() , Mll, EventWeight);
-				fHDY_InvMassVsNbtags[Muon][iMET]->Fill(getNBTags(), Mll, EventWeight);
-				fHDY_InvMass	    [Muon][iMET]->Fill( 	    Mll, EventWeight);
-				if (getNBTags() == 1){
-					fHDY_InvMassVsNPV   [Muon][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Muon][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Muon][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Muon][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Muon][iExact1btag]->Fill(             Mll, EventWeight);
-				}
-				if (getNBTags() == 2){
-					fHDY_InvMassVsNPV   [Muon][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Muon][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Muon][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Muon][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Muon][iExact2btag]->Fill(             Mll, EventWeight);
-				}
-				if (PassesNJetsCut()) {
-					fHDY_InvMassVsNPV   [Muon][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Muon][i2jets]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Muon][i2jets]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Muon][i2jets]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Muon][i2jets]->Fill(             Mll, EventWeight);
-
-					if (PassesNBtagCut()) {
-						fHDY_InvMassVsNPV   [Muon][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
-						fHDY_InvMassVsMET   [Muon][i1btag]->Fill(getMET()   , Mll, EventWeight);
-						fHDY_InvMassVsNjets [Muon][i1btag]->Fill(getNJets() , Mll, EventWeight);
-						fHDY_InvMassVsNbtags[Muon][i1btag]->Fill(getNBTags(), Mll, EventWeight);
-						fHDY_InvMass        [Muon][i1btag]->Fill(             Mll, EventWeight);
-						if(PassesDYVetoCut()){
-							fHDY_InvMassVsNPV   [Muon][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
-							fHDY_InvMassVsMET   [Muon][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
-							fHDY_InvMassVsNjets [Muon][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
-							fHDY_InvMassVsNbtags[Muon][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
-							fHDY_InvMass        [Muon][iDYVeto]->Fill(             Mll, EventWeight);
-						}
-					}
-				}
-			}
-		}
+		// if (PassesMllVeto()){
+		// 	fHDY_InvMassVsNPV   [Muon][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
+		// 	fHDY_InvMassVsMET   [Muon][iDilepton]->Fill(getMET()   , Mll, EventWeight);
+		// 	fHDY_InvMassVsNjets [Muon][iDilepton]->Fill(getNJets() , Mll, EventWeight);
+		// 	fHDY_InvMassVsNbtags[Muon][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
+		// 	fHDY_InvMass        [Muon][iDilepton]->Fill(             Mll, EventWeight);
+        //
+		// 	if (PassesMETCut())   {
+		// 		fHDY_InvMassVsNPV   [Muon][iMET]->Fill(nGoodVertex, Mll, EventWeight);
+		// 		fHDY_InvMassVsMET   [Muon][iMET]->Fill(getMET()   , Mll, EventWeight);
+		// 		fHDY_InvMassVsNjets [Muon][iMET]->Fill(getNJets() , Mll, EventWeight);
+		// 		fHDY_InvMassVsNbtags[Muon][iMET]->Fill(getNBTags(), Mll, EventWeight);
+		// 		fHDY_InvMass	    [Muon][iMET]->Fill( 	    Mll, EventWeight);
+		// 		if (getNBTags() == 1){
+		// 			fHDY_InvMassVsNPV   [Muon][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Muon][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Muon][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Muon][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Muon][iExact1btag]->Fill(             Mll, EventWeight);
+		// 		}
+		// 		if (getNBTags() == 2){
+		// 			fHDY_InvMassVsNPV   [Muon][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Muon][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Muon][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Muon][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Muon][iExact2btag]->Fill(             Mll, EventWeight);
+		// 		}
+		// 		if (PassesNJetsCut()) {
+		// 			fHDY_InvMassVsNPV   [Muon][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Muon][i2jets]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Muon][i2jets]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Muon][i2jets]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Muon][i2jets]->Fill(             Mll, EventWeight);
+        //
+		// 			if (PassesNBtagCut()) {
+		// 				fHDY_InvMassVsNPV   [Muon][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 				fHDY_InvMassVsMET   [Muon][i1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 				fHDY_InvMassVsNjets [Muon][i1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 				fHDY_InvMassVsNbtags[Muon][i1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 				fHDY_InvMass        [Muon][i1btag]->Fill(             Mll, EventWeight);
+		// 				if(PassesDYVetoCut()){
+		// 					fHDY_InvMassVsNPV   [Muon][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
+		// 					fHDY_InvMassVsMET   [Muon][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
+		// 					fHDY_InvMassVsNjets [Muon][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
+		// 					fHDY_InvMassVsNbtags[Muon][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
+		// 					fHDY_InvMass        [Muon][iDYVeto]->Fill(             Mll, EventWeight);
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
-	ResetHypLeptons(); 
+	ResetHypLeptons();
 	if (PassTriggerEE()   && IsElElEvent()){
 		EventWeight = gWeight * getSF(Elec);
-		if(gIsMCatNLO)    EventWeight = EventWeight * genWeight; 
+		if(gIsMCatNLO)    EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
 
-		if (PassesMllVeto()){
-			fHDY_InvMassVsNPV   [Elec][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
-			fHDY_InvMassVsMET   [Elec][iDilepton]->Fill(getMET()   , Mll, EventWeight);
-			fHDY_InvMassVsNjets [Elec][iDilepton]->Fill(getNJets() , Mll, EventWeight);
-			fHDY_InvMassVsNbtags[Elec][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
-			fHDY_InvMass        [Elec][iDilepton]->Fill(             Mll, EventWeight);
-
-			if (PassesMETCut())   {
-				fHDY_InvMassVsNPV   [Elec][iMET]->Fill(nGoodVertex, Mll, EventWeight);
-				fHDY_InvMassVsMET   [Elec][iMET]->Fill(getMET()   , Mll, EventWeight);
-				fHDY_InvMassVsNjets [Elec][iMET]->Fill(getNJets() , Mll, EventWeight);
-				fHDY_InvMassVsNbtags[Elec][iMET]->Fill(getNBTags(), Mll, EventWeight);
-				fHDY_InvMass	    [Elec][iMET]->Fill( 	    Mll, EventWeight);
-
-				if (getNBTags() == 1){
-					fHDY_InvMassVsNPV   [Elec][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Elec][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Elec][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Elec][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Elec][iExact1btag]->Fill(             Mll, EventWeight);
-				}
-				if (getNBTags() == 2){
-					fHDY_InvMassVsNPV   [Elec][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Elec][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Elec][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Elec][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Elec][iExact2btag]->Fill(             Mll, EventWeight);
-				}
-				if (PassesNJetsCut()) {
-					fHDY_InvMassVsNPV   [Elec][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
-					fHDY_InvMassVsMET   [Elec][i2jets]->Fill(getMET()   , Mll, EventWeight);
-					fHDY_InvMassVsNjets [Elec][i2jets]->Fill(getNJets() , Mll, EventWeight);
-					fHDY_InvMassVsNbtags[Elec][i2jets]->Fill(getNBTags(), Mll, EventWeight);
-					fHDY_InvMass        [Elec][i2jets]->Fill(             Mll, EventWeight);
-
-					if (PassesNBtagCut()) {
-						fHDY_InvMassVsNPV   [Elec][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
-						fHDY_InvMassVsMET   [Elec][i1btag]->Fill(getMET()   , Mll, EventWeight);
-						fHDY_InvMassVsNjets [Elec][i1btag]->Fill(getNJets() , Mll, EventWeight);
-						fHDY_InvMassVsNbtags[Elec][i1btag]->Fill(getNBTags(), Mll, EventWeight);
-						fHDY_InvMass        [Elec][i1btag]->Fill(             Mll, EventWeight);
-
-						if(PassesDYVetoCut()){
-							fHDY_InvMassVsNPV   [Elec][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
-							fHDY_InvMassVsMET   [Elec][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
-							fHDY_InvMassVsNjets [Elec][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
-							fHDY_InvMassVsNbtags[Elec][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
-							fHDY_InvMass        [Elec][iDYVeto]->Fill(             Mll, EventWeight);
-						}
-					}
-				}
-			}
-		}
+		// if (PassesMllVeto()){
+		// 	fHDY_InvMassVsNPV   [Elec][iDilepton]->Fill(nGoodVertex, Mll, EventWeight);
+		// 	fHDY_InvMassVsMET   [Elec][iDilepton]->Fill(getMET()   , Mll, EventWeight);
+		// 	fHDY_InvMassVsNjets [Elec][iDilepton]->Fill(getNJets() , Mll, EventWeight);
+		// 	fHDY_InvMassVsNbtags[Elec][iDilepton]->Fill(getNBTags(), Mll, EventWeight);
+		// 	fHDY_InvMass        [Elec][iDilepton]->Fill(             Mll, EventWeight);
+        //
+		// 	if (PassesMETCut())   {
+		// 		fHDY_InvMassVsNPV   [Elec][iMET]->Fill(nGoodVertex, Mll, EventWeight);
+		// 		fHDY_InvMassVsMET   [Elec][iMET]->Fill(getMET()   , Mll, EventWeight);
+		// 		fHDY_InvMassVsNjets [Elec][iMET]->Fill(getNJets() , Mll, EventWeight);
+		// 		fHDY_InvMassVsNbtags[Elec][iMET]->Fill(getNBTags(), Mll, EventWeight);
+		// 		fHDY_InvMass	    [Elec][iMET]->Fill( 	    Mll, EventWeight);
+        //
+		// 		if (getNBTags() == 1){
+		// 			fHDY_InvMassVsNPV   [Elec][iExact1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Elec][iExact1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Elec][iExact1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Elec][iExact1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Elec][iExact1btag]->Fill(             Mll, EventWeight);
+		// 		}
+		// 		if (getNBTags() == 2){
+		// 			fHDY_InvMassVsNPV   [Elec][iExact2btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Elec][iExact2btag]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Elec][iExact2btag]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Elec][iExact2btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Elec][iExact2btag]->Fill(             Mll, EventWeight);
+		// 		}
+		// 		if (PassesNJetsCut()) {
+		// 			fHDY_InvMassVsNPV   [Elec][i2jets]->Fill(nGoodVertex, Mll, EventWeight);
+		// 			fHDY_InvMassVsMET   [Elec][i2jets]->Fill(getMET()   , Mll, EventWeight);
+		// 			fHDY_InvMassVsNjets [Elec][i2jets]->Fill(getNJets() , Mll, EventWeight);
+		// 			fHDY_InvMassVsNbtags[Elec][i2jets]->Fill(getNBTags(), Mll, EventWeight);
+		// 			fHDY_InvMass        [Elec][i2jets]->Fill(             Mll, EventWeight);
+        //
+		// 			if (PassesNBtagCut()) {
+		// 				fHDY_InvMassVsNPV   [Elec][i1btag]->Fill(nGoodVertex, Mll, EventWeight);
+		// 				fHDY_InvMassVsMET   [Elec][i1btag]->Fill(getMET()   , Mll, EventWeight);
+		// 				fHDY_InvMassVsNjets [Elec][i1btag]->Fill(getNJets() , Mll, EventWeight);
+		// 				fHDY_InvMassVsNbtags[Elec][i1btag]->Fill(getNBTags(), Mll, EventWeight);
+		// 				fHDY_InvMass        [Elec][i1btag]->Fill(             Mll, EventWeight);
+        //
+		// 				if(PassesDYVetoCut()){
+		// 					fHDY_InvMassVsNPV   [Elec][iDYVeto]->Fill(nGoodVertex, Mll, EventWeight);
+		// 					fHDY_InvMassVsMET   [Elec][iDYVeto]->Fill(getMET()   , Mll, EventWeight);
+		// 					fHDY_InvMassVsNjets [Elec][iDYVeto]->Fill(getNJets() , Mll, EventWeight);
+		// 					fHDY_InvMassVsNbtags[Elec][iDYVeto]->Fill(getNBTags(), Mll, EventWeight);
+		// 					fHDY_InvMass        [Elec][iDYVeto]->Fill(             Mll, EventWeight);
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 	ResetHypLeptons();
 }
@@ -1602,16 +1604,16 @@ void TTHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 	if (gSysSource != Norm)      return;  //only fill histograms for nominal distributions...
 	if (fChargeSwitch == true  ) return;
 
-	if (!gIsData) {
-		for(int i = 0; i<Get<Int_t>("nLHEweight"); i++){
-			fHLHEweights[chan][cut]->Fill(i, EventWeight*Get<Float_t>("LHEweight_wgt", i));
-		}
+	// if (!gIsData) {
+	// 	for(int i = 0; i<Get<Int_t>("nLHEweight"); i++){
+	// 		fHLHEweights[chan][cut]->Fill(i, EventWeight*Get<Float_t>("LHEweight_wgt", i));
+	// 	}
 	}
 
-// if(chan==2 && cut==iDilepton) cout << evt << endl; //CCC
+    // if(chan==2 && cut==iDilepton) cout << evt << endl; //CCC
 
-	//++ jet info		  
-	int njets = getNJets(); 
+	//++ jet info
+	int njets = getNJets();
 	if(getHT()>0){
 		fHHT2[chan][cut]     ->Fill(getHT(),                                 EventWeight);
 		fHHT3[chan][cut]     ->Fill(getHT(),                                 EventWeight);
@@ -1664,15 +1666,15 @@ void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 	cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")...";
 #endif
 	if (fChargeSwitch){   fHSSyields[chan][sys]->Fill(cut, EventWeight);  }
-	else {                fHyields[chan][sys]  ->Fill(cut, EventWeight);  
+	else {                fHyields[chan][sys]  ->Fill(cut, EventWeight);
 	}
 
 	/// FOR SYSTEMATIC STUDIES
 	int njets  = 0; njets  = getNJets();
 	int nbtags = 0; nbtags = getNBTags();
 
-	if (fChargeSwitch) { 
-		//cout << "!!!!!!!"<< endl; 
+	if (fChargeSwitch) {
+		//cout << "!!!!!!!"<< endl;
 		fHSSInvMass[chan][cut][sys]->Fill((fHypLepton1.p+fHypLepton2.p).M(), EventWeight);
 		if (njets == 0) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags,        EventWeight);
 		if (njets == 1) fHSSNBtagsNJets[chan][cut][sys]->Fill(nbtags+1,      EventWeight);
@@ -1682,13 +1684,13 @@ void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 		fHSSAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
 		if(njets >= 2) fHSSdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
 		if (njets > 1) {
-			double deltaR_temp1 = 999., deltaR_temp2 = 999.;       
+			double deltaR_temp1 = 999., deltaR_temp2 = 999.;
 			if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
 				deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);  
+				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
 			}else{
 				deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);  
+				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
 			}
 			fHSSminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
 		}
@@ -1712,13 +1714,13 @@ void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 		fHAbsDelPhiLeps[chan][cut][sys]->Fill( TMath::Abs(fHypLepton1.p.DeltaPhi(fHypLepton2.p))/TMath::Pi(), EventWeight);
 		if( njets >= 2) fHdelPhi2LeadJets[chan][cut][sys]->Fill( TMath::Abs(Jet[0].p.DeltaPhi(Jet[1].p))/TMath::Pi(), EventWeight);
 		if (njets > 1) {
-			double deltaR_temp1 = 999., deltaR_temp2 = 999.;       
+			double deltaR_temp1 = 999., deltaR_temp2 = 999.;
 			if( fHypLepton1.p.DeltaR(Jet[0].p) < fHypLepton2.p.DeltaR(Jet[0].p) ) {
 				deltaR_temp1 = fHypLepton1.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);  
+				deltaR_temp2 = fHypLepton2.p.DeltaR(Jet[1].p);
 			}else{
 				deltaR_temp1 = fHypLepton2.p.DeltaR(Jet[0].p);
-				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);  
+				deltaR_temp2 = fHypLepton1.p.DeltaR(Jet[1].p);
 			}
 			fHminDelRJetsLeps[chan][cut][sys]->Fill(TMath::Min(deltaR_temp1, deltaR_temp2), EventWeight);
 
@@ -1775,13 +1777,13 @@ void TTHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 	return;
 }
 void TTHAnalyzer::FillYields(gSystFlag sys){
-	ResetHypLeptons();  
+	ResetHypLeptons();
 
 #ifdef DEBUG
 	cout << "PassTriggerEMu= " << PassTriggerEMu() << endl;
-	cout << "Is ElMu/ElEl/MuMu Event= " 
-		<< IsElMuEvent() << "/" 
-		<< IsElElEvent() << "/" 
+	cout << "Is ElMu/ElEl/MuMu Event= "
+		<< IsElMuEvent() << "/"
+		<< IsElElEvent() << "/"
 		<< IsMuMuEvent() << endl;
 #endif
 
@@ -1794,7 +1796,7 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		cout << " pass trigger + emu, ";
 #endif
 		// 0.115 = Fraction events with negative weight
-		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115)); 
+		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
 		if(
 				(gCreateTree) && (sys==Norm)        && !(fChargeSwitch) &&
@@ -1813,18 +1815,18 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 			FillYieldsHistograms(ElMu, iDilepton, sys);
 			if(sys==Norm) FillKinematicHistos(ElMu,iDilepton);
 
-			FillYieldsHistograms(ElMu, iZVeto, sys);      
+			FillYieldsHistograms(ElMu, iZVeto, sys);
 			if(sys==Norm) FillKinematicHistos(ElMu, iZVeto);
 
 			if(PassesMETCut()){
-				FillYieldsHistograms(ElMu, iMET, sys);      
+				FillYieldsHistograms(ElMu, iMET, sys);
 				if(sys==Norm) FillKinematicHistos(ElMu,iMET);
 
 				if (PassesNJetsCut()) {
 #ifdef DEBUG
 					cout << " pass njets with njets = "<<getNJets()<<", ";
 #endif
-					FillYieldsHistograms(ElMu, i2jets, sys);      
+					FillYieldsHistograms(ElMu, i2jets, sys);
 					if(sys==Norm) FillKinematicHistos(ElMu,i2jets);
 					if (PassesNBtagCut()) {
 #ifdef DEBUG
@@ -1844,20 +1846,20 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 #ifdef DEBUG
 				cout << " pass nbjets=1";
 #endif
-				FillYieldsHistograms(ElMu, iExact1btag, sys);      
+				FillYieldsHistograms(ElMu, iExact1btag, sys);
 				if(sys==Norm) FillKinematicHistos(ElMu,iExact1btag);
 			}
 			if (getNBTags() == 2){
 #ifdef DEBUG
 				cout << " pass nbjets=2";
 #endif
-				FillYieldsHistograms(ElMu, iExact2btag, sys);      
+				FillYieldsHistograms(ElMu, iExact2btag, sys);
 				if(sys==Norm) FillKinematicHistos(ElMu,iExact2btag);
 			}
 		}
 	}
 
-	ResetHypLeptons(); 
+	ResetHypLeptons();
 	if (PassTriggerMuMu() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon); //  * getTopPtSF();
 		//EventWeight = 1.;
@@ -1865,7 +1867,7 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		cout << " pass trigger + mumu, ";
 #endif
 		// 0.115 = Fraction events with negative weight
-		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115)); 
+		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
 		if(
 			(gCreateTree) &&	(sys==Norm) && !(fChargeSwitch) &&
@@ -1883,25 +1885,25 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 			FillYieldsHistograms(Muon,iDilepton, sys);
 			if(sys==Norm) FillKinematicHistos(Muon,iDilepton);
 			if (PassesZVeto())    {
-				FillYieldsHistograms(Muon,iZVeto, sys);      
+				FillYieldsHistograms(Muon,iZVeto, sys);
 				if(sys==Norm) FillKinematicHistos(Muon,iZVeto);
 				if (PassesMETCut())   {
-					FillYieldsHistograms(Muon,iMET, sys);      
+					FillYieldsHistograms(Muon,iMET, sys);
 					if(sys==Norm) FillKinematicHistos(Muon,iMET);
 
 					if (getNBTags() == 1){
-						FillYieldsHistograms(Muon, iExact1btag, sys);      
+						FillYieldsHistograms(Muon, iExact1btag, sys);
 						if(sys==Norm) FillKinematicHistos(Muon,iExact1btag);
 					}
 					if (getNBTags() == 2){
-						FillYieldsHistograms(Muon, iExact2btag, sys);      
+						FillYieldsHistograms(Muon, iExact2btag, sys);
 						if(sys==Norm) FillKinematicHistos(Muon,iExact2btag);
 					}
 					if (PassesNJetsCut()) {
-						FillYieldsHistograms(Muon,i2jets, sys);      
+						FillYieldsHistograms(Muon,i2jets, sys);
 						if(sys==Norm) FillKinematicHistos(Muon,i2jets);
 						if (PassesNBtagCut()) {
-							FillYieldsHistograms(Muon,i1btag, sys);      
+							FillYieldsHistograms(Muon,i1btag, sys);
 							if(sys==Norm) FillKinematicHistos(Muon,i1btag);
               if(PassesDYVetoCut()){
                 FillYieldsHistograms(Muon,iDYVeto, sys);
@@ -1910,19 +1912,19 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 						}
 					}
 				}
-      }
+            }
+        }
     }
-  }
 
-  ResetHypLeptons(); 
+  ResetHypLeptons();
   if (PassTriggerEE() && IsElElEvent()){
-		EventWeight = gWeight * getSF(Elec);// * getTopPtSF();     
-		//EventWeight = 1.;     
+		EventWeight = gWeight * getSF(Elec);// * getTopPtSF();
+		//EventWeight = 1.;
 #ifdef DEBUG
 		cout << " pass trigger + ee, ";
 #endif
 		// 0.115 = Fraction events with negative weight
-		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115)); 
+		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
 		if(
 			(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
@@ -1937,25 +1939,25 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 			FillYieldsHistograms(Elec,iDilepton, sys);
 			if(sys==Norm) FillKinematicHistos(Elec,iDilepton);
 			if (PassesZVeto())    {
-				FillYieldsHistograms(Elec,iZVeto, sys);      
+				FillYieldsHistograms(Elec,iZVeto, sys);
 				if(sys==Norm) FillKinematicHistos(Elec,iZVeto);
 				if (PassesMETCut())   {
-					FillYieldsHistograms(Elec,iMET, sys);      
+					FillYieldsHistograms(Elec,iMET, sys);
 					if(sys==Norm) FillKinematicHistos(Elec,iMET);
 
 					if (getNBTags() == 1){
-						FillYieldsHistograms(Elec, iExact1btag, sys);      
+						FillYieldsHistograms(Elec, iExact1btag, sys);
 						if(sys==Norm) FillKinematicHistos(Elec,iExact1btag);
 					}
 					if (getNBTags() == 2){
-						FillYieldsHistograms(Elec, iExact2btag, sys);      
+						FillYieldsHistograms(Elec, iExact2btag, sys);
 						if(sys==Norm) FillKinematicHistos(Elec,iExact2btag);
 					}
 					if (PassesNJetsCut()) {
-						FillYieldsHistograms(Elec,i2jets, sys);      
+						FillYieldsHistograms(Elec,i2jets, sys);
 						if(sys==Norm) FillKinematicHistos(Elec,i2jets);
 						if (PassesNBtagCut()) {
-							FillYieldsHistograms(Elec,i1btag, sys);      
+							FillYieldsHistograms(Elec,i1btag, sys);
 							if(sys==Norm) FillKinematicHistos(Elec,i1btag);
 							if(PassesDYVetoCut()){
 								FillYieldsHistograms(Elec,iDYVeto, sys);
@@ -1963,10 +1965,10 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
               }
 						}
 					}
-				}	  
+				}
 			}
     }
-  }
+}
   ResetHypLeptons();
 #ifdef DEBUG
   cout << " DONE!"<<endl;
@@ -1980,15 +1982,15 @@ bool TTHAnalyzer::PassesMuonEta2p1(gChannel chan){
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
 
-	if (chan == Muon){  
-		if (TMath::Abs(fHypLepton1.p.Eta()) < 2.1) return true; 
+	if (chan == Muon){
+		if (TMath::Abs(fHypLepton1.p.Eta()) < 2.1) return true;
 		if (TMath::Abs(fHypLepton2.p.Eta()) < 2.1) return true;
 	}
 	else if (chan == ElMu){
 		if (TMath::Abs(fHypLepton1.p.Eta()) < 2.1) return true;
 	}
-	else if (chan == Elec){    
-		return true;  
+	else if (chan == Elec){
+		return true;
 	}
 	return false;
 }
@@ -1997,7 +1999,7 @@ bool TTHAnalyzer::Passes3rdLeptonVeto(){
 	return true; // don't apply third lepton veto...
 	// Return false if there are not 2 signal leptons
 	if (fHypLepton1.index == -1) return false;
-	if (fHypLepton2.index == -1) return false;  
+	if (fHypLepton2.index == -1) return false;
 
 	//  Int_t nvetoleptons = 0;
 	for(Int_t i = 0; i < nLepGood; ++i){ //elec
@@ -2022,7 +2024,7 @@ bool TTHAnalyzer::PassesMllVeto(){
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
 	float InvMass = (fHypLepton1.p+fHypLepton2.p).M();
-	if (InvMass < 20.)            return false; 
+	if (InvMass < 20.)            return false;
 	return true;
 }
 
@@ -2135,8 +2137,8 @@ int TTHAnalyzer::getSelectedLeptons(){
 		CoutEvent(evt, Form("     dxy = %f ", LepGood_dxy[i]));
 		CoutEvent(evt, Form("      dz = %f ", LepGood_dz[i]));
 		CoutEvent(evt, Form("   LHits = %i ", Get<Int_t>("LepGood_lostHits", i)));
-		CoutEvent(evt, Form("   mediumMuonId ---> %i", Get<Int_t>("LepGood_mediumMuonId",i))); 
-		CoutEvent(evt, Form("   tightElecId  ---> %i", Get<Int_t>("LepGood_tightId", i))); 
+		CoutEvent(evt, Form("   mediumMuonId ---> %i", Get<Int_t>("LepGood_mediumMuonId",i)));
+		CoutEvent(evt, Form("   tightElecId  ---> %i", Get<Int_t>("LepGood_tightId", i)));
 		CoutEvent(evt, Form("   MULTIISO VT"));
 		CoutEvent(evt, Form("   miniRelIso (<0.09) : %f", Get<Float_t>("LepGood_miniRelIso", i)));
 		CoutEvent(evt, Form("      ptRatio (>0.84) : %f", Get<Float_t>("LepGood_jetPtRatiov2", i)));
@@ -2154,7 +2156,7 @@ int TTHAnalyzer::getSelectedLeptons(){
 		if(IsTightMuon(i)){
 			CoutEvent(evt, "   Is Muon!!");
 			thetype = 0;
-			nMuon ++; 
+			nMuon ++;
     }
     else if(IsTightElectron(i)){
 			CoutEvent(evt, "   Is Electron!!");
@@ -2163,9 +2165,9 @@ int TTHAnalyzer::getSelectedLeptons(){
     }
     else  continue;
 
- 
-    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]); 
-    lepton tmpLepton(lep, LepGood_charge[i], thetype, i); 
+
+    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
+    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
     tmp_lepton.push_back(tmpLepton);
   }
   Lepton = SortLeptonsByPt(tmp_lepton);
@@ -2176,14 +2178,14 @@ int TTHAnalyzer::getSelectedLeptons(){
 
 bool TTHAnalyzer::METFilter(){
   if(gSampleName.BeginsWith("T2tt")) return true;
-  if (Get<Int_t>("Flag_HBHENoiseFilter") && 
-      Get<Int_t>("Flag_HBHENoiseIsoFilter") && 
-      Get<Int_t>("Flag_EcalDeadCellTriggerPrimitiveFilter") && 
-      Get<Int_t>("Flag_goodVertices") && 
-      Get<Int_t>("Flag_eeBadScFilter")){ 
-      //Get<Int_t>("Flag_BadMuon")) 
-      //Get<Int_t>("Flag_badChargedHadron")) 
-      //Get<Int_t>("Flag_globalTightHalo2016Filter")) 
+  if (Get<Int_t>("Flag_HBHENoiseFilter") &&
+      Get<Int_t>("Flag_HBHENoiseIsoFilter") &&
+      Get<Int_t>("Flag_EcalDeadCellTriggerPrimitiveFilter") &&
+      Get<Int_t>("Flag_goodVertices") &&
+      Get<Int_t>("Flag_eeBadScFilter")){
+      //Get<Int_t>("Flag_BadMuon"))
+      //Get<Int_t>("Flag_badChargedHadron"))
+      //Get<Int_t>("Flag_globalTightHalo2016Filter"))
     CoutEvent(evt, "   Passes MET filters!!");
     return true;
   }
@@ -2194,7 +2196,7 @@ bool TTHAnalyzer::METFilter(){
 }
 
 //------------------------------------------------------------------------------
-// Muon Selectors  
+// Muon Selectors
 //------------------------------------------------------------------------------
 // https://twiki.cern.ch/twiki/bin/view/CMS/TopMUO
 // https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideMuonIdRun2#Tight_Muon
@@ -2202,11 +2204,11 @@ bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
    if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
    if (LepGood_pt[iMuon]              < ptcut) return false;
    if (TMath::Abs(LepGood_eta[iMuon]) > 2.4)   return false;
-   //if (LepGood_relIso04[iMuon]        > 0.15)  return false; 
+   //if (LepGood_relIso04[iMuon]        > 0.15)  return false;
 	 if (!getMultiIso(iMuon)) return false;
-   if (TMath::Abs(LepGood_dxy[iMuon]) >= 0.05)  return false; 
+   if (TMath::Abs(LepGood_dxy[iMuon]) >= 0.05)  return false;
    if (TMath::Abs(LepGood_dz[iMuon])  >= 0.1)  return false;
-   if (Get<Float_t>("LepGood_sip3d", iMuon) > 4.0) return false; 
+   if (Get<Float_t>("LepGood_sip3d", iMuon) > 4.0) return false;
    //if (Get<Int_t>("LepGood_tightId",iMuon)           < 1   )  return false;
    if (Get<Int_t>("LepGood_mediumMuonId",iMuon)    < 1   )  return false; // medium ID?
    return true;
@@ -2223,17 +2225,17 @@ float TTHAnalyzer::getMuonIso(int iMuon){
 //------------------------------------------------------------------------------
 // https://twiki.cern.ch/twiki/bin/view/CMS/TopEGM#Spring15_selection_25ns
 bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut){
-	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false; 
+	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
 	if (LepGood_pt[iElec] < ptcut) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
   if (!getMultiIso(iElec)) return false;
   //if (getElecIso(iElec) > 0.0766) return false;
-	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false; 
+	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false;
 	if (TMath::Abs(LepGood_dz[ iElec]) >= 0.1 ) return false;
-	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false; 
-	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 && 
+	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false;
+	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 &&
 			TMath::Abs(LepGood_etaSc[iElec]) < 1.566) return false;
-	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false; 
+	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false;
 	//if(TMath::Abs(Get<Int_t>("LepGood_tightId", iElec)) != 3) return false; // bin 3: tight ID electrons
   //'POG_SPRING15_25ns_v1_Tight' : [('dEtaIn', [0.00926, 0.00724]), ('dPhiIn', [0.0336, 0.0918]), ('sigmaIEtaIEta', [0.0101, 0.0279]), ('H/E', [0.0597, 0.0615]), ('1/E-1/p', [0.0120, 0.00999])],
   // Tight Electron Id:
@@ -2263,7 +2265,7 @@ float TTHAnalyzer::getElecIso(int iElec){
 
 bool TTHAnalyzer::getMultiIso(unsigned int index){
   //https://www.dropbox.com/s/fsfw0gummwsc61v/lepawareJECv2_bkg_wp_300915.pdf?dl=0
-  float max_mRelIso = 0.09;  
+  float max_mRelIso = 0.09;
   float min_ptRatio = 0.84; // Very tight
   float min_ptRel   = 7.2 ; // Tight
 	//if      ((TMath::Abs(LepGood_pdgId[index])) == 11) max_mRelIso = 0.13;  // Tight for electrons
@@ -2278,12 +2280,12 @@ bool TTHAnalyzer::getMultiIso(unsigned int index){
 float TTHAnalyzer::getEACorrection(float eta){  // for a 0.3 CONE
 	float abseta = TMath::Abs(eta);
 	// numbers from https://indico.cern.ch/event/370494/contribution/2/material/slides/0.pdf
-	if      (abseta < 0.8)                  return 0.1013; 
-	else if (abseta >= 0.8 && abseta < 1.3) return 0.0988; 
-	else if (abseta >= 1.3 && abseta < 2.0) return 0.0572; 
-	else if (abseta >= 2.0 && abseta < 2.2) return 0.0842; 
-	else if (abseta >= 2.2 && abseta < 5.0) return 0.1530; 
-	else                                    return 0.1530; 
+	if      (abseta < 0.8)                  return 0.1013;
+	else if (abseta >= 0.8 && abseta < 1.3) return 0.0988;
+	else if (abseta >= 1.3 && abseta < 2.0) return 0.0572;
+	else if (abseta >= 2.0 && abseta < 2.2) return 0.0842;
+	else if (abseta >= 2.2 && abseta < 5.0) return 0.1530;
+	else                                    return 0.1530;
 
 	cout << "[ERROR] getEACorrection(): No correction factor found!!" << endl;
 	return -999999.;
@@ -2332,9 +2334,9 @@ float TTHAnalyzer::getDeltaPhillJet(){
 	if (fHypLepton1.index == -1) return -999.;
 	if (fHypLepton2.index == -1) return -999.;
 	Int_t ij = getLeadingJetbTag();
-	if (ij < 0) return -999.; 
+	if (ij < 0) return -999.;
 	TLorentzVector dilep = fHypLepton1.p+fHypLepton2.p;
-	TLorentzVector jet = Jet[ij].p; 
+	TLorentzVector jet = Jet[ij].p;
 	return TMath::Abs(dilep.DeltaPhi(jet));
 }
 
@@ -2368,7 +2370,7 @@ int TTHAnalyzer::getSelectedJets(){
     Float_t jetbtagi      = Jet_btagCSV[i];
     Float_t jetetai       = Jet_eta[i];
     Float_t jetenergyi    = Jet_energy[i];
-    
+
     jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
     bool isbtag = false;
     if (gIsData) {
@@ -2378,7 +2380,7 @@ int TTHAnalyzer::getSelectedJets(){
 			Int_t   jetmcflavouri = Get<Int_t>  ("Jet_mcFlavour", i);
 			// official b-tag recommendation: use JetHadronFlavour instead of JetPartonFlavor
 			/*
-				 if(TMath::Abs(Jet_mcFlavour[i]) == 5 || TMath::Abs(Jet_mcFlavour[i]) == 4){ 
+				 if(TMath::Abs(Jet_mcFlavour[i]) == 5 || TMath::Abs(Jet_mcFlavour[i]) == 4){
 				 if (gSysSource == BtagUp)     btagSys =  1;
 				 if (gSysSource == BtagDown)   btagSys = -1;
 				 if (gSysSource == MisTagUp)   btagSys =  0;
@@ -2390,7 +2392,7 @@ int TTHAnalyzer::getSelectedJets(){
 				 if (gSysSource == MisTagUp)   btagSys =  1;
 				 if (gSysSource == MisTagDown) btagSys = -1;
 				 }*/
-      if      (gSysSource == BtagUp)      isbtag = fBTagSFbUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai); 
+      if      (gSysSource == BtagUp)      isbtag = fBTagSFbUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
       else if (gSysSource == BtagDown)    isbtag = fBTagSFbDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
       else if (gSysSource == MisTagUp)    isbtag = fBTagSFlUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
       else if (gSysSource == MisTagDown)  isbtag = fBTagSFlDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
@@ -2415,7 +2417,7 @@ bool TTHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
   if (Get<Int_t>("Jet_id",ijet) <= 0)    return false;
   //if (Jet_id[ijet] > 0) return true;
   // https://github.com/CERN-PH-CMG/cmg-cmssw/blob/CMGTools-from-CMSSW_7_4_12/PhysicsTools/Heppy/python/physicsobjects/Jet.py#L66
-  // Remove jets close to all selected leptons... 
+  // Remove jets close to all selected leptons...
   for(unsigned int i = 0; i < Lepton.size(); i++){
     if(jet.DeltaR(Lepton[i].p) < minDR) return false;
   }
@@ -2443,14 +2445,14 @@ void TTHAnalyzer::SelectedGenLepton() {
 		fHnGenMuo->Fill(nGenMuon);
 		//nGenTau  = ngenTau;
 		nGenLepton = nGenElec + nGenMuon + nGenTau;
-		for (Int_t i=0; i<ngenLep; i++) { 
+		for (Int_t i=0; i<ngenLep; i++) {
 			if (TMath::Abs(genLep_pdgId[i]) == 11){
-				fHGenElePt->Fill(genLep_pt[i]); 
+				fHGenElePt->Fill(genLep_pt[i]);
 			}
 		}
-		for (Int_t i=0; i<ngenLep; i++) { 
+		for (Int_t i=0; i<ngenLep; i++) {
 			if (TMath::Abs(genLep_pdgId[i]) == 13){
-				fHGenMuoPt->Fill(genLep_pt[i]); 
+				fHGenMuoPt->Fill(genLep_pt[i]);
 			}
 		}
 	}
@@ -2459,7 +2461,7 @@ void TTHAnalyzer::SelectedGenLepton() {
 void TTHAnalyzer::propagateMET(TLorentzVector nVec, TLorentzVector oVec){
 	TLorentzVector met;
 	met.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.);
-	// set the pfMET to the old MET minus original vector plus new vector 
+	// set the pfMET to the old MET minus original vector plus new vector
 	setMET( (met+oVec-nVec).Pt() );
 }
 
@@ -2475,7 +2477,7 @@ void TTHAnalyzer::SmearJetPts(int flag){
 	// Modify the jet pt for systematics studies. Either shifted or smeared propagate to the MET!!
 	if(gIsData)   return; // don't smear data
 	if(flag == 0) return; // 0 makes no sense
-	// select the jets you want to have... 
+	// select the jets you want to have...
 	if (!gIsData) {
 		std::vector<int> cleanJets = CleanedJetIndices(15.);
 		TLorentzVector ojets, jets, tmp, genJet;                            // 4-vec of old jets, newjets and a tmp-vector
@@ -2484,17 +2486,17 @@ void TTHAnalyzer::SmearJetPts(int flag){
 
 		for( it = cleanJets.begin(); it != cleanJets.end(); ++it) {
 			tmp.SetPtEtaPhiE(JetPt.at(*it), Jet_eta[*it], JetPhi.at(*it), Jet_energy[*it]);         // set temp to the jet
-			// Gen info for jets... 
-			genJet.SetPxPyPzE(Get<Float_t>("Jet_mcPx",*it), 
-					Get<Float_t>("Jet_mcPy",*it), 
-					Get<Float_t>("Jet_mcPz",*it),  
-					Get<Float_t>("Jet_mcEnergy",*it));        
-			ojets += tmp; 
-			if(flag == 1) JetPt.at(*it) *= Get<Float_t>("Jet_corr_JECUp",*it);   // vary up   for flag 1 
+			// Gen info for jets...
+			genJet.SetPxPyPzE(Get<Float_t>("Jet_mcPx",*it),
+					Get<Float_t>("Jet_mcPy",*it),
+					Get<Float_t>("Jet_mcPz",*it),
+					Get<Float_t>("Jet_mcEnergy",*it));
+			ojets += tmp;
+			if(flag == 1) JetPt.at(*it) *= Get<Float_t>("Jet_corr_JECUp",*it);   // vary up   for flag 1
 			if(flag == 2) JetPt.at(*it) *= Get<Float_t>("Jet_corr_JECDown",*it); // vary down for flag 2;
 			if(flag == 3){
-				float jerScaleUp   = getJERScaleUp(*it);	  
-				float jerScale     = getJERScale(*it);	  
+				float jerScaleUp   = getJERScaleUp(*it);
+				float jerScale     = getJERScale(*it);
 				float factor1 = 0.;
 				if (genJet.DeltaR(tmp) < 0.5) factor1 = max(0.0, genJet.Pt() + jerScale*(tmp.Pt() - genJet.Pt()) );
 				else                          factor1 = tmp.Pt();
@@ -2515,26 +2517,26 @@ void TTHAnalyzer::ScaleLeptons(int flag){
 	if(gIsData) return; // don't smear data
 	if(flag == 0) return;
 	//float scale = 0.003; // 0.3% for muons
-	float scale = 0.005; 
+	float scale = 0.005;
 	TLorentzVector oleps, leps, tmp;
 	for(Int_t k = 0; k < nMuon; ++k){ //xxx Muon
-		if(TMath::Abs(LepGood_pdgId[k]) != 13) continue; 
-		tmp.SetPxPyPzE(MuPx.at(k), MuPy.at(k), MuPz.at(k), MuEnergy.at(k)); 
+		if(TMath::Abs(LepGood_pdgId[k]) != 13) continue;
+		tmp.SetPxPyPzE(MuPx.at(k), MuPy.at(k), MuPz.at(k), MuEnergy.at(k));
 		oleps += tmp;
 		if(flag == 1) { MuPx.at(k) += scale*MuPx.at(k); MuPy.at(k) += scale*MuPy.at(k); }
 		if(flag == 2) { MuPx.at(k) -= scale*MuPx.at(k); MuPy.at(k) -= scale*MuPy.at(k); }
-		tmp.SetPxPyPzE(MuPx.at(k), MuPy.at(k), MuPz.at(k), MuEnergy.at(k)); 
+		tmp.SetPxPyPzE(MuPx.at(k), MuPy.at(k), MuPz.at(k), MuEnergy.at(k));
 		leps += tmp;
 	}
 	//scale = 0.0015; // 0.15% for electrons
-	scale = 0.01; 
+	scale = 0.01;
 	for(Int_t i = 0; i < nElec; ++i){ //xxx Elec
-		if(TMath::Abs(LepGood_pdgId[i]) != 11) continue; 
-		tmp.SetPxPyPzE(ElPx.at(i), ElPy.at(i), ElPz.at(i), ElEnergy.at(i)); 
+		if(TMath::Abs(LepGood_pdgId[i]) != 11) continue;
+		tmp.SetPxPyPzE(ElPx.at(i), ElPy.at(i), ElPz.at(i), ElEnergy.at(i));
 		oleps += tmp;
 		if(flag == 1) { ElPx.at(i) += scale*ElPx.at(i); ElPy.at(i) += scale*ElPy.at(i); }
 		if(flag == 2) { ElPx.at(i) -= scale*ElPx.at(i); ElPy.at(i) -= scale*ElPy.at(i); }
-		tmp.SetPxPyPzE(ElPx.at(i), ElPy.at(i), ElPz.at(i), ElEnergy.at(i)); 
+		tmp.SetPxPyPzE(ElPx.at(i), ElPy.at(i), ElPz.at(i), ElEnergy.at(i));
 		leps += tmp;
 	}
 	propagateMET(leps, oleps);
@@ -2607,17 +2609,17 @@ void TTHAnalyzer::ScaleMET(int flag){
 		tmp.SetPtEtaPhiE(0., 0., 0., 0.);
 	}
 	// subtract muons
-	for (Int_t i=0; i<nLepGood; i++) { 
+	for (Int_t i=0; i<nLepGood; i++) {
 		if (!IsTightMuon(i)) continue;
-		tmp.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]); 
+		tmp.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		umet += tmp;
 		leps += tmp;
 		tmp.SetPtEtaPhiM(0., 0., 0., 0.);
 	}
 	// subtract electrons
-	for (Int_t i=0; i<nLepGood; i++) { 
+	for (Int_t i=0; i<nLepGood; i++) {
 		if (!IsTightElectron(i)) continue;
-		tmp.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]); 
+		tmp.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		umet += tmp;
 		leps += tmp;
 		tmp.SetPtEtaPhiM(0., 0., 0., 0.);
@@ -2631,4 +2633,3 @@ void TTHAnalyzer::ScaleMET(int flag){
 	setMET(tmp.Pt());
 	return;
 }
-
