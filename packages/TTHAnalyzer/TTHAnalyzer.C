@@ -145,122 +145,122 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
 		for (unsigned int iweight = 0; iweight < gNWEIGHT; iweight++) {
 			fHWeightyield[ichan][iweight] = 0;
 		}
-		for (unsigned int icut = 0; icut < iNCUTS; icut++) {
-			fHLepSys[ichan][icut] = 0;
-			fHTrigSys[ichan][icut] = 0;
-
-			fHDY_InvMassVsNPV   [ichan][icut] = 0;
-			fHDY_InvMassVsMET   [ichan][icut] = 0;
-			fHDY_InvMassVsNjets [ichan][icut] = 0;
-			fHDY_InvMassVsNbtags[ichan][icut] = 0;
-			fHDY_InvMass        [ichan][icut] = 0;
-
-			//++ Origin Histos
-			//  fHSSOrigins[ichan][icut] = 0;
-			//  fHOrigins[ichan][icut] = 0;
-
-/*
-			for(int g = 0; g < 3;  g++)  fMETSR[ichan][icut][g] = 0; //0,1,2
-      for(int g = 0; g < 6;  g++)  fMT2SR[ichan][icut][g] = 0;
-      for(int g = 0; g < 12; g++)  fDPhiSR[ichan][icut][g] = 0;
-                                   fSRs[ichan][icut] = 0;
-*/
-
-			//++ Kinematic
-			fHLHEweights[ichan][icut] = 0;
-			fHLep0Eta[ichan][icut] = 0;
-			fHLep1Eta[ichan][icut] = 0;
-			fHHT2[ichan][icut] = 0;
-			fHHT3[ichan][icut] = 0;
-			fHHT4[ichan][icut] = 0;
-			fHHT5[ichan][icut] = 0;
-			fHJet0Eta[ichan][icut] = 0;
-			fHJet1Eta[ichan][icut] = 0;
-			fHBtagJet0Pt[ichan][icut] = 0;
-
-			fHMT2b[ichan][icut][0]  = 0;
-			fHMT2lb[ichan][icut][0] = 0;
-			fHMET[ichan][icut][0] = 0;
-			fHDiLepPt[ichan][icut][0] = 0;
-			fHLep0Pt[ichan][icut][0] = 0;
-			fHLep1Pt[ichan][icut][0] = 0;
-			fHJet0Pt[ichan][icut][0] = 0;
-			fHJet1Pt[ichan][icut][0] = 0;
-			fHDelLepPhi[ichan][icut][0] = 0;
-			fHCosDelLepPhi[ichan][icut][0] = 0;
-			fHNJets[ichan][icut][0] = 0;
-			fHHT[ichan][icut][0] = 0;
-			fHMETHT[ichan][icut][0] = 0;
-			fHMT2[ichan][icut][0] = 0;
-			fHPtllb[ichan][icut][0] = 0;
-			fHMeff[ichan][icut][0] = 0;
-			fHDelPhiLepMet[ichan][icut][0] = 0;
-			fHDelPhiJetMet[ichan][icut][0] = 0;
-			fHDelPhiPllbMet[ichan][icut][0] = 0;
-			fHDelPhiLepJet[ichan][icut][0] = 0;
-      fHMinDelPhiMetJets[ichan][icut][0] = 0;
-
-			fHCSVTag[ichan][icut] = 0;
-			fHTopD[ichan][icut] = 0;
-			fHDelPhillJet[ichan][icut] = 0;
-
-			fHDRLep[ichan][icut] = 0;
-			fHDRLep0Jet[ichan][icut] = 0;
-			fHDPhiLep0Jet[ichan][icut] = 0;
-			fHLep0Iso[ichan][icut] = 0;
-			fHDRLep1Jet[ichan][icut] = 0;
-			fHDPhiLep1Jet[ichan][icut] = 0;
-			fHLep1Iso[ichan][icut] = 0;
-
-			fHStopMass[ichan][icut] = 0;
-			fHChi0Mass[ichan][icut] = 0;
-			fHChi0StopMass[ichan][icut] = 0;
-			fHvertices[ichan][icut] = 0;
-			fHgoodvertices[ichan][icut] = 0;
-      for(unsigned int iSR = 0; iSR < nSR; iSR++){
-           fMT2SR[ichan][icut][iSR] = 0;
-      }
-
-			for (unsigned int isyst = 1; isyst < gNSYST; isyst++) {
-				fHInvMass[ichan][icut][isyst] = 0;
-				fHInvMass2[ichan][icut][isyst] = 0;
-				fHSSInvMass[ichan][icut][isyst] = 0;
-				fHNBtagsNJets[ichan][icut][isyst] = 0;
-				fHSSNBtagsNJets[ichan][icut][isyst] = 0;
-			  fHNBtagJets[ichan][icut][isyst] = 0;
-
-				/// STOP
-				//fHAbsDelPhiLep[ichan][icut] = 0;
-				fHminDelRJetsLeps[ichan][icut][isyst] = 0;
-				fHSSminDelRJetsLeps[ichan][icut][isyst] = 0;
-				fHdelPhi2LeadJets[ichan][icut][isyst] = 0;
-				fHSSdelPhi2LeadJets[ichan][icut][isyst] = 0;
-				fHAbsDelPhiLeps[ichan][icut][isyst] = 0;
-				fHSSAbsDelPhiLeps[ichan][icut][isyst] = 0;
-
-				fHMT2b[ichan][icut][isyst]  = 0;
-				fHMT2lb[ichan][icut][isyst] = 0;
-				fHMET[ichan][icut][isyst] = 0;
-				fHDiLepPt[ichan][icut][isyst] = 0;
-				fHLep0Pt[ichan][icut][isyst] = 0;
-				fHLep1Pt[ichan][icut][isyst] = 0;
-				fHJet0Pt[ichan][icut][isyst] = 0;
-				fHJet1Pt[ichan][icut][isyst] = 0;
-				fHDelLepPhi[ichan][icut][isyst] = 0;
-				fHCosDelLepPhi[ichan][icut][isyst] = 0;
-				fHNJets[ichan][icut][isyst] = 0;
-				fHHT[ichan][icut][isyst] = 0;
-				fHMETHT[ichan][icut][isyst] = 0;
-				fHMT2[ichan][icut][isyst] = 0;
-				fHPtllb[ichan][icut][isyst] = 0;
-				fHMeff[ichan][icut][isyst] = 0;
-				fHDelPhiLepMet[ichan][icut][isyst] = 0;
-				fHDelPhiJetMet[ichan][icut][isyst] = 0;
-				fHDelPhiPllbMet[ichan][icut][isyst] = 0;
-				fHDelPhiLepJet[ichan][icut][isyst] = 0;
-				fHMinDelPhiMetJets[ichan][icut][isyst] = 0;
-			}
-		}
+// 		for (unsigned int icut = 0; icut < iNCUTS; icut++) {
+// 			fHLepSys[ichan][icut] = 0;
+// 			fHTrigSys[ichan][icut] = 0;
+//
+// 			fHDY_InvMassVsNPV   [ichan][icut] = 0;
+// 			fHDY_InvMassVsMET   [ichan][icut] = 0;
+// 			fHDY_InvMassVsNjets [ichan][icut] = 0;
+// 			fHDY_InvMassVsNbtags[ichan][icut] = 0;
+// 			fHDY_InvMass        [ichan][icut] = 0;
+//
+// 			//++ Origin Histos
+// 			//  fHSSOrigins[ichan][icut] = 0;
+// 			//  fHOrigins[ichan][icut] = 0;
+//
+// /*
+// 			for(int g = 0; g < 3;  g++)  fMETSR[ichan][icut][g] = 0; //0,1,2
+//       for(int g = 0; g < 6;  g++)  fMT2SR[ichan][icut][g] = 0;
+//       for(int g = 0; g < 12; g++)  fDPhiSR[ichan][icut][g] = 0;
+//                                    fSRs[ichan][icut] = 0;
+// */
+//
+// 			//++ Kinematic
+// 			fHLHEweights[ichan][icut] = 0;
+// 			fHLep0Eta[ichan][icut] = 0;
+// 			fHLep1Eta[ichan][icut] = 0;
+// 			fHHT2[ichan][icut] = 0;
+// 			fHHT3[ichan][icut] = 0;
+// 			fHHT4[ichan][icut] = 0;
+// 			fHHT5[ichan][icut] = 0;
+// 			fHJet0Eta[ichan][icut] = 0;
+// 			fHJet1Eta[ichan][icut] = 0;
+// 			fHBtagJet0Pt[ichan][icut] = 0;
+//
+// 			fHMT2b[ichan][icut][0]  = 0;
+// 			fHMT2lb[ichan][icut][0] = 0;
+// 			fHMET[ichan][icut][0] = 0;
+// 			fHDiLepPt[ichan][icut][0] = 0;
+// 			fHLep0Pt[ichan][icut][0] = 0;
+// 			fHLep1Pt[ichan][icut][0] = 0;
+// 			fHJet0Pt[ichan][icut][0] = 0;
+// 			fHJet1Pt[ichan][icut][0] = 0;
+// 			fHDelLepPhi[ichan][icut][0] = 0;
+// 			fHCosDelLepPhi[ichan][icut][0] = 0;
+// 			fHNJets[ichan][icut][0] = 0;
+// 			fHHT[ichan][icut][0] = 0;
+// 			fHMETHT[ichan][icut][0] = 0;
+// 			fHMT2[ichan][icut][0] = 0;
+// 			fHPtllb[ichan][icut][0] = 0;
+// 			fHMeff[ichan][icut][0] = 0;
+// 			fHDelPhiLepMet[ichan][icut][0] = 0;
+// 			fHDelPhiJetMet[ichan][icut][0] = 0;
+// 			fHDelPhiPllbMet[ichan][icut][0] = 0;
+// 			fHDelPhiLepJet[ichan][icut][0] = 0;
+//       fHMinDelPhiMetJets[ichan][icut][0] = 0;
+//
+// 			fHCSVTag[ichan][icut] = 0;
+// 			fHTopD[ichan][icut] = 0;
+// 			fHDelPhillJet[ichan][icut] = 0;
+//
+// 			fHDRLep[ichan][icut] = 0;
+// 			fHDRLep0Jet[ichan][icut] = 0;
+// 			fHDPhiLep0Jet[ichan][icut] = 0;
+// 			fHLep0Iso[ichan][icut] = 0;
+// 			fHDRLep1Jet[ichan][icut] = 0;
+// 			fHDPhiLep1Jet[ichan][icut] = 0;
+// 			fHLep1Iso[ichan][icut] = 0;
+//
+// 			fHStopMass[ichan][icut] = 0;
+// 			fHChi0Mass[ichan][icut] = 0;
+// 			fHChi0StopMass[ichan][icut] = 0;
+// 			fHvertices[ichan][icut] = 0;
+// 			fHgoodvertices[ichan][icut] = 0;
+//       for(unsigned int iSR = 0; iSR < nSR; iSR++){
+//            fMT2SR[ichan][icut][iSR] = 0;
+//       }
+//
+// 			for (unsigned int isyst = 1; isyst < gNSYST; isyst++) {
+// 				fHInvMass[ichan][icut][isyst] = 0;
+// 				fHInvMass2[ichan][icut][isyst] = 0;
+// 				fHSSInvMass[ichan][icut][isyst] = 0;
+// 				fHNBtagsNJets[ichan][icut][isyst] = 0;
+// 				fHSSNBtagsNJets[ichan][icut][isyst] = 0;
+// 			  fHNBtagJets[ichan][icut][isyst] = 0;
+//
+// 				/// STOP
+// 				//fHAbsDelPhiLep[ichan][icut] = 0;
+// 				fHminDelRJetsLeps[ichan][icut][isyst] = 0;
+// 				fHSSminDelRJetsLeps[ichan][icut][isyst] = 0;
+// 				fHdelPhi2LeadJets[ichan][icut][isyst] = 0;
+// 				fHSSdelPhi2LeadJets[ichan][icut][isyst] = 0;
+// 				fHAbsDelPhiLeps[ichan][icut][isyst] = 0;
+// 				fHSSAbsDelPhiLeps[ichan][icut][isyst] = 0;
+//
+// 				fHMT2b[ichan][icut][isyst]  = 0;
+// 				fHMT2lb[ichan][icut][isyst] = 0;
+// 				fHMET[ichan][icut][isyst] = 0;
+// 				fHDiLepPt[ichan][icut][isyst] = 0;
+// 				fHLep0Pt[ichan][icut][isyst] = 0;
+// 				fHLep1Pt[ichan][icut][isyst] = 0;
+// 				fHJet0Pt[ichan][icut][isyst] = 0;
+// 				fHJet1Pt[ichan][icut][isyst] = 0;
+// 				fHDelLepPhi[ichan][icut][isyst] = 0;
+// 				fHCosDelLepPhi[ichan][icut][isyst] = 0;
+// 				fHNJets[ichan][icut][isyst] = 0;
+// 				fHHT[ichan][icut][isyst] = 0;
+// 				fHMETHT[ichan][icut][isyst] = 0;
+// 				fHMT2[ichan][icut][isyst] = 0;
+// 				fHPtllb[ichan][icut][isyst] = 0;
+// 				fHMeff[ichan][icut][isyst] = 0;
+// 				fHDelPhiLepMet[ichan][icut][isyst] = 0;
+// 				fHDelPhiJetMet[ichan][icut][isyst] = 0;
+// 				fHDelPhiPllbMet[ichan][icut][isyst] = 0;
+// 				fHDelPhiLepJet[ichan][icut][isyst] = 0;
+// 				fHMinDelPhiMetJets[ichan][icut][isyst] = 0;
+			// }
+		// }
 	}
 
 	//++ Gen Info
@@ -291,10 +291,10 @@ void TTHAnalyzer::Initialise() {
 	//PAF_INFO("TTHAnalyzer", "+ Initialise other histograms...");
 	fHTopPtWeight  = CreateH1F("H_TopPtWeight" ,"TopPt Weight",100, 0, 2);
 
-	fHnGenEle  = CreateH1F("fHnGenEle" , "nGenPromptElecs"  , 11, -1.5, 9.5);
-	fHnGenMuo  = CreateH1F("fHnGenMuo" , "nGenPromptMuons"  , 11, -1.5, 9.5);
-	fHGenElePt = CreateH1F("fHGenElePt", "GenPromptElecs Pt", 500, 0, 500);
-	fHGenMuoPt = CreateH1F("fHGenMuoPt", "GenPromptMuons Pt", 500, 0, 500);
+	// fHnGenEle  = CreateH1F("fHnGenEle" , "nGenPromptElecs"  , 11, -1.5, 9.5);
+	// fHnGenMuo  = CreateH1F("fHnGenMuo" , "nGenPromptMuons"  , 11, -1.5, 9.5);
+	// fHGenElePt = CreateH1F("fHGenElePt", "GenPromptElecs Pt", 500, 0, 500);
+	// fHGenMuoPt = CreateH1F("fHGenMuoPt", "GenPromptMuons Pt", 500, 0, 500);
 
 	if (gSampleName == "DoubleMuon"      ||
 			gSampleName == "DoubleEG"        ||
