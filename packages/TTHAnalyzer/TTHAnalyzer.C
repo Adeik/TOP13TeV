@@ -264,9 +264,9 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
 	}
 
 	//++ Gen Info
-	for (unsigned int ichan = 0; ichan < gNCHANNELS - 1; ichan++) {
-		fHDeltaRLepJet[ichan] = 0;
-	}
+	// for (unsigned int ichan = 0; ichan < gNCHANNELS - 1; ichan++) {
+	// 	fHDeltaRLepJet[ichan] = 0;
+	// }
 }
 
 //-------------------------------------------------------------------
@@ -451,7 +451,7 @@ void TTHAnalyzer::InitialiseKinematicHistos(){
 	for (size_t ch=0; ch<gNCHANNELS; ch++){
 		for (size_t cut=0; cut<iNCUTS; cut++){
 			//PAF_DEBUG("TTHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
-			fHLHEweights[ch][cut]  = CreateH1F("H_LHEweights"  +gChanLabel[ch]+"_"+sCut[cut],"LHEweights", nWeights, -0.5, nWeights - 0.5);
+			// fHLHEweights[ch][cut]  = CreateH1F("H_LHEweights"  +gChanLabel[ch]+"_"+sCut[cut],"LHEweights", nWeights, -0.5, nWeights - 0.5);
 
 			// fHLep0Eta[ch][cut]     = CreateH1F("H_Lep0Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep0Eta"   , 50  ,0 ,2.5);
 			// fHLep1Eta[ch][cut]     = CreateH1F("H_Lep1Eta_"    +gChanLabel[ch]+"_"+sCut[cut],"Lep1Eta"   , 50  ,0 ,2.5);
@@ -1608,7 +1608,7 @@ void TTHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 	// 	for(int i = 0; i<Get<Int_t>("nLHEweight"); i++){
 	// 		fHLHEweights[chan][cut]->Fill(i, EventWeight*Get<Float_t>("LHEweight_wgt", i));
 	// 	}
-	}
+	// }
 
     // if(chan==2 && cut==iDilepton) cout << evt << endl; //CCC
 
@@ -2429,33 +2429,33 @@ bool TTHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
 // SelectedGenLepton
 //------------------------------------------------------------------------------
 void TTHAnalyzer::SelectedGenLepton() {
-	if (!gIsData) {
-		for(int n = 0; n<ngenLep; n++){
-			Int_t id = TMath::Abs(genLep_pdgId[n]);
-			if (id == 11)  nGenElec++;
-			if (id == 13)  nGenMuon++;
-		}
-		// add generated leptons (e/mu) from decays of taus from W/Z/h decays
-		for(int n = 0; n<Get<Int_t>("ngenLepFromTau"); n++){
-			Int_t id = TMath::Abs(Get<Int_t>("genLepFromTau_pdgId", n));
-			if (id == 11)  nGenElec++;
-			if (id == 13)  nGenMuon++;
-		}
-		fHnGenEle->Fill(nGenElec);
-		fHnGenMuo->Fill(nGenMuon);
-		//nGenTau  = ngenTau;
-		nGenLepton = nGenElec + nGenMuon + nGenTau;
-		for (Int_t i=0; i<ngenLep; i++) {
-			if (TMath::Abs(genLep_pdgId[i]) == 11){
-				fHGenElePt->Fill(genLep_pt[i]);
-			}
-		}
-		for (Int_t i=0; i<ngenLep; i++) {
-			if (TMath::Abs(genLep_pdgId[i]) == 13){
-				fHGenMuoPt->Fill(genLep_pt[i]);
-			}
-		}
-	}
+	// if (!gIsData) {
+	// 	for(int n = 0; n<ngenLep; n++){
+	// 		Int_t id = TMath::Abs(genLep_pdgId[n]);
+	// 		if (id == 11)  nGenElec++;
+	// 		if (id == 13)  nGenMuon++;
+	// 	}
+	// 	// add generated leptons (e/mu) from decays of taus from W/Z/h decays
+	// 	for(int n = 0; n<Get<Int_t>("ngenLepFromTau"); n++){
+	// 		Int_t id = TMath::Abs(Get<Int_t>("genLepFromTau_pdgId", n));
+	// 		if (id == 11)  nGenElec++;
+	// 		if (id == 13)  nGenMuon++;
+	// 	}
+	// 	// fHnGenEle->Fill(nGenElec);
+	// 	// fHnGenMuo->Fill(nGenMuon);
+	// 	//nGenTau  = ngenTau;
+	// 	nGenLepton = nGenElec + nGenMuon + nGenTau;
+	// 	for (Int_t i=0; i<ngenLep; i++) {
+	// 		if (TMath::Abs(genLep_pdgId[i]) == 11){
+	// 			fHGenElePt->Fill(genLep_pt[i]);
+	// 		}
+	// 	}
+	// 	for (Int_t i=0; i<ngenLep; i++) {
+	// 		if (TMath::Abs(genLep_pdgId[i]) == 13){
+	// 			fHGenMuoPt->Fill(genLep_pt[i]);
+	// 		}
+	// 	}
+	// }
 }
 
 void TTHAnalyzer::propagateMET(TLorentzVector nVec, TLorentzVector oVec){
