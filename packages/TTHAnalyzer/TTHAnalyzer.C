@@ -1923,7 +1923,7 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 #ifdef DEBUG
 		cout << " pass trigger + ee, ";
 #endif
-		0.115 = Fraction events with negative weight
+		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
 		if(
