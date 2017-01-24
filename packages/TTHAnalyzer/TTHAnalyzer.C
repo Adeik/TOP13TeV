@@ -132,10 +132,10 @@ TTHAnalyzer::TTHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
 	fHTopPtWeight = 0;
-	fHnGenEle = 0;
-	fHnGenMuo = 0;
-	fHGenElePt = 0;
-	fHGenMuoPt = 0;
+	// fHnGenEle = 0;
+	// fHnGenMuo = 0;
+	// fHGenElePt = 0;
+	// fHGenMuoPt = 0;
 
 	for (unsigned int ichan = 0; ichan < gNCHANNELS; ichan++) {
 		for (unsigned int isyst = 0; isyst < gNSYST; isyst++) {
