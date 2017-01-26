@@ -42,8 +42,7 @@ void TTHPlotter(TString samplename = "ZZ") {
   f->GetObject("fHDummy", h1);
   h1->SetTitle("Wololooooo");
   TCanvas* c = SetCanvas();
-  
-
+  hs->Draw("hist")
 }
 
 TTHPlotter(); // Execution of the function.
