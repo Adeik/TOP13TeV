@@ -32,17 +32,17 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 
-TString codepath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV"
-TString outputpath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV/TTHStuff/plots"
-
 void TTHPlotter(TString samplename = "ZZ") {
-  TFile* f;
-  TFile f = TFile::Open(codepath + "/temp/" + "Tree_" + samplename + ".root");
+  TString codepath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV";
+  TString outputpath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV/TTHStuff/plots";
+  TString filename = "plot_" + samplename + ".pdf";
+  TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + samplename + ".root");
   TH1F* h1;
   f->GetObject("fHDummy", h1);
   h1->SetTitle("Wololooooo");
-  TCanvas* c = SetCanvas();
-  hs->Draw("hist")
+  TCanvas* c = new TCanvas("c","c",800,600)
+  hs->Draw("hist");
+  c->Print()
 }
 
 TTHPlotter(); // Execution of the function.
