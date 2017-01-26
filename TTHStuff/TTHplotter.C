@@ -40,9 +40,9 @@ void TTHPlotter(TString samplename = "ZZ") {
   TH1F* h1;
   f->GetObject("fHDummy", h1);
   h1->SetTitle("Wololooooo");
-  TCanvas* c = new TCanvas("c","c",800,600)
+  TCanvas* c = new TCanvas("c","c",800,600);
   hs->Draw("hist");
-  c->Print()
+  c->Print();
 }
 
 TTHPlotter(); // Execution of the function.
