@@ -41,7 +41,7 @@ void TTHPlotter(TString samplename = "ZZ") {
   f->GetObject("fHDummy", h1);
   h1->SetTitle("Wololooooo");
   TCanvas* c = new TCanvas("c","c",800,600);
-  hs->Draw("hist");
+  h1->>Draw("hist");
   c->Print();
 }
 
