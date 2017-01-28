@@ -666,41 +666,39 @@ void TTHAnalyzer::InsideLoop() {
 void TTHAnalyzer::Summary(){}
 
 //------------------------------------------------------------------------------
-// TRIGGER INFORMATION 
+// TRIGGER INFORMATION
 //------------------------------------------------------------------------------
 /*	The triggers for each region are defined exactly the same as in the CMS Draft Note of
 03-03-2016 ("Search for ttH in multilepton final states at 13 TeV").
 */
 bool TTHAnalyzer::triggermumuSS() {
-   if(!gIsData) return true;
-   //return true;
-   Bool_t pass         = false;
-   if (gIsData){
-      pass = (Get<Int_t>("HLT_"  ) ||
-                      Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") );
-   }else{
-      pass = false;
-   }
-   return pass;
+    if(!gIsData) return true;
+    //return true;
+    Bool_t pass = false;
+    if (gIsData){
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") &&
+                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
+                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
+    }else{
+        pass = false;
+    }
+    return pass;
 }
 
 
 bool TTHAnalyzer::triggereeSS(){
-   if(!gIsData) return true;
-   //return true;
-   Bool_t pass         = false;
-   Bool_t passDoubleEl = false;
-   Bool_t passSingleEl = false;
-   if (gIsData){
-      passDoubleEl = Get<Int_t>("HLT_BIT_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v");
-      if (gSampleName == "SingleElectron") passSingleEl = Get<Int_t>("HLT_BIT_HLT_Ele27_WPTight_Gsf_v");
-      if ( (gSampleName == "DoubleEG"  && passDoubleEl                 ) ||
-           (gSampleName == "SingleElectron" && passSingleEl && !passDoubleEl) )
-         pass = true;
-   }else{
-      pass = false;
-   }
-   return pass;
+    if(!gIsData) return true;
+    //return true;
+    Bool_t pass = false;
+    if (gIsData){
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") &&
+               Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
+               Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
+    }else{
+        pass = false;
+    }
+    return pass;
 }
 
 
