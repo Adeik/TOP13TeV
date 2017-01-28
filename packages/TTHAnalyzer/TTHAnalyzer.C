@@ -703,51 +703,44 @@ bool TTHAnalyzer::triggereeSS(){
 
 
 bool TTHAnalyzer::triggeremuSS(){
-   if(!gIsData) return true;
-   //return true;
-   Bool_t pass         = false;
-   Bool_t passElMu     = false;
-   Bool_t passSingleEl = false;
-   Bool_t passSingleMu = false;
-   if (gIsData){
-      passElMu     = (Get<Int_t>("HLT_BIT_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v") );
-      if (gSampleName == "SingleElectron" || gSampleName == "SingleMuon") passSingleEl =  Get<Int_t>("HLT_BIT_HLT_Ele27_WPTight_Gsf_v");
-      if (gSampleName == "SingleElectron" || gSampleName == "SingleMuon") passSingleMu = (Get<Int_t>("HLT_BIT_HLT_IsoTkMu24_v") ||
-                                                                                   Get<Int_t>("HLT_BIT_HLT_IsoMu24_v") );
-
-      if ( (gSampleName == "MuonEG"         && passElMu                                  ) ||
-           (gSampleName == "SingleMuon"     && passSingleMu && !passElMu                 ) ||
-           (gSampleName == "SingleElectron" && passSingleEl && !passElMu && !passSingleMu) )
-         pass = true;
-   }else{
-      pass = false;
-   }
-   return pass;
+    if(!gIsData) return true;
+    //return true;
+    Bool_t pass = false;
+    if (gIsData){
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") &&
+                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
+                Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
+    }else{
+        pass = false;
+    }
+    return pass;
 }
 
 bool TTHAnalyzer::trigger3l4l(){
-   if(!gIsData) return true;
-   //return true;
-   Bool_t pass         = false;
-   Bool_t passElMu     = false;
-   Bool_t passSingleEl = false;
-   Bool_t passSingleMu = false;
-   if (gIsData){
-      passElMu     = (Get<Int_t>("HLT_BIT_HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v") );
-      if (gSampleName == "SingleElectron" || gSampleName == "SingleMuon") passSingleEl =  Get<Int_t>("HLT_BIT_HLT_Ele27_WPTight_Gsf_v");
-      if (gSampleName == "SingleElectron" || gSampleName == "SingleMuon") passSingleMu = (Get<Int_t>("HLT_BIT_HLT_IsoTkMu24_v") ||
-                                                                                   Get<Int_t>("HLT_BIT_HLT_IsoMu24_v") );
-
-      if ( (gSampleName == "MuonEG"         && passElMu                                  ) ||
-           (gSampleName == "SingleMuon"     && passSingleMu && !passElMu                 ) ||
-           (gSampleName == "SingleElectron" && passSingleEl && !passElMu && !passSingleMu) )
-         pass = true;
-   }else{
-      pass = false;
-   }
-   return pass;
+    if(!gIsData) return true;
+    //return true;
+    Bool_t pass = false;
+    if (gIsData){
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") &&
+                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
+                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v") &&
+                Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") &&
+                Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") &&
+                Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v"));
+    }else{
+        pass = false;
+    }
+    return pass;
 }
 
 
