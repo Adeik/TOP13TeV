@@ -37,142 +37,142 @@ const int nGenb = 0;
 const double pi = 3.1415926535897932384;
 
 enum gChannel{
-  channels_begin,
-  Muon = channels_begin,
-  Elec,
-  ElMu,
-  gNCHANNELS,
+    channels_begin,
+    Muon = channels_begin,
+    Elec,
+    ElMu,
+    gNCHANNELS,
 };
 const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
 enum gFPSwitch{
-  SigSup,
-  ZDecay,
-  Sig
+    SigSup,
+    ZDecay,
+    Sig
 };
 enum iCut{
-  iDilepton,
-  iZVeto,
-  iMET,
-  i2jets,
-  i1btag,
-  iDYVeto,
-  iExact1btag,
-  iExact2btag,
-  iNCUTS
+    iDilepton,
+    iZVeto,
+    iMET,
+    i2jets,
+    i1btag,
+    iDYVeto,
+    iExact1btag,
+    iExact2btag,
+    iNCUTS
 };
 enum SR{
- AA, AB, AC, BA, BB, BC, CA, CB, CC,
- nSR
+    AA, AB, AC, BA, BB, BC, CA, CB, CC,
+    nSR
 };
 const TString SRlabel[nSR] = {
 	"AA", "AB", "AC", "BA", "BB", "BC", "CA", "CB", "CC"
 };
 const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 enum gSystFlag{
-  Norm,
-  BtagUp,
-  BtagDown,
-  MisTagUp,
-  MisTagDown,
-  JESUp,
-  JESDown,
-  JER,
-  LESUp,
-  LESDown,
-  /*  LepUp,
+    Norm,
+    BtagUp,
+    BtagDown,
+    MisTagUp,
+    MisTagDown,
+    JESUp,
+    JESDown,
+    JER,
+    LESUp,
+    LESDown,
+    /*  LepUp,
       LepDown,
       TrigUp,
       TrigDown,
-  */
-  PUUp,
-  PUDown,
-  TopPt,
-  gNSYST
+    */
+    PUUp,
+    PUDown,
+    TopPt,
+    gNSYST
 };
 const TString SystName[gNSYST] = {
-  "Normal",
-  "BtagUp",
-  "BtagDown",
-  "MisTagUp",
-  "MisTagDown",
-  "JESUp",
-  "JESDown",
-  "JER",
-  "LESUp",
-  "LESDown",
-  /*  "LepUp",
-  "LepDown",
-  "TrigUp",
-  "TrigDown",*/
-//  "METUp",
-//  "METDown",
-  "PUUp",
-  "PUDown",
-  "TopPt",
+    "Normal",
+    "BtagUp",
+    "BtagDown",
+    "MisTagUp",
+    "MisTagDown",
+    "JESUp",
+    "JESDown",
+    "JER",
+    "LESUp",
+    "LESDown",
+    /*  "LepUp",
+    "LepDown",
+    "TrigUp",
+    "TrigDown",*/
+    //  "METUp",
+    //  "METDown",
+    "PUUp",
+    "PUDown",
+    "TopPt",
 };
 enum FakeSource{
-  HF_mu,
-  Other_mu,
-  HF_el,
-  Conv_el,
-  Other_el,
-  RightSign,
-  WrongSign,
-  gNFAKESOURCE
+    HF_mu,
+    Other_mu,
+    HF_el,
+    Conv_el,
+    Other_el,
+    RightSign,
+    WrongSign,
+    gNFAKESOURCE
 };
 
 enum gNLOWeight{
-  muR1muF1,
-  muR1muF2,
-  muR1muF05,
-  muR2muF1,
-  muR2muF2,
-  muR2muF05,
-  muR05muF1,
-  muR05muF2,
-  muR05muF05,
-  gNWEIGHT
+    muR1muF1,
+    muR1muF2,
+    muR1muF05,
+    muR2muF1,
+    muR2muF2,
+    muR2muF05,
+    muR05muF1,
+    muR05muF2,
+    muR05muF05,
+    gNWEIGHT
 };
 
 const TString WeiName[gNWEIGHT] = {
-  "muR1muF1",
-  "muR1muF2",
-  "muR1muF05",
-  "muR2muF1",
-  "muR2muF2",
-  "muR2muF05",
-  "muR05muF1",
-  "muR05muF2",
-  "muR05muF05"
+    "muR1muF1",
+    "muR1muF2",
+    "muR1muF05",
+    "muR2muF1",
+    "muR2muF2",
+    "muR2muF05",
+    "muR05muF1",
+    "muR05muF2",
+    "muR05muF05"
 };
 
 class lepton{
- public:
-  //lepton(){}
-  //lepton(const lepton &l): p(l.p), charge(l.charge), type(l.type), index(l.index){ };
-  lepton(TLorentzVector vec = TLorentzVector(0,0,0,0), int ch = 0, int ty = -1, int ind = -1){
-    p = vec;
-    charge = ch;
-    type = ty;
-    index = ind;
-  }
-	TLorentzVector p;
-	int charge;
-	int type; // -1(unknown), 0(mu), 1(ele)
-	int index;
+    public:
+        //lepton(){}
+        //lepton(const lepton &l): p(l.p), charge(l.charge), type(l.type), index(l.index){ };
+        lepton(TLorentzVector vec = TLorentzVector(0,0,0,0), int ch = 0, int ty = -1, int ind = -1){
+            p = vec;
+            charge = ch;
+            type = ty;
+            index = ind;
+        }
+    	TLorentzVector p;
+    	Int_t charge;
+    	Int_t type; // -1(unknown), 0(mu), 1(ele)
+    	Int_t index;
 };
 
 class jet{
 	public:
-		jet(){};
-		jet(TLorentzVector vec, bool btag, int ind){
-			p = vec;
-			isbtag = btag;
-			index = ind;
-		};
-		TLorentzVector p;
-		bool isbtag;
-		int index;
+    	jet(){};
+    	jet(TLorentzVector vec, bool btag, int ind){
+    		p = vec;
+    		isbtag = btag;
+    		index = ind;
+    	};
+    	TLorentzVector p;
+    	Bool_t isbtag;
+    	Int_t index;
 };
 
 
@@ -203,8 +203,7 @@ int     getNEtaBins(gChannel chan);
 const double *getEtaBins (gChannel chan);
 
 // Your selector class
-class TTHAnalyzer : public PAFChainItemSelector
-{
+class TTHAnalyzer : public PAFChainItemSelector {
 	public:
 		// Constructor and destructor
 		TTHAnalyzer();
@@ -215,10 +214,63 @@ class TTHAnalyzer : public PAFChainItemSelector
 		virtual void InsideLoop();
 		virtual void Summary();
 
-		// Frequantly used variables in the trees
+        // Functions for the initialising of histograms
+		virtual void InitialiseYieldsHistos();
+		virtual void InitialiseKinematicHistos();
+		virtual void InitialiseDYHistos();
+		virtual void InitialiseGenHistos();
+		virtual void InitialiseSystematicHistos();
+
+		// Functions for saving histograms
+		void WriteHistos();
+		void WriteValidationsHistos(){};
+
+		// Tree
+		void InitialiseTree();
+		void SetTreeVariables(gChannel);
+
+		// Branches
+		Int_t TNJets;
+		Int_t TNJetsBtag;
+		Int_t TIsDoubleMuon;
+		Int_t TIsDoubleElec;
+		Int_t TIsElMu;
+		Float_t TWeight;
+		Float_t TMET;
+		Float_t TMET_Phi;
+		Float_t THT;
+		Float_t TMT2ll;
+		Float_t TMT2bb;
+		Float_t TMT2lblb;
+		Float_t TMll;
+		Float_t TPtllb;
+		Float_t TMeff;
+		Float_t TdPhiPtllbMET;
+		Float_t TdPhiJetMet;
+		Float_t TdPhiLepMet;
+		Float_t TdPhiLepJet;
+		Float_t TdPhill;
+		Float_t TMinDPhiMetJets;
+		Float_t TLep1_Px;
+		Float_t TLep1_Py;
+		Float_t TLep1_Pz;
+		Float_t TLep1_E;
+		Float_t TLep1_Charge;
+		Float_t TLep2_Px;
+		Float_t TLep2_Py;
+		Float_t TLep2_Pz;
+		Float_t TLep2_E;
+		Float_t TLep2_Charge;
+		Float_t TJet_Px[40];
+		Float_t TJet_Py[40];
+		Float_t TJet_Pz[40];
+		Float_t TJet_E[40];
+		Int_t TJet_isBJet[40];
+
+        // Frequently used variables in the trees
 		Int_t   nLepGood;
 		Int_t   ngenLep;
-    ULong64_t evt;
+        ULong64_t evt;
 		Int_t   nJet;
 		Float_t genWeight;
 		Float_t LepGood_px[30];
@@ -246,67 +298,14 @@ class TTHAnalyzer : public PAFChainItemSelector
 		Float_t genLep_mass[50];
 		Int_t   genLep_pdgId[50];
 
-		// You would tipically add here your protected methods
-		// and data members
-		virtual void InitialiseYieldsHistos();
-		virtual void InitialiseKinematicHistos();
-		virtual void InitialiseDYHistos();
-		virtual void InitialiseGenHistos();
-		virtual void InitialiseSystematicHistos();
-
-		// Saving Histograms.
-		void WriteHistos();
-		void WriteValidationsHistos(){};
-
-		// Tree
-		void InitialiseTree();
-		void SetTreeVariables(gChannel);
-		// Branches
-		int TNJets;
-		int TNJetsBtag;
-		int TIsDoubleMuon;
-		int TIsDoubleElec;
-		int TIsElMu;
-		float TWeight;
-		float TMET;
-		float TMET_Phi;
-		float THT;
-		float TMT2ll;
-		float TMT2bb;
-		float TMT2lblb;
-		float TMll;
-		float TPtllb;
-		float TMeff;
-		float TdPhiPtllbMET;
-		float TdPhiJetMet;
-		float TdPhiLepMet;
-		float TdPhiLepJet;
-		float TdPhill;
-		float TMinDPhiMetJets;
-		float TLep1_Px;
-		float TLep1_Py;
-		float TLep1_Pz;
-		float TLep1_E;
-		float TLep1_Charge;
-		float TLep2_Px;
-		float TLep2_Py;
-		float TLep2_Pz;
-		float TLep2_E;
-		float TLep2_Charge;
-		Float_t TJet_Px[40];
-		Float_t TJet_Py[40];
-		Float_t TJet_Pz[40];
-		Float_t TJet_E[40];
-		Int_t TJet_isBJet[40];
-
 		void  GetParameters();
-		void  GetTreeVariables();
+		void GetTreeVariables();
 		//   Int_t SelectedVertexIndex();
 
 		bool triggermumuSS();
 		bool triggereeSS();
 		bool triggeremuSS();
-		bool trigger 3l4l();
+		bool trigger3l4l();
 		bool PassesZVeto();
 		bool PassesNJetsCut();
 		bool PassesMETCut();
@@ -358,6 +357,7 @@ class TTHAnalyzer : public PAFChainItemSelector
 		TLorentzVector getPtllb();
 
 		bool METFilter();
+
 		// Lepton selection methods
 		int  getSelectedLeptons();
 		//   bool IsVetoMuon(unsigned int, float ptcut=20.);
@@ -366,7 +366,7 @@ class TTHAnalyzer : public PAFChainItemSelector
 		//   bool IsVetoElectron(unsigned int,float ptcut=20.);
 		//   bool IsMVAIDElectron(unsigned int);
 		bool IsTightElectron(unsigned int,float ptcut=20.);
-    void CoutEvent(long unsigned int en = 0, TString t = " ");
+        void CoutEvent(long unsigned int en = 0, TString t = " ");
 		float getElecIso(int);
 		float getEACorrection(float);
 		bool getMultiIso(unsigned int );
@@ -391,6 +391,7 @@ class TTHAnalyzer : public PAFChainItemSelector
 		bool IsMuMuEvent();
 		bool IsElMuEvent();
 		bool IsElElEvent();
+
 		/////////////////////////////////////////////////////////////////////////////
 		//    Filling Methods
 		/////////////////////////////////////////////////////////////////////////////
@@ -443,16 +444,16 @@ class TTHAnalyzer : public PAFChainItemSelector
 		TRandom3 *fRand3;
 
 		// EventWeight
-		//----------------------------------------------------------------------------
+		//----------------------------------------------------------------------
 		float EventWeight;
 		float PUSF;
 		bool  fChargeSwitch;
 
 
-		//////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
 		//               Data members
-		//////////////////////////////////////////////////////////////////////////////
-		// HISTOGRAMS
+		////////////////////////////////////////////////////////////////////////
+		//// HISTOGRAMS
 
 		//++ Yields
 		TTree* fTree;
@@ -462,10 +463,8 @@ class TTHAnalyzer : public PAFChainItemSelector
 		TH1F* fHWeightyield[gNCHANNELS][gNWEIGHT];
 		TH1F* fHSSyields   [gNCHANNELS][gNSYST];
 		TH1F* fHTopPtWeight;
-		
 
-		// //++ Gen Info
-
+		//++ Gen Info
 		lepton fHypLepton1;
 		lepton fHypLepton2;
 
@@ -513,8 +512,8 @@ class TTHAnalyzer : public PAFChainItemSelector
 		std::vector<float> ElPy;
 		std::vector<float> ElPz;
 		std::vector<float> ElEnergy;
-		float MET;
-		float MET_Phi;
+		Float_t MET;
+		Float_t MET_Phi;
 
 		ClassDef(TTHAnalyzer,0);
 };
