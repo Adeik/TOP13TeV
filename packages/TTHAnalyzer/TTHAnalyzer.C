@@ -528,9 +528,9 @@ void TTHAnalyzer::InsideLoop() {
 #ifdef DEBUG
 	cout << "N Leptons: " << Lepton.size() << endl;
 	cout << "PassTriggerEMu/EE/MuMu= "
-		<< PassTriggerEMu() << "/"
-		<< PassTriggerEE() << "/"
-		<< PassTriggerMuMu() << endl;
+		<< triggermumuSS() << "/"
+		<< triggermumuSS() << "/"
+		<< triggermumuSS() << endl;
 	cout << "Is ElMu/ElEl/MuMu Event= "
 		<< IsElMuEvent() << "/"
 		<< IsElElEvent() << "/"
@@ -1103,21 +1103,21 @@ float TTHAnalyzer::getTopPtSF(){
 //------------------------------------------------------------------------
 void TTHAnalyzer::FillDYHistograms(){
 	float Mll = 0.;
-	if (PassTriggerEMu()  && IsElMuEvent()){
+	if (triggermumuSS()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);
 		if(gIsMCatNLO)  EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
 	}
 	ResetHypLeptons();
-	if (PassTriggerMuMu() && IsMuMuEvent()){
+	if (triggermumuSS() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon);
 		if(gIsMCatNLO)   EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
 
 	}
 	ResetHypLeptons();
-	if (PassTriggerEE()   && IsElElEvent()){
+	if (triggermumuSS()   && IsElElEvent()){
 		EventWeight = gWeight * getSF(Elec);
 		if(gIsMCatNLO)    EventWeight = EventWeight * genWeight;
 		Mll = (fHypLepton1.p+fHypLepton2.p).M();
@@ -1164,15 +1164,15 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 	ResetHypLeptons();
 
 #ifdef DEBUG
-	cout << "PassTriggerEMu= " << PassTriggerEMu() << endl;
+	cout << "PassTriggerEMu= " << triggermumuSS() << endl;
 	cout << "Is ElMu/ElEl/MuMu Event= "
 		<< IsElMuEvent() << "/"
 		<< IsElElEvent() << "/"
 		<< IsMuMuEvent() << endl;
 #endif
 
-  CoutEvent(evt, Form(" PassTrigEmu: %i", PassTriggerEMu()));
-	if (PassTriggerEMu()  && IsElMuEvent()){
+  CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
+	if (triggermumuSS()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
 		hWeight -> Fill(EventWeight,1.);
@@ -1244,7 +1244,7 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 	}
 
 	ResetHypLeptons();
-	if (PassTriggerMuMu() && IsMuMuEvent()){
+	if (triggermumuSS() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon); //  * getTopPtSF();
 		//EventWeight = 1.;
 #ifdef DEBUG
@@ -1301,7 +1301,7 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
     }
 
   ResetHypLeptons();
-  if (PassTriggerEE() && IsElElEvent()){
+  if (triggermumuSS() && IsElElEvent()){
 		EventWeight = gWeight * getSF(Elec);// * getTopPtSF();
 		//EventWeight = 1.;
 #ifdef DEBUG

@@ -46,9 +46,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 	//--------------------------------------------------------------------------
 	TString userhome = "/mnt_pool/fanae105/user/$USER/";
 	DatasetManager* dm = DatasetManager::GetInstance();
-	//dm->SetTab("DR74X25nsMiniAODv2");
 	dm->SetTab("DR80XasymptoticMiniAODv2");
-	//dm->RedownloadFiles();
 
 	// Deal with data samples
 	if ((sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
@@ -87,7 +85,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
     	}
     	else if(sampleName.BeginsWith("T2tt")){
-      		TString lp = "/pool/ciencias/HeppyTreesDR80X/v1/";
+      		TString lp = "/pool/ciencias/HeppyTreesDR80X/v2/";
       		cout << "Analyzing Stop sample" << endl;
       		G_Event_Weight = SusyWeight;
       		myProject->AddDataFile(lp + "Tree_" + sampleName + "_0.root");
@@ -146,7 +144,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
   	}
 
   	// Parameters for the analysis
-  	//----------------------------------------------------------------------------
+  	//--------------------------------------------------------------------------
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("UseCSVM",       G_Use_CSVM       );
@@ -162,17 +160,17 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
 	// Name of analysis class
-	//----------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
 	myProject->AddSelectorPackage("TTHAnalyzer");
 
 	// Additional packages
-	//----------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
 	myProject->AddPackage("mt2");
 	myProject->AddPackage("PUWeight");
 	myProject->AddPackage("BTagSFUtil");
 	myProject->AddPackage("SusyLeptonSF");
 
 	// Let's rock!
-	//----------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
 	myProject->Run();
 }
