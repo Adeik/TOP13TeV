@@ -1564,7 +1564,34 @@ bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
     if (Get<Int_t>("LepGood_mediumMuonId",iMuon)    < 1   )  return false; // medium ID?
     return true;
 }
-
+/*
+bool TTHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
+    if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
+    if (LepGood_pt[iMuon]              < ptcut) return false;
+    if (TMath::Abs(LepGood_eta[iMuon]) > 2.4)   return false;
+    //if (LepGood_relIso04[iMuon]        > 0.15)  return false;
+    if (!getMultiIso(iMuon)) return false;
+    if (TMath::Abs(LepGood_dxy[iMuon]) >= 0.05)  return false;
+    if (TMath::Abs(LepGood_dz[iMuon])  >= 0.1)  return false;
+    if (Get<Float_t>("LepGood_sip3d", iMuon) > 4.0) return false;
+    //if (Get<Int_t>("LepGood_tightId",iMuon)           < 1   )  return false;
+    if (Get<Int_t>("LepGood_mediumMuonId",iMuon)    < 1   )  return false; // medium ID?
+    return true;
+}
+bool TTHAnalyzer::IsLooseMuon(unsigned int iMuon,float ptcut){
+    if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
+    if (LepGood_pt[iMuon]              < ptcut) return false;
+    if (TMath::Abs(LepGood_eta[iMuon]) > 2.4)   return false;
+    //if (LepGood_relIso04[iMuon]        > 0.15)  return false;
+    if (!getMultiIso(iMuon)) return false;
+    if (TMath::Abs(LepGood_dxy[iMuon]) >= 0.05)  return false;
+    if (TMath::Abs(LepGood_dz[iMuon])  >= 0.1)  return false;
+    if (Get<Float_t>("LepGood_sip3d", iMuon) > 4.0) return false;
+    //if (Get<Int_t>("LepGood_tightId",iMuon)           < 1   )  return false;
+    if (Get<Int_t>("LepGood_mediumMuonId",iMuon)    < 1   )  return false; // medium ID?
+    return true;
+}
+*/
 float TTHAnalyzer::getMuonIso(int iMuon){
 	if (iMuon < 0) return 9999.;
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return 9999.;
@@ -1605,6 +1632,72 @@ bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut){
     }
 	return true;
 }
+
+/*
+bool TTHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
+	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
+	if (LepGood_pt[iElec] < ptcut) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
+    if (!getMultiIso(iElec)) return false;
+    //if (getElecIso(iElec) > 0.0766) return false;
+	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false;
+	if (TMath::Abs(LepGood_dz[ iElec]) >= 0.1 ) return false;
+	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false;
+	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 &&
+			TMath::Abs(LepGood_etaSc[iElec]) < 1.566) return false;
+	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false;
+	//if(TMath::Abs(Get<Int_t>("LepGood_tightId", iElec)) != 3) return false; // bin 3: tight ID electrons
+    //'POG_SPRING15_25ns_v1_Tight' : [('dEtaIn', [0.00926, 0.00724]), ('dPhiIn', [0.0336, 0.0918]), ('sigmaIEtaIEta', [0.0101, 0.0279]), ('H/E', [0.0597, 0.0615]), ('1/E-1/p', [0.0120, 0.00999])],
+    // Tight Electron Id:
+    if(TMath::Abs(Get<Float_t>("LepGood_etaSc", iElec)) < 1.479){ // central
+        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0101) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00926 ) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0336) return false;
+        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0597) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) > 0.012) return false;
+	}
+    else{ // forward
+        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0279) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00724) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0918) return false;
+        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0615) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) >  	0.00999) return false;
+    }
+	return true;
+}
+bool TTHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
+	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
+	if (LepGood_pt[iElec] < ptcut) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
+    if (!getMultiIso(iElec)) return false;
+    //if (getElecIso(iElec) > 0.0766) return false;
+	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false;
+	if (TMath::Abs(LepGood_dz[ iElec]) >= 0.1 ) return false;
+	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false;
+	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 &&
+			TMath::Abs(LepGood_etaSc[iElec]) < 1.566) return false;
+	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false;
+	//if(TMath::Abs(Get<Int_t>("LepGood_tightId", iElec)) != 3) return false; // bin 3: tight ID electrons
+    //'POG_SPRING15_25ns_v1_Tight' : [('dEtaIn', [0.00926, 0.00724]), ('dPhiIn', [0.0336, 0.0918]), ('sigmaIEtaIEta', [0.0101, 0.0279]), ('H/E', [0.0597, 0.0615]), ('1/E-1/p', [0.0120, 0.00999])],
+    // Tight Electron Id:
+    if(TMath::Abs(Get<Float_t>("LepGood_etaSc", iElec)) < 1.479){ // central
+        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0101) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00926 ) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0336) return false;
+        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0597) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) > 0.012) return false;
+	}
+    else{ // forward
+        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0279) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00724) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0918) return false;
+        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0615) return false;
+        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) >  	0.00999) return false;
+    }
+	return true;
+}
+*/
+
 
 float TTHAnalyzer::getElecIso(int iElec){
 	if (iElec < 0) return 9999.;
