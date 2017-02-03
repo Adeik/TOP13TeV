@@ -150,7 +150,7 @@ class lepton{
     public:
         //lepton(){}
         //lepton(const lepton &l): p(l.p), charge(l.charge), type(l.type), index(l.index){ };
-        lepton(TLorentzVector vec = TLorentzVector(0,0,0,0), int ch = 0, int ty = -1, int ind = -1){
+        lepton(TLorentzVector vec = TLorentzVector(0,0,0,0), Int_t ch = 0, Int_t ty = -1, Int_t ind = -1){
             p = vec;
             charge = ch;
             type = ty;
@@ -165,7 +165,7 @@ class lepton{
 class jet{
 	public:
     	jet(){};
-    	jet(TLorentzVector vec, bool btag, int ind){
+    	jet(TLorentzVector vec, Bool_t btag, Int_t ind){
     		p = vec;
     		isbtag = btag;
     		index = ind;
