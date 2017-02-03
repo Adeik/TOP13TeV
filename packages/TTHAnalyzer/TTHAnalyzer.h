@@ -362,10 +362,14 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		int  getSelectedLeptons();
 		//   bool IsVetoMuon(unsigned int, float ptcut=20.);
 		bool IsTightMuon(unsigned int, float ptcut=20.);
+		bool IsFakeableMuon(unsigned int, float ptcut=20.);
+		bool IsLooseMuon(unsigned int, float ptcut=20.);
 		float getMuonIso(int);
 		//   bool IsVetoElectron(unsigned int,float ptcut=20.);
 		//   bool IsMVAIDElectron(unsigned int);
-		bool IsTightElectron(unsigned int,float ptcut=20.);
+		bool IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
+		bool IsFakeableElectron(unsigned int,float ptcut=20.);
+		bool IsLooseElectron(unsigned int,float ptcut=20.);
         void CoutEvent(long unsigned int en = 0, TString t = " ");
 		float getElecIso(int);
 		float getEACorrection(float);

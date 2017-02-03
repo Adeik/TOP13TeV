@@ -1563,7 +1563,7 @@ bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 	// doing the analysis already are filtered by it.
 	if (LepGood_jetBTagCSV[iMuon] > 0.89) return false;
 	if (LepGood_mediumMuonId[iMuon] != 1) return false;
-	//if (LepGood_tightCharge[iMuon] != 2) return false; // WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	//if (LepGood_tightCharge[iMuon] != 2) return false; // WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	if (LepGood_mvaTTH[iMuon] < 0.75) return false;
     return true;
 }
@@ -1610,12 +1610,12 @@ float TTHAnalyzer::getMuonIso(int iMuon){
 //------------------------------------------------------------------------------
 // Electron selectors
 //------------------------------------------------------------------------------
-bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, int an){
+bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (an == 2) {
 		if (LepGood_pt[iElec] < 15) return false;
-	} 
+	}
 	else {
 		if (LepGood_pt[iElec] < 10) return false;
 	}
@@ -1623,103 +1623,114 @@ bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, int an){
 	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
 	if (LepGood_sip3d[iElec] > 8) return false;
 	if (LepGood_miniRelIso[iElec] > 0.4) return false;
-	
 	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
-		if (LepGood_mvaTTH[iElec] < -0.70) return false;
+		if (LepGood_mvaIdSpring15[iElec] < -0.70) return false;
 		if (LepGood_pt[iElec] > 30) {
 			if (LepGood_sigmaIEtaIEta[iElec] > 0.011) return false;
-			
+            if (LepGood_hadronicOverEm[iElec] > 0.10) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.01) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.04) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.0010) return false;
 		}
-	} 
+	}
 	else if ((TMath::Abs(LepGood_eta[iElec]) < 1.479) && (TMath::Abs(LepGood_eta[iElec]) >= 0.8)){
-		if (LepGood_mvaTTH[iElec] < -0.83) return false;
+		if (LepGood_mvaIdSpring15[iElec] < -0.83) return false;
 		if (LepGood_pt[iElec] > 30) {
 			if (LepGood_sigmaIEtaIEta[iElec] > 0.011) return false;
-			
+            if (LepGood_hadronicOverEm[iElec] > 0.10) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.01) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.04) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.0010) return false;
 		}
-	} 
+	}
 	else if (TMath::Abs(LepGood_eta[iElec]) >= 1.479) {
-		if (LepGood_mvaTTH[iElec] < -0.92) return false;
+		if (LepGood_mvaIdSpring15[iElec] < -0.92) return false;
 		if (LepGood_pt[iElec] > 30) {
 			if (LepGood_sigmaIEtaIEta[iElec] > 0.030) return false;
-			
+            if (LepGood_hadronicOverEm > 0.07) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.008) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.07) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.005) return false;
 		}
-	}
-	
-		
-		
-		
-		
-		
-		
+    }
+	if (LepGood_jetBTagCSV[iElec] > 0.89) return false;
+	//if (LepGood_tightCharge[iMuon] != 2) return false; // WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    if (LepGood_convVeto[iElec] > 0.89) return false;
+	if (LepGood_lostHits[iElec] != 0) return false;
+	if (LepGood_mvaTTH[iElec] < 0.75) return false;
 	return true;
 }
 
-/*
 bool TTHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_pt[iElec] < ptcut) return false;
-	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
-    if (!getMultiIso(iElec)) return false;
-    //if (getElecIso(iElec) > 0.0766) return false;
-	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false;
-	if (TMath::Abs(LepGood_dz[ iElec]) >= 0.1 ) return false;
-	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false;
-	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 &&
-			TMath::Abs(LepGood_etaSc[iElec]) < 1.566) return false;
-	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false;
-	//if(TMath::Abs(Get<Int_t>("LepGood_tightId", iElec)) != 3) return false; // bin 3: tight ID electrons
-    //'POG_SPRING15_25ns_v1_Tight' : [('dEtaIn', [0.00926, 0.00724]), ('dPhiIn', [0.0336, 0.0918]), ('sigmaIEtaIEta', [0.0101, 0.0279]), ('H/E', [0.0597, 0.0615]), ('1/E-1/p', [0.0120, 0.00999])],
-    // Tight Electron Id:
-    if(TMath::Abs(Get<Float_t>("LepGood_etaSc", iElec)) < 1.479){ // central
-        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0101) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00926 ) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0336) return false;
-        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0597) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) > 0.012) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
+	if (LepGood_pt[iElec] < 10) return false;
+	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
+	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
+	if (LepGood_sip3d[iElec] > 8) return false;
+	if (LepGood_miniRelIso[iElec] > 0.4) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
+		if (LepGood_mvaIdSpring15[iElec] < -0.70) return false;
+		if (LepGood_pt[iElec] > 30) {
+			if (LepGood_sigmaIEtaIEta[iElec] > 0.011) return false;
+            if (LepGood_hadronicOverEm[iElec] > 0.10) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.01) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.04) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.0010) return false;
+		}
 	}
-    else{ // forward
-        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0279) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00724) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0918) return false;
-        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0615) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) >  	0.00999) return false;
+	else if ((TMath::Abs(LepGood_eta[iElec]) < 1.479) && (TMath::Abs(LepGood_eta[iElec]) >= 0.8)){
+		if (LepGood_mvaIdSpring15[iElec] < -0.83) return false;
+		if (LepGood_pt[iElec] > 30) {
+			if (LepGood_sigmaIEtaIEta[iElec] > 0.011) return false;
+            if (LepGood_hadronicOverEm[iElec] > 0.10) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.01) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.04) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.0010) return false;
+		}
+	}
+	else if (TMath::Abs(LepGood_eta[iElec]) >= 1.479) {
+		if (LepGood_mvaIdSpring15[iElec] < -0.92) return false;
+		if (LepGood_pt[iElec] > 30) {
+			if (LepGood_sigmaIEtaIEta[iElec] > 0.030) return false;
+            if (LepGood_hadronicOverEm > 0.07) return false;
+            if (LepGood_dEtaScTrkIn[iElec] > 0.008) return false;
+            if (LepGood_dPhiScTrkIn[iElec] > 0.07) return false;
+            if (LepGood_eInvMinusPInv[iElec] < -0.05 || LepGood_eInvMinusPInv[iElec] > 0.005) return false;
+		}
     }
+    if (LepGood_mvaTTH[iElec] < 0.75){
+        if (LepGood_jetBTagCSV[iElec] > 0.605) return false;
+		if (LepGood_jetPtRatiov2[iElec] < 0.3) return false;
+    }
+    else {
+        if (LepGood_jetBTagCSV[iElec] > 0.89) return false;
+    }
+
+	if (LepGood_lostHits[iElec] != 0) return false;
 	return true;
 }
+
 bool TTHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_pt[iElec] < ptcut) return false;
-	if (TMath::Abs(LepGood_eta[iElec]) > 2.4) return false;
-    if (!getMultiIso(iElec)) return false;
-    //if (getElecIso(iElec) > 0.0766) return false;
-	if (TMath::Abs(LepGood_dxy[iElec]) >= 0.05) return false;
-	if (TMath::Abs(LepGood_dz[ iElec]) >= 0.1 ) return false;
-	if (Get<Int_t>("LepGood_lostHits", iElec)         > 0      ) return false;
-	if (TMath::Abs(LepGood_etaSc[iElec]) > 1.4442 &&
-			TMath::Abs(LepGood_etaSc[iElec]) < 1.566) return false;
-	if (Get<Float_t>("LepGood_sip3d", iElec) > 4.0) return false;
-	//if(TMath::Abs(Get<Int_t>("LepGood_tightId", iElec)) != 3) return false; // bin 3: tight ID electrons
-    //'POG_SPRING15_25ns_v1_Tight' : [('dEtaIn', [0.00926, 0.00724]), ('dPhiIn', [0.0336, 0.0918]), ('sigmaIEtaIEta', [0.0101, 0.0279]), ('H/E', [0.0597, 0.0615]), ('1/E-1/p', [0.0120, 0.00999])],
-    // Tight Electron Id:
-    if(TMath::Abs(Get<Float_t>("LepGood_etaSc", iElec)) < 1.479){ // central
-        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0101) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00926 ) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0336) return false;
-        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0597) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) > 0.012) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
+	if (LepGood_pt[iElec] < 7) return false;
+	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
+	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
+	if (LepGood_sip3d[iElec] > 8) return false;
+	if (LepGood_miniRelIso[iElec] > 0.4) return false;
+	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
+		if (LepGood_mvaIdSpring15[iElec] < -0.70) return false;
 	}
-    else{ // forward
-        if(TMath::Abs(Get<Float_t>("LepGood_sigmaIEtaIEta", iElec)) > 0.0279) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dEtaScTrkIn", iElec)) > 0.00724) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_dPhiScTrkIn", iElec)) > 0.0918) return false;
-        if(Get<Float_t>("LepGood_hadronicOverEm", iElec) > 0.0615) return false;
-        if(TMath::Abs(Get<Float_t>("LepGood_eInvMinusPInv", iElec)) >  	0.00999) return false;
+	else if ((TMath::Abs(LepGood_eta[iElec]) < 1.479) && (TMath::Abs(LepGood_eta[iElec]) >= 0.8)){
+		if (LepGood_mvaIdSpring15[iElec] < -0.83) return false;
+	}
+	else if (TMath::Abs(LepGood_eta[iElec]) >= 1.479) {
+		if (LepGood_mvaIdSpring15[iElec] < -0.92) return false;
     }
+	if (LepGood_lostHits[iElec] > 2) return false;
 	return true;
 }
-*/
-
 
 float TTHAnalyzer::getElecIso(int iElec){
 	if (iElec < 0) return 9999.;
