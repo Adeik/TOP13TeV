@@ -286,6 +286,21 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_relIso04[30];
 		Int_t   LepGood_charge[30];
 		Int_t   LepGood_pdgId[30];
+		Float_t LepGood_z[30];				// NEW
+		Float_t LepGood_sip3d[30];			// NEW
+		Float_t LepGood_miniRelIso[30];		// NEW
+		Float_t LepGood_jetBTagCSV[30];		// NEW
+		Int_t 	LepGood_mediumMuonId[30];	// NEW
+		Float_t LepGood_mvaTTH[30];			// NEW
+		Float_t LepGood_jetPtRatiov2[30];	// NEW
+		Float_t LepGood_mvaIdSpring15[30];	// NEW
+		Float_t LepGood_sigmaIEtaIEta[30];	// NEW
+		Float_t LepGood_hadronicOverEm[30];	// NEW
+		Float_t LepGood_dEtaScTrkIn[30];	// NEW
+		Float_t LepGood_dPhiScTrkIn[30];	// NEW
+		Float_t LepGood_eInvMinusPInv[30];	// NEW
+		Float_t LepGood_convVeto[30];		// NEW
+		Int_t 	LepGood_lostHits[30];		// NEW
 		Float_t Jet_px[50];
 		Float_t Jet_py[50];
 		Float_t Jet_pz[50];

@@ -507,8 +507,8 @@ void TTHAnalyzer::SetTreeVariables(gChannel chan){
 //-----------------------------------------------------------------------
 void TTHAnalyzer::InsideLoop() {
     if(gIsT2tt){
-    //   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
-    if((Get<Int_t>("GenSusyMStop") != gStopMass) || (Get<Int_t>("GenSusyMNeutralino") != gLspMass)) return;
+		//   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
+		if((Get<Int_t>("GenSusyMStop") != gStopMass) || (Get<Int_t>("GenSusyMNeutralino") != gLspMass)) return;
     }
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
@@ -524,18 +524,19 @@ void TTHAnalyzer::InsideLoop() {
 
 	// Get number of generated leptons ........................................................
 
+	#ifdef DEBUG
+		cout << "N Leptons: " << Lepton.size() << endl;
+		cout << "PassTriggerEMu/EE/MuMu= "
+			<< triggermumuSS() << "/"
+			<< triggermumuSS() << "/"
+			<< triggermumuSS() << endl;
+		cout << "Is ElMu/ElEl/MuMu Event= "
+			<< IsElMuEvent() << "/"
+			<< IsElElEvent() << "/"
+			<< IsMuMuEvent() << endl;
+	#endif
+	
 	// Fill Yields ...............................................................
-#ifdef DEBUG
-	cout << "N Leptons: " << Lepton.size() << endl;
-	cout << "PassTriggerEMu/EE/MuMu= "
-		<< triggermumuSS() << "/"
-		<< triggermumuSS() << "/"
-		<< triggermumuSS() << endl;
-	cout << "Is ElMu/ElEl/MuMu Event= "
-		<< IsElMuEvent() << "/"
-		<< IsElElEvent() << "/"
-		<< IsMuMuEvent() << endl;
-#endif
 	FillYields();
 
 	// Get SS Yields...
@@ -555,112 +556,112 @@ void TTHAnalyzer::InsideLoop() {
 	}
 
 	// Fill Yields for syst. studies (only for MC) ..............................
-  if (gIsData)         return;
-  if (!gDoSystStudies) return;
+	if (gIsData)         return;
+	if (!gDoSystStudies) return;
 
-  // B-tagging systematics .................................................................
-  ResetOriginalObjects();
-  gSysSource = BtagUp;
-  SetEventObjects();
-  FillYields(BtagUp);
-  fChargeSwitch = true;
-  FillYields(BtagUp); /* Get SS yields....*/
-  fChargeSwitch = false;
+	// B-tagging systematics .................................................................
+	ResetOriginalObjects();
+	gSysSource = BtagUp;
+	SetEventObjects();
+	FillYields(BtagUp);
+	fChargeSwitch = true;
+	FillYields(BtagUp); /* Get SS yields....*/
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  gSysSource = BtagDown;
-  SetEventObjects();
-  FillYields(BtagDown);
-  fChargeSwitch = true;
-  FillYields(BtagDown); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	gSysSource = BtagDown;
+	SetEventObjects();
+	FillYields(BtagDown);
+	fChargeSwitch = true;
+	FillYields(BtagDown); /// Get SS yields....
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  gSysSource = MisTagUp;
-  SetEventObjects();
-  FillYields(MisTagUp);
-  fChargeSwitch = true;
-  FillYields(MisTagUp); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	gSysSource = MisTagUp;
+	SetEventObjects();
+	FillYields(MisTagUp);
+	fChargeSwitch = true;
+	FillYields(MisTagUp); /// Get SS yields....
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  gSysSource = MisTagDown;
-  SetEventObjects();
-  FillYields(MisTagDown);
-  fChargeSwitch = true;
-  FillYields(MisTagDown); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	gSysSource = MisTagDown;
+	SetEventObjects();
+	FillYields(MisTagDown);
+	fChargeSwitch = true;
+	FillYields(MisTagDown); /// Get SS yields....
+	fChargeSwitch = false;
 
 	// JES/JER sytematics ....................................................................
-  ResetOriginalObjects();
-  SmearJetPts(1);
-  gSysSource = JESUp;
-  SetEventObjects();
-  FillYields(JESUp);
-  fChargeSwitch = true;
-  FillYields(JESUp); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	SmearJetPts(1);
+	gSysSource = JESUp;
+	SetEventObjects();
+	FillYields(JESUp);
+	fChargeSwitch = true;
+	FillYields(JESUp); /// Get SS yields....
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  SmearJetPts(2);
-  gSysSource = JESDown;
-  SetEventObjects();
-  FillYields(JESDown);
-  fChargeSwitch = true;
-  FillYields(JESDown); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	SmearJetPts(2);
+	gSysSource = JESDown;
+	SetEventObjects();
+	FillYields(JESDown);
+	fChargeSwitch = true;
+	FillYields(JESDown); /// Get SS yields....
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  SmearJetPts(3);
-  gSysSource = JER;
-  SetEventObjects();
-  FillYields(JER);
-  fChargeSwitch = true;
-  FillYields(JER); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	SmearJetPts(3);
+	gSysSource = JER;
+	SetEventObjects();
+	FillYields(JER);
+	fChargeSwitch = true;
+	FillYields(JER); /// Get SS yields....
+	fChargeSwitch = false;
 
-  // Lepton Scale  sytematics ....................................................................
-  ResetOriginalObjects();
-  ScaleLeptons(1); //up
-  gSysSource = LESUp;
-  SetEventObjects();
-  FillYields(LESUp);
-  fChargeSwitch = true;
-  FillYields(LESUp); /// Get SS yields....
-  fChargeSwitch = false;
+	// Lepton Scale  sytematics ....................................................................
+	ResetOriginalObjects();
+	ScaleLeptons(1); //up
+	gSysSource = LESUp;
+	SetEventObjects();
+	FillYields(LESUp);
+	fChargeSwitch = true;
+	FillYields(LESUp); /// Get SS yields....
+	fChargeSwitch = false;
 
-  ResetOriginalObjects();
-  ScaleLeptons(2); //down
-  gSysSource = LESDown;
-  SetEventObjects();
-  FillYields(LESDown);
-  fChargeSwitch = true;
-  FillYields(LESDown); /// Get SS yields....
-  fChargeSwitch = false;
+	ResetOriginalObjects();
+	ScaleLeptons(2); //down
+	gSysSource = LESDown;
+	SetEventObjects();
+	FillYields(LESDown);
+	fChargeSwitch = true;
+	FillYields(LESDown); /// Get SS yields....
+	fChargeSwitch = false;
 
-  // Pile Up sytematics ....................................................................
-  ResetOriginalObjects();
-  if (!gIsData)
-    PUSF = fPUWeightUp->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
-  gSysSource = PUUp;
-  SetEventObjects();
-  FillYields(PUUp);
+	// Pile Up sytematics ....................................................................
+	ResetOriginalObjects();
+	if (!gIsData)
+	PUSF = fPUWeightUp->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
+	gSysSource = PUUp;
+	SetEventObjects();
+	FillYields(PUUp);
 
-  ResetOriginalObjects();
-  if (!gIsData)
-    PUSF = fPUWeightDown->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
-  gSysSource = PUDown;
-  SetEventObjects();
-  FillYields(PUDown);
+	ResetOriginalObjects();
+	if (!gIsData)
+	PUSF = fPUWeightDown->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
+	gSysSource = PUDown;
+	SetEventObjects();
+	FillYields(PUDown);
 
-  // Top PT ...............................................................................
-  ResetOriginalObjects();
-  gSysSource = TopPt;
-  SetEventObjects();
-  FillYields(TopPt);
-  fChargeSwitch = true;
-  FillYields(TopPt); /// Get SS yields....
-  fChargeSwitch = false;
+	// Top PT ...............................................................................
+	ResetOriginalObjects();
+	gSysSource = TopPt;
+	SetEventObjects();
+	FillYields(TopPt);
+	fChargeSwitch = true;
+	FillYields(TopPt); /// Get SS yields....
+	fChargeSwitch = false;
 }
 
 void TTHAnalyzer::Summary(){}
@@ -676,9 +677,9 @@ bool TTHAnalyzer::triggermumuSS() {
     //return true;
     Bool_t pass = false;
     if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") &&
-                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
+                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
                 Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
     }else{
         pass = false;
@@ -692,8 +693,8 @@ bool TTHAnalyzer::triggereeSS(){
     //return true;
     Bool_t pass = false;
     if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") &&
-               Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
+               Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
     }else{
         pass = false;
@@ -707,11 +708,11 @@ bool TTHAnalyzer::triggeremuSS(){
     //return true;
     Bool_t pass = false;
     if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") &&
-                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
-                Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
+                Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
                 Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
     }else{
         pass = false;
@@ -724,18 +725,18 @@ bool TTHAnalyzer::trigger3l4l(){
     //return true;
     Bool_t pass = false;
     if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") &&
-                Get<Int_t>("HLT_BIT_IsoMu20_v") &&
-                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v") &&
-                Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") &&
-                Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") &&
-                Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") &&
+        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
+                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
+                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v") ||
+                Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") ||
+                Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
+                Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") ||
                 Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v"));
     }else{
         pass = false;
@@ -1578,7 +1579,7 @@ bool TTHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 	if (LepGood_miniRelIso[iMuon] > 0.4) return false;
 	// The condition of "loose muon" is not demanded as the trees which we are
 	// doing the analysis already are filtered by it.
-	if (lepGood_mvaTTH[iMuon] < 0.75) {
+	if (LepGood_mvaTTH[iMuon] < 0.75) {
 		if (LepGood_jetPtRatiov2[iMuon] < 0.3) return false;
 		if (LepGood_jetBTagCSV[iMuon] > 0.605) return false;
 	}
