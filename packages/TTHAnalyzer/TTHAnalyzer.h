@@ -301,6 +301,7 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_eInvMinusPInv[30];	// NEW
 		Float_t LepGood_convVeto[30];		// NEW
 		Int_t 	LepGood_lostHits[30];		// NEW
+		Int_t 	LepGood_tightCharge[30];	// NEW
 		Float_t Jet_px[50];
 		Float_t Jet_py[50];
 		Float_t Jet_pz[50];
@@ -321,6 +322,7 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		bool triggereeSS();
 		bool triggeremuSS();
 		bool trigger3l4l();
+		Bool_t PassesPreCuts();				// NEW
 		bool PassesZVeto();
 		bool PassesNJetsCut();
 		bool PassesMETCut();
@@ -510,8 +512,14 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Int_t nGoodVertex;
 		Float_t nVertex;
 		Int_t nBtags;
-		Int_t nJets;
-		Int_t nMuon;
+		Int_t nJets;    
+		Int_t nTightMuon;
+		Int_t nFakeableMuon;
+		Int_t nLooseMuon;
+		Int_t nTightElec;
+		Int_t nFakeableElec;
+		Int_t nLooseElec;
+		TLorentzVector l
 		Int_t nElec;
 		Int_t nLeptons;
 

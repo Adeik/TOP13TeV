@@ -660,7 +660,7 @@ void StopAnalyzer::SetOriginalObjects(){
 			ElEnergy.push_back(LepGood_energy[i]);
 		}
 	}
-	for (Int_t i=0; i<nLepGood; i++){
+	for (Int_t i=0; i < nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 13){
 			MuPx.push_back(LepGood_px[i]);
 			MuPy.push_back(LepGood_py[i]); 
