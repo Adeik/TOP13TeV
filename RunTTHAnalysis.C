@@ -2,23 +2,19 @@
 R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 #include "DatasetManager/DatasetManager.h"
 
-/********************************************************
- * Main function
- ********************************************************/
-void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
-					Int_t    nSlots         =  1,
-					Bool_t   DoSystStudies  =  false,
-					Long64_t nEvents        = 0,
-					Bool_t G_CreateTree   = true,
-					Int_t stopMass       = 0,
-					Int_t lspMass        = 0,
-      				Float_t  SusyWeight     = 0.0) {
+/*******************************************************************************
+	* Main function
+*******************************************************************************/
+void RunTTHAnalysis(TString		sampleName		=	"ZZ"	,
+					Int_t		nSlots         	=  	1		,
+					Bool_t  	DoSystStudies  	=  	false	,
+					Long64_t 	nEvents        	= 	0		) {
 
-	// VARIABLES TO BE USED AS PARAMETERS...
+	// Variables to be used as parameters
   	Float_t G_Total_Lumi    = 19664.225;
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
-	Float_t G_LumiForPUData = 19468.3;     // luminosity in http://www.hep.uniovi.es/jfernan/PUhistos
+	Float_t G_LumiForPUData = 19468.3;	// luminosity in http://www.hep.uniovi.es/jfernan/PUhistos
 	Bool_t  G_IsMCatNLO     = false;
 
 	// PAF mode
@@ -29,7 +25,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
     	PAF_INFO("RunTTHAnalysis", "Sequential mode chosen");
     	pafmode = new PAFSequentialEnvironment();
   	}
-  	else if (nSlots <=8) {
+  	else if (nSlots <= 8) {
     	PAF_INFO("RunTTHAnalysis", "PROOF Lite mode chosen");
     	pafmode = new PAFPROOFLiteEnvironment(nSlots);
   	}
@@ -42,7 +38,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 	//--------------------------------------------------------------------------
 	PAFProject* myProject = new PAFProject(pafmode);
 
-	// INPUT DATA SAMPLE
+	// Input data sample
 	//--------------------------------------------------------------------------
 	TString userhome = "/mnt_pool/fanae105/user/$USER/";
 	DatasetManager* dm = DatasetManager::GetInstance();
@@ -50,8 +46,8 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 
 	// Deal with data samples
 	if ((sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
-       		sampleName == "MuonEG"     	|| 	sampleName == "SingleEle"  ||
-       		sampleName == "SingleMu")) {
+    sampleName == "MuonEG"	|| 	sampleName == "SingleEle"	||
+    sampleName == "SingleMu")) {
 
     	cout << "   + Data..." << endl;
 		TString datasuffix[] = { // 17.24
@@ -76,22 +72,19 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
   	else { // Deal with MC samples
 	    G_IsData = false; //true;  // only for pseudodata
 	    dm->LoadDataset(sampleName);
-	    if(sampleName != "TestHeppy" && !sampleName.Contains("T2tt"))   myProject->AddDataFiles(dm->GetFiles());
-    	if(sampleName == "TTWToLNu"  || sampleName == "TTWToQQ" || sampleName == "TTZToQQ" ||
-	    		sampleName == "WWZ" || sampleName == "WZZ" || sampleName == "ZZZ" ||
-				sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ){
+	    if (sampleName != "TestHeppy" && !sampleName.Contains("T2tt")) myProject->AddDataFiles(dm->GetFiles());
+    	if (sampleName == "TTWToLNu"  || sampleName == "TTWToQQ" || sampleName == "TTZToQQ" ||
+	    sampleName == "WWZ" || sampleName == "WZZ" || sampleName == "ZZZ" ||
+		sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ) {
 			G_Event_Weight = dm->GetCrossSection() / dm->GetSumWeights();
 			cout << endl;
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
     	}
-    	else if(sampleName.BeginsWith("T2tt")){
+    	else if (sampleName.BeginsWith("T2tt")) {
       		TString lp = "/pool/ciencias/HeppyTreesDR80X/v2/";
-      		cout << "Analyzing Stop sample" << endl;
-      		G_Event_Weight = SusyWeight;
       		myProject->AddDataFile(lp + "Tree_" + sampleName + "_0.root");
-      		sampleName = Form("T2tt_mStop%i_mLsp%i",stopMass, lspMass);
     	}
-    	else if(sampleName == "TestHeppy"){
+    	else if (sampleName == "TestHeppy") {
 			TString localpath="/pool/ciencias/users/user/palencia/";
 			TString sample = "treeTtbar_jan19.root";
 			myProject->AddDataFile(localpath + sample);
@@ -116,10 +109,10 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
   	}
 
 	// Output file name
-  	//----------------------------------------------------------------------------
+  	//--------------------------------------------------------------------------
 	Bool_t G_Use_CSVM = true;
 	TString outputDir = "./temp";
-  	if(sampleName.BeginsWith("T2tt")) outputDir += "/Susy";
+  	// if(sampleName.BeginsWith("T2tt")) outputDir += "/";
 
 	gSystem->mkdir(outputDir, kTRUE);
 
@@ -136,9 +129,9 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
   	myProject->SetOutputFile(outputFile);
 
   	if(sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ||
-     		sampleName == "TTWToLNu"       || sampleName == "TTWToQQ"          ||
-     		sampleName == "TTZToQQ"        || sampleName == "WWZ"              ||
-     		sampleName == "WZZ"            || sampleName == "ZZZ"           ){
+	sampleName == "TTWToLNu"	|| sampleName == "TTWToQQ"	||
+    sampleName == "TTZToQQ"		|| sampleName == "WWZ"      ||
+    sampleName == "WZZ"			|| sampleName == "ZZZ" ){
     	PAF_INFO("RunTTHAnalysis", "This is a MC@NLO sample!");
     	G_IsMCatNLO = true;
   	}
@@ -152,10 +145,7 @@ void RunTTHAnalysis(TString  sampleName     = "TTbar_Madgraph",
 	myProject->SetInputParam("LumiForPU",     G_LumiForPUData  );
 	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
 	myProject->SetInputParam("DoSystStudies", DoSystStudies    );
-	myProject->SetInputParam("stopMass"     , stopMass         );
-	myProject->SetInputParam("lspMass"      , lspMass          );
 	myProject->SetInputParam("IsMCatNLO"    , G_IsMCatNLO      );
-	myProject->SetInputParam("CreateTree"   , G_CreateTree     );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 

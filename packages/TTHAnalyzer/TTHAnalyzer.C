@@ -15,30 +15,25 @@ const float gJetEtCut = 25.;
 // GetParameters
 //------------------------------------------------------------------------------
 void TTHAnalyzer::GetParameters(){
-  gSampleName    = GetParam<TString>("sampleName");
-  gIsData        = GetParam<bool>("IsData");
-  gWeight        = GetParam<float>("weight"); // cross section / events in the sample
-  gLumiForPU     = GetParam<float>("LumiForPU");
-  gTotalLumi     = GetParam<float>("TotalLumi");
-  gDoSystStudies = GetParam<bool>("DoSystStudies");
-  gUseCSVM       = GetParam<bool>("UseCSVM");
-  gStopMass      = GetParam<Int_t>("stopMass");
-  gLspMass       = GetParam<Int_t>("lspMass");
-  gIsT2tt        = false;
-  if(gSampleName.BeginsWith("T2tt")) gIsT2tt = true;
+    gSampleName    = GetParam<TString>("sampleName");
+    gIsData        = GetParam<bool>("IsData");
+    gWeight        = GetParam<float>("weight"); // cross section / events in the sample
+    gLumiForPU     = GetParam<float>("LumiForPU");
+    gTotalLumi     = GetParam<float>("TotalLumi");
+    gDoSystStudies = GetParam<bool>("DoSystStudies");
+    gUseCSVM       = GetParam<bool>("UseCSVM");
+    gIsT2tt        = false;
+    if(gSampleName.BeginsWith("T2tt")) gIsT2tt = true;
 
-  gIsMCatNLO     = GetParam<bool>("IsMCatNLO");
-  gCreateTree    = GetParam<bool>("CreateTree");
+    gIsMCatNLO     = GetParam<bool>("IsMCatNLO");
 
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gDoSystStudies = %d", gDoSystStudies));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gStopMass = %i", gStopMass));
-  PAF_INFO("TTHAnalyzer::GetParameters()", Form("gLspMass = %i",gLspMass ));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gDoSystStudies = %d", gDoSystStudies));
+    PAF_INFO("TTHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
 }
 
 //-----------------------------------------------------------------------------------
@@ -226,48 +221,7 @@ void TTHAnalyzer::Initialise() {
 }
 
 void TTHAnalyzer::InitialiseTree(){
-    fTree = CreateTree("sTopTree","Optimization tree");
 
-    fTree->Branch("TWeight",      &TWeight,      "TWeight/F");
-    fTree->Branch("TIsDoubleMuon",&TIsDoubleMuon,"TIsDoubleMuon/I");
-    fTree->Branch("TIsDoubleElec",&TIsDoubleElec,"TIsDoubleElec/I");
-    fTree->Branch("TIsElMu",      &TIsElMu,      "TIsElMu/I");
-    fTree->Branch("TNJets",       &TNJets,       "TNJets/I");
-    fTree->Branch("TNJetsBtag",   &TNJetsBtag,   "TNJetsBtag/I");
-
-    fTree->Branch("TMET",         &TMET,         "TMET/F");
-    fTree->Branch("TMT2ll",       &TMT2ll,       "TMT2ll/F");
-    fTree->Branch("TMT2bb",       &TMT2bb,       "TMT2bb/F");
-    fTree->Branch("TMT2lblb",     &TMT2lblb,     "TMT2lblb/F");
-    fTree->Branch("TMll",         &TMll,         "TMll/F");
-    fTree->Branch("TMeff",        &TMeff,        "TMeff/F");
-    fTree->Branch("TPtllb",       &TPtllb,       "TPtllb/F");
-    fTree->Branch("THT",          &THT,          "THT/F");
-
-    fTree->Branch("TMET_Phi",     &TMET_Phi,     "TMET_Phi/F");
-    fTree->Branch("TdPhiPtllbMET",&TdPhiPtllbMET,"TdPhiPtllbMET/F");
-    fTree->Branch("TMinDPhiMetJets",&TMinDPhiMetJets,"TMinDPhiMetJets/F");
-    fTree->Branch("TdPhiJetMet",  &TdPhiJetMet,  "TdPhiJetMet/F");
-    fTree->Branch("TdPhiLepMet",  &TdPhiLepMet,  "TdPhiLepMet/F");
-    fTree->Branch("TdPhiLepJet",  &TdPhiLepJet,  "TdPhiLepJet/F");
-    fTree->Branch("TdPhill",      &TdPhill,      "TdPhill/F");
-
-    fTree->Branch("TLep1_Px",     &TLep1_Px,     "TLep1_Px/F");
-    fTree->Branch("TLep1_Py",     &TLep1_Py,     "TLep1_Py/F");
-    fTree->Branch("TLep1_Pz",     &TLep1_Pz,     "TLep1_Pz/F");
-    fTree->Branch("TLep1_E" ,     &TLep1_E ,     "TLep1_E/F");
-    fTree->Branch("TLep1_Carge",  &TLep1_Charge, "TLep1_Charge/F");
-    fTree->Branch("TLep2_Px",     &TLep2_Px,     "TLep2_Px/F");
-    fTree->Branch("TLep2_Py",     &TLep2_Py,     "TLep2_Py/F");
-    fTree->Branch("TLep2_Pz",     &TLep2_Pz,     "TLep2_Pz/F");
-    fTree->Branch("TLep2_E" ,     &TLep2_E ,     "TLep2_E/F");
-    fTree->Branch("TLep2_Carge",  &TLep2_Charge, "TLep2_Charge/F");
-
-    fTree->Branch("TJet_isBJet",       TJet_isBJet,       "TJet_isBJet[TNJets]/I");
-    fTree->Branch("TJet_Px",           TJet_Px,           "TJet_Px[TNJets]/F");
-    fTree->Branch("TJet_Py",           TJet_Py,           "TJet_Py[TNJets]/F");
-    fTree->Branch("TJet_Pz",           TJet_Pz,           "TJet_Pz[TNJets]/F");
-    fTree->Branch("TJet_E",            TJet_E,            "TJet_E[TNJets]/F");
 }
 
 void TTHAnalyzer::InitialiseGenHistos(){
@@ -511,10 +465,6 @@ void TTHAnalyzer::SetTreeVariables(gChannel chan){
 // InsideLoop
 //-----------------------------------------------------------------------
 void TTHAnalyzer::InsideLoop() {
-    if(gIsT2tt){
-		//   cout << "GenSusyMStop = " << Get<Int_t>("GenSusyMStop") << ", gStopMass = " << gStopMass << ", GenSusyMNeutralino = " << Get<Int_t>("GenSusyMNeutralino") << ", gLspMass = " << gLspMass << endl;
-		if((Get<Int_t>("GenSusyMStop") != gStopMass) || (Get<Int_t>("GenSusyMNeutralino") != gLspMass)) return;
-    }
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
 
@@ -540,7 +490,7 @@ void TTHAnalyzer::InsideLoop() {
 			<< IsElElEvent() << "/"
 			<< IsMuMuEvent() << endl;
 	#endif
-	
+
 	// Fill Yields ...............................................................
 	FillYields();
 
@@ -1182,20 +1132,12 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
 		hWeight -> Fill(EventWeight,1.);
+
 #ifdef DEBUG
 		cout << " pass trigger + emu, ";
 #endif
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
-
-		if(
-				(gCreateTree) && (sys==Norm)        && !(fChargeSwitch) &&
-				PassesZVeto()      &&
-				PassesMllVeto()    &&
-				PassesNJetsCut()){
-			SetTreeVariables(ElMu);
-			fTree->Fill();
-		}
 
 #ifdef DEBUG
 			cout << " pass mll, ";
@@ -1259,15 +1201,6 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
-		if(
-			(gCreateTree) &&	(sys==Norm) && !(fChargeSwitch) &&
-				PassesZVeto()      &&
-				PassesMllVeto()    &&
-				PassesNJetsCut()){
-			SetTreeVariables(Muon);
-			fTree->Fill();
-		}
-
 		if (PassesMllVeto()){
 #ifdef DEBUG
 			cout << " pass mll, ";
@@ -1316,16 +1249,6 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
-		if(
-			(gCreateTree) &&	(sys==Norm)        && !(fChargeSwitch) &&
-				PassesZVeto()      &&
-				PassesMllVeto()    &&
-				PassesNJetsCut()){
-			SetTreeVariables(Elec);
-			fTree->Fill();
-		}
-
-
 }
   ResetHypLeptons();
 #ifdef DEBUG
@@ -1349,7 +1272,7 @@ Bool_t TTHAnalyzer::PassesPreCuts(){				   		  	// NEW
 			if ((tmp_looselep0 + tmp_looselep1).M() < 12) return false;
 		}
 	}
-	
+
 	return true;
 }
 

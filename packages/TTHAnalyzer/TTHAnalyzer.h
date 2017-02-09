@@ -158,7 +158,7 @@ class lepton{
         }
     	TLorentzVector p;
     	Int_t charge;
-    	Int_t type; // -1(unknown), 0(tight muon), 1(tight electron); 2(fakeable muon), 3(fakeable electron); 4(loose muon), 5(loose electron) 
+    	Int_t type; // -1(unknown), 0(tight muon), 1(tight electron); 2(fakeable muon), 3(fakeable electron); 4(loose muon), 5(loose electron)
     	Int_t index;
 };
 
@@ -449,9 +449,6 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Bool_t  gUseCSVM;
 		Bool_t  gIsMCatNLO;
 		Bool_t  gIsT2tt;
-		Int_t gStopMass;
-		Int_t gLspMass;
-		Bool_t  gCreateTree;
 
 		PUWeight *fPUWeight;      //The PU weight utility
 		PUWeight *fPUWeightUp;    //The PU weight utility
@@ -513,7 +510,7 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Int_t nGoodVertex;
 		Float_t nVertex;
 		Int_t nBtags;
-		Int_t nJets;    
+		Int_t nJets;
 		Int_t nTightMuon;
 		Int_t nFakeableMuon;
 		Int_t nLooseMuon;
