@@ -158,7 +158,7 @@ class lepton{
         }
     	TLorentzVector p;
     	Int_t charge;
-    	Int_t type; // -1(unknown), 0(mu), 1(ele)
+    	Int_t type; // -1(unknown), 0(tight muon), 1(tight electron); 2(fakeable muon), 3(fakeable electron); 4(loose muon), 5(loose electron) 
     	Int_t index;
 };
 
@@ -302,6 +302,7 @@ class TTHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_convVeto[30];		// NEW
 		Int_t 	LepGood_lostHits[30];		// NEW
 		Int_t 	LepGood_tightCharge[30];	// NEW
+		Float_t LepGood_jetDR[30];		// NEW
 		Float_t Jet_px[50];
 		Float_t Jet_py[50];
 		Float_t Jet_pz[50];
@@ -525,6 +526,8 @@ class TTHAnalyzer : public PAFChainItemSelector {
 
 		///// OBJECTS
 		std::vector<lepton> Lepton;
+		std::vector<lepton> LooseLepton;	// NEW
+		std::vector<lepton> FakeableLepton;	// NEW
 		std::vector<jet>    Jet;
 		//  std::vector<jet>    Jet15;
 

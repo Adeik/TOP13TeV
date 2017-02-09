@@ -7,7 +7,7 @@
 #include <math.h>
 
 ClassImp(TTHAnalyzer);
-const float gJetEtCut = 30.;
+const float gJetEtCut = 25.;
 
 //#define DEBUG
 
@@ -188,11 +188,11 @@ void TTHAnalyzer::Initialise() {
 	//	PU Reweight
 	//--------------------------------------
 	//PAF_INFO("TTHAnalyzer", "+ Initialise Pile-Up reweighting tool...");
-  fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
-  if (!gIsData) {
-    fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
-    fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
-  }
+	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
+	if (!gIsData) {
+	fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
+	fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
+	}
 
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco
@@ -207,11 +207,11 @@ void TTHAnalyzer::Initialise() {
 		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Medium", -3);
 	}
 	else{
-		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Tight",  0);
-		fBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Tight",  1);
-		fBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Tight", -1);
-		fBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Tight",  3);
-		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Tight", -3);
+		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
+		fBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  1);
+		fBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -1);
+		fBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  3);
+		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -3);
 	}
 
 	//PAF_INFO("TTHAnalyzer", "+ Initialise lepton scale factors...");
@@ -1336,7 +1336,19 @@ void TTHAnalyzer::FillYields(gSystFlag sys){
 //----------------------------------------------------------------------
 // Passes
 //----------------------------------------------------------------------
-Bool_t TTHAnalyzer::PassesPreCuts(){				   		  // NEW
+Bool_t TTHAnalyzer::PassesPreCuts(){				   		  	// NEW
+	// This function requires n[]Elec and n[]Muon to be initialized and
+	// declared, where [] = { Tight, Fakeable, Loose }.
+	if ((nTightElec + nTightMuon) < 2) return false;
+	if (LooseLepton.size() > 1) {
+		lepton tmp_looselep0;
+		lepton tmp_looselep1;
+		tmp_looselep0 = LooseLepton[0];
+		for (unsigned Int_t i = 0; i < LooseLepton.size(); i++) {
+			tmp_looselep1 = LooseLepton[i+1];
+			if ((tmp_looselep0 + tmp_looselep1).M() < 12) return false;
+		}
+	}
 	
 	return true;
 }
@@ -1485,11 +1497,14 @@ vector<lepton> TTHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
 
 int TTHAnalyzer::getSelectedLeptons(){
     // Loops over the total number of muons and electrons and returns the number of leptons.
-    if (Lepton.size() > 0) {
+    if (Lepton.size() > 0 || LooseLepton.size() > 0) {
         cout << "[WARNING]: you have called this function previously... RESETTING..."<<endl;
         Lepton.clear();
+        LooseLepton.clear();
     }
     vector<lepton> tmp_lepton;
+    vector<lepton> tmp_looselepton;
+    vector<lepton> tmp_fakeablelepton;
     nTightMuon = 0;
     nFakeableMuon = 0;
     nLooseMuon = 0;
@@ -1529,11 +1544,12 @@ int TTHAnalyzer::getSelectedLeptons(){
         }
 		else if(IsFakeableMuon(i)){
 			CoutEvent(evt, "   It's a fakeable muon!");
-			thetype = 0;
+			thetype = 2;
 			nFakeableMuon++;
         }
 		else if(IsLooseMuon(i)){
 			CoutEvent(evt, "   It's a loose muon!");
+			thetype = 4;
 			nLooseMuon++;
         }
         else if(IsTightElectron(i)){
@@ -1543,22 +1559,34 @@ int TTHAnalyzer::getSelectedLeptons(){
         }
         else if(IsFakeableElectron(i)){
 			CoutEvent(evt, "   It's a fakeable electron!");
-            thetype = 1;
+            thetype = 3;
             nFakeableElec++;
         }
         else if(IsLooseElectron(i)){
 			CoutEvent(evt, "   It's a loose electron!");
-            thetype = 1;
+            thetype = 5;
             nLooseElec++;
         }
         else  continue;
-
+		if (thetype = 4 || thetype = 5) {
+		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
+		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
+		    tmp_looselepton.push_back(tmpLepton);
+		}
+		if (thetype = 2 || thetype = 3) {
+		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
+		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
+		    tmp_fakeablelepton.push_back(tmpLepton);
+		}
         lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
         lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
         tmp_lepton.push_back(tmpLepton);
     }
+    FakeableLepton = SortLeptonsByPt(tmp_fakeablelepton);
+    LooseLepton = SortLeptonsByPt(tmp_looselepton);
     Lepton = SortLeptonsByPt(tmp_lepton);
     CoutEvent(evt, Form("  ---> nselLeps = %i", Lepton.size()));
+    CoutEvent(evt, Form("  ---> nselLooseLeps = %i", LooseLepton.size()));
     if(Lepton.size() == 2) CoutEvent(evt, Form("  --->      Mll = %f", (Lepton[0].p+Lepton[1].p).M()));
     return Lepton.size();
 }
@@ -1588,6 +1616,7 @@ bool TTHAnalyzer::METFilter(){
 //------------------------------------------------------------------------------
 bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
+	if (LepGood_jetDR[iMuon]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1605,6 +1634,7 @@ bool TTHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 
 bool TTHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
+	if (LepGood_jetDR[iMuon]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1625,6 +1655,7 @@ bool TTHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 
 bool TTHAnalyzer::IsLooseMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
+	if (LepGood_jetDR[iMuon]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 5) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1647,6 +1678,7 @@ float TTHAnalyzer::getMuonIso(int iMuon){
 //------------------------------------------------------------------------------
 bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
+	if (LepGood_jetDR[iElec]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (an == 2) {
 		if (LepGood_pt[iElec] < 15) return false;
@@ -1698,6 +1730,7 @@ bool TTHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 
 bool TTHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
+	if (LepGood_jetDR[iElec]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
@@ -1748,6 +1781,7 @@ bool TTHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 
 bool TTHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
+	if (LepGood_jetDR[iElec]) > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 7) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
@@ -1873,7 +1907,7 @@ int TTHAnalyzer::getSelectedJets(){
 	//  jtDisc.SetPtEtaPhiE(DiscJet_pt[i], DiscJet_eta[i], DiscJet_phi[i], DiscJet_energy[i]);
 	//}
     TLorentzVector jt;
-    for (Int_t i=0; i<nJet; i++) {
+    for (Int_t i=0; i < nJet; i++) {
         if(!IsGoodJet(i,gJetEtCut)) continue;
 
         Float_t jetbtagi      = Jet_btagCSV[i];
@@ -1886,7 +1920,7 @@ int TTHAnalyzer::getSelectedJets(){
             isbtag = fBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
         }
         else {
-			Int_t   jetmcflavouri = Get<Int_t>  ("Jet_mcFlavour", i);
+			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
 			// official b-tag recommendation: use JetHadronFlavour instead of JetPartonFlavor
 			/*
 				 if(TMath::Abs(Jet_mcFlavour[i]) == 5 || TMath::Abs(Jet_mcFlavour[i]) == 4){
@@ -1917,7 +1951,7 @@ int TTHAnalyzer::getSelectedJets(){
 }
 
 bool TTHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
-    float minDR = 0.4;
+    Float_t minDR = 0.4;
     TLorentzVector jet;
     jet.SetPtEtaPhiE(JetPt.at(ijet), Jet_eta[ijet], JetPhi.at(ijet), Jet_energy[ijet]);
     if (jet.Pt() < ptcut)     return false;
@@ -1925,11 +1959,10 @@ bool TTHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
     if (Get<Int_t>("Jet_id",ijet) <= 0)    return false;
     //if (Jet_id[ijet] > 0) return true;
     // Remove jets close to all selected leptons...
-    for(unsigned int i = 0; i < Lepton.size(); i++){
-        if(jet.DeltaR(Lepton[i].p) < minDR) return false;
+    for(unsigned int i = 0; i < FakeableLepton.size(); i++){
+        if(jet.DeltaR(FakeableLepton[i].p) < minDR) return false;
     }
     return true;
-    //return false;
 }
 
 //------------------------------------------------------------------------------
