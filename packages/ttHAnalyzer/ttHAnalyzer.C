@@ -1267,7 +1267,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  	// NEW
 		lepton tmp_looselep0;
 		lepton tmp_looselep1;
 		tmp_looselep0 = LooseLepton[0];
-		for (Int_t i = 0; i < LooseLepton.size(); i++) {
+		for (unsigned Int_t i = 0; i < LooseLepton.size(); i++) {
 			tmp_looselep1 = LooseLepton[i+1];
 			if ((tmp_looselep0 + tmp_looselep1).M() < 12) return false;
 		}
