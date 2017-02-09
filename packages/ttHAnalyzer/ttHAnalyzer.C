@@ -40,9 +40,9 @@ void ttHAnalyzer::GetParameters(){
 // GetTreeVariables
 //-----------------------------------------------------------------------------------
 void ttHAnalyzer::GetTreeVariables(){
-  nLepGood             = Get<Int_t>("nLepGood");
+    nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
-  evt                  = Get<ULong64_t>("evt");
+    evt                  = Get<Long_t>("evt");
 	if(!gIsData){
 		ngenLep              = Get<Int_t>("ngenLep");
 		genWeight            = Get<Float_t>("genWeight");

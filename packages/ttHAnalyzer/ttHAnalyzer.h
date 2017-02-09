@@ -270,7 +270,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
         // Frequently used variables in the trees
 		Int_t   nLepGood;
 		Int_t   ngenLep;
-        ULong64_t evt;
+        Long_t evt;
 		Int_t   nJet;
 		Float_t genWeight;
 		Float_t LepGood_px[30];
@@ -517,7 +517,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Int_t nTightElec;
 		Int_t nFakeableElec;
 		Int_t nLooseElec;
-		TLorentzVector l
 		Int_t nElec;
 		Int_t nLeptons;
 
