@@ -5,7 +5,7 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 /*******************************************************************************
 	* Main function
 *******************************************************************************/
-void RunTTHAnalysis(TString		sampleName		=	"ZZ"	,
+void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 					Int_t		nSlots         	=  	1		,
 					Bool_t  	DoSystStudies  	=  	false	,
 					Long64_t 	nEvents        	= 	0		) {
@@ -22,15 +22,15 @@ void RunTTHAnalysis(TString		sampleName		=	"ZZ"	,
 	cout << endl;
 	PAFIExecutionEnvironment* pafmode = 0;
 	if (nSlots <=1 ) {
-    	PAF_INFO("RunTTHAnalysis", "Sequential mode chosen");
+    	PAF_INFO("RunttHAnalysis", "Sequential mode chosen");
     	pafmode = new PAFSequentialEnvironment();
   	}
   	else if (nSlots <= 8) {
-    	PAF_INFO("RunTTHAnalysis", "PROOF Lite mode chosen");
+    	PAF_INFO("RunttHAnalysis", "PROOF Lite mode chosen");
     	pafmode = new PAFPROOFLiteEnvironment(nSlots);
   	}
   	else {
-    	PAF_INFO("RunTTHAnalysis", "PoD mode chosen");
+    	PAF_INFO("RunttHAnalysis", "PoD mode chosen");
     	pafmode = new PAFPoDEnvironment(nSlots);
   	}
 
@@ -125,14 +125,14 @@ void RunTTHAnalysis(TString		sampleName		=	"ZZ"	,
   	if(outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
   	if(outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
 
-  	PAF_INFO("RunTTHAnalysis", Form("Output file = %s", outputFile.Data()));
+  	PAF_INFO("RunttHAnalysis", Form("Output file = %s", outputFile.Data()));
   	myProject->SetOutputFile(outputFile);
 
   	if(sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ||
 	sampleName == "TTWToLNu"	|| sampleName == "TTWToQQ"	||
     sampleName == "TTZToQQ"		|| sampleName == "WWZ"      ||
     sampleName == "WZZ"			|| sampleName == "ZZZ" ){
-    	PAF_INFO("RunTTHAnalysis", "This is a MC@NLO sample!");
+    	PAF_INFO("RunttHAnalysis", "This is a MC@NLO sample!");
     	G_IsMCatNLO = true;
   	}
 
@@ -151,7 +151,7 @@ void RunTTHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	// Name of analysis class
 	//--------------------------------------------------------------------------
-	myProject->AddSelectorPackage("TTHAnalyzer");
+	myProject->AddSelectorPackage("ttHAnalyzer");
 
 	// Additional packages
 	//--------------------------------------------------------------------------
