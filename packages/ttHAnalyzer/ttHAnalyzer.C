@@ -1267,7 +1267,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  	// NEW
 		lepton tmp_looselep0;
 		lepton tmp_looselep1;
 		tmp_looselep0 = LooseLepton[0];
-		for (unsigned Int_t i = 0; i < LooseLepton.size(); i++) {
+		for (Int_t i = 0; i < LooseLepton.size(); i++) {
 			tmp_looselep1 = LooseLepton[i+1];
 			if ((tmp_looselep0 + tmp_looselep1).M() < 12) return false;
 		}
@@ -1491,12 +1491,12 @@ int ttHAnalyzer::getSelectedLeptons(){
             nLooseElec++;
         }
         else  continue;
-		if (thetype = 4 || thetype = 5) {
+		if (thetype == 4 || thetype == 5) {
 		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_looselepton.push_back(tmpLepton);
 		}
-		if (thetype = 2 || thetype = 3) {
+		if (thetype == 2 || thetype == 3) {
 		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_fakeablelepton.push_back(tmpLepton);
@@ -1539,7 +1539,7 @@ bool ttHAnalyzer::METFilter(){
 //------------------------------------------------------------------------------
 bool ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon]) > 0.5) return false;
+	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1557,7 +1557,7 @@ bool ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 
 bool ttHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon]) > 0.5) return false;
+	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1578,7 +1578,7 @@ bool ttHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 
 bool ttHAnalyzer::IsLooseMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon]) > 0.5) return false;
+	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 5) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -1601,7 +1601,7 @@ float ttHAnalyzer::getMuonIso(int iMuon){
 //------------------------------------------------------------------------------
 bool ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec]) > 0.5) return false;
+	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (an == 2) {
 		if (LepGood_pt[iElec] < 15) return false;
@@ -1653,7 +1653,7 @@ bool ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 
 bool ttHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec]) > 0.5) return false;
+	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
@@ -1704,7 +1704,7 @@ bool ttHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 
 bool ttHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec]) > 0.5) return false;
+	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 7) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
