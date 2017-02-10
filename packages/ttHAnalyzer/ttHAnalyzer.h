@@ -146,7 +146,7 @@ const TString WeiName[gNWEIGHT] = {
     "muR05muF05"
 };
 
-class lepton{
+class lepton {
     public:
         //lepton(){}
         //lepton(const lepton &l): p(l.p), charge(l.charge), type(l.type), index(l.index){ };
@@ -160,9 +160,10 @@ class lepton{
     	Int_t charge;
     	Int_t type; // -1(unknown), 0(tight muon), 1(tight electron); 2(fakeable muon), 3(fakeable electron); 4(loose muon), 5(loose electron)
     	Int_t index;
+		TLorentzVector getTLV();
 };
 
-class jet{
+class jet {
 	public:
     	jet(){};
     	jet(TLorentzVector vec, Bool_t btag, Int_t ind){
@@ -286,23 +287,23 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_relIso04[30];
 		Int_t   LepGood_charge[30];
 		Int_t   LepGood_pdgId[30];
-		Float_t LepGood_z[30];				// NEW
-		Float_t LepGood_sip3d[30];			// NEW
-		Float_t LepGood_miniRelIso[30];		// NEW
-		Float_t LepGood_jetBTagCSV[30];		// NEW
-		Int_t 	LepGood_mediumMuonId[30];	// NEW
-		Float_t LepGood_mvaTTH[30];			// NEW
-		Float_t LepGood_jetPtRatiov2[30];	// NEW
-		Float_t LepGood_mvaIdSpring15[30];	// NEW
-		Float_t LepGood_sigmaIEtaIEta[30];	// NEW
-		Float_t LepGood_hadronicOverEm[30];	// NEW
-		Float_t LepGood_dEtaScTrkIn[30];	// NEW
-		Float_t LepGood_dPhiScTrkIn[30];	// NEW
-		Float_t LepGood_eInvMinusPInv[30];	// NEW
-		Float_t LepGood_convVeto[30];		// NEW
-		Int_t 	LepGood_lostHits[30];		// NEW
-		Int_t 	LepGood_tightCharge[30];	// NEW
-		Float_t LepGood_jetDR[30];		// NEW
+		Float_t LepGood_z[30];					// NEW
+		Float_t LepGood_sip3d[30];				// NEW
+		Float_t LepGood_miniRelIso[30];			// NEW
+		Float_t LepGood_jetBTagCSV[30];			// NEW
+		Int_t 	LepGood_mediumMuonId[30];		// NEW
+		Float_t LepGood_mvaTTH[30];				// NEW
+		Float_t LepGood_jetPtRatiov2[30];		// NEW
+		Float_t LepGood_mvaIdSpring15[30];		// NEW
+		Float_t LepGood_sigmaIEtaIEta[30];		// NEW
+		Float_t LepGood_hadronicOverEm[30];		// NEW
+		Float_t LepGood_dEtaScTrkIn[30];		// NEW
+		Float_t LepGood_dPhiScTrkIn[30];		// NEW
+		Float_t LepGood_eInvMinusPInv[30];		// NEW
+		Float_t LepGood_convVeto[30];			// NEW
+		Int_t 	LepGood_lostHits[30];			// NEW
+		Int_t 	LepGood_tightCharge[30];		// NEW
+		Float_t LepGood_jetDR[30];				// NEW
 		Float_t Jet_px[50];
 		Float_t Jet_py[50];
 		Float_t Jet_pz[50];
@@ -314,16 +315,22 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t genLep_phi[50];
 		Float_t genLep_mass[50];
 		Int_t   genLep_pdgId[50];
+		Int_t	TauGood_idDecayModeNewDMs[30];	// NEW
+		Float_t	TauGood_pt[30];					// NEW
+		Float_t	TauGood_eta[30];				// NEW
+		Float_t	TauGood_phi[30];				// NEW
+		Float_t	TauGood_mass[30];				// NEW
+		Int_t	TauGood_idCI3hit[30];			// NEW
 
-		void  GetParameters();
-		void GetTreeVariables();
+		void  	GetParameters();
+		void 	GetTreeVariables();
 		//   Int_t SelectedVertexIndex();
 
 		bool triggermumuSS();
 		bool triggereeSS();
 		bool triggeremuSS();
 		bool trigger3l4l();
-		Bool_t PassesPreCuts();				// NEW
+		Bool_t PassesPreCuts();					// NEW
 		bool PassesZVeto();
 		bool PassesNJetsCut();
 		bool PassesMETCut();
@@ -379,15 +386,16 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		// Lepton selection methods
 		int  getSelectedLeptons();
 		//   bool IsVetoMuon(unsigned int, float ptcut=20.);
-		bool IsTightMuon(unsigned int, float ptcut=20.);
-		bool IsFakeableMuon(unsigned int, float ptcut=20.);
-		bool IsLooseMuon(unsigned int, float ptcut=20.);
-		float getMuonIso(int);
+		bool 	IsTightMuon(unsigned int, float ptcut=20.);
+		bool 	IsFakeableMuon(unsigned int, float ptcut=20.);
+		bool 	IsLooseMuon(unsigned int, float ptcut=20.);
+		float 	getMuonIso(int);
 		//   bool IsVetoElectron(unsigned int,float ptcut=20.);
 		//   bool IsMVAIDElectron(unsigned int);
-		bool IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
-		bool IsFakeableElectron(unsigned int,float ptcut=20.);
-		bool IsLooseElectron(unsigned int,float ptcut=20.);
+		bool 	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
+		bool 	IsFakeableElectron(unsigned int,float ptcut=20.);
+		bool 	IsLooseElectron(unsigned int,float ptcut=20.);
+		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut)
         void CoutEvent(long unsigned int en = 0, TString t = " ");
 		float getElecIso(int);
 		float getEACorrection(float);
@@ -395,7 +403,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
 
 		int getSelectedJets();
-		bool IsGoodJet(unsigned int, float ptcut=30.);
+		bool IsGoodJet(unsigned int, float ptcut=25.);
+		Bool_t IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
 		std::vector<int> CleanedJetIndices(float);
 		void SmearJetPts(int);
 		void propagateMET(TLorentzVector,TLorentzVector);
@@ -459,6 +468,16 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		BTagSFUtil *fBTagSFbDo ;
 		BTagSFUtil *fBTagSFlUp ;
 		BTagSFUtil *fBTagSFlDo ;
+		BTagSFUtil *medfBTagSFnom ;				// NEW
+		BTagSFUtil *medfBTagSFbUp ;
+		BTagSFUtil *medfBTagSFbDo ;
+		BTagSFUtil *medfBTagSFlUp ;
+		BTagSFUtil *medfBTagSFlDo ;
+		BTagSFUtil *losfBTagSFnom ;
+		BTagSFUtil *losfBTagSFbUp ;
+		BTagSFUtil *losfBTagSFbDo ;
+		BTagSFUtil *losfBTagSFlUp ;
+		BTagSFUtil *losfBTagSFlDo ;
 		SusyLeptonSF *fLeptonSF;
 		TRandom3 *fRand3;
 
@@ -498,27 +517,28 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		std::vector<Double_t>       PtGen_Jet;
 		std::vector<Double_t>       PtGen_b;
 
-		Int_t nGenElec;
-		Int_t nGenMuon;
-		Int_t nGenTau;
-		Int_t nGenLepton;
-		Int_t nTauElec;
-		Int_t nTauMuon;
-		Int_t nSGenMuon;
-		Int_t nSGenElec;
+		Int_t 	nGenElec;
+		Int_t	nGenMuon;
+		Int_t	nGenTau;
+		Int_t	nGenLepton;
+		Int_t 	nTauElec;
+		Int_t 	nTauMuon;
+		Int_t 	nSGenMuon;
+		Int_t 	nSGenElec;
 
-		Int_t nGoodVertex;
+		Int_t 	nGoodVertex;
 		Float_t nVertex;
-		Int_t nBtags;
-		Int_t nJets;
-		Int_t nTightMuon;
-		Int_t nFakeableMuon;
-		Int_t nLooseMuon;
-		Int_t nTightElec;
-		Int_t nFakeableElec;
-		Int_t nLooseElec;
-		Int_t nElec;
-		Int_t nLeptons;
+		Int_t 	nBtags;
+		Int_t 	nJets;
+		Int_t 	nTightMuon;					// NEW
+		Int_t 	nFakeableMuon;				// NEW
+		Int_t 	nLooseMuon;					// NEW
+		Int_t 	nTightElec;					// NEW
+		Int_t 	nFakeableElec;				// NEW
+		Int_t 	nLooseElec;					// NEW
+		Int_t 	nElec;
+		Int_t 	nLeptons;
+		UInt_t 	njpt;						// NEW
 
 		///// OBJECTS
 		std::vector<lepton> Lepton;

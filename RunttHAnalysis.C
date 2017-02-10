@@ -6,7 +6,7 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 	* Main function
 *******************************************************************************/
 void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
-					Int_t		nSlots         	=  	1		,
+					Int_t		nSlots         	=  	8		,
 					Bool_t  	DoSystStudies  	=  	false	,
 					Long64_t 	nEvents        	= 	0		) {
 
@@ -42,8 +42,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	//--------------------------------------------------------------------------
 	TString userhome = "/mnt_pool/fanae105/user/$USER/";
 	DatasetManager* dm = DatasetManager::GetInstance();
-	dm->SetTab("DR80XasymptoticMiniAODv2");
-
+	//dm->SetTab("DR80XasymptoticMiniAODv2");
+	dm->SetTab("DR80XSummer16asymptoticMiniAODv2");
 	// Deal with data samples
 	if ((sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
     sampleName == "MuonEG"	|| 	sampleName == "SingleEle"	||
@@ -71,7 +71,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
   	}
   	else { // Deal with MC samples
 	    G_IsData = false; //true;  // only for pseudodata
-	    dm->LoadDataset(sampleName);
+	    dm->LoadDataset(sampleName + "_ext");
 	    if (sampleName != "TestHeppy" && !sampleName.Contains("T2tt")) myProject->AddDataFiles(dm->GetFiles());
     	if (sampleName == "TTWToLNu"  || sampleName == "TTWToQQ" || sampleName == "TTZToQQ" ||
 	    sampleName == "WWZ" || sampleName == "WZZ" || sampleName == "ZZZ" ||
@@ -81,8 +81,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
     	}
     	else if (sampleName.BeginsWith("T2tt")) {
-      		TString lp = "/pool/ciencias/HeppyTreesDR80X/v2/";
-      		myProject->AddDataFile(lp + "Tree_" + sampleName + "_0.root");
+      		TString lp = "/pool/ciencias/HeppyTreesSummer16/v1/";
+      		myProject->AddDataFile(lp + "Tree_" + sampleName + "_ext_0.root");
     	}
     	else if (sampleName == "TestHeppy") {
 			TString localpath="/pool/ciencias/users/user/palencia/";
@@ -121,7 +121,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	TString LumiString = oss.str();
   	TString outputFile = outputDir;
-  	outputFile += "/Tree_" + sampleName + ".root";
+  	outputFile += "/Tree_" + sampleName + "_ext.root";
   	if(outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
   	if(outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
 

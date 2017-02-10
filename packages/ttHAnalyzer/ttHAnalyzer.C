@@ -15,14 +15,14 @@ const float gJetEtCut = 25.;
 // GetParameters
 //------------------------------------------------------------------------------
 void ttHAnalyzer::GetParameters(){
-    gSampleName    = GetParam<TString>("sampleName");
-    gIsData        = GetParam<bool>("IsData");
-    gWeight        = GetParam<float>("weight"); // cross section / events in the sample
-    gLumiForPU     = GetParam<float>("LumiForPU");
-    gTotalLumi     = GetParam<float>("TotalLumi");
-    gDoSystStudies = GetParam<bool>("DoSystStudies");
-    gUseCSVM       = GetParam<bool>("UseCSVM");
-    gIsT2tt        = false;
+    gSampleName		=	GetParam<TString>("sampleName");
+    gIsData        	= 	GetParam<bool>("IsData");
+    gWeight        	= 	GetParam<float>("weight"); // cross section / events in the sample
+    gLumiForPU     	= 	GetParam<float>("LumiForPU");
+    gTotalLumi     	= 	GetParam<float>("TotalLumi");
+    gDoSystStudies 	= 	GetParam<bool>("DoSystStudies");
+    gUseCSVM       	= 	GetParam<bool>("UseCSVM");
+    gIsT2tt        	= 	false;
     if(gSampleName.BeginsWith("T2tt")) gIsT2tt = true;
 
     gIsMCatNLO     = GetParam<bool>("IsMCatNLO");
@@ -39,7 +39,7 @@ void ttHAnalyzer::GetParameters(){
 //-----------------------------------------------------------------------------------
 // GetTreeVariables
 //-----------------------------------------------------------------------------------
-void ttHAnalyzer::GetTreeVariables(){
+void ttHAnalyzer::GetTreeVariables() {
     nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
     evt                  = Get<Long_t>("evt");
@@ -47,7 +47,7 @@ void ttHAnalyzer::GetTreeVariables(){
 		ngenLep              = Get<Int_t>("ngenLep");
 		genWeight            = Get<Float_t>("genWeight");
 	}
-	for(int k = 0; k<nLepGood; k++){
+	for(int k = 0; k<nLepGood; k++) {
     LepGood_px[k]      = Get<Float_t>("LepGood_px", k);
     LepGood_py[k]      = Get<Float_t>("LepGood_py", k);
     LepGood_pz[k]      = Get<Float_t>("LepGood_pz", k);
@@ -61,16 +61,16 @@ void ttHAnalyzer::GetTreeVariables(){
     LepGood_relIso04[k]= Get<Float_t>("LepGood_relIso04", k);
     LepGood_pdgId[k]   = Get<Int_t>("LepGood_pdgId", k);
     LepGood_charge[k]  = Get<Int_t>("LepGood_charge", k);
-  }
-  for(int k = 0; k<nJet; k++){
-    Jet_px[k]          = Get<Float_t>("Jet_px", k);
-    Jet_py[k]          = Get<Float_t>("Jet_py", k);
-    Jet_pz[k]          = Get<Float_t>("Jet_pz", k);
-    Jet_energy[k]      = Get<Float_t>("Jet_energy", k);
-    Jet_eta[k]         = Get<Float_t>("Jet_eta", k);
-    Jet_btagCSV[k]     = Get<Float_t>("Jet_btagCSV", k);
-  }
-	if(!gIsData){
+	}
+	for(int k = 0; k<nJet; k++) {
+		Jet_px[k]          = Get<Float_t>("Jet_px", k);
+		Jet_py[k]          = Get<Float_t>("Jet_py", k);
+		Jet_pz[k]          = Get<Float_t>("Jet_pz", k);
+		Jet_energy[k]      = Get<Float_t>("Jet_energy", k);
+		Jet_eta[k]         = Get<Float_t>("Jet_eta", k);
+		Jet_btagCSV[k]     = Get<Float_t>("Jet_btagCSV", k);
+	}
+	if(!gIsData) {
 		for(int k = 0; k<ngenLep; k++){
 			genLep_pdgId[k]    = Get<Int_t>("genLep_pdgId", k);
 			genLep_pt[k]       = Get<Float_t>("genLep_pt", k);
@@ -185,8 +185,8 @@ void ttHAnalyzer::Initialise() {
 	//PAF_INFO("ttHAnalyzer", "+ Initialise Pile-Up reweighting tool...");
 	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
 	if (!gIsData) {
-	fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
-	fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
+		fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
+		fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
 	}
 
 
@@ -194,20 +194,31 @@ void ttHAnalyzer::Initialise() {
 	//else          fBTagSF   = new BTagSFUtil("CSVT","ABCD");//ReReco
 
 	//PAF_INFO("ttHAnalyzer", "+ Initialise b-tag scale factors...");
-	if (gUseCSVM){
+	if (gUseCSVM) {
 		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
 		fBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Medium",  1);
 		fBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Medium", -1);
 		fBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Medium",  3);
 		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Medium", -3);
 	}
-	else{
+	else {
 		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
 		fBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  1);
 		fBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -1);
 		fBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  3);
 		fBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -3);
 	}
+
+	medfBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
+	medfBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Medium",  1);
+	medfBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Medium", -1);
+	medfBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Medium",  3);
+	medfBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Medium", -3);
+	losfBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
+	losfBTagSFbUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  1);
+	losfBTagSFbDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -1);
+	losfBTagSFlUp = new BTagSFUtil("mujets", "CSVv2", "Loose",  3);
+	losfBTagSFlDo = new BTagSFUtil("mujets", "CSVv2", "Loose", -3);
 
 	//PAF_INFO("ttHAnalyzer", "+ Initialise lepton scale factors...");
 	fLeptonSF = new SusyLeptonSF();
@@ -1259,7 +1270,7 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 //----------------------------------------------------------------------
 // Passes
 //----------------------------------------------------------------------
-Bool_t ttHAnalyzer::PassesPreCuts(){				   		  	// NEW
+Bool_t ttHAnalyzer::PassesPreCuts(){				   		  														// NEW
 	// This function requires n[]Elec and n[]Muon to be initialized and
 	// declared, where [] = { Tight, Fakeable, Loose }.
 	if ((nTightElec + nTightMuon) < 2) return false;
@@ -1267,12 +1278,52 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  	// NEW
 		lepton tmp_looselep0;
 		lepton tmp_looselep1;
 		tmp_looselep0 = LooseLepton[0];
-		//for (UInt_t i = 0; i < LooseLepton.size(); i++) {
-		//	tmp_looselep1 = LooseLepton[i+1];
-		//	if ((tmp_looselep0 + tmp_looselep1).M() < 12) return false;
-		//}
+		for (UInt_t i = 0; i < LooseLepton.size(); i++) {
+			tmp_looselep1 = LooseLepton[i+1];
+			if ((tmp_looselep0.getTLV() + tmp_looselep1.getTLV()).M() < 12) return false;
+		}
 	}
+	if (njpt < 2) return false;
+	
+	TLorentzVector jt;
+	UInt_t njloose;
+	UInt_t njmedium;
 
+    for (Int_t i = 0; i < nJet; i++) {
+        if(!IsGoodJetforprecuts(i,gJetEtCut)) continue;
+
+        Float_t jetbtagi      = Jet_btagCSV[i];
+        Float_t jetetai       = Jet_eta[i];
+        Float_t jetenergyi    = Jet_energy[i];
+
+        jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
+        Bool_t isbtagm = false;
+        Bool_t isbtagl = false;
+               
+        if (gIsData) {
+            isbtagm = medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+            isbtagl = losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+        }
+        else {
+			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
+            if      (gSysSource == BtagUp)      isbtagm = medfBTagSFbUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == BtagDown)    isbtagm = medfBTagSFbDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == MisTagUp)    isbtagm = medfBTagSFlUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == MisTagDown)  isbtagm = medfBTagSFlDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else                                isbtagm = medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            if      (gSysSource == BtagUp)      isbtagl = losfBTagSFbUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == BtagDown)    isbtagl = losfBTagSFbDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == MisTagUp)    isbtagl = losfBTagSFlUp->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else if (gSysSource == MisTagDown)  isbtagl = losfBTagSFlDo->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            else                                isbtagl = losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+        }
+		if (isbtagm) njmedium++;
+		if (isbtagl) njloose++;
+    }
+    
+    if (njloose < 2) {
+    	if (njmedium < 1) return false;
+    }
 	return true;
 }
 
@@ -1407,9 +1458,9 @@ int ttHAnalyzer::IsDileptonEvent(){
 	return result;
 }
 
-//------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////
 // LEPTON SELECTORS
-//------------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////
 bool momentumComparator(lepton i, lepton j){ return (i.p.Pt()>j.p.Pt()); }
 
 vector<lepton> ttHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
@@ -1534,7 +1585,6 @@ bool ttHAnalyzer::METFilter(){
     }
 }
 
-//------------------------------------------------------------------------------
 // Muon selectors
 //------------------------------------------------------------------------------
 bool ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
@@ -1596,7 +1646,6 @@ float ttHAnalyzer::getMuonIso(int iMuon){
 	return LepGood_relIso04[iMuon];
 }
 
-//------------------------------------------------------------------------------
 // Electron selectors
 //------------------------------------------------------------------------------
 bool ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
@@ -1730,6 +1779,23 @@ float ttHAnalyzer::getElecIso(int iElec){
 	return LepGood_relIso03[iElec];
 }
 
+
+// Tau selectors
+//------------------------------------------------------------------------------
+
+Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau, Float_t ptcut) {
+	if (TauGood_pt[iTau] < 20) return false;
+	if (TMath::Abs(TauGood_eta[iTau]) > 2.3) return false;
+	if (TauGood_idDecayModeNewDMs[iTau] == 0) return false;
+    TLorentzVector tau;
+    tau.SetPtEtaPhiE(TauGood_pt[iTau], TauGood_eta[iTau], TauGood_phi[iTau], sqrt(TauGood_mass[iTau]*TauGood_mass[iTau]+TauGood_pt[iTau]*TauGood_pt[iTau]));
+    for (UInt_t i = 0; i < LooseLepton.size(); i++) {
+        if(tau.DeltaR(FakeableLepton[i].p) < 0.5) return false;
+    }
+    if (TauGood_idCI3hit[iTau] < 1) return false;
+	return true;
+}
+
 bool ttHAnalyzer::getMultiIso(unsigned int index){
     float max_mRelIso = 0.09;
     float min_ptRatio = 0.84; // Very tight
@@ -1820,6 +1886,7 @@ float ttHAnalyzer::getTopD(){
 
 int ttHAnalyzer::getSelectedJets(){
 	int nj(0);
+	njpt = 0;
 	if (Jet.size() > 0) {
 		cout << "[WARNING]: you have called this function previously, RESETTING..."<<endl;
 		Jet.clear();
@@ -1869,6 +1936,7 @@ int ttHAnalyzer::getSelectedJets(){
         jet tmpjet(jt, isbtag, i);
         Jet.push_back(tmpjet);
         nj++;
+        if (IsGoodJetforprecuts(i,gJetEtCut)) 	njpt++;
     }
     return nj;
 }
@@ -1885,6 +1953,17 @@ bool ttHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
     for(unsigned int i = 0; i < FakeableLepton.size(); i++){
         if(jet.DeltaR(FakeableLepton[i].p) < minDR) return false;
     }
+    return true;
+}
+
+Bool_t ttHAnalyzer::IsGoodJetforprecuts(unsigned int ijet, float ptcut){
+    Float_t minDR = 0.4;
+    TLorentzVector jet;
+    jet.SetPtEtaPhiE(JetPt.at(ijet), Jet_eta[ijet], JetPhi.at(ijet), Jet_energy[ijet]);
+    if (jet.Pt() < ptcut)     return false;
+    if (abs(jet.Eta()) > 2.4) return false;
+    if (Get<Int_t>("Jet_id",ijet) <= 0)    return false;
+    //if (Jet_id[ijet] > 0) return true;
     return true;
 }
 
@@ -2070,3 +2149,8 @@ void ttHAnalyzer::ScaleMET(int flag){
 	setMET(tmp.Pt());
 	return;
 }
+
+TLorentzVector lepton::getTLV() {
+	return p;
+}
+
