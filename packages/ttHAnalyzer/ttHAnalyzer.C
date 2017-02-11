@@ -1,18 +1,26 @@
-//========================================================
-//  ttHAnalyzer selector
-//========================================================
+/*==============================================================================
 
+							ttHAnalyzer selector
+
+==============================================================================*/
+//------------------------------------------------------------------------------
+//		Preprocessor directives
+//------------------------------------------------------------------------------
+
+//#define DEBUG
+
+//	Package inclusion
 #include "ttHAnalyzer.h"
 #include <iostream>
 #include <math.h>
 
-ClassImp(ttHAnalyzer);
+ClassImp(ttHAnalyzer); // ROOT definition as class
+
+
 const float gJetEtCut = 25.;
 
-//#define DEBUG
-
 //------------------------------------------------------------------------------
-// GetParameters
+//		GetParameters
 //------------------------------------------------------------------------------
 void ttHAnalyzer::GetParameters(){
     gSampleName		=	GetParam<TString>("sampleName");
@@ -22,10 +30,9 @@ void ttHAnalyzer::GetParameters(){
     gTotalLumi     	= 	GetParam<float>("TotalLumi");
     gDoSystStudies 	= 	GetParam<bool>("DoSystStudies");
     gUseCSVM       	= 	GetParam<bool>("UseCSVM");
+    gIsMCatNLO      =   GetParam<bool>("IsMCatNLO");
     gIsT2tt        	= 	false;
     if(gSampleName.BeginsWith("T2tt")) gIsT2tt = true;
-
-    gIsMCatNLO     = GetParam<bool>("IsMCatNLO");
 
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
@@ -36,18 +43,18 @@ void ttHAnalyzer::GetParameters(){
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
 }
 
-//-----------------------------------------------------------------------------------
-// GetTreeVariables
-//-----------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//		GetTreeVariables
+//------------------------------------------------------------------------------
 void ttHAnalyzer::GetTreeVariables() {
     nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
     evt                  = Get<Long_t>("evt");
-	if(!gIsData){
+	if (!gIsData){
 		ngenLep              = Get<Int_t>("ngenLep");
 		genWeight            = Get<Float_t>("genWeight");
 	}
-	for(int k = 0; k<nLepGood; k++) {
+	for (int k = 0; k < nLepGood; k++) {
     LepGood_px[k]      = Get<Float_t>("LepGood_px", k);
     LepGood_py[k]      = Get<Float_t>("LepGood_py", k);
     LepGood_pz[k]      = Get<Float_t>("LepGood_pz", k);
@@ -62,7 +69,7 @@ void ttHAnalyzer::GetTreeVariables() {
     LepGood_pdgId[k]   = Get<Int_t>("LepGood_pdgId", k);
     LepGood_charge[k]  = Get<Int_t>("LepGood_charge", k);
 	}
-	for(int k = 0; k<nJet; k++) {
+	for (int k = 0; k<nJet; k++) {
 		Jet_px[k]          = Get<Float_t>("Jet_px", k);
 		Jet_py[k]          = Get<Float_t>("Jet_py", k);
 		Jet_pz[k]          = Get<Float_t>("Jet_pz", k);
@@ -70,7 +77,7 @@ void ttHAnalyzer::GetTreeVariables() {
 		Jet_eta[k]         = Get<Float_t>("Jet_eta", k);
 		Jet_btagCSV[k]     = Get<Float_t>("Jet_btagCSV", k);
 	}
-	if(!gIsData) {
+	if (!gIsData) {
 		for(int k = 0; k<ngenLep; k++){
 			genLep_pdgId[k]    = Get<Int_t>("genLep_pdgId", k);
 			genLep_pt[k]       = Get<Float_t>("genLep_pt", k);
@@ -120,9 +127,9 @@ const double *getEtaBins (gChannel chan){
   //  else return *-99.;
 };
 
-//------------------------------------------------------------------------------------
-// ttHAnalyzer class constructor (make sure the pointers are initialized to zero)
-//------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//		Analyzer class constructor
+//------------------------------------------------------------------------------
 ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
@@ -143,9 +150,9 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	}
 }
 
-//-------------------------------------------------------------------
-// Initialise
-//-------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//		Initialise definitions
+//------------------------------------------------------------------------------
 void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Initializing...");
 	//PAF_INFO("ttHAnalyzer", "+ Initializing paramenters...");
@@ -166,14 +173,11 @@ void ttHAnalyzer::Initialise() {
 	fHTopPtWeight  = CreateH1F("H_TopPtWeight" ,"TopPt Weight",100, 0, 2);
 
 
-	if (gSampleName == "DoubleMuon"      ||
-			gSampleName == "DoubleEG"        ||
-			gSampleName == "SingleMu"        ||
-			gSampleName == "SingleElectron"  ||
-			gSampleName == "MuonEG"	       ||
-			gSampleName.Contains("TTJets") || gSampleName.Contains("TTbar") ||
-			gSampleName.Contains("DY") ||
-			gSampleName.Contains("ZJets")){
+    if (gSampleName == "DoubleMuon"    ||    gSampleName == "DoubleEG"        ||
+	gSampleName == "SingleMu"          ||    gSampleName == "SingleElectron"  ||
+    gSampleName == "MuonEG"            ||    gSampleName.Contains("TTJets")   ||
+    gSampleName.Contains("TTbar")      ||    gSampleName.Contains("DY")       ||
+	gSampleName.Contains("ZJets")) {
 		//	PAF_INFO("ttHAnalyzer", "+ Initialise Drell-Yan histograms...");
 		InitialiseDYHistos();
 	}
@@ -183,12 +187,11 @@ void ttHAnalyzer::Initialise() {
 	//	PU Reweight
 	//--------------------------------------
 	//PAF_INFO("ttHAnalyzer", "+ Initialise Pile-Up reweighting tool...");
-	fPUWeight     = new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
+	fPUWeight  =   new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
 	if (!gIsData) {
 		fPUWeightUp   = new PUWeight(18494.9,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  18494.9
 		fPUWeightDown = new PUWeight(20441.7,  Spring2016_25ns_poisson_OOTPU, "2016_ichep"); //  20441.7
 	}
-
 
 	//if (gUseCSVM) fBTagSF   = new BTagSFUtil("CSVM","ABCD");//ReReco
 	//else          fBTagSF   = new BTagSFUtil("CSVT","ABCD");//ReReco
@@ -231,52 +234,52 @@ void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Initialisation DONE.");
 }
 
-void ttHAnalyzer::InitialiseTree(){
+void ttHAnalyzer::InitialiseTree() {
 
 }
 
-void ttHAnalyzer::InitialiseGenHistos(){
+void ttHAnalyzer::InitialiseGenHistos() {
 
 }
 
-void ttHAnalyzer::InitialiseDYHistos(){
+void ttHAnalyzer::InitialiseDYHistos() {
 
 }
 
-void ttHAnalyzer::InitialiseYieldsHistos(){
+void ttHAnalyzer::InitialiseYieldsHistos() {
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
-		fHyields[Muon][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHyields[Elec][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHSSyields[Muon][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHSSyields[Elec][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHyields[ElMu][Norm]   = CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
-		fHSSyields[ElMu][Norm] = CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[Muon][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[Elec][Norm]   = CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[Muon][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[Elec][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[ElMu][Norm]   = CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[ElMu][Norm] = CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
 
 	if (gDoSystStudies){
-		for (size_t chan=0; chan<gNCHANNELS; chan++){
-			for (size_t sys=1; sys<gNSYST; sys++){
+		for (size_t chan=0; chan<gNCHANNELS; chan++) {
+			for (size_t sys=1; sys<gNSYST; sys++) {
 				fHyields[chan][sys]   = CreateH1F("H_Yields_"+gChanLabel[chan]+"_"+SystName[sys],"",iNCUTS,-0.5,iNCUTS-0.5);
 				fHSSyields[chan][sys] = CreateH1F("H_SSYields_"+gChanLabel[chan]+"_"+SystName[sys],"", iNCUTS, -0.5, iNCUTS-0.5);
 			}
 		}
 	}
-	for (size_t chan=0; chan<gNCHANNELS; chan++){
-		for (int wei = 0; wei < gNWEIGHT; ++wei){
+	for (size_t chan=0; chan<gNCHANNELS; chan++) {
+		for (int wei = 0; wei < gNWEIGHT; ++wei) {
 			fHWeightyield[chan][wei] = CreateH1F("H_Yields_Wei_"+gChanLabel[chan]+"_"+WeiName[wei],"",iNCUTS,-0.5,iNCUTS-0.5);
 		}
 	}
-	for (size_t chan=0; chan<gNCHANNELS; chan++){
+	for (size_t chan=0; chan<gNCHANNELS; chan++) {
 		for (size_t cut=0; cut<iNCUTS; cut++){
 		}
 	}
 }
 
-void ttHAnalyzer::InitialiseKinematicHistos(){
+void ttHAnalyzer::InitialiseKinematicHistos() {
 	//  PAF_DEBUG("ttHAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
 	//++ Kinematic histograms
-	for (size_t ch=0; ch<gNCHANNELS; ch++){
-		for (size_t cut=0; cut<iNCUTS; cut++){
+	for (size_t ch=0; ch < gNCHANNELS; ch++) {
+		for (size_t cut=0; cut < iNCUTS; cut++) {
 			//PAF_DEBUG("ttHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
 		}
 	}
@@ -286,9 +289,9 @@ void ttHAnalyzer::InitialiseSystematicHistos(){
 
 }
 
-//---------------------------------------------------------------------------------------------------
-// Set objets, to be called once per event, saving information in tmp vectors for systematic studies.
-//---------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Set-methods definitions
+//------------------------------------------------------------------------------
 void ttHAnalyzer::SetOriginalObjects(){
 	ResetHypLeptons();
 	gSysSource = Norm;
@@ -472,9 +475,9 @@ void ttHAnalyzer::SetTreeVariables(gChannel chan){
 }
 
 
-//-----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // InsideLoop
-//-----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void ttHAnalyzer::InsideLoop() {
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
@@ -1284,7 +1287,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  														// NEW
 		}
 	}
 	if (njpt < 2) return false;
-	
+
 	TLorentzVector jt;
 	UInt_t njloose;
 	UInt_t njmedium;
@@ -1299,7 +1302,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  														// NEW
         jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
         Bool_t isbtagm = false;
         Bool_t isbtagl = false;
-               
+
         if (gIsData) {
             isbtagm = medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
             isbtagl = losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
@@ -1320,7 +1323,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  														// NEW
 		if (isbtagm) njmedium++;
 		if (isbtagl) njloose++;
     }
-    
+
     if (njloose < 2) {
     	if (njmedium < 1) return false;
     }
@@ -2153,4 +2156,3 @@ void ttHAnalyzer::ScaleMET(int flag){
 TLorentzVector lepton::getTLV() {
 	return p;
 }
-

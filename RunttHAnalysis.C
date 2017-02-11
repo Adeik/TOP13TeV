@@ -44,6 +44,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	DatasetManager* dm = DatasetManager::GetInstance();
 	//dm->SetTab("DR80XasymptoticMiniAODv2");
 	dm->SetTab("DR80XSummer16asymptoticMiniAODv2");
+
 	// Deal with data samples
 	if ((sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
     sampleName == "MuonEG"	|| 	sampleName == "SingleEle"	||
@@ -61,7 +62,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 			//"D_7360"
     	};
 	    const unsigned int nDataSamples = 4;
-	    for(unsigned int i = 0; i < nDataSamples; i++) {
+	    for (UInt_t i = 0; i < nDataSamples; i++) {
 			TString asample = Form("Tree_%s_%s",sampleName.Data(), datasuffix[i].Data());
 			cout << "   + Looking for " << asample << " trees..." << endl;
 			myProject->AddDataFiles(dm->GetRealDataFiles(asample));
@@ -85,8 +86,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
       		myProject->AddDataFile(lp + "Tree_" + sampleName + "_ext_0.root");
     	}
     	else if (sampleName == "TestHeppy") {
-			TString localpath="/pool/ciencias/users/user/palencia/";
-			TString sample = "treeTtbar_jan19.root";
+			TString	localpath	=	"/pool/ciencias/users/user/palencia/";
+			TString sample 		= 	"treeTtbar_jan19.root";
 			myProject->AddDataFile(localpath + sample);
 			G_Event_Weight = 1;
 		}
@@ -94,7 +95,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 			G_Event_Weight = dm->GetCrossSection() / dm->GetEventsInTheSample();
 		}
 
-    	if(nEvents == 0) nEvents = dm->GetEventsInTheSample();
+    	if (nEvents == 0) nEvents = dm->GetEventsInTheSample();
 
 	    cout << endl;
 	    cout << " #===============================================" 	<< endl;
@@ -122,8 +123,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	TString LumiString = oss.str();
   	TString outputFile = outputDir;
   	outputFile += "/Tree_" + sampleName + "_ext.root";
-  	if(outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
-  	if(outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
+  	if (outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
+  	if (outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
 
   	PAF_INFO("RunttHAnalysis", Form("Output file = %s", outputFile.Data()));
   	myProject->SetOutputFile(outputFile);
