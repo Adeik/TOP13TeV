@@ -22,6 +22,26 @@ const float gJetEtCut = 25.;
 //------------------------------------------------------------------------------
 //		Initial definitions
 //------------------------------------------------------------------------------
+ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
+	fHDummy = 0;
+	hWeight = 0;
+	fHTopPtWeight = 0;
+	// fHnGenEle = 0;
+	// fHnGenMuo = 0;
+	// fHGenElePt = 0;
+	// fHGenMuoPt = 0;
+
+	for (unsigned int ichan = 0; ichan < gNCHANNELS; ichan++) {
+		for (unsigned int isyst = 0; isyst < gNSYST; isyst++) {
+			fHyields     [ichan][isyst] = 0;
+			fHSSyields   [ichan][isyst] = 0;
+		}
+		for (unsigned int iweight = 0; iweight < gNWEIGHT; iweight++) {
+			fHWeightyield[ichan][iweight] = 0;
+		}
+	}
+}
+
 void ttHAnalyzer::GetParameters(){
     gSampleName		=	GetParam<TString>("sampleName");
     gIsData        	= 	GetParam<bool>("IsData");
@@ -124,25 +144,6 @@ const double *getEtaBins (gChannel chan){
   //  else return *-99.;
 };
 
-ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
-	fHDummy = 0;
-	hWeight = 0;
-	fHTopPtWeight = 0;
-	// fHnGenEle = 0;
-	// fHnGenMuo = 0;
-	// fHGenElePt = 0;
-	// fHGenMuoPt = 0;
-
-	for (unsigned int ichan = 0; ichan < gNCHANNELS; ichan++) {
-		for (unsigned int isyst = 0; isyst < gNSYST; isyst++) {
-			fHyields     [ichan][isyst] = 0;
-			fHSSyields   [ichan][isyst] = 0;
-		}
-		for (unsigned int iweight = 0; iweight < gNWEIGHT; iweight++) {
-			fHWeightyield[ichan][iweight] = 0;
-		}
-	}
-}
 
 
 //		Initialise definitions

@@ -246,8 +246,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 		void 	InitialiseTree();
 		void 	SetTreeVariables(gChannel);
-		void 	GetParameters();
 		void 	GetTreeVariables();
+		void 	GetParameters();
 
 		//	Branches
 		//----------------------------------------------------------------------
@@ -348,8 +348,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
 		//	Leptons, jets and MET selection
 		//----------------------------------------------------------------------
-		int  	getSelectedLeptons();
 		void 	SelectedGenLepton();
+		int  	getSelectedLeptons();
 		bool 	IsTightMuon(unsigned int, float ptcut=20.);
 		bool 	IsFakeableMuon(unsigned int, float ptcut=20.);
 		bool 	IsLooseMuon(unsigned int, float ptcut=20.);
@@ -357,10 +357,10 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		bool 	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
 		bool 	IsFakeableElectron(unsigned int,float ptcut=20.);
 		bool 	IsLooseElectron(unsigned int,float ptcut=20.);
-		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
 		float 	getElecIso(int);
 		float 	getEACorrection(float);
 		bool 	getMultiIso(unsigned int );
+		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
 		void 	ScaleLeptons(int);
 		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
 
