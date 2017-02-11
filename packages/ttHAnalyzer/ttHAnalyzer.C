@@ -20,7 +20,7 @@ ClassImp(ttHAnalyzer); // ROOT definition as class
 const float gJetEtCut = 25.;
 
 //------------------------------------------------------------------------------
-//		GetParameters
+//		Initial definitions
 //------------------------------------------------------------------------------
 void ttHAnalyzer::GetParameters(){
     gSampleName		=	GetParam<TString>("sampleName");
@@ -43,9 +43,6 @@ void ttHAnalyzer::GetParameters(){
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
 }
 
-//------------------------------------------------------------------------------
-//		GetTreeVariables
-//------------------------------------------------------------------------------
 void ttHAnalyzer::GetTreeVariables() {
     nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
@@ -127,9 +124,6 @@ const double *getEtaBins (gChannel chan){
   //  else return *-99.;
 };
 
-//------------------------------------------------------------------------------
-//		Analyzer class constructor
-//------------------------------------------------------------------------------
 ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
@@ -150,9 +144,9 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	}
 }
 
-//------------------------------------------------------------------------------
+
 //		Initialise definitions
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------
 void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Initializing...");
 	//PAF_INFO("ttHAnalyzer", "+ Initializing paramenters...");
