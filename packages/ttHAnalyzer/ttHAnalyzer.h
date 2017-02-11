@@ -197,7 +197,6 @@ class lepton {
     	Int_t charge;
     	Int_t type; // -1(unknown), 0(tight muon), 1(tight electron); 2(fakeable muon), 3(fakeable electron); 4(loose muon), 5(loose electron)
     	Int_t index;
-		TLorentzVector getTLV();
 };
 
 class jet {
@@ -223,21 +222,13 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		ttHAnalyzer();
 		virtual ~ttHAnalyzer() {}
 
-		// Mandatory methods
+		// Core PAF-analysis methods
 		virtual void Initialise();
 		virtual void InsideLoop();
 		virtual void Summary();
 
-        // Functions for the initialising of histograms
-		virtual void InitialiseYieldsHistos();
-		virtual void InitialiseKinematicHistos();
-		virtual void InitialiseDYHistos();
-		virtual void InitialiseGenHistos();
-		virtual void InitialiseSystematicHistos();
-
-		// Functions for saving histograms
-		void 	WriteHistos();
-		void 	WriteValidationsHistos(){};
+        // For printing
+        void 	CoutEvent(long unsigned int en = 0, TString t = " ");
 
 		////////////////////////////////////////////////////////////////////////
 		//		Trees-related declarations
@@ -343,39 +334,74 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t	TauGood_mass[30];				// NEW
 		Int_t	TauGood_idCI3hit[30];			// NEW
 
+        ////////////////////////////////////////////////////////////////////////
+		//		Histogram-related methods declarations
 		////////////////////////////////////////////////////////////////////////
-		//		General declarations
-		////////////////////////////////////////////////////////////////////////
-		//	Leptons, jets and MET selection
+        // Initialising
 		//----------------------------------------------------------------------
+    	virtual void InitialiseGenHistos();
+    	virtual void InitialiseDYHistos();
+    	virtual void InitialiseYieldsHistos();
+    	virtual void InitialiseKinematicHistos();
+    	virtual void InitialiseSystematicHistos();
+
+        //	Filling methods
+		//----------------------------------------------------------------------
+		void 	FillYieldsHistograms(gChannel, iCut, gSystFlag);
+		void 	FillYields(gSystFlag sys=Norm);
+		void 	FillDYHistograms();
+		void 	FillKinematicHistos(gChannel,iCut);
+
+    	// Saving
+		//----------------------------------------------------------------------
+    	void 	WriteHistos();
+    	void 	WriteValidationsHistos(){};
+
+		////////////////////////////////////////////////////////////////////////
+		//	   Leptons, jets and MET selection
+		////////////////////////////////////////////////////////////////////////
 		void 	SelectedGenLepton();
 		int  	getSelectedLeptons();
+		void 	ScaleLeptons(int);
+		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
+
+        //  Muons
+        //----------------------------------------------------------------------
 		bool 	IsTightMuon(unsigned int, float ptcut=20.);
 		bool 	IsFakeableMuon(unsigned int, float ptcut=20.);
 		bool 	IsLooseMuon(unsigned int, float ptcut=20.);
 		float 	getMuonIso(int);
+
+        //  Electrons
+        //----------------------------------------------------------------------
 		bool 	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
 		bool 	IsFakeableElectron(unsigned int,float ptcut=20.);
 		bool 	IsLooseElectron(unsigned int,float ptcut=20.);
 		float 	getElecIso(int);
 		float 	getEACorrection(float);
 		bool 	getMultiIso(unsigned int );
-		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
-		void 	ScaleLeptons(int);
-		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
 
+        //  Taus
+        //----------------------------------------------------------------------
+		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
+
+        //  MET
+        //----------------------------------------------------------------------
+        bool 	METFilter();
+        void 	propagateMET(TLorentzVector,TLorentzVector);
+        void 	ScaleMET(int);
+
+        //  Jets
+        //----------------------------------------------------------------------
 		int 	getSelectedJets();
 		bool 	IsGoodJet(unsigned int, float ptcut=25.);
 		Bool_t 	IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
 		std::vector<int> CleanedJetIndices(float);
 		void 	SmearJetPts(int);
 
-		bool 	METFilter();
-		void 	propagateMET(TLorentzVector,TLorentzVector);
-		void 	ScaleMET(int);
-
-		//	Events selection
-		//----------------------------------------------------------------------
+		////////////////////////////////////////////////////////////////////////
+		//	   Events selection
+		////////////////////////////////////////////////////////////////////////
 		int  	IsDileptonEvent();
 		bool 	IsMuMuEvent();
 		bool 	IsElMuEvent();
@@ -392,29 +418,25 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		bool 	PassesTopDCut();
 		bool 	PassesDYVetoCut();
 
-		//	Trigger methods
-		//----------------------------------------------------------------------
+        ////////////////////////////////////////////////////////////////////////
+		//	   Trigger methods
+		////////////////////////////////////////////////////////////////////////
 		bool 	triggermumuSS();
 		bool	triggereeSS();
 		bool 	triggeremuSS();
 		bool 	trigger3l4l();
 
-		//	Filling methods
-		//----------------------------------------------------------------------
-		void 	FillYieldsHistograms(gChannel, iCut, gSystFlag);
-		void 	FillYields(gSystFlag sys=Norm);
-		void 	FillDYHistograms();
-		void 	FillKinematicHistos(gChannel,iCut);
-
-		//	Set/reset methods
-		//----------------------------------------------------------------------
+        ////////////////////////////////////////////////////////////////////////
+		//	   Set/reset methods
+		////////////////////////////////////////////////////////////////////////
 		void 	SetOriginalObjects();
-		void 	ResetOriginalObjects();
 		void 	SetEventObjects();
+		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
 
-		//	Get methods
-		//----------------------------------------------------------------------
+        ////////////////////////////////////////////////////////////////////////
+		//	   Get methods
+		////////////////////////////////////////////////////////////////////////
 		int   getNJets();
 		int   getNBTags();
 		int   getLeadingJetbTag();
@@ -452,10 +474,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		float getMinDPhiMetJets();
 
 		TLorentzVector getPtllb();
-
-		//	Other
-		//----------------------------------------------------------------------
-        void 	CoutEvent(long unsigned int en = 0, TString t = " ");
 
 	protected:
 		////////////////////////////////////////////////////////////////////////
