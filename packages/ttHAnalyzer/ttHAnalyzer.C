@@ -283,7 +283,7 @@ void ttHAnalyzer::Summary() {}
 
 //	For printing
 //------------------------------------------------------------------------------
-void ttHAnalyzer::CoutEvent(long unsigned int en, TString t){
+void ttHAnalyzer::CoutEvent(UInt32_t en, TString t){
 	//if(en == 1000599168 || en == 1268707665 || en == 157395642 || en == 2726847580 || en == 42879335){
 	//if(en == 1519610198 || en == 1559039433 || en == 998619292 || en == 1206329870 || en == 295644557 || en == 686746673 || en == 99957372 || en == 126485808 || en == 249297855){
 	if(en == 1347253329 || en == 960559657){
@@ -1557,7 +1557,7 @@ void ttHAnalyzer::SetOriginalObjects(){
 	MET_Phi = Get<Float_t>("met_phi"); //met
 }
 
-void_t ttHAnalyzer::SetEventObjects(){
+void ttHAnalyzer::SetEventObjects(){
 	ResetHypLeptons();
 
 	fChargeSwitch = false;

@@ -228,7 +228,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		virtual void Summary();
 
         // For printing
-        void 	CoutEvent(long unsigned int en = 0, TString t = " ");
+        void 	CoutEvent(UInt32_t en = 0, TString t = " ");
 
 		////////////////////////////////////////////////////////////////////////
 		//		Trees-related declarations
@@ -367,17 +367,17 @@ class ttHAnalyzer : public PAFChainItemSelector {
         //----------------------------------------------------------------------
 		Bool_t	IsTightMuon(unsigned int, float ptcut=20.);
 		Bool_t	IsFakeableMuon(unsigned int, float ptcut=20.);
-		Bool_t	IsLooseMuon(unsigned int, float ptcut=20.);
+		Bool_t	IsLooseMuon(UInt_t, float ptcut=20.);
 		float 	getMuonIso(int);
 
         //  Electrons
         //----------------------------------------------------------------------
-		Bool_t	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
-		Bool_t	IsFakeableElectron(unsigned int,float ptcut=20.);
-		Bool_t	IsLooseElectron(unsigned int,float ptcut=20.);
+		Bool_t	IsTightElectron(UInt_t,float ptcut=20.,Int_t an=2);
+		Bool_t	IsFakeableElectron(UInt_t,float ptcut=20.);
+		Bool_t	IsLooseElectron(UInt_t,float ptcut=20.);
 		float 	getElecIso(int);
 		float 	getEACorrection(float);
-		Bool_t	getMultiIso(unsigned int );
+		Bool_t	getMultiIso(UInt_t );
 
         //  Taus
         //----------------------------------------------------------------------
@@ -392,7 +392,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
         //  Jets
         //----------------------------------------------------------------------
 		int 	getSelectedJets();
-		Bool_t	IsGoodJet(unsigned int, float ptcut=25.);
+		Bool_t	IsGoodJet(UInt_t, float ptcut=25.);
 		Bool_t 	IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
 		std::vector<int> CleanedJetIndices(float);
 		void 	SmearJetPts(int);
@@ -428,7 +428,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Set/reset methods
 		////////////////////////////////////////////////////////////////////////
 		void 	SetOriginalObjects();
-		void_t 	SetEventObjects();
+		void 	SetEventObjects();
 		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
         void    setMET(float);
@@ -446,9 +446,9 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		float     getHT();
 		Float_t   getMHT();					                              // NEW
 		Float_t   getMETLD();					                          // NEW
-		float     getJetPtIndex(unsigned int);
-		float     getJetEtaIndex(unsigned int);
-		float     getBtagJetPtIndex(unsigned int);
+		float     getJetPtIndex(UInt_t);
+		float     getJetEtaIndex(UInt_t);
+		float     getBtagJetPtIndex(UInt_t);
 		float     getErrPt(float,float);
 		float     getJERScaleUp(int);
         float     getJERScale(int);
