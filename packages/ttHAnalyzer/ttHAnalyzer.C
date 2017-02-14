@@ -807,6 +807,7 @@ int ttHAnalyzer::getSelectedLeptons(){
         lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
         tmp_lepton.push_back(tmpLepton);
     }
+
     FakeableLepton = SortLeptonsByPt(tmp_fakeablelepton);
     LooseLepton = SortLeptonsByPt(tmp_looselepton);
     Lepton = SortLeptonsByPt(tmp_lepton);
@@ -1121,7 +1122,7 @@ void ttHAnalyzer::ScaleMET(int flag){
 	jets.SetPtEtaPhiM(0., 0., 0., 0.); // init
 	leps.SetPtEtaPhiM(0., 0., 0., 0.); // init
 	tmp.SetPtEtaPhiM(0., 0., 0., 0.);  // init
-	umet.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.); // add met
+	umet.SetPtEtaPhiM((), 0., getMETPhi(), 0.); // add met
 	// subtract uncleaned jets
 	for (Int_t i=0; i<nJet; i++) {
 		if (!IsGoodJet(i, 15.)) continue; // do this on all jets in the event, not only the good jets with pT > 40
@@ -1155,12 +1156,6 @@ void ttHAnalyzer::ScaleMET(int flag){
 	setMET(tmp.Pt());
 	return;
 }
-
-void ttHAnalyzer::setMET(float newmet){ MET = newmet;}
-
-float ttHAnalyzer::getMET(){ return MET; }
-
-float ttHAnalyzer::getMETPhi(){ return MET_Phi;}
 
 void ttHAnalyzer::propagateMET(TLorentzVector nVec, TLorentzVector oVec){
 	TLorentzVector met;
@@ -1693,22 +1688,45 @@ void ttHAnalyzer::ResetHypLeptons(){
   fHypLepton2 = lepton(vec, 0, -1, -1);
 }
 
+void ttHAnalyzer::setMET(float newmet) {MET = newmet;}
+
 ////////////////////////////////////////////////////////////////////////////////
 //	   Get methods
 ////////////////////////////////////////////////////////////////////////////////
 float ttHAnalyzer::getHT(){
-  float ht(0);
-  for (unsigned int i=0; i<Jet.size(); i++) ht+=Jet[i].p.Pt();
-  return ht;
+	float ht(0);
+	for (unsigned int i=0; i<Jet.size(); i++) ht+=Jet[i].p.Pt();
+	return ht;
 }
+
+Float_t ttHAnalyzer::getMHT(){
+	Float_t mht;
+	mht = 0;
+	for (UInt_t i = 0; i < Jet.size(); i++) mht += Jet[i].p.Pt();
+	for (UInt_t i = 0; i < Lepton.size(); i++) mht += Lepton[i].p.Pt();
+	return mht;
+}
+
+Float_t ttHAnalyzer::getMETLD(){
+	Float_t metld;
+	metld = MET * 0.00397 + MHT * 0.00265;
+	return metld;
+}
+
+float ttHAnalyzer::getMET(){ return MET; }
+
+float ttHAnalyzer::getMETPhi(){ return MET_Phi;}
+
 float ttHAnalyzer::getJetPtIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   return Jet[ind].p.Pt();
 }
+
 float ttHAnalyzer::getJetEtaIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   return TMath::Abs(Jet[ind].p.Eta());
 }
+
 float ttHAnalyzer::getBtagJetPtIndex(unsigned int ind){
   if (Jet.size() <= ind) return -999.;
   Int_t btagInd = 0;

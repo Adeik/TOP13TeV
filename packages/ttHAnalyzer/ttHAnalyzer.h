@@ -249,7 +249,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Int_t   TIsElMu;
 		Float_t TWeight;
 		Float_t TMET;
-		Float_t TMET_Phi;
+		Float_t T_Phi;
 		Float_t THT;
 		Float_t TMT2ll;
 		Float_t TMT2bb;
@@ -433,45 +433,47 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		void 	SetEventObjects();
 		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
+        void    setMET(float);
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Get methods
 		////////////////////////////////////////////////////////////////////////
-		int   getNJets();
-		int   getNBTags();
-		int   getLeadingJetbTag();
-		float getDRClosestJet(TLorentzVector);
-		float getDPhiClosestJet(TLorentzVector);
-		void  setMET(float);
-		float getMET();
-		float getMETPhi();
-		float getHT();
-		float getJetPtIndex(unsigned int);
-		float getJetEtaIndex(unsigned int);
-		float getBtagJetPtIndex(unsigned int);
-		float getErrPt(float,float);
-		float getJERScaleUp(int);
-		float getJERScale(int);
-		float getJERScaleDown(int);
-		float getSF(gChannel);
-		float getLeptonError(gChannel);
-		float getTriggerError(gChannel);
-		float getTopPtSF();
-		float getTopD();
-		float getDeltaPhillJet();
-		float weightNvtx(int);
-		float getMT(gChannel);
-		float getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, float mass);
-		float getMT2ll(gChannel);
-		float getMT2b(gChannel);
-		float getMT2lb(gChannel);
-		float getMeff();
-		float getDPhiLepJet();
-		float getDelPhill();
-		float getDPhiJetMet();
-		float getDPhiLepMet();
-		float getDPhibMet();
-		float getMinDPhiMetJets();
+		int       getNJets();
+		int       getNBTags();
+		int       getLeadingJetbTag();
+		float     getDRClosestJet(TLorentzVector);
+		float     getDPhiClosestJet(TLorentzVector);
+		float     getMET();
+		float     getMETPhi();
+		float     getHT();
+		Float_t   getMHT();					                              // NEW
+		Float_t   getMETLD();					                          // NEW
+		float     getJetPtIndex(unsigned int);
+		float     getJetEtaIndex(unsigned int);
+		float     getBtagJetPtIndex(unsigned int);
+		float     getErrPt(float,float);
+		float     getJERScaleUp(int);
+        float     getJERScale(int);
+		float     getJERScaleDown(int);
+		float     getSF(gChannel);
+		float     getLeptonError(gChannel);
+		float     getTriggerError(gChannel);
+		float     getTopPtSF();
+		float     getTopD();
+		float     getDeltaPhillJet();
+		float     weightNvtx(int);
+		float     getMT(gChannel);
+		float     getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, float mass);
+		float     getMT2ll(gChannel);
+		float     getMT2b(gChannel);
+		float     getMT2lb(gChannel);
+		float     getMeff();
+		float     getDPhiLepJet();
+		float     getDelPhill();
+		float     getDPhiJetMet();
+		float     getDPhiLepMet();
+		float     getDPhibMet();
+		float     getMinDPhiMetJets();
 
 		TLorentzVector getPtllb();
 
@@ -573,6 +575,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
 		Float_t MET;
 		Float_t MET_Phi;
+		Float_t MHT;						// NEW
 
 		lepton fHypLepton1;
 		lepton fHypLepton2;
