@@ -249,7 +249,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Int_t   TIsElMu;
 		Float_t TWeight;
 		Float_t TMET;
-		Float_t T_Phi;
+		Float_t TMET_Phi;
 		Float_t THT;
 		Float_t TMT2ll;
 		Float_t TMT2bb;
