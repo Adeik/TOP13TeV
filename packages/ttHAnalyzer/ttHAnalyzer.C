@@ -1122,7 +1122,7 @@ void ttHAnalyzer::ScaleMET(int flag){
 	jets.SetPtEtaPhiM(0., 0., 0., 0.); // init
 	leps.SetPtEtaPhiM(0., 0., 0., 0.); // init
 	tmp.SetPtEtaPhiM(0., 0., 0., 0.);  // init
-	umet.SetPtEtaPhiM((), 0., getMETPhi(), 0.); // add met
+	umet.SetPtEtaPhiM(getMET(), 0., getMETPhi(), 0.); // add met
 	// subtract uncleaned jets
 	for (Int_t i=0; i<nJet; i++) {
 		if (!IsGoodJet(i, 15.)) continue; // do this on all jets in the event, not only the good jets with pT > 40
