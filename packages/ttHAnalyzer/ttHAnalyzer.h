@@ -33,9 +33,9 @@
 //------------------------------------------------------------------------------
 //		Enumerations, constants and other variable type declarations
 //------------------------------------------------------------------------------
-const int nWeights = 248;
-const int nGenb = 0;
-const double pi = 3.1415926535897932384;
+const Int_t nWeights = 248;
+const Int_t nGenb = 0;
+const Double_t pi = 3.1415926535897932384;
 
 enum gChannel {
     channels_begin,
@@ -156,28 +156,28 @@ const TString WeiName[gNWEIGHT] = {
 };
 
 //	Binning
-const int gNMuFPtBins = 6;
-const int gNMuPPtbins = 10;
-const int gNMuEtabins = 5;
-const int gNElFPtBins = 8;
-const int gNElPPtbins = 10;
-const int gNElEtabins = 5;
-const int gNElCMIdbins = 2;
+const Int_t gNMuFPtBins = 6;
+const Int_t gNMuPPtbins = 10;
+const Int_t gNMuEtabins = 5;
+const Int_t gNElFPtBins = 8;
+const Int_t gNElPPtbins = 10;
+const Int_t gNElEtabins = 5;
+const Int_t gNElCMIdbins = 2;
 
-const double gMuFPtBins[gNMuFPtBins+1]	= {20., 25., 30., 35., 40., 50., 60.};						// Muon binning
-const double gMuPPtbins[gNMuPPtbins+1]	= {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
-const double gMuEtabins[gNMuEtabins+1]	= {0., 0.5, 1.0, 1.479, 2.0, 2.5};
+const Double_t gMuFPtBins[gNMuFPtBins+1]	= {20., 25., 30., 35., 40., 50., 60.};						// Muon binning
+const Double_t gMuPPtbins[gNMuPPtbins+1]	= {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
+const Double_t gMuEtabins[gNMuEtabins+1]	= {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
-const double gElFPtBins[gNElFPtBins+1]  = {20., 25., 30., 40., 50., 60., 70., 80., 100.};			// Electron binning
-const double gElPPtbins[gNElPPtbins+1]  = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
-const double gElEtabins[gNElEtabins+1]  = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
+const Double_t gElFPtBins[gNElFPtBins+1]  = {20., 25., 30., 40., 50., 60., 70., 80., 100.};			// Electron binning
+const Double_t gElPPtbins[gNElPPtbins+1]  = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
+const Double_t gElEtabins[gNElEtabins+1]  = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
-int             getNFPtBins (gChannel chan);
-const double    *getFPtBins (gChannel chan);
-int             getNPPtBins (gChannel chan);
-const double    *getPPtBins (gChannel chan);
-int             getNEtaBins (gChannel chan);
-const double    *getEtaBins (gChannel chan);
+Int_t             getNFPtBins (gChannel chan);
+const Double_t    *getFPtBins (gChannel chan);
+Int_t             getNPPtBins (gChannel chan);
+const Double_t    *getPPtBins (gChannel chan);
+Int_t             getNEtaBins (gChannel chan);
+const Double_t    *getEtaBins (gChannel chan);
 
 //------------------------------------------------------------------------------
 //		Classes declarations
@@ -228,7 +228,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		virtual void Summary();
 
         // For printing
-        void 	CoutEvent(UInt32_t en = 0, TString t = " ");
+        void 	CoutEvent(ULong_t en = 0, TString t = " ");
 
 		////////////////////////////////////////////////////////////////////////
 		//		Trees-related declarations
@@ -359,24 +359,24 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Leptons, jets and MET selection
 		////////////////////////////////////////////////////////////////////////
 		void 	SelectedGenLepton();
-		int  	getSelectedLeptons();
-		void 	ScaleLeptons(int);
+		Int_t  	getSelectedLeptons();
+		void 	ScaleLeptons(Int_t);
 		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
 
         //  Muons
         //----------------------------------------------------------------------
-		Bool_t	IsTightMuon(unsigned int, float ptcut=20.);
-		Bool_t	IsFakeableMuon(unsigned int, float ptcut=20.);
-		Bool_t	IsLooseMuon(UInt_t, float ptcut=20.);
-		float 	getMuonIso(int);
+		Bool_t	IsTightMuon(UInt_t, Float_t ptcut=20.);
+		Bool_t	IsFakeableMuon(UInt_t, Float_t ptcut=20.);
+		Bool_t	IsLooseMuon(UInt_t, Float_t ptcut=20.);
+		Float_t 	getMuonIso(Int_t);
 
         //  Electrons
         //----------------------------------------------------------------------
-		Bool_t	IsTightElectron(UInt_t,float ptcut=20.,Int_t an=2);
-		Bool_t	IsFakeableElectron(UInt_t,float ptcut=20.);
-		Bool_t	IsLooseElectron(UInt_t,float ptcut=20.);
-		float 	getElecIso(int);
-		float 	getEACorrection(float);
+		Bool_t	IsTightElectron(UInt_t,Float_t ptcut=20.,Int_t an=2);
+		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut=20.);
+		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut=20.);
+		Float_t 	getElecIso(Int_t);
+		Float_t 	getEACorrection(Float_t);
 		Bool_t	getMultiIso(UInt_t );
 
         //  Taus
@@ -387,20 +387,20 @@ class ttHAnalyzer : public PAFChainItemSelector {
         //----------------------------------------------------------------------
         Bool_t	METFilter();
         void 	propagateMET(TLorentzVector,TLorentzVector);
-        void 	ScaleMET(int);
+        void 	ScaleMET(Int_t);
 
         //  Jets
         //----------------------------------------------------------------------
-		int 	getSelectedJets();
-		Bool_t	IsGoodJet(UInt_t, float ptcut=25.);
+		Int_t 	getSelectedJets();
+		Bool_t	IsGoodJet(UInt_t, Float_t ptcut=25.);
 		Bool_t 	IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
-		std::vector<int> CleanedJetIndices(float);
-		void 	SmearJetPts(int);
+		std::vector<Int_t> CleanedJetIndices(Float_t);
+		void 	SmearJetPts(Int_t);
 
 		////////////////////////////////////////////////////////////////////////
 		//	   Events selection
 		////////////////////////////////////////////////////////////////////////
-		int  	IsDileptonEvent();
+		Int_t  	IsDileptonEvent();
 		Bool_t	IsMuMuEvent();
 		Bool_t	IsElMuEvent();
 		Bool_t	IsElElEvent();
@@ -431,47 +431,47 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		void 	SetEventObjects();
 		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
-        void    setMET(float);
+        void    setMET(Float_t);
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Get methods
 		////////////////////////////////////////////////////////////////////////
-		int       getNJets();
-		int       getNBTags();
-		int       getLeadingJetbTag();
-		float     getDRClosestJet(TLorentzVector);
-		float     getDPhiClosestJet(TLorentzVector);
-		float     getMET();
-		float     getMETPhi();
-		float     getHT();
+		Int_t       getNJets();
+		Int_t       getNBTags();
+		Int_t       getLeadingJetbTag();
+		Float_t     getDRClosestJet(TLorentzVector);
+		Float_t     getDPhiClosestJet(TLorentzVector);
+		Float_t     getMET();
+		Float_t     getMETPhi();
+		Float_t     getHT();
 		Float_t   getMHT();					                              // NEW
 		Float_t   getMETLD();					                          // NEW
-		float     getJetPtIndex(UInt_t);
-		float     getJetEtaIndex(UInt_t);
-		float     getBtagJetPtIndex(UInt_t);
-		float     getErrPt(float,float);
-		float     getJERScaleUp(int);
-        float     getJERScale(int);
-		float     getJERScaleDown(int);
-		float     getSF(gChannel);
-		float     getLeptonError(gChannel);
-		float     getTriggerError(gChannel);
-		float     getTopPtSF();
-		float     getTopD();
-		float     getDeltaPhillJet();
-		float     weightNvtx(int);
-		float     getMT(gChannel);
-		float     getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, float mass);
-		float     getMT2ll(gChannel);
-		float     getMT2b(gChannel);
-		float     getMT2lb(gChannel);
-		float     getMeff();
-		float     getDPhiLepJet();
-		float     getDelPhill();
-		float     getDPhiJetMet();
-		float     getDPhiLepMet();
-		float     getDPhibMet();
-		float     getMinDPhiMetJets();
+		Float_t     getJetPtIndex(UInt_t);
+		Float_t     getJetEtaIndex(UInt_t);
+		Float_t     getBtagJetPtIndex(UInt_t);
+		Float_t     getErrPt(Float_t,Float_t);
+		Float_t     getJERScaleUp(Int_t);
+        Float_t     getJERScale(Int_t);
+		Float_t     getJERScaleDown(Int_t);
+		Float_t     getSF(gChannel);
+		Float_t     getLeptonError(gChannel);
+		Float_t     getTriggerError(gChannel);
+		Float_t     getTopPtSF();
+		Float_t     getTopD();
+		Float_t     getDeltaPhillJet();
+		Float_t     weightNvtx(Int_t);
+		Float_t     getMT(gChannel);
+		Float_t     getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, Float_t mass);
+		Float_t     getMT2ll(gChannel);
+		Float_t     getMT2b(gChannel);
+		Float_t     getMT2lb(gChannel);
+		Float_t     getMeff();
+		Float_t     getDPhiLepJet();
+		Float_t     getDelPhill();
+		Float_t     getDPhiJetMet();
+		Float_t     getDPhiLepMet();
+		Float_t     getDPhibMet();
+		Float_t     getMinDPhiMetJets();
 
 		TLorentzVector getPtllb();
 
@@ -520,8 +520,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
 		//	EventWeight
 		//----------------------------------------------------------------------
-		float EventWeight;
-		float PUSF;
+		Float_t EventWeight;
+		Float_t PUSF;
 		Bool_t fChargeSwitch;
 
 		//	Histograms and trees
@@ -582,17 +582,17 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		std::vector<lepton> FakeableLepton;	// NEW
 		std::vector<jet>    Jet;
 
-		std::vector<float> JetEt;
-		std::vector<float> JetPt;
-		std::vector<float> JetPhi;
-		std::vector<float> MuPx;
-		std::vector<float> MuPy;
-		std::vector<float> MuPz;
-		std::vector<float> MuEnergy;
-		std::vector<float> ElPx;
-		std::vector<float> ElPy;
-		std::vector<float> ElPz;
-		std::vector<float> ElEnergy;
+		std::vector<Float_t> JetEt;
+		std::vector<Float_t> JetPt;
+		std::vector<Float_t> JetPhi;
+		std::vector<Float_t> MuPx;
+		std::vector<Float_t> MuPy;
+		std::vector<Float_t> MuPz;
+		std::vector<Float_t> MuEnergy;
+		std::vector<Float_t> ElPx;
+		std::vector<Float_t> ElPy;
+		std::vector<Float_t> ElPz;
+		std::vector<Float_t> ElEnergy;
 
 		ClassDef(ttHAnalyzer,0);  // ROOT definition as class
 };
