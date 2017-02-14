@@ -428,7 +428,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Set/reset methods
 		////////////////////////////////////////////////////////////////////////
 		void 	SetOriginalObjects();
-		Void_t 	SetEventObjects();
+		void_t 	SetEventObjects();
 		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
         void    setMET(float);

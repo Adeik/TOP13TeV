@@ -1557,7 +1557,7 @@ void ttHAnalyzer::SetOriginalObjects(){
 	MET_Phi = Get<Float_t>("met_phi"); //met
 }
 
-Void_t ttHAnalyzer::SetEventObjects(){
+void_t ttHAnalyzer::SetEventObjects(){
 	ResetHypLeptons();
 
 	fChargeSwitch = false;
