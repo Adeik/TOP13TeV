@@ -367,7 +367,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Bool_t	IsMuMuEvent();                                                  // REDEF
 		Bool_t	IsElMuEvent();                                                  // REDEF
 		Bool_t	IsElElEvent();                                                  // REDEF
-	    Bool_t 	IsSS();					                                        // NEw
+	    Bool_t 	IsSSEvent();					                                        // NEw
 	    Bool_t 	Is2lSSEvent();			                                        // NEw
 	    Bool_t 	Is3lSSEvent();			                                        // NEw
 

@@ -567,24 +567,24 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 			cout << " pass mll, ";
 #endif
 
-		if (PassesMllVeto()){
+		if (1 == 1){
 			FillYieldsHistograms(ElMu, iDilepton, sys);
 			if(sys==Norm) FillKinematicHistos(ElMu,iDilepton);
 
 			FillYieldsHistograms(ElMu, iZVeto, sys);
 			if(sys==Norm) FillKinematicHistos(ElMu, iZVeto);
 
-			if(PassesMETCut()){
+			if(1 == 1){
 				FillYieldsHistograms(ElMu, iMET, sys);
 				if(sys==Norm) FillKinematicHistos(ElMu,iMET);
 
-				if (PassesNJetsCut()) {
+				if (1 == 1) {
 #ifdef DEBUG
 					cout << " pass njets with njets = "<<getNJets()<<", ";
 #endif
 					FillYieldsHistograms(ElMu, i2jets, sys);
 					if(sys==Norm) FillKinematicHistos(ElMu,i2jets);
-					if (PassesNBtagCut()) {
+					if (1 == 1) {
 #ifdef DEBUG
 						cout << " pass nbjets with nbtags = "<<getNBTags()<<", ";
 #endif
@@ -625,16 +625,16 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
-		if (PassesMllVeto()){
+		if (1 == 1){
 #ifdef DEBUG
 			cout << " pass mll, ";
 #endif
 			FillYieldsHistograms(Muon,iDilepton, sys);
 			if(sys==Norm) FillKinematicHistos(Muon,iDilepton);
-			if (PassesZVeto())    {
+			if (1 == 1)    {
 				FillYieldsHistograms(Muon,iZVeto, sys);
 				if(sys==Norm) FillKinematicHistos(Muon,iZVeto);
-				if (PassesMETCut())   {
+				if (1 == 1)   {
 					FillYieldsHistograms(Muon,iMET, sys);
 					if(sys==Norm) FillKinematicHistos(Muon,iMET);
 
@@ -646,13 +646,13 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 						FillYieldsHistograms(Muon, iExact2btag, sys);
 						if(sys==Norm) FillKinematicHistos(Muon,iExact2btag);
 					}
-					if (PassesNJetsCut()) {
+					if (1 == 1) {
 						FillYieldsHistograms(Muon,i2jets, sys);
 						if(sys==Norm) FillKinematicHistos(Muon,i2jets);
-						if (PassesNBtagCut()) {
+						if (1 == 1) {
 							FillYieldsHistograms(Muon,i1btag, sys);
 							if(sys==Norm) FillKinematicHistos(Muon,i1btag);
-              if(PassesDYVetoCut()){
+              if(1 == 1){
                 FillYieldsHistograms(Muon,iDYVeto, sys);
                 if(sys==Norm) FillKinematicHistos(Muon,iDYVeto);
               }
@@ -1335,7 +1335,7 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
 	}
 	if (nicejets < 4) return false;
 	if (IsElElEvent()){
-		if (abs((fHypLepton1 + fHypLepton2).M() - Zm) < 10) return false;
+		if (abs((fHypLepton1.p + fHypLepton2.p).M() - Zm) < 10) return false;
 		if (getMETLD() < 0.2) return false;
 	}
 	return true;
