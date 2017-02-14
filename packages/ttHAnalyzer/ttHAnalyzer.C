@@ -52,7 +52,6 @@ void ttHAnalyzer::Initialise() {
 	TH1::SetDefaultSumw2();
 	fHDummy = CreateH1F("fHDummy","",1,0,1);
 	//PAF_INFO("ttHAnalyzer", "+ Initialise Yield histograms...");
-	InitialiseTree();
 	InitialiseYieldsHistos();
 	//PAF_INFO("ttHAnalyzer", "+ Initialise Kinematic histograms...");
 	InitialiseKinematicHistos();
@@ -296,69 +295,11 @@ void ttHAnalyzer::CoutEvent(long unsigned int en, TString t){
 ////////////////////////////////////////////////////////////////////////////////
 //		Tree-related methods
 ////////////////////////////////////////////////////////////////////////////////
-void ttHAnalyzer::InitialiseTree() {
-
-}
-
-void ttHAnalyzer::SetTreeVariables(gChannel chan){
-	TWeight     = EventWeight;
-	TNJets      = getNJets();
-	TNJetsBtag  = getNBTags();
-
-	TIsDoubleElec = 0; TIsDoubleMuon = 0; TIsElMu = 0;
-	if(chan == Muon) TIsDoubleMuon = 1;
-	if(chan == Elec) TIsDoubleElec = 1;
-	if(chan == ElMu) TIsElMu       = 1;
-	TMET          	= getMET();
-	TMT2ll        	= getMT2ll(chan);
-	TMT2bb        	= getMT2b(chan);
-	TMT2lblb      	= getMT2lb(chan);
-	TMll          	= (fHypLepton1.p+fHypLepton2.p).M();
-	TPtllb        	= getPtllb().Pt();
-	TMeff 	        = getMeff();
-	THT           	= getHT();
-	TdPhiPtllbMET 	= getDPhibMet();
-	TMinDPhiMetJets = getMinDPhiMetJets();
-	TdPhiJetMet   	= getDPhiJetMet();
-	TdPhiLepMet   	= getDPhiLepMet();
-	TdPhiLepJet   	= getDPhiLepJet();
-	TdPhill       	= getDelPhill();
-	TMET_Phi      	= getMETPhi();
-
-	TLep1_Px      	= fHypLepton1.p.Px();
-	TLep1_Py      	= fHypLepton1.p.Py();
-	TLep1_Pz      	= fHypLepton1.p.Pz();
-	TLep1_E       	= fHypLepton1.p.E();
-	TLep1_Charge  	= fHypLepton1.charge;
-	TLep2_Px      	= fHypLepton2.p.Px();
-	TLep2_Py      	= fHypLepton2.p.Py();
-	TLep2_Pz      	= fHypLepton2.p.Pz();
-	TLep2_E       	= fHypLepton2.p.E();
-	TLep2_Charge  	= fHypLepton2.charge;
-
-  	for(int k = 0; k<40; k++) {
-	    if(k<TNJets){
-			TJet_Px[k]           = Jet[k].p.Px();
-			TJet_Py[k]           = Jet[k].p.Py();
-			TJet_Pz[k]           = Jet[k].p.Pz();
-			TJet_E[k]            = Jet[k].p.E();
-			TJet_isBJet[k]       = Jet[k].isbtag;
-	    }
-    	else {
-			TJet_Px[k]           = 0;
-			TJet_Py[k]           = 0;
-			TJet_Pz[k]           = 0;
-			TJet_E[k]            = 0;
-			TJet_isBJet[k]       = 0;
-    	}
-  	}
-}
-
 void ttHAnalyzer::GetTreeVariables() {
     nLepGood             = Get<Int_t>("nLepGood");
 	nJet                 = Get<Int_t>("nJet");
     evt                  = Get<Long_t>("evt");
-	if (!gIsData){
+	if (!gIsData) {
 		ngenLep              = Get<Int_t>("ngenLep");
 		genWeight            = Get<Float_t>("genWeight");
 	}

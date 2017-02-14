@@ -235,8 +235,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
 		//	Methods
 		//----------------------------------------------------------------------
-		void 	InitialiseTree();
-		void 	SetTreeVariables(gChannel);
 		void 	GetTreeVariables();
 		void 	GetParameters();
 
