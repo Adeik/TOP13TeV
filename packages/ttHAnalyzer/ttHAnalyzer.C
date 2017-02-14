@@ -339,13 +339,13 @@ void ttHAnalyzer::GetTreeVariables() {
 
 void ttHAnalyzer::GetParameters(){
     gSampleName		=	GetParam<TString>("sampleName");
-    gIsData        	= 	GetParam<bool>("IsData");
+    gIsData        	= 	GetParam<Bool_t>("IsData");
     gWeight        	= 	GetParam<float>("weight"); // cross section / events in the sample
     gLumiForPU     	= 	GetParam<float>("LumiForPU");
     gTotalLumi     	= 	GetParam<float>("TotalLumi");
-    gDoSystStudies 	= 	GetParam<bool>("DoSystStudies");
-    gUseCSVM       	= 	GetParam<bool>("UseCSVM");
-    gIsMCatNLO      =   GetParam<bool>("IsMCatNLO");
+    gDoSystStudies 	= 	GetParam<Bool_t>("DoSystStudies");
+    gUseCSVM       	= 	GetParam<Bool_t>("UseCSVM");
+    gIsMCatNLO      =   GetParam<Bool_t>("IsMCatNLO");
     gIsT2tt        	= 	false;
     if(gSampleName.BeginsWith("T2tt")) gIsT2tt = true;
 
@@ -789,7 +789,7 @@ void ttHAnalyzer::ScaleLeptons(int flag){
 	return;
 }
 
-bool momentumComparator(lepton i, lepton j){ return (i.p.Pt()>j.p.Pt()); }
+Bool_t momentumComparator(lepton i, lepton j){ return (i.p.Pt()>j.p.Pt()); }
 
 vector<lepton> ttHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
     vector<lepton> theLep = leptons;
@@ -799,7 +799,7 @@ vector<lepton> ttHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
 
 //	Muon selectors
 //------------------------------------------------------------------------------
-bool ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
+Bool_t ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
 	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
@@ -817,7 +817,7 @@ bool ttHAnalyzer::IsTightMuon(unsigned int iMuon,float ptcut){
     return true;
 }
 
-bool ttHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
+Bool_t ttHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
 	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
@@ -838,7 +838,7 @@ bool ttHAnalyzer::IsFakeableMuon(unsigned int iMuon,float ptcut){
     return true;
 }
 
-bool ttHAnalyzer::IsLooseMuon(unsigned int iMuon,float ptcut){
+Bool_t ttHAnalyzer::IsLooseMuon(unsigned int iMuon,float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
 	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
@@ -860,7 +860,7 @@ float ttHAnalyzer::getMuonIso(int iMuon){
 
 //	Electron selectors
 //------------------------------------------------------------------------------
-bool ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
+Bool_t ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
 	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
@@ -912,7 +912,7 @@ bool ttHAnalyzer::IsTightElectron(unsigned int iElec, float ptcut, Int_t an){
 	return true;
 }
 
-bool ttHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
+Bool_t ttHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
 	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
@@ -963,7 +963,7 @@ bool ttHAnalyzer::IsFakeableElectron(unsigned int iElec, float ptcut){
 	return true;
 }
 
-bool ttHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
+Bool_t ttHAnalyzer::IsLooseElectron(unsigned int iElec, float ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
 	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
@@ -1005,7 +1005,7 @@ float ttHAnalyzer::getEACorrection(float eta){  // for a 0.3 CONE
 	return -999999.;
 }
 
-bool ttHAnalyzer::getMultiIso(unsigned int index){
+Bool_t ttHAnalyzer::getMultiIso(unsigned int index){
     float max_mRelIso = 0.09;
     float min_ptRatio = 0.84; // Very tight
     float min_ptRel   = 7.2 ; // Tight
@@ -1036,7 +1036,7 @@ Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau, Float_t ptcut) {
 
 //	MET methods
 //------------------------------------------------------------------------------
-bool ttHAnalyzer::METFilter(){
+Bool_t ttHAnalyzer::METFilter(){
     if(gSampleName.BeginsWith("T2tt")) return true;
     if (Get<Int_t>("Flag_HBHENoiseFilter") &&
         Get<Int_t>("Flag_HBHENoiseIsoFilter") &&
@@ -1128,7 +1128,7 @@ int ttHAnalyzer::getSelectedJets(){
         Float_t jetenergyi    = Jet_energy[i];
 
         jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
-        bool isbtag = false;
+        Bool_t isbtag = false;
         if (gIsData) {
             isbtag = fBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
         }
@@ -1164,7 +1164,7 @@ int ttHAnalyzer::getSelectedJets(){
     return nj;
 }
 
-bool ttHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
+Bool_t ttHAnalyzer::IsGoodJet(unsigned int ijet, float ptcut){
     Float_t minDR = 0.4;
     TLorentzVector jet;
     jet.SetPtEtaPhiE(JetPt.at(ijet), Jet_eta[ijet], JetPhi.at(ijet), Jet_energy[ijet]);
@@ -1240,17 +1240,17 @@ void ttHAnalyzer::SmearJetPts(int flag){
 ////////////////////////////////////////////////////////////////////////////////
 //	   Events selection
 ////////////////////////////////////////////////////////////////////////////////
-bool ttHAnalyzer::IsElMuEvent(){
+Bool_t ttHAnalyzer::IsElMuEvent(){
 	if (fChargeSwitch){      return (IsDileptonEvent()  == 3);   }
 	return (IsDileptonEvent() == -3);
 }
 
-bool ttHAnalyzer::IsMuMuEvent(){
+Bool_t ttHAnalyzer::IsMuMuEvent(){
 	if (fChargeSwitch){  return (IsDileptonEvent()  == 1); }
 	return (IsDileptonEvent() == -1);
 }
 
-bool ttHAnalyzer::IsElElEvent(){
+Bool_t ttHAnalyzer::IsElElEvent(){
     if (fChargeSwitch){    return (IsDileptonEvent()  == 2); }
     return (IsDileptonEvent() == -2);
 }
@@ -1340,7 +1340,7 @@ Bool_t ttHAnalyzer::PassesPreCuts(){				   		  														// NEW
 	return true;
 }
 
-bool ttHAnalyzer::PassesMuonEta2p1(gChannel chan){
+Bool_t ttHAnalyzer::PassesMuonEta2p1(gChannel chan){
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
 
@@ -1357,7 +1357,7 @@ bool ttHAnalyzer::PassesMuonEta2p1(gChannel chan){
 	return false;
 }
 
-bool ttHAnalyzer::Passes3rdLeptonVeto(){
+Bool_t ttHAnalyzer::Passes3rdLeptonVeto(){
 	return true; // don't apply third lepton veto...
 	// Return false if there are not 2 signal leptons
 	if (fHypLepton1.index == -1) return false;
@@ -1381,7 +1381,7 @@ bool ttHAnalyzer::Passes3rdLeptonVeto(){
 	return true;
 }
 
-bool ttHAnalyzer::PassesMllVeto(){
+Bool_t ttHAnalyzer::PassesMllVeto(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -1390,7 +1390,7 @@ bool ttHAnalyzer::PassesMllVeto(){
 	return true;
 }
 
-bool ttHAnalyzer::PassesZVeto(){
+Bool_t ttHAnalyzer::PassesZVeto(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -1399,7 +1399,7 @@ bool ttHAnalyzer::PassesZVeto(){
     return true;
 }
 
-bool ttHAnalyzer::PassesTopDCut(){
+Bool_t ttHAnalyzer::PassesTopDCut(){
 	// Check consistency.
 	if (fHypLepton1.index == -1) return false;
 	if (fHypLepton2.index == -1) return false;
@@ -1407,22 +1407,22 @@ bool ttHAnalyzer::PassesTopDCut(){
 	return true;
 }
 
-bool ttHAnalyzer::PassesNJetsCut(){
+Bool_t ttHAnalyzer::PassesNJetsCut(){
 	if (getNJets() <= 1) return false;
 	return true;
 }
 
-bool ttHAnalyzer::PassesMETCut(){
+Bool_t ttHAnalyzer::PassesMETCut(){
 	if (getMET() < 50.) return false;
 	return true;
 }
 
-bool ttHAnalyzer::PassesNBtagCut(){
+Bool_t ttHAnalyzer::PassesNBtagCut(){
 	if (getNBTags() < 1) return false;
 	return true;
 }
 
-bool ttHAnalyzer::PassesDYVetoCut(){
+Bool_t ttHAnalyzer::PassesDYVetoCut(){
     if(getMinDPhiMetJets() < 0.25) return false;
     if (getHT() == 0) return false;
     if(getMET()/TMath::Sqrt(getHT()) < 5.0) return false;
@@ -1435,7 +1435,7 @@ bool ttHAnalyzer::PassesDYVetoCut(){
 /*	The triggers for each region are defined exactly the same as in the CMS Draft Note of
 03-03-2016 ("Search for ttH in multilepton final states at 13 TeV").
 */
-bool ttHAnalyzer::triggermumuSS() {
+Bool_t ttHAnalyzer::triggermumuSS() {
     if(!gIsData) return true;
     //return true;
     Bool_t pass = false;
@@ -1451,7 +1451,7 @@ bool ttHAnalyzer::triggermumuSS() {
 }
 
 
-bool ttHAnalyzer::triggereeSS(){
+Bool_t ttHAnalyzer::triggereeSS(){
     if(!gIsData) return true;
     //return true;
     Bool_t pass = false;
@@ -1466,7 +1466,7 @@ bool ttHAnalyzer::triggereeSS(){
 }
 
 
-bool ttHAnalyzer::triggeremuSS(){
+Bool_t ttHAnalyzer::triggeremuSS(){
     if(!gIsData) return true;
     //return true;
     Bool_t pass = false;
@@ -1483,7 +1483,7 @@ bool ttHAnalyzer::triggeremuSS(){
     return pass;
 }
 
-bool ttHAnalyzer::trigger3l4l(){
+Bool_t ttHAnalyzer::trigger3l4l(){
     if(!gIsData) return true;
     //return true;
     Bool_t pass = false;
@@ -1557,7 +1557,7 @@ void ttHAnalyzer::SetOriginalObjects(){
 	MET_Phi = Get<Float_t>("met_phi"); //met
 }
 
-void ttHAnalyzer::SetEventObjects(){
+Void_t ttHAnalyzer::SetEventObjects(){
 	ResetHypLeptons();
 
 	fChargeSwitch = false;

@@ -365,19 +365,19 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //  Muons
         //----------------------------------------------------------------------
-		bool 	IsTightMuon(unsigned int, float ptcut=20.);
-		bool 	IsFakeableMuon(unsigned int, float ptcut=20.);
-		bool 	IsLooseMuon(unsigned int, float ptcut=20.);
+		Bool_t	IsTightMuon(unsigned int, float ptcut=20.);
+		Bool_t	IsFakeableMuon(unsigned int, float ptcut=20.);
+		Bool_t	IsLooseMuon(unsigned int, float ptcut=20.);
 		float 	getMuonIso(int);
 
         //  Electrons
         //----------------------------------------------------------------------
-		bool 	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
-		bool 	IsFakeableElectron(unsigned int,float ptcut=20.);
-		bool 	IsLooseElectron(unsigned int,float ptcut=20.);
+		Bool_t	IsTightElectron(unsigned int,float ptcut=20.,Int_t an=2);
+		Bool_t	IsFakeableElectron(unsigned int,float ptcut=20.);
+		Bool_t	IsLooseElectron(unsigned int,float ptcut=20.);
 		float 	getElecIso(int);
 		float 	getEACorrection(float);
-		bool 	getMultiIso(unsigned int );
+		Bool_t	getMultiIso(unsigned int );
 
         //  Taus
         //----------------------------------------------------------------------
@@ -385,14 +385,14 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //  MET
         //----------------------------------------------------------------------
-        bool 	METFilter();
+        Bool_t	METFilter();
         void 	propagateMET(TLorentzVector,TLorentzVector);
         void 	ScaleMET(int);
 
         //  Jets
         //----------------------------------------------------------------------
 		int 	getSelectedJets();
-		bool 	IsGoodJet(unsigned int, float ptcut=25.);
+		Bool_t	IsGoodJet(unsigned int, float ptcut=25.);
 		Bool_t 	IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
 		std::vector<int> CleanedJetIndices(float);
 		void 	SmearJetPts(int);
@@ -401,34 +401,34 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Events selection
 		////////////////////////////////////////////////////////////////////////
 		int  	IsDileptonEvent();
-		bool 	IsMuMuEvent();
-		bool 	IsElMuEvent();
-		bool 	IsElElEvent();
+		Bool_t	IsMuMuEvent();
+		Bool_t	IsElMuEvent();
+		Bool_t	IsElElEvent();
 
 		Bool_t 	PassesPreCuts();					// NEW
-		bool 	PassesZVeto();
-		bool 	PassesNJetsCut();
-		bool 	PassesMETCut();
-		bool 	PassesNBtagCut();
-		bool 	PassesMllVeto();
-		bool 	Passes3rdLeptonVeto();
-		bool 	PassesMuonEta2p1(gChannel);
-		bool 	PassesTopDCut();
-		bool 	PassesDYVetoCut();
+		Bool_t	PassesZVeto();
+		Bool_t	PassesNJetsCut();
+		Bool_t	PassesMETCut();
+		Bool_t	PassesNBtagCut();
+		Bool_t	PassesMllVeto();
+		Bool_t	Passes3rdLeptonVeto();
+		Bool_t	PassesMuonEta2p1(gChannel);
+		Bool_t	PassesTopDCut();
+		Bool_t	PassesDYVetoCut();
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Trigger methods
 		////////////////////////////////////////////////////////////////////////
-		bool 	triggermumuSS();
-		bool	triggereeSS();
-		bool 	triggeremuSS();
-		bool 	trigger3l4l();
+		Bool_t	triggermumuSS();
+		Bool_t	triggereeSS();
+		Bool_t	triggeremuSS();
+		Bool_t	trigger3l4l();
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Set/reset methods
 		////////////////////////////////////////////////////////////////////////
 		void 	SetOriginalObjects();
-		void 	SetEventObjects();
+		Void_t 	SetEventObjects();
 		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
         void    setMET(float);
@@ -522,7 +522,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 		float EventWeight;
 		float PUSF;
-		bool  fChargeSwitch;
+		Bool_t fChargeSwitch;
 
 		//	Histograms and trees
 		//----------------------------------------------------------------------
