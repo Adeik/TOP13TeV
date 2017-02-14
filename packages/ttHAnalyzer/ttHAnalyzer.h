@@ -36,6 +36,7 @@
 const Int_t nWeights = 248;
 const Int_t nGenb = 0;
 const Double_t pi = 3.1415926535897932384;
+const Float_t Zm = 91.1876;
 
 enum gChannel {
     channels_begin,
@@ -238,51 +239,13 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		void 	GetTreeVariables();
 		void 	GetParameters();
 
-		//	Branches
-		//----------------------------------------------------------------------
-		Int_t   TNJets;
-		Int_t   TNJetsBtag;
-		Int_t   TIsDoubleMuon;
-		Int_t   TIsDoubleElec;
-		Int_t   TIsElMu;
-		Float_t TWeight;
-		Float_t TMET;
-		Float_t TMET_Phi;
-		Float_t THT;
-		Float_t TMT2ll;
-		Float_t TMT2bb;
-		Float_t TMT2lblb;
-		Float_t TMll;
-		Float_t TPtllb;
-		Float_t TMeff;
-		Float_t TdPhiPtllbMET;
-		Float_t TdPhiJetMet;
-		Float_t TdPhiLepMet;
-		Float_t TdPhiLepJet;
-		Float_t TdPhill;
-		Float_t TMinDPhiMetJets;
-		Float_t TLep1_Px;
-		Float_t TLep1_Py;
-		Float_t TLep1_Pz;
-		Float_t TLep1_E;
-		Float_t TLep1_Charge;
-		Float_t TLep2_Px;
-		Float_t TLep2_Py;
-		Float_t TLep2_Pz;
-		Float_t TLep2_E;
-		Float_t TLep2_Charge;
-		Float_t TJet_Px[40];
-		Float_t TJet_Py[40];
-		Float_t TJet_Pz[40];
-		Float_t TJet_E[40];
-	    Int_t   TJet_isBJet[40];
-
         //	Tree variables
 		//----------------------------------------------------------------------
 		Int_t   nLepGood;
 		Int_t   ngenLep;
         Long_t  evt;
 		Int_t   nJet;
+        Int_t   nTauGood;
 		Float_t genWeight;
 		Float_t LepGood_px[30];
 		Float_t LepGood_py[30];
@@ -368,15 +331,15 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Bool_t	IsTightMuon(UInt_t, Float_t ptcut=20.);
 		Bool_t	IsFakeableMuon(UInt_t, Float_t ptcut=20.);
 		Bool_t	IsLooseMuon(UInt_t, Float_t ptcut=20.);
-		Float_t 	getMuonIso(Int_t);
+		Float_t getMuonIso(Int_t);
 
         //  Electrons
         //----------------------------------------------------------------------
 		Bool_t	IsTightElectron(UInt_t,Float_t ptcut=20.,Int_t an=2);
 		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut=20.);
 		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut=20.);
-		Float_t 	getElecIso(Int_t);
-		Float_t 	getEACorrection(Float_t);
+		Float_t getElecIso(Int_t);
+		Float_t getEACorrection(Float_t);
 		Bool_t	getMultiIso(UInt_t );
 
         //  Taus
@@ -401,20 +364,14 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Events selection
 		////////////////////////////////////////////////////////////////////////
 		Int_t  	IsDileptonEvent();
-		Bool_t	IsMuMuEvent();
-		Bool_t	IsElMuEvent();
-		Bool_t	IsElElEvent();
+		Bool_t	IsMuMuEvent();                                                  // REDEF
+		Bool_t	IsElMuEvent();                                                  // REDEF
+		Bool_t	IsElElEvent();                                                  // REDEF
+	    Bool_t 	IsSS();					                                        // NEw
+	    Bool_t 	Is2lSSEvent();			                                        // NEw
+	    Bool_t 	Is3lSSEvent();			                                        // NEw
 
-		Bool_t 	PassesPreCuts();					// NEW
-		Bool_t	PassesZVeto();
-		Bool_t	PassesNJetsCut();
-		Bool_t	PassesMETCut();
-		Bool_t	PassesNBtagCut();
-		Bool_t	PassesMllVeto();
-		Bool_t	Passes3rdLeptonVeto();
-		Bool_t	PassesMuonEta2p1(gChannel);
-		Bool_t	PassesTopDCut();
-		Bool_t	PassesDYVetoCut();
+		Bool_t 	PassesPreCuts();					                            // NEw
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Trigger methods
@@ -436,42 +393,42 @@ class ttHAnalyzer : public PAFChainItemSelector {
         ////////////////////////////////////////////////////////////////////////
 		//	   Get methods
 		////////////////////////////////////////////////////////////////////////
-		Int_t       getNJets();
-		Int_t       getNBTags();
-		Int_t       getLeadingJetbTag();
-		Float_t     getDRClosestJet(TLorentzVector);
-		Float_t     getDPhiClosestJet(TLorentzVector);
-		Float_t     getMET();
-		Float_t     getMETPhi();
-		Float_t     getHT();
-		Float_t   getMHT();					                              // NEW
-		Float_t   getMETLD();					                          // NEW
-		Float_t     getJetPtIndex(UInt_t);
-		Float_t     getJetEtaIndex(UInt_t);
-		Float_t     getBtagJetPtIndex(UInt_t);
-		Float_t     getErrPt(Float_t,Float_t);
-		Float_t     getJERScaleUp(Int_t);
-        Float_t     getJERScale(Int_t);
-		Float_t     getJERScaleDown(Int_t);
-		Float_t     getSF(gChannel);
-		Float_t     getLeptonError(gChannel);
-		Float_t     getTriggerError(gChannel);
-		Float_t     getTopPtSF();
-		Float_t     getTopD();
-		Float_t     getDeltaPhillJet();
-		Float_t     weightNvtx(Int_t);
-		Float_t     getMT(gChannel);
-		Float_t     getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, Float_t mass);
-		Float_t     getMT2ll(gChannel);
-		Float_t     getMT2b(gChannel);
-		Float_t     getMT2lb(gChannel);
-		Float_t     getMeff();
-		Float_t     getDPhiLepJet();
-		Float_t     getDelPhill();
-		Float_t     getDPhiJetMet();
-		Float_t     getDPhiLepMet();
-		Float_t     getDPhibMet();
-		Float_t     getMinDPhiMetJets();
+		Int_t   getNJets();
+		Int_t   getNBTags();
+		Int_t   getLeadingJetbTag();
+		Float_t getDRClosestJet(TLorentzVector);
+		Float_t getDPhiClosestJet(TLorentzVector);
+		Float_t getMET();
+		Float_t getMETPhi();
+		Float_t getHT();
+		Float_t getMHT();					                                    // NEW
+		Float_t getMETLD();					                                    // NEW
+		Float_t getJetPtIndex(UInt_t);
+		Float_t getJetEtaIndex(UInt_t);
+		Float_t getBtagJetPtIndex(UInt_t);
+		Float_t getErrPt(Float_t,Float_t);
+		Float_t getJERScaleUp(Int_t);
+        Float_t getJERScale(Int_t);
+		Float_t getJERScaleDown(Int_t);
+		Float_t getSF(gChannel);
+		Float_t getLeptonError(gChannel);
+		Float_t getTriggerError(gChannel);
+		Float_t getTopPtSF();
+		Float_t getTopD();
+		Float_t getDeltaPhillJet();
+		Float_t weightNvtx(Int_t);
+		Float_t getMT(gChannel);
+		Float_t getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, Float_t mass);
+		Float_t getMT2ll(gChannel);
+		Float_t getMT2b(gChannel);
+		Float_t getMT2lb(gChannel);
+		Float_t getMeff();
+		Float_t getDPhiLepJet();
+		Float_t getDelPhill();
+		Float_t getDPhiJetMet();
+		Float_t getDPhiLepMet();
+		Float_t getDPhibMet();
+		Float_t getMinDPhiMetJets();
 
 		TLorentzVector getPtllb();
 
@@ -522,16 +479,16 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 		Float_t EventWeight;
 		Float_t PUSF;
-		Bool_t fChargeSwitch;
+		Bool_t  fChargeSwitch;
 
 		//	Histograms and trees
 		//----------------------------------------------------------------------
-		TH1F* fHDummy;
-		TH1F* hWeight;
-		TH1F* fHyields     [gNCHANNELS][gNSYST];
-		TH1F* fHWeightyield[gNCHANNELS][gNWEIGHT];
-		TH1F* fHSSyields   [gNCHANNELS][gNSYST];
-		TH1F* fHTopPtWeight;
+		TH1F*   fHDummy;
+		TH1F*   hWeight;
+		TH1F*   fHyields     [gNCHANNELS][gNSYST];
+		TH1F*   fHWeightyield[gNCHANNELS][gNWEIGHT];
+		TH1F*   fHSSyields   [gNCHANNELS][gNSYST];
+		TH1F*   fHTopPtWeight;
 
 		//	Generation
 		//----------------------------------------------------------------------
@@ -575,11 +532,12 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t MET_Phi;
 		Float_t MHT;						// NEW
 
-		lepton fHypLepton1;
-		lepton fHypLepton2;
+		lepton  fHypLepton1;
+		lepton  fHypLepton2;
 		std::vector<lepton> Lepton;
 		std::vector<lepton> LooseLepton;	// NEW
 		std::vector<lepton> FakeableLepton;	// NEW
+		std::vector<lepton> TightLepton;	// NEW
 		std::vector<jet>    Jet;
 
 		std::vector<Float_t> JetEt;

@@ -61,7 +61,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 			//"C_7016",
 			//"D_7360"
     	};
-	    const unsigned int nDataSamples = 4;
+	    const UInt_t nDataSamples = 4;
 	    for (UInt_t i = 0; i < nDataSamples; i++) {
 			TString asample = Form("Tree_%s_%s",sampleName.Data(), datasuffix[i].Data());
 			cout << "   + Looking for " << asample << " trees..." << endl;
@@ -129,7 +129,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
   	PAF_INFO("RunttHAnalysis", Form("Output file = %s", outputFile.Data()));
   	myProject->SetOutputFile(outputFile);
 
-  	if(sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ||
+  	if (sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ||
 	sampleName == "TTWToLNu"	|| sampleName == "TTWToQQ"	||
     sampleName == "TTZToQQ"		|| sampleName == "WWZ"      ||
     sampleName == "WZZ"			|| sampleName == "ZZZ" ){
