@@ -6,7 +6,7 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 	* Main function
 *******************************************************************************/
 void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
-					Int_t		nSlots         	=  	8		,
+					Int_t		nSlots         	=  	1		,
 					Bool_t  	DoSystStudies  	=  	false	,
 					Long64_t 	nEvents        	= 	0		) {
 
