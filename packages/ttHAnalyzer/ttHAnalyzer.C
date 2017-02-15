@@ -210,30 +210,17 @@ void ttHAnalyzer::GetParameters(){
 void ttHAnalyzer::InitialiseYieldsHistos() {
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
-	fHyields[Muon] = CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHyields[Elec] = CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[Muon] = CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[Elec] = CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHyields[ElMu] = CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[ElMu] = CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
 }
 
 // Filling methods
 //------------------------------------------------------------------------------
-void ttHAnalyzer::FillYieldsHistograms(gChannel chan){
-	#ifdef DEBUGG
-		cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")";
-	#endif
-
-	fHSSyields[chan]	->Fill(cut, EventWeight);
-	fHyields[chan]  	->Fill(cut, EventWeight);
-
-	#ifdef DEBUGG
-		cout << " DONE! " << endl;
-	#endif
-	return;
-}
-void ttHAnalyzer::FillYields(gSystFlag sys) {
+void ttHAnalyzer::FillYields() {
 	ResetHypLeptons();
 
 	#ifdef DEBUGG

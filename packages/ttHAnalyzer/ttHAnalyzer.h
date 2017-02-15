@@ -34,13 +34,11 @@
 //------------------------------------------------------------------------------
 //		Enumerations, constants and other variable type declarations
 //------------------------------------------------------------------------------
-// Constants definitions
+// Physical parameters and mathematical constants
 const Double_t pi = 3.1415926535897932384;
 const Float_t Zm = 91.1876;
-const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
-const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 
-// New variable type definitions
+// New variable type definitions and other constants
 enum gChannel {
     channels_begin,
     Muon = channels_begin,
@@ -48,6 +46,8 @@ enum gChannel {
     ElMu,
     gNCHANNELS,
 };
+const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
+const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 
 //	Binning-related constants
 const Int_t gNMuFPtBins = 6;
@@ -179,7 +179,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //	Filling methods
 		//----------------------------------------------------------------------
-		void 	FillYieldsHistograms(gChannel);
 		void 	FillYields();
 
     	// Saving
