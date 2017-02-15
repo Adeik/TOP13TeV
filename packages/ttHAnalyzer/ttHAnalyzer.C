@@ -7,7 +7,7 @@
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
 
-//#define DEBUG
+#define DEBUG
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -551,7 +551,7 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 		<< IsMuMuEvent() << endl;
 #endif
 
-  CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
+  CoutEvent(evt, Form(" PassTrigEmu: %li", triggermumuSS()));
 	if (triggermumuSS()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
