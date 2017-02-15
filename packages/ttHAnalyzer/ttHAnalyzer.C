@@ -7,7 +7,7 @@
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
 
-#define DEBUG
+#define DEBUG 1
 
 //	Package inclusion
 #include "ttHAnalyzer.h"

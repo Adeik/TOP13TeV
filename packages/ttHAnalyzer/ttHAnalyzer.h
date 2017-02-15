@@ -514,18 +514,18 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
 		//	General
 		//----------------------------------------------------------------------
-		Int_t 	nGoodVertex;
+		UInt_t 	nGoodVertex;
 		Float_t nVertex;
-		Int_t 	nBtags;
-		Int_t 	nJets;
-		Int_t 	nTightMuon;					// NEW
-		Int_t 	nFakeableMuon;				// NEW
-		Int_t 	nLooseMuon;					// NEW
-		Int_t 	nTightElec;					// NEW
-		Int_t 	nFakeableElec;				// NEW
-		Int_t 	nLooseElec;					// NEW
-		Int_t 	nElec;
-		Int_t 	nLeptons;
+		UInt_t 	nBtags;
+		UInt_t 	nJets;
+		UInt_t 	nTightMuon;					// NEW
+		UInt_t 	nFakeableMuon;				// NEW
+		UInt_t 	nLooseMuon;					// NEW
+		UInt_t 	nTightElec;					// NEW
+		UInt_t 	nFakeableElec;				// NEW
+		UInt_t 	nLooseElec;					// NEW
+		UInt_t 	nElec;
+		UInt_t 	nLeptons;
 		UInt_t 	njpt;						// NEW
 
 		Float_t MET;
