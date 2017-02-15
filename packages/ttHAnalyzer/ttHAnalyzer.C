@@ -554,7 +554,7 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 		<< IsMuMuEvent() << endl;
 #endif
 
-  CoutEvent(evt, Form(" PassTrigEmu: %li", triggermumuSS()));
+  CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
 	if (triggermumuSS()  && IsElMuEvent()){
 		// Define Hypothesis Leptons...
 		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
@@ -790,9 +790,9 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     Lepton = SortLeptonsByPt(tmp_lepton);
 
     CoutEvent(evt, Form("  ---> nselLeps = %i", Lepton.size()));
-    CoutEvent(evt, Form("  ---> nselLooseLeps = %i", LooseLepton.size()));
-    CoutEvent(evt, Form("  ---> nselFakeableLeps = %i", FakeableLepton.size()));
-    CoutEvent(evt, Form("  ---> nselTightLeps = %i", TightLepton.size()));
+    CoutEvent(evt, Form("  ---> nselLooseLeps = %li", LooseLepton.size()));
+    CoutEvent(evt, Form("  ---> nselFakeableLeps = %li", FakeableLepton.size()));
+    CoutEvent(evt, Form("  ---> nselTightLeps = %li", TightLepton.size()));
 
     if(Lepton.size() == 2) CoutEvent(evt, Form("  --->      Mll = %f", (Lepton[0].p+Lepton[1].p).M()));
     return Lepton.size();
@@ -805,7 +805,7 @@ void ttHAnalyzer::ScaleLeptons(Int_t flag){
 	//Float_t scale = 0.003; // 0.3% for muons
 	Float_t scale = 0.005;
 	TLorentzVector oleps, leps, tmp;
-	for(Int_t k = 0; k < nTightMuon; ++k){ //xxx Muon
+	for(UInt_t k = 0; k < nTightMuon; ++k){ //xxx Muon
 		if(TMath::Abs(LepGood_pdgId[k]) != 13) continue;
 		tmp.SetPxPyPzE(MuPx.at(k), MuPy.at(k), MuPz.at(k), MuEnergy.at(k));
 		oleps += tmp;
@@ -816,7 +816,7 @@ void ttHAnalyzer::ScaleLeptons(Int_t flag){
 	}
 	//scale = 0.0015; // 0.15% for electrons
 	scale = 0.01;
-	for(Int_t i = 0; i < nTightElec; ++i){ //xxx Elec
+	for(UInt_t i = 0; i < nTightElec; ++i){ //xxx Elec
 		if(TMath::Abs(LepGood_pdgId[i]) != 11) continue;
 		tmp.SetPxPyPzE(ElPx.at(i), ElPy.at(i), ElPz.at(i), ElEnergy.at(i));
 		oleps += tmp;
