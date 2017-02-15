@@ -789,7 +789,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     LooseLepton = SortLeptonsByPt(tmp_looselepton);
     Lepton = SortLeptonsByPt(tmp_lepton);
 
-    CoutEvent(evt, Form("  ---> nselLeps = %i", Lepton.size()));
+    CoutEvent(evt, Form("  ---> nselLeps = %li", Lepton.size()));
     CoutEvent(evt, Form("  ---> nselLooseLeps = %li", LooseLepton.size()));
     CoutEvent(evt, Form("  ---> nselFakeableLeps = %li", FakeableLepton.size()));
     CoutEvent(evt, Form("  ---> nselTightLeps = %li", TightLepton.size()));
