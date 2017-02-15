@@ -175,6 +175,7 @@ void ttHAnalyzer::InsideLoop() {
 		gSampleName.Contains("DY")) {
 		FillDYHistograms();
 	}
+	ResetOriginalObjects();
 	// **************************************
 	#ifdef DEBUGG
 		cout << "End of InsideLoop" << endl;
