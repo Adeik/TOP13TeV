@@ -116,14 +116,14 @@ void ttHAnalyzer::Initialise() {
 	//PAF_INFO("ttHAnalyzer", "+ Initialise random 3...");
 	fRand3 = new TRandom3(50);
 
-	// No systematics activated...
+	// No systematics activaded...
 	gSysSource = Norm;
 	PAF_INFO("ttHAnalyzer", "+ Initialisation DONE.");
 }
 
 void ttHAnalyzer::InsideLoop() {
 	#ifdef DEBUGG
-		cout << "============== Beggining of InsideLoop ==============" << endl;
+		cout << "Beggining of InsideLoop" << endl;
 	#endif
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
@@ -179,9 +179,9 @@ void ttHAnalyzer::Summary() {}
 void ttHAnalyzer::CoutEvent(ULong_t en, TString t){
 	//if(en == 1000599168 || en == 1268707665 || en == 157395642 || en == 2726847580 || en == 42879335){
 	//if(en == 1519610198 || en == 1559039433 || en == 998619292 || en == 1206329870 || en == 295644557 || en == 686746673 || en == 99957372 || en == 126485808 || en == 249297855){
-	if(en == 1347253329 || en == 960559657){
+	//if(en == 1347253329 || en == 960559657){
 		cout << t << endl;
-	}
+	//}
 	else return;
 }
 
