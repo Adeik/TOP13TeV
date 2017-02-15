@@ -182,7 +182,7 @@ void ttHAnalyzer::CoutEvent(ULong_t en, TString t){
 	//if(en == 1347253329 || en == 960559657){
 		cout << t << endl;
 	//}
-	else return;
+	//else return;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
