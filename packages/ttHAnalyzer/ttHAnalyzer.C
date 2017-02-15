@@ -945,7 +945,7 @@ void ttHAnalyzer::SetEventObjects(){
 
 	nLeptons = getSelectedLeptons(); // Also gets n[]Muon/Elec
 	nJets    = getSelectedJets();
-	nBtags   = getNBTags();
+	nBTags   = getNBTags();
 }
 
 void ttHAnalyzer::ResetOriginalObjects(){
