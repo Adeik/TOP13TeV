@@ -1354,14 +1354,14 @@ Bool_t ttHAnalyzer::Is3lSSEvent() {
 			}
 		}
 	}
-	UInt_t 2lds = 0;
+	UInt_t twolds = 0;
 	for (UInt_t i = 0; i < nTightMuon + nTightElec; i++) {
 		for (UInt_t j = i; j < nTightMuon + nTightElec; j++) {
 			if (TightLepton[i].type != TightLepton[j].type) continue;
-			if (TightLepton[i].charge*TightLepton[j].charge < 0) 2lds = 1;
+			if (TightLepton[i].charge*TightLepton[j].charge < 0) twolds = 1;
 		}
 	}
-	if (2lds != 1 && nJets < 4) {
+	if (twolds != 1 && nJets < 4) {
 		if (getMETLD() < 0.2) return false;
 	} else if (nJets < 4) {
 		if (getMETLD() < 0.3) return false;
