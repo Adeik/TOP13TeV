@@ -116,14 +116,14 @@ void ttHAnalyzer::Initialise() {
 	//PAF_INFO("ttHAnalyzer", "+ Initialise random 3...");
 	fRand3 = new TRandom3(50);
 
-	// No systematics activaded...
+	// No systematics activated...
 	gSysSource = Norm;
 	PAF_INFO("ttHAnalyzer", "+ Initialisation DONE.");
 }
 
 void ttHAnalyzer::InsideLoop() {
 	#ifdef DEBUGG
-		cout << "Beggining of InsideLoop" << endl;
+		cout << "============== Beggining of InsideLoop ==============" << endl;
 	#endif
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
