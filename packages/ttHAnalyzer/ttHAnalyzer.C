@@ -175,8 +175,6 @@ void ttHAnalyzer::InsideLoop() {
 		gSampleName.Contains("DY")) {
 		FillDYHistograms();
 	}
-	ResetOriginalObjects();
-	SetEventObjects();
 	// **************************************
 	#ifdef DEBUGG
 		cout << "End of InsideLoop" << endl;
@@ -1349,6 +1347,9 @@ void ttHAnalyzer::SetEventObjects(){
 	// Read and save objects
 	Jet.clear();
 	Lepton.clear();
+	LooseLepton.clear();
+	FakeableLepton.clear();
+	TightLepton.clear();
 
 	nLeptons = getSelectedLeptons();
 	nJets    = getSelectedJets();
