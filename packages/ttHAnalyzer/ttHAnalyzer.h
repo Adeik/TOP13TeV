@@ -260,7 +260,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_relIso04[30];
 		Int_t   LepGood_charge[30];
 		Int_t   LepGood_pdgId[30];
-		Float_t LepGood_z[30];					// NEW
 		Float_t LepGood_sip3d[30];				// NEW
 		Float_t LepGood_miniRelIso[30];			// NEW
 		Float_t LepGood_jetBTagCSV[30];			// NEW

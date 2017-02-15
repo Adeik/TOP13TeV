@@ -229,7 +229,6 @@ void ttHAnalyzer::GetTreeVariables() {
 	    LepGood_relIso04[k]	= Get<Float_t>("LepGood_relIso04", k);
 	    LepGood_pdgId[k]   	= Get<Int_t>("LepGood_pdgId", k);
 	    LepGood_charge[k]  	= Get<Int_t>("LepGood_charge", k);
-		LepGood_z[k]		= Get<Float_t>("LepGood_z", k);						// NEW
 		LepGood_sip3d[k]	= Get<Float_t>("LepGood_sip3d", k);					// NEW
 		LepGood_miniRelIso[k]       = Get<Float_t>("LepGood_miniRelIso", k);	// NEW
 		LepGood_jetBTagCSV[k]		= Get<Float_t>("LepGood_jetBTagCSV", k);	// NEW
@@ -601,7 +600,7 @@ Bool_t ttHAnalyzer::IsTightMuon(UInt_t iMuon,Float_t ptcut){
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iMuon]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iMuon]) > 0.1) return false;
 	if (LepGood_sip3d[iMuon] > 8) return false;
 	if (LepGood_miniRelIso[iMuon] > 0.4) return false;
 	// The condition of "loose muon" is not demanded as the trees which we are
@@ -619,7 +618,7 @@ Bool_t ttHAnalyzer::IsFakeableMuon(UInt_t iMuon,Float_t ptcut){
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iMuon]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iMuon]) > 0.1) return false;
 	if (LepGood_sip3d[iMuon] > 8) return false;
 	if (LepGood_miniRelIso[iMuon] > 0.4) return false;
 	// The condition of "loose muon" is not demanded as the trees which we are
@@ -640,7 +639,7 @@ Bool_t ttHAnalyzer::IsLooseMuon(UInt_t iMuon,Float_t ptcut){
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 5) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iMuon]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iMuon]) > 0.1) return false;
 	if (LepGood_sip3d[iMuon] > 8) return false;
 	if (LepGood_miniRelIso[iMuon] > 0.4) return false;
 	// The condition of "loose muon" is not demanded as the trees which we are
@@ -667,7 +666,7 @@ Bool_t ttHAnalyzer::IsTightElectron(UInt_t iElec, Float_t ptcut, Int_t an){
 		if (LepGood_pt[iElec] < 10) return false;
 	}
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iElec]) > 0.1) return false;
 	if (LepGood_sip3d[iElec] > 8) return false;
 	if (LepGood_miniRelIso[iElec] > 0.4) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
@@ -714,7 +713,7 @@ Bool_t ttHAnalyzer::IsFakeableElectron(UInt_t iElec, Float_t ptcut){
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iElec]) > 0.1) return false;
 	if (LepGood_sip3d[iElec] > 8) return false;
 	if (LepGood_miniRelIso[iElec] > 0.4) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
@@ -765,7 +764,7 @@ Bool_t ttHAnalyzer::IsLooseElectron(UInt_t iElec, Float_t ptcut){
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 7) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
-	if (TMath::Abs(LepGood_z[iElec]) > 0.1) return false;
+	if (TMath::Abs(LepGood_dz[iElec]) > 0.1) return false;
 	if (LepGood_sip3d[iElec] > 8) return false;
 	if (LepGood_miniRelIso[iElec] > 0.4) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
