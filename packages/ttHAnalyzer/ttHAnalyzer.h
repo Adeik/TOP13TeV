@@ -12,14 +12,14 @@
 // PAF inclusion
 #include "PAFChainItemSelector.h"
 
-// Packages inclusions
+// Analysis packages inclusion
 //#include "GlobalVariables.h"
 #include "mt2.h"
 #include "PUWeight.h"
 #include "BTagSFUtil.h"
 #include "SusyLeptonSF.h"
 
-// ROOT inclusion
+// ROOT packages inclusion
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TEfficiency.h"
@@ -30,14 +30,17 @@
 // C++ packages inclusion
 #include <vector>
 
+
 //------------------------------------------------------------------------------
 //		Enumerations, constants and other variable type declarations
 //------------------------------------------------------------------------------
-const Int_t nWeights = 248;
-const Int_t nGenb = 0;
+// Constants definitions
 const Double_t pi = 3.1415926535897932384;
 const Float_t Zm = 91.1876;
+const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
+const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 
+// New variable type definitions
 enum gChannel {
     channels_begin,
     Muon = channels_begin,
@@ -46,117 +49,7 @@ enum gChannel {
     gNCHANNELS,
 };
 
-const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
-
-enum gFPSwitch {
-    SigSup,
-    ZDecay,
-    Sig
-};
-
-enum iCut {
-    iDilepton,
-    iZVeto,
-    iMET,
-    i2jets,
-    i1btag,
-    iDYVeto,
-    iExact1btag,
-    iExact2btag,
-    iNCUTS
-};
-
-enum SR {
-    AA, AB, AC, BA, BB, BC, CA, CB, CC,
-    nSR
-};
-
-const TString SRlabel[nSR] = {
-	"AA", "AB", "AC", "BA", "BB", "BC", "CA", "CB", "CC"
-};
-
-const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
-
-enum gSystFlag {
-    Norm,
-    BtagUp,
-    BtagDown,
-    MisTagUp,
-    MisTagDown,
-    JESUp,
-    JESDown,
-    JER,
-    LESUp,
-    LESDown,
-    /*  LepUp,
-      LepDown,
-      TrigUp,
-      TrigDown,
-    */
-    PUUp,
-    PUDown,
-    TopPt,
-    gNSYST
-};
-
-const TString SystName[gNSYST] = {
-    "Normal",
-    "BtagUp",
-    "BtagDown",
-    "MisTagUp",
-    "MisTagDown",
-    "JESUp",
-    "JESDown",
-    "JER",
-    "LESUp",
-    "LESDown",
-    /*  "LepUp",
-    "LepDown",
-    "TrigUp",
-    "TrigDown",*/
-    //  "METUp",
-    //  "METDown",
-    "PUUp",
-    "PUDown",
-    "TopPt",
-};
-enum FakeSource {
-    HF_mu,
-    Other_mu,
-    HF_el,
-    Conv_el,
-    Other_el,
-    RightSign,
-    WrongSign,
-    gNFAKESOURCE
-};
-
-enum gNLOWeight {
-    muR1muF1,
-    muR1muF2,
-    muR1muF05,
-    muR2muF1,
-    muR2muF2,
-    muR2muF05,
-    muR05muF1,
-    muR05muF2,
-    muR05muF05,
-    gNWEIGHT
-};
-
-const TString WeiName[gNWEIGHT] = {
-    "muR1muF1",
-    "muR1muF2",
-    "muR1muF05",
-    "muR2muF1",
-    "muR2muF2",
-    "muR2muF05",
-    "muR05muF1",
-    "muR05muF2",
-    "muR05muF05"
-};
-
-//	Binning
+//	Binning-related constants
 const Int_t gNMuFPtBins = 6;
 const Int_t gNMuPPtbins = 10;
 const Int_t gNMuEtabins = 5;
@@ -172,13 +65,6 @@ const Double_t gMuEtabins[gNMuEtabins+1]	= {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 const Double_t gElFPtBins[gNElFPtBins+1]  = {20., 25., 30., 40., 50., 60., 70., 80., 100.};			// Electron binning
 const Double_t gElPPtbins[gNElPPtbins+1]  = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
 const Double_t gElEtabins[gNElEtabins+1]  = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
-
-Int_t             getNFPtBins (gChannel chan);
-const Double_t    *getFPtBins (gChannel chan);
-Int_t             getNPPtBins (gChannel chan);
-const Double_t    *getPPtBins (gChannel chan);
-Int_t             getNEtaBins (gChannel chan);
-const Double_t    *getEtaBins (gChannel chan);
 
 //------------------------------------------------------------------------------
 //		Classes declarations
@@ -242,22 +128,17 @@ class ttHAnalyzer : public PAFChainItemSelector {
         //	Tree variables
 		//----------------------------------------------------------------------
 		Int_t   nLepGood;
-		Int_t   ngenLep;
-        Long_t  evt;
-		Int_t   nJet;
         Int_t   nTauGood;
-		Float_t genWeight;
+		Int_t   nJet;
+        Long_t  evt;
 		Float_t LepGood_px[30];
 		Float_t LepGood_py[30];
 		Float_t LepGood_pz[30];
 		Float_t LepGood_energy[30];
 		Float_t LepGood_pt[30];
-		Float_t LepGood_etaSc[30];
 		Float_t LepGood_eta[30];
 		Float_t LepGood_dxy[30];
 		Float_t LepGood_dz[30];
-		Float_t LepGood_relIso03[30];
-		Float_t LepGood_relIso04[30];
 		Int_t   LepGood_charge[30];
 		Int_t   LepGood_pdgId[30];
 		Float_t LepGood_sip3d[30];				// NEW
@@ -282,11 +163,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t Jet_energy[50];
 		Float_t Jet_eta[50];
 		Float_t Jet_btagCSV[50];
-		Float_t genLep_pt[50];
-		Float_t genLep_eta[50];
-		Float_t genLep_phi[50];
-		Float_t genLep_mass[50];
-		Int_t   genLep_pdgId[50];
 		Int_t	TauGood_idDecayModeNewDMs[30];	// NEW
 		Float_t	TauGood_pt[30];					// NEW
 		Float_t	TauGood_eta[30];				// NEW
@@ -299,30 +175,22 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
         // Initialising
 		//----------------------------------------------------------------------
-    	virtual void InitialiseGenHistos();
-    	virtual void InitialiseDYHistos();
     	virtual void InitialiseYieldsHistos();
-    	virtual void InitialiseKinematicHistos();
-    	virtual void InitialiseSystematicHistos();
 
         //	Filling methods
 		//----------------------------------------------------------------------
-		void 	FillYieldsHistograms(gChannel, iCut, gSystFlag);
-		void 	FillYields(gSystFlag sys=Norm);
-		void 	FillDYHistograms();
-		void 	FillKinematicHistos(gChannel,iCut);
+		void 	FillYieldsHistograms(gChannel);
+		void 	FillYields();
 
     	// Saving
 		//----------------------------------------------------------------------
-    	void 	WriteHistos();
-    	void 	WriteValidationsHistos(){};
+    	void 	WriteHistos();                                                   // SIN DEFINIR
+    	void 	WriteValidationsHistos();                                        // SIN DEFINIR
 
 		////////////////////////////////////////////////////////////////////////
-		//	   Leptons, jets and MET selection
+		//	   Leptons and jets selection
 		////////////////////////////////////////////////////////////////////////
-		void 	SelectedGenLepton();
 		Int_t  	getSelectedLeptons();
-		void 	ScaleLeptons(Int_t);
 		std::vector<lepton> SortLeptonsByPt(std::vector<lepton>&);
 
         //  Muons
@@ -330,34 +198,22 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Bool_t	IsTightMuon(UInt_t, Float_t ptcut=20.);
 		Bool_t	IsFakeableMuon(UInt_t, Float_t ptcut=20.);
 		Bool_t	IsLooseMuon(UInt_t, Float_t ptcut=20.);
-		Float_t getMuonIso(Int_t);
 
         //  Electrons
         //----------------------------------------------------------------------
 		Bool_t	IsTightElectron(UInt_t,Float_t ptcut=20.,Int_t an=2);
 		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut=20.);
 		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut=20.);
-		Float_t getElecIso(Int_t);
-		Float_t getEACorrection(Float_t);
-		Bool_t	getMultiIso(UInt_t );
 
         //  Taus
         //----------------------------------------------------------------------
 		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
-
-        //  MET
-        //----------------------------------------------------------------------
-        Bool_t	METFilter();
-        void 	propagateMET(TLorentzVector,TLorentzVector);
-        void 	ScaleMET(Int_t);
 
         //  Jets
         //----------------------------------------------------------------------
 		Int_t 	getSelectedJets();
 		Bool_t	IsGoodJet(UInt_t, Float_t ptcut=25.);
 		Bool_t 	IsGoodJetforprecuts(UInt_t, Float_t ptcut=25.);
-		std::vector<Int_t> CleanedJetIndices(Float_t);
-		void 	SmearJetPts(Int_t);
 
 		////////////////////////////////////////////////////////////////////////
 		//	   Events selection
@@ -366,7 +222,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Bool_t	IsMuMuEvent();                                                  // REDEF
 		Bool_t	IsElMuEvent();                                                  // REDEF
 		Bool_t	IsElElEvent();                                                  // REDEF
-	    Bool_t 	IsSSEvent();					                                        // NEw
+	    Bool_t 	IsSSEvent();					                                // NEw
 	    Bool_t 	Is2lSSEvent();			                                        // NEw
 	    Bool_t 	Is3lSSEvent();			                                        // NEw
 
@@ -394,42 +250,11 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
 		Int_t   getNJets();
 		Int_t   getNBTags();
-		Int_t   getLeadingJetbTag();
-		Float_t getDRClosestJet(TLorentzVector);
-		Float_t getDPhiClosestJet(TLorentzVector);
 		Float_t getMET();
-		Float_t getMETPhi();
 		Float_t getHT();
 		Float_t getMHT();					                                    // NEW
-		Float_t getMETLD();					                                    // NEW
-		Float_t getJetPtIndex(UInt_t);
-		Float_t getJetEtaIndex(UInt_t);
-		Float_t getBtagJetPtIndex(UInt_t);
-		Float_t getErrPt(Float_t,Float_t);
-		Float_t getJERScaleUp(Int_t);
-        Float_t getJERScale(Int_t);
-		Float_t getJERScaleDown(Int_t);
+		Float_t getMETLD();
 		Float_t getSF(gChannel);
-		Float_t getLeptonError(gChannel);
-		Float_t getTriggerError(gChannel);
-		Float_t getTopPtSF();
-		Float_t getTopD();
-		Float_t getDeltaPhillJet();
-		Float_t weightNvtx(Int_t);
-		Float_t getMT(gChannel);
-		Float_t getMT2(TLorentzVector plep1, TLorentzVector plep2, TLorentzVector pmet, Float_t mass);
-		Float_t getMT2ll(gChannel);
-		Float_t getMT2b(gChannel);
-		Float_t getMT2lb(gChannel);
-		Float_t getMeff();
-		Float_t getDPhiLepJet();
-		Float_t getDelPhill();
-		Float_t getDPhiJetMet();
-		Float_t getDPhiLepMet();
-		Float_t getDPhibMet();
-		Float_t getMinDPhiMetJets();
-
-		TLorentzVector getPtllb();
 
 	protected:
 		////////////////////////////////////////////////////////////////////////
@@ -438,83 +263,37 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	Input parameters
 		//----------------------------------------------------------------------
 	    TString gSampleName;
-		TString gfileSuffix;
+		Bool_t  gIsData;
 		Float_t gWeight;
 		Float_t gLumiForPU;
 		Float_t gTotalLumi;
-		Int_t   gSysSource;
-		Int_t   gSysDirection;
-		Bool_t  gIsData;
 		Bool_t  gUseCSVM;
-		Bool_t  gIsMCatNLO;
-		Bool_t  gIsT2tt;
 
 		//	PU and SF
 		//----------------------------------------------------------------------
-		PUWeight *fPUWeight;      //The PU weight utility
-		PUWeight *fPUWeightUp;    //The PU weight utility
-		PUWeight *fPUWeightDown;  //The PU weight utility
-		//BTagSFUtil *fBTagSF[5]; //The new BTag SF utility
-		BTagSFUtil *fBTagSFnom ;
-		BTagSFUtil *fBTagSFbUp ;
-		BTagSFUtil *fBTagSFbDo ;
-		BTagSFUtil *fBTagSFlUp ;
-		BTagSFUtil *fBTagSFlDo ;
-		BTagSFUtil *medfBTagSFnom ;				// NEW
-		BTagSFUtil *medfBTagSFbUp ;
-		BTagSFUtil *medfBTagSFbDo ;
-		BTagSFUtil *medfBTagSFlUp ;
-		BTagSFUtil *medfBTagSFlDo ;
-		BTagSFUtil *losfBTagSFnom ;
-		BTagSFUtil *losfBTagSFbUp ;
-		BTagSFUtil *losfBTagSFbDo ;
-		BTagSFUtil *losfBTagSFlUp ;
-		BTagSFUtil *losfBTagSFlDo ;
-		SusyLeptonSF *fLeptonSF;
-		TRandom3 *fRand3;
+		PUWeight      *fPUWeight;      //The PU weight utility
+		BTagSFUtil    *fBTagSFnom ;
+		BTagSFUtil    *medfBTagSFnom ;				// NEW
+		BTagSFUtil    *losfBTagSFnom ;
+		SusyLeptonSF  *fLeptonSF;
+		TRandom3      *fRand3;
 
 		//	EventWeight
 		//----------------------------------------------------------------------
 		Float_t EventWeight;
 		Float_t PUSF;
-		Bool_t  fChargeSwitch;
 
 		//	Histograms and trees
 		//----------------------------------------------------------------------
 		TH1F*   fHDummy;
 		TH1F*   hWeight;
-		TH1F*   fHyields     [gNCHANNELS][gNSYST];
-		TH1F*   fHWeightyield[gNCHANNELS][gNWEIGHT];
-		TH1F*   fHSSyields   [gNCHANNELS][gNSYST];
-
-		//	Generation
-		//----------------------------------------------------------------------
-		std::vector<Double_t>       Gen_Muon_Charge;
-		std::vector<Double_t>       Gen_Elec_Charge;
-		std::vector<TLorentzVector> Gen_Muon;
-		std::vector<TLorentzVector> Gen_Elec;
-
-		std::vector<Int_t>          NGen_Jet;
-		std::vector<Int_t>          NGen_b;
-
-		std::vector<Double_t>       PtGen_Jet;
-		std::vector<Double_t>       PtGen_b;
-
-		Int_t 	nGenElec;
-		Int_t	nGenMuon;
-		Int_t	nGenTau;
-		Int_t	nGenLepton;
-		Int_t 	nTauElec;
-		Int_t 	nTauMuon;
-		Int_t 	nSGenMuon;
-		Int_t 	nSGenElec;
+		TH1F*   fHyields     [gNCHANNELS];
+		TH1F*   fHSSyields   [gNCHANNELS];
 
 		//	General
 		//----------------------------------------------------------------------
-		UInt_t 	nGoodVertex;
-		Float_t nVertex;
-		UInt_t 	nBtags;
 		UInt_t 	nJets;
+		UInt_t 	nBTags;
 		UInt_t 	nTightMuon;					// NEW
 		UInt_t 	nFakeableMuon;				// NEW
 		UInt_t 	nLooseMuon;					// NEW
