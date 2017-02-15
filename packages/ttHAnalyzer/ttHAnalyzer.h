@@ -47,7 +47,6 @@ enum gChannel {
     gNCHANNELS,
 };
 const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
-const TString sCut[iNCUTS] = {"dilepton", "ZVeto", "MET", "2jets", "1btag","DYVeto","Exact1btag","Exact2btag"};
 
 //	Binning-related constants
 const Int_t gNMuFPtBins = 6;

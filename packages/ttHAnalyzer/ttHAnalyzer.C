@@ -210,12 +210,12 @@ void ttHAnalyzer::GetParameters(){
 void ttHAnalyzer::InitialiseYieldsHistos() {
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
-	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
-	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
+	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],"", 5, 0, 5);
+	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],"", 5, 0, 5);
+	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],"", 5, 0, 5);
+	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],"", 5, 0, 5);
+	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],"", 5, 0, 5);
+	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", 5, 0, 5);
 }
 
 // Filling methods
