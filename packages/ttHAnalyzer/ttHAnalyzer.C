@@ -133,8 +133,17 @@ void ttHAnalyzer::InsideLoop() {
 	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); //True       //nTruePU
 
 	// Init data members
+	#ifdef DEBUGG
+		cout << "PreGetTreeVariables"<< endl;
+	#endif
 	GetTreeVariables();
+	#ifdef DEBUGG
+		cout << "PreSetOriginalObjects"<< endl;
+	#endif
 	SetOriginalObjects();
+	#ifdef DEBUGG
+		cout << "PreSetEventObjects"<< endl;
+	#endif
 	SetEventObjects();
 
 	// Get number of generated leptons
