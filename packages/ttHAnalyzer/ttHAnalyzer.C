@@ -7,10 +7,10 @@
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef DEBUG
-#undef DEBUG
+#ifdef DEBUGG
+#undef DEBUGG
 #endif
-#define DEBUG
+#define DEBUGG
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -142,7 +142,7 @@ void ttHAnalyzer::InsideLoop() {
 
 	// Get number of generated leptons
 
-	#ifdef DEBUG
+	#ifdef DEBUGG
 		cout << "N Leptons: " << Lepton.size() << endl;
 		cout << "PassTriggerEMu/EE/MuMu= "
 			<< triggermumuSS() << "/"
@@ -469,11 +469,11 @@ void ttHAnalyzer::InitialiseYieldsHistos() {
 }
 
 void ttHAnalyzer::InitialiseKinematicHistos() {
-	//  PAF_DEBUG("ttHAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
+	//  PAF_DEBUGG("ttHAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
 	//++ Kinematic histograms
 	for (size_t ch=0; ch < gNCHANNELS; ch++) {
 		for (size_t cut=0; cut < iNCUTS; cut++) {
-			//PAF_DEBUG("ttHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
+			//PAF_DEBUGG("ttHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
 		}
 	}
 }
@@ -509,7 +509,7 @@ void ttHAnalyzer::FillDYHistograms(){
 	ResetHypLeptons();
 }
 void ttHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << "Filling KinematicHistos("<<chan<<","<<cut<<")... ";
 	cout << fHypLepton1.index << " , " << fHypLepton2.index << endl;
 #endif
@@ -519,14 +519,14 @@ void ttHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
 
 	//++ jet info
 	Int_t njets = getNJets();
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << " DONE!" << endl;
 #endif
 
 }
 
 void ttHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")...";
 #endif
 	if (fChargeSwitch){   fHSSyields[chan][sys]->Fill(cut, EventWeight);  }
@@ -538,7 +538,7 @@ void ttHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 	Int_t nbtags = 0; nbtags = getNBTags();
 
 
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << " DONE! " << endl;
 #endif
 	return;
@@ -546,7 +546,7 @@ void ttHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 void ttHAnalyzer::FillYields(gSystFlag sys){
 	ResetHypLeptons();
 
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << "PassTriggerEMu= " << triggermumuSS() << endl;
 	cout << "Is ElMu/ElEl/MuMu Event= "
 		<< IsElMuEvent() << "/"
@@ -560,13 +560,13 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
 		hWeight -> Fill(EventWeight,1.);
 
-#ifdef DEBUG
+#ifdef DEBUGG
 		cout << " pass trigger + emu, ";
 #endif
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
-#ifdef DEBUG
+#ifdef DEBUGG
 			cout << " pass mll, ";
 #endif
 
@@ -582,13 +582,13 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 				if(sys==Norm) FillKinematicHistos(ElMu,iMET);
 
 				if (1 == 1) {
-#ifdef DEBUG
+#ifdef DEBUGG
 					cout << " pass njets with njets = "<<getNJets()<<", ";
 #endif
 					FillYieldsHistograms(ElMu, i2jets, sys);
 					if(sys==Norm) FillKinematicHistos(ElMu,i2jets);
 					if (1 == 1) {
-#ifdef DEBUG
+#ifdef DEBUGG
 						cout << " pass nbjets with nbtags = "<<getNBTags()<<", ";
 #endif
 						//if (sys == LESUp) cout << evt<< endl;  //LESup    8 //EventNumber
@@ -602,14 +602,14 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 				}
 			}
 			if (getNBTags() == 1){
-#ifdef DEBUG
+#ifdef DEBUGG
 				cout << " pass nbjets=1";
 #endif
 				FillYieldsHistograms(ElMu, iExact1btag, sys);
 				if(sys==Norm) FillKinematicHistos(ElMu,iExact1btag);
 			}
 			if (getNBTags() == 2){
-#ifdef DEBUG
+#ifdef DEBUGG
 				cout << " pass nbjets=2";
 #endif
 				FillYieldsHistograms(ElMu, iExact2btag, sys);
@@ -622,14 +622,14 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 	if (triggermumuSS() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon); //  * getTopPtSF();
 		//EventWeight = 1.;
-#ifdef DEBUG
+#ifdef DEBUGG
 		cout << " pass trigger + mumu, ";
 #endif
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
 		if (1 == 1){
-#ifdef DEBUG
+#ifdef DEBUGG
 			cout << " pass mll, ";
 #endif
 			FillYieldsHistograms(Muon,iDilepton, sys);
@@ -670,7 +670,7 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
   if (triggermumuSS() && IsElElEvent()){
 		EventWeight = gWeight * getSF(Elec);// * getTopPtSF();
 		//EventWeight = 1.;
-#ifdef DEBUG
+#ifdef DEBUGG
 		cout << " pass trigger + ee, ";
 #endif
 		// 0.115 = Fraction events with negative weight
@@ -678,7 +678,7 @@ void ttHAnalyzer::FillYields(gSystFlag sys){
 
 }
   ResetHypLeptons();
-#ifdef DEBUG
+#ifdef DEBUGG
     cout << " DONE!"<<endl;
 #endif
 }
@@ -1298,7 +1298,7 @@ Bool_t ttHAnalyzer::IsSSEvent() {
 }
 
 Int_t ttHAnalyzer::IsDileptonEvent(){
-#ifdef DEBUG
+#ifdef DEBUGG
 	cout << "IsDileptonEvent(): nTightLeptons =" << TightLepton.size()<< endl;
 #endif
 	if (TightLepton.size() != 2) return 0;
@@ -1317,7 +1317,7 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 	} //fHypLepton1 will ALWAYS be the muon in mu/el events
 
 	result *= select; // Add charge to result
-#ifdef DEBUG
+#ifdef DEBUGG
     cout << result;
 	cout << " DONE!" << endl;
 #endif
