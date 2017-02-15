@@ -1342,7 +1342,35 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
 }
 
 Bool_t ttHAnalyzer::Is3lSSEvent() {
-	return false;
+	if (nTightElec + nTightMuon < 3) return false;
+	if (TightLepton[0].p.Pt() < 20) return false;
+	if (TightLepton[1].p.Pt() < 10 || TightLepton[2].p.Pt() < 10) return false;
+	if ((nLooseMuon +nLooseElec) != 0){
+		for (UInt_t i = 0; i < nLooseMuon + nLooseElec; i++) {
+			for (UInt_t j = i; j < nLooseMuon + nLooseElec; j++) {
+				if (LooseLepton[i].type != LooseLepton[j].type) continue;
+				if (LooseLepton[i].charge*LooseLepton[j].charge > 0) continue;
+				if (abs((LooseLepton[i].p+LooseLepton[j].p).M() - Zm) < 10) return false;
+			}
+		}
+	}
+	UInt_t 2lds = 0;
+	for (UInt_t i = 0; i < nTightMuon + nTightElec; i++) {
+		for (UInt_t j = i; j < nTightMuon + nTightElec; j++) {
+			if (TightLepton[i].type != TightLepton[j].type) continue;
+			if (TightLepton[i].charge*TightLepton[j].charge < 0) 2lds = 1;
+		}
+	}
+	if (2lds != 1 && nJets < 4) {
+		if (getMETLD() < 0.2) return false;
+	} else if (nJets < 4) {
+		if (getMETLD() < 0.3) return false;
+	}
+	if (TightLepton[0].charge + TightLepton[1].charge + TightLepton[2].charge != 1 ||
+	TightLepton[0].charge + TightLepton[1].charge + TightLepton[2].charge != -1) {
+		return false;
+	}
+	return true;
 }
 
 Bool_t ttHAnalyzer::PassesPreCuts(){				   		  					// NEW
