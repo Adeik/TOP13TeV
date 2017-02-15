@@ -7,7 +7,6 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 *******************************************************************************/
 void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 					Int_t		nSlots         	=  	1		,
-					Bool_t  	DoSystStudies  	=  	false	,
 					Long64_t 	nEvents        	= 	0		) {
 
 	// Variables to be used as parameters
@@ -15,22 +14,22 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
 	Float_t G_LumiForPUData = 19468.3;	// luminosity in http://www.hep.uniovi.es/jfernan/PUhistos
-	Bool_t  G_IsMCatNLO     = false;
 
 	// PAF mode
 	//--------------------------------------------------------------------------
 	cout << endl;
 	PAFIExecutionEnvironment* pafmode = 0;
+	PAF_INFO("RunttHAnalysis", "======================================== Preprocess");
 	if (nSlots <=1 ) {
-    	PAF_INFO("RunttHAnalysis", "Sequential mode chosen");
+    	PAF_INFO("RunttHAnalysis", "+ Sequential mode chosen");
     	pafmode = new PAFSequentialEnvironment();
   	}
   	else if (nSlots <= 8) {
-    	PAF_INFO("RunttHAnalysis", "PROOF Lite mode chosen");
+    	PAF_INFO("RunttHAnalysis", "+ PROOF Lite mode chosen");
     	pafmode = new PAFPROOFLiteEnvironment(nSlots);
   	}
   	else {
-    	PAF_INFO("RunttHAnalysis", "PoD mode chosen");
+    	PAF_INFO("RunttHAnalysis", "+ PoD mode chosen");
     	pafmode = new PAFPoDEnvironment(nSlots);
   	}
 
@@ -126,31 +125,21 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
   	if (outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
   	if (outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
 
-  	PAF_INFO("RunttHAnalysis", Form("Output file = %s", outputFile.Data()));
+  	PAF_INFO("RunttHAnalysis", Form("+ Output file = %s", outputFile.Data()));
   	myProject->SetOutputFile(outputFile);
-
-  	if (sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ||
-	sampleName == "TTWToLNu"	|| sampleName == "TTWToQQ"	||
-    sampleName == "TTZToQQ"		|| sampleName == "WWZ"      ||
-    sampleName == "WZZ"			|| sampleName == "ZZZ" ){
-    	PAF_INFO("RunttHAnalysis", "This is a MC@NLO sample!");
-    	G_IsMCatNLO = true;
-  	}
 
   	// Parameters for the analysis
   	//--------------------------------------------------------------------------
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
-	myProject->SetInputParam("UseCSVM",       G_Use_CSVM       );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
 	myProject->SetInputParam("LumiForPU",     G_LumiForPUData  );
 	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
-	myProject->SetInputParam("DoSystStudies", DoSystStudies    );
-	myProject->SetInputParam("IsMCatNLO"    , G_IsMCatNLO      );
+	myProject->SetInputParam("UseCSVM",       G_Use_CSVM       );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
-	// Name of analysis class
+	// Name of selector class
 	//--------------------------------------------------------------------------
 	myProject->AddSelectorPackage("ttHAnalyzer");
 
@@ -163,5 +152,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	// Let's rock!
 	//--------------------------------------------------------------------------
+  	PAF_INFO("RunttHAnalysis", Form("+ Preprocess DONE"));
 	myProject->Run();
 }
