@@ -10,7 +10,7 @@
 #ifdef DEBUGG
 	#undef DEBUGG
 #endif
-//#define DEBUGG						// Uncomment for usual C++ debugging
+#define DEBUGG						// Uncomment for usual C++ debugging
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
