@@ -38,6 +38,7 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 //	Core PAF-analysis methods
 //------------------------------------------------------------------------------
 void ttHAnalyzer::Initialise() {
+	PAF_INFO("ttHAnalyzer", "+ Preprocess DONE");
 	PAF_INFO("ttHAnalyzer", "======================================== Initialization ");
 	PAF_INFO("ttHAnalyzer", "+ Initializing parameters");
 	GetParameters();

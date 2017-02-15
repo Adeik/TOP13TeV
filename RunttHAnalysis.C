@@ -152,6 +152,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	// Let's rock!
 	//--------------------------------------------------------------------------
-  	PAF_INFO("RunttHAnalysis", Form("+ Preprocess DONE"));
+  	PAF_INFO("RunttHAnalysis", Form("+ Starting compilation"));
 	myProject->Run();
 }
