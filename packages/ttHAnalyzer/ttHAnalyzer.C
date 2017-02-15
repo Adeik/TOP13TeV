@@ -28,7 +28,6 @@ const Float_t gJetEtCut = 25.;
 ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
-	fHTopPtWeight = 0;
 
 	for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 		for (UInt_t isyst = 0; isyst < gNSYST; isyst++) {
