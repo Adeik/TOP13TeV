@@ -445,7 +445,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t gTotalLumi;
 		Int_t   gSysSource;
 		Int_t   gSysDirection;
-		Bool_t  gDoSystStudies;
 		Bool_t  gIsData;
 		Bool_t  gUseCSVM;
 		Bool_t  gIsMCatNLO;
@@ -488,7 +487,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		TH1F*   fHyields     [gNCHANNELS][gNSYST];
 		TH1F*   fHWeightyield[gNCHANNELS][gNWEIGHT];
 		TH1F*   fHSSyields   [gNCHANNELS][gNSYST];
-		TH1F*   fHTopPtWeight;
 
 		//	Generation
 		//----------------------------------------------------------------------

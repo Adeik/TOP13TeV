@@ -6,11 +6,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
-
+// C++ usual debugging procedures
 #ifdef DEBUGG
-#undef DEBUGG
+	#undef DEBUGG
 #endif
-#define DEBUGG
+//#define DEBUGG						// Uncomment for usual C++ debugging
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -29,10 +29,6 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
 	fHTopPtWeight = 0;
-	// fHnGenEle = 0;
-	// fHnGenMuo = 0;
-	// fHGenElePt = 0;
-	// fHGenMuoPt = 0;
 
 	for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 		for (UInt_t isyst = 0; isyst < gNSYST; isyst++) {
@@ -63,7 +59,6 @@ void ttHAnalyzer::Initialise() {
 		InitialiseGenHistos();
 	}
 	//PAF_INFO("ttHAnalyzer", "+ Initialise other histograms...");
-	fHTopPtWeight  = CreateH1F("H_TopPtWeight" ,"TopPt Weight",100, 0, 2);
 
 
     if (gSampleName == "DoubleMuon"    ||    gSampleName == "DoubleEG"        ||
@@ -128,6 +123,9 @@ void ttHAnalyzer::Initialise() {
 }
 
 void ttHAnalyzer::InsideLoop() {
+	#ifdef DEBUGG
+		cout << "Beggining of InsideLoop" << endl;
+	#endif
 	fHDummy->Fill(0.5);
 	if (!METFilter()) return;
 
@@ -163,123 +161,16 @@ void ttHAnalyzer::InsideLoop() {
 	fChargeSwitch = false;
 
 	// Fill DY DD histograms
-	if (gSampleName == "DoubleMuon"      ||
-			gSampleName == "DoubleEG"        ||
-			gSampleName == "SingleMu"        ||
-			gSampleName == "SingleElectron"  ||
-			gSampleName == "MuonEG"	       ||
-			gSampleName.Contains("ZJets")   ||
-			gSampleName.Contains("DY"))  {
+	if (gSampleName == "DoubleMuon"      ||	gSampleName == "DoubleEG"        ||
+		gSampleName == "SingleMu"        ||	gSampleName == "SingleElectron"  ||
+		gSampleName == "MuonEG"	   		 ||	gSampleName.Contains("ZJets")    ||
+		gSampleName.Contains("DY")) {
 		FillDYHistograms();
 	}
-
-	// Fill Yields for syst. studies (only for MC) .
-	if (gIsData)         return;
-	if (!gDoSystStudies) return;
-
-	// B-tagging systematics
-	ResetOriginalObjects();
-	gSysSource = BtagUp;
-	SetEventObjects();
-	FillYields(BtagUp);
-	fChargeSwitch = true;
-	FillYields(BtagUp); /* Get SS yields....*/
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	gSysSource = BtagDown;
-	SetEventObjects();
-	FillYields(BtagDown);
-	fChargeSwitch = true;
-	FillYields(BtagDown); /// Get SS yields....
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	gSysSource = MisTagUp;
-	SetEventObjects();
-	FillYields(MisTagUp);
-	fChargeSwitch = true;
-	FillYields(MisTagUp); /// Get SS yields....
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	gSysSource = MisTagDown;
-	SetEventObjects();
-	FillYields(MisTagDown);
-	fChargeSwitch = true;
-	FillYields(MisTagDown); /// Get SS yields....
-	fChargeSwitch = false;
-
-	// JES/JER sytematics
-	ResetOriginalObjects();
-	SmearJetPts(1);
-	gSysSource = JESUp;
-	SetEventObjects();
-	FillYields(JESUp);
-	fChargeSwitch = true;
-	FillYields(JESUp); /// Get SS yields....
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	SmearJetPts(2);
-	gSysSource = JESDown;
-	SetEventObjects();
-	FillYields(JESDown);
-	fChargeSwitch = true;
-	FillYields(JESDown); /// Get SS yields....
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	SmearJetPts(3);
-	gSysSource = JER;
-	SetEventObjects();
-	FillYields(JER);
-	fChargeSwitch = true;
-	FillYields(JER); /// Get SS yields....
-	fChargeSwitch = false;
-
-	// Lepton Scale  sytematics
-	ResetOriginalObjects();
-	ScaleLeptons(1); //up
-	gSysSource = LESUp;
-	SetEventObjects();
-	FillYields(LESUp);
-	fChargeSwitch = true;
-	FillYields(LESUp); /// Get SS yields....
-	fChargeSwitch = false;
-
-	ResetOriginalObjects();
-	ScaleLeptons(2); //down
-	gSysSource = LESDown;
-	SetEventObjects();
-	FillYields(LESDown);
-	fChargeSwitch = true;
-	FillYields(LESDown); /// Get SS yields....
-	fChargeSwitch = false;
-
-	// Pile Up sytematics
-	ResetOriginalObjects();
-	if (!gIsData)
-	PUSF = fPUWeightUp->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
-	gSysSource = PUUp;
-	SetEventObjects();
-	FillYields(PUUp);
-
-	ResetOriginalObjects();
-	if (!gIsData)
-	PUSF = fPUWeightDown->GetWeight(Get<Float_t>("nTrueInt")); //nTruePU
-	gSysSource = PUDown;
-	SetEventObjects();
-	FillYields(PUDown);
-
-	// Top PT
-	ResetOriginalObjects();
-	gSysSource = TopPt;
-	SetEventObjects();
-	FillYields(TopPt);
-	fChargeSwitch = true;
-	FillYields(TopPt); /// Get SS yields....
-	fChargeSwitch = false;
+	// **************************************
+	#ifdef DEBUGG
+		cout << "End of InsideLoop" << endl;
+	#endif
 }
 
 void ttHAnalyzer::Summary() {}
@@ -372,7 +263,6 @@ void ttHAnalyzer::GetParameters(){
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
     gLumiForPU     	= 	GetParam<Float_t>("LumiForPU");
     gTotalLumi     	= 	GetParam<Float_t>("TotalLumi");
-    gDoSystStudies 	= 	GetParam<Bool_t>("DoSystStudies");
     gUseCSVM       	= 	GetParam<Bool_t>("UseCSVM");
     gIsMCatNLO      =   GetParam<Bool_t>("IsMCatNLO");
     gIsT2tt        	= 	false;
@@ -383,47 +273,46 @@ void ttHAnalyzer::GetParameters(){
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gDoSystStudies = %d", gDoSystStudies));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
 }
 
 Int_t getNFPtBins(gChannel chan){ // fake ratios
-  if(chan == Muon || chan == ElMu) return gNMuFPtBins;
-  if(chan == Elec)                 return gNElFPtBins;
-  else return -99;
+	if(chan == Muon || chan == ElMu) return gNMuFPtBins;
+	if(chan == Elec)                 return gNElFPtBins;
+	else return -99;
 };
 
 const Double_t *getFPtBins (gChannel chan){
-  if(chan == Muon || chan == ElMu) return gMuFPtBins;
-  else                             return gElFPtBins;
-  //  if(chan == Elec)                 return gElFPtBins;
-  //  else return *-999;
+	if(chan == Muon || chan == ElMu) return gMuFPtBins;
+	else                             return gElFPtBins;
+	//  if(chan == Elec)                 return gElFPtBins;
+	//  else return *-999;
 };
 
 Int_t getNPPtBins(gChannel chan){
-  if(chan == Muon || chan == ElMu) return gNMuPPtbins;
-  if(chan == Elec)                 return gNElPPtbins;
-  else return -99;
+	if(chan == Muon || chan == ElMu) return gNMuPPtbins;
+	if(chan == Elec)                 return gNElPPtbins;
+	else return -99;
 };
 
 const Double_t *getPPtBins (gChannel chan){
-  if(chan == Muon || chan == ElMu) return gMuPPtbins;
-  else                             return gElPPtbins;
-  //  if(chan == Elec)                 return gElPPtbins;
-  //  else return -99;
+	if(chan == Muon || chan == ElMu) return gMuPPtbins;
+	else                             return gElPPtbins;
+	//  if(chan == Elec)                 return gElPPtbins;
+	//  else return -99;
 };
 
 Int_t getNEtaBins(gChannel chan){
-  if(chan == Muon || chan == ElMu) return gNMuEtabins;
-  if(chan == Elec)                 return gNElEtabins;
-  else return -99;
+	if(chan == Muon || chan == ElMu) return gNMuEtabins;
+	if(chan == Elec)                 return gNElEtabins;
+	else return -99;
 };
 
 const Double_t *getEtaBins (gChannel chan){
-  if(chan == Muon || chan == ElMu) return gMuEtabins;
-  else                             return gElEtabins;
-  //  if(chan == Elec)                 return gElEtabins;
-  //  else return *-99.;
+	if(chan == Muon || chan == ElMu) return gMuEtabins;
+	else                             return gElEtabins;
+	//  if(chan == Elec)                 return gElEtabins;
+	//  else return *-99.;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -448,34 +337,11 @@ void ttHAnalyzer::InitialiseYieldsHistos() {
 	fHSSyields[Elec][Norm] = CreateH1F("H_SSYields_"+gChanLabel[Elec],"", iNCUTS, -0.5, iNCUTS-0.5);
 	fHyields[ElMu][Norm]   = CreateH1F("H_Yields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
 	fHSSyields[ElMu][Norm] = CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", iNCUTS, -0.5, iNCUTS-0.5);
-
-	if (gDoSystStudies){
-		for (size_t chan=0; chan<gNCHANNELS; chan++) {
-			for (size_t sys=1; sys<gNSYST; sys++) {
-				fHyields[chan][sys]   = CreateH1F("H_Yields_"+gChanLabel[chan]+"_"+SystName[sys],"",iNCUTS,-0.5,iNCUTS-0.5);
-				fHSSyields[chan][sys] = CreateH1F("H_SSYields_"+gChanLabel[chan]+"_"+SystName[sys],"", iNCUTS, -0.5, iNCUTS-0.5);
-			}
-		}
-	}
-	for (size_t chan=0; chan<gNCHANNELS; chan++) {
-		for (Int_t wei = 0; wei < gNWEIGHT; ++wei) {
-			fHWeightyield[chan][wei] = CreateH1F("H_Yields_Wei_"+gChanLabel[chan]+"_"+WeiName[wei],"",iNCUTS,-0.5,iNCUTS-0.5);
-		}
-	}
-	for (size_t chan=0; chan<gNCHANNELS; chan++) {
-		for (size_t cut=0; cut<iNCUTS; cut++){
-		}
-	}
 }
 
 void ttHAnalyzer::InitialiseKinematicHistos() {
 	//  PAF_DEBUGG("ttHAnalyzer::InitialiseKinematicHistos()",Form("nWeights = %i", nWeights));
-	//++ Kinematic histograms
-	for (size_t ch=0; ch < gNCHANNELS; ch++) {
-		for (size_t cut=0; cut < iNCUTS; cut++) {
-			//PAF_DEBUGG("ttHAnalyzer::InitialiseKinematicHistos()",Form("cut = %i", cut));
-		}
-	}
+
 }
 
 void ttHAnalyzer::InitialiseSystematicHistos() {
@@ -484,51 +350,26 @@ void ttHAnalyzer::InitialiseSystematicHistos() {
 
 // Filling methods
 //------------------------------------------------------------------------------
-void ttHAnalyzer::FillDYHistograms(){
-	Float_t Mll = 0.;
-	if (triggermumuSS()  && IsElMuEvent()){
-		// Define Hypothesis Leptons...
-		EventWeight = gWeight * getSF(ElMu);
-		if(gIsMCatNLO)  EventWeight = EventWeight * genWeight;
-		Mll = (fHypLepton1.p+fHypLepton2.p).M();
-	}
-	ResetHypLeptons();
-	if (triggermumuSS() && IsMuMuEvent()){
-		EventWeight = gWeight * getSF(Muon);
-		if(gIsMCatNLO)   EventWeight = EventWeight * genWeight;
-		Mll = (fHypLepton1.p+fHypLepton2.p).M();
+void ttHAnalyzer::FillDYHistograms() {
 
-	}
-	ResetHypLeptons();
-	if (triggermumuSS()   && IsElElEvent()){
-		EventWeight = gWeight * getSF(Elec);
-		if(gIsMCatNLO)    EventWeight = EventWeight * genWeight;
-		Mll = (fHypLepton1.p+fHypLepton2.p).M();
-
-	}
 	ResetHypLeptons();
 }
 void ttHAnalyzer::FillKinematicHistos(gChannel chan, iCut cut){
-#ifdef DEBUGG
-	cout << "Filling KinematicHistos("<<chan<<","<<cut<<")... ";
-	cout << fHypLepton1.index << " , " << fHypLepton2.index << endl;
-#endif
+	#ifdef DEBUGG
+		cout << "Filling KinematicHistos("<<chan<<","<<cut<<")... ";
+		cout << fHypLepton1.index << " , " << fHypLepton2.index << endl;
+	#endif
 
-	if (gSysSource != Norm)      return;  //only fill histograms for nominal distributions...
-	if (fChargeSwitch == true  ) return;
-
-	//++ jet info
-	Int_t njets = getNJets();
-#ifdef DEBUGG
-	cout << " DONE!" << endl;
-#endif
-
+	#ifdef DEBUGG
+		cout << " DONE!" << endl;
+	#endif
 }
 
 void ttHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
-#ifdef DEBUGG
-	cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")...";
-#endif
+	#ifdef DEBUGG
+		cout << "FillYieldsHistograms("<<chan<<","<<cut<<","<<sys<<")...";
+	#endif
+
 	if (fChargeSwitch){   fHSSyields[chan][sys]->Fill(cut, EventWeight);  }
 	else {                fHyields[chan][sys]  ->Fill(cut, EventWeight);
 	}
@@ -538,149 +379,54 @@ void ttHAnalyzer::FillYieldsHistograms(gChannel chan, iCut cut, gSystFlag sys){
 	Int_t nbtags = 0; nbtags = getNBTags();
 
 
-#ifdef DEBUGG
-	cout << " DONE! " << endl;
-#endif
+	#ifdef DEBUGG
+		cout << " DONE! " << endl;
+	#endif
 	return;
 }
-void ttHAnalyzer::FillYields(gSystFlag sys){
+void ttHAnalyzer::FillYields(gSystFlag sys) {
 	ResetHypLeptons();
 
-#ifdef DEBUGG
-	cout << "PassTriggerEMu= " << triggermumuSS() << endl;
-	cout << "Is ElMu/ElEl/MuMu Event= "
-		<< IsElMuEvent() << "/"
-		<< IsElElEvent() << "/"
-		<< IsMuMuEvent() << endl;
-#endif
+	#ifdef DEBUGG
+		cout << "PassTriggerEMu= " << triggermumuSS() << endl;
+		cout << "Is ElMu/ElEl/MuMu Event= "
+			<< IsElMuEvent() << "/"
+			<< IsElElEvent() << "/"
+			<< IsMuMuEvent() << endl;
+	#endif
 
-  CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
+  	CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
 	if (triggermumuSS()  && IsElMuEvent()){
-		// Define Hypothesis Leptons...
-		EventWeight = gWeight * getSF(ElMu);// * getTopPtSF();
+		EventWeight = gWeight * getSF(ElMu);
 		hWeight -> Fill(EventWeight,1.);
-
-#ifdef DEBUGG
-		cout << " pass trigger + emu, ";
-#endif
-		// 0.115 = Fraction events with negative weight
-		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
-
-#ifdef DEBUGG
-			cout << " pass mll, ";
-#endif
-
-		if (1 == 1){
-			FillYieldsHistograms(ElMu, iDilepton, sys);
-			if(sys==Norm) FillKinematicHistos(ElMu,iDilepton);
-
-			FillYieldsHistograms(ElMu, iZVeto, sys);
-			if(sys==Norm) FillKinematicHistos(ElMu, iZVeto);
-
-			if(1 == 1){
-				FillYieldsHistograms(ElMu, iMET, sys);
-				if(sys==Norm) FillKinematicHistos(ElMu,iMET);
-
-				if (1 == 1) {
-#ifdef DEBUGG
-					cout << " pass njets with njets = "<<getNJets()<<", ";
-#endif
-					FillYieldsHistograms(ElMu, i2jets, sys);
-					if(sys==Norm) FillKinematicHistos(ElMu,i2jets);
-					if (1 == 1) {
-#ifdef DEBUGG
-						cout << " pass nbjets with nbtags = "<<getNBTags()<<", ";
-#endif
-						//if (sys == LESUp) cout << evt<< endl;  //LESup    8 //EventNumber
-						FillYieldsHistograms(ElMu, i1btag, sys);
-						if(sys==Norm) FillKinematicHistos(ElMu,i1btag);
-						if(1){ // No DY Veto in emu
-							FillYieldsHistograms(ElMu,iDYVeto, sys);
-							if(sys==Norm) FillKinematicHistos(ElMu,iDYVeto);
-						}
-					}
-				}
-			}
-			if (getNBTags() == 1){
-#ifdef DEBUGG
-				cout << " pass nbjets=1";
-#endif
-				FillYieldsHistograms(ElMu, iExact1btag, sys);
-				if(sys==Norm) FillKinematicHistos(ElMu,iExact1btag);
-			}
-			if (getNBTags() == 2){
-#ifdef DEBUGG
-				cout << " pass nbjets=2";
-#endif
-				FillYieldsHistograms(ElMu, iExact2btag, sys);
-				if(sys==Norm) FillKinematicHistos(ElMu,iExact2btag);
-			}
-		}
 	}
 
 	ResetHypLeptons();
 	if (triggermumuSS() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon); //  * getTopPtSF();
 		//EventWeight = 1.;
-#ifdef DEBUGG
-		cout << " pass trigger + mumu, ";
-#endif
+		#ifdef DEBUGG
+			cout << " pass trigger + mumu, ";
+		#endif
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
-
-		if (1 == 1){
-#ifdef DEBUGG
-			cout << " pass mll, ";
-#endif
-			FillYieldsHistograms(Muon,iDilepton, sys);
-			if(sys==Norm) FillKinematicHistos(Muon,iDilepton);
-			if (1 == 1)    {
-				FillYieldsHistograms(Muon,iZVeto, sys);
-				if(sys==Norm) FillKinematicHistos(Muon,iZVeto);
-				if (1 == 1)   {
-					FillYieldsHistograms(Muon,iMET, sys);
-					if(sys==Norm) FillKinematicHistos(Muon,iMET);
-
-					if (getNBTags() == 1){
-						FillYieldsHistograms(Muon, iExact1btag, sys);
-						if(sys==Norm) FillKinematicHistos(Muon,iExact1btag);
-					}
-					if (getNBTags() == 2){
-						FillYieldsHistograms(Muon, iExact2btag, sys);
-						if(sys==Norm) FillKinematicHistos(Muon,iExact2btag);
-					}
-					if (1 == 1) {
-						FillYieldsHistograms(Muon,i2jets, sys);
-						if(sys==Norm) FillKinematicHistos(Muon,i2jets);
-						if (1 == 1) {
-							FillYieldsHistograms(Muon,i1btag, sys);
-							if(sys==Norm) FillKinematicHistos(Muon,i1btag);
-              if(1 == 1){
-                FillYieldsHistograms(Muon,iDYVeto, sys);
-                if(sys==Norm) FillKinematicHistos(Muon,iDYVeto);
-              }
-						}
-					}
-				}
-            }
-        }
     }
 
-  ResetHypLeptons();
-  if (triggermumuSS() && IsElElEvent()){
+  	ResetHypLeptons();
+  	if (triggermumuSS() && IsElElEvent()) {
 		EventWeight = gWeight * getSF(Elec);// * getTopPtSF();
 		//EventWeight = 1.;
-#ifdef DEBUGG
-		cout << " pass trigger + ee, ";
-#endif
+		#ifdef DEBUGG
+			cout << " pass trigger + ee, ";
+		#endif
 		// 0.115 = Fraction events with negative weight
 		if(gIsMCatNLO) EventWeight = EventWeight * genWeight;// /(TMath::Abs(T_Event_weight)); //*(1.-2.*0.115));
 
-}
-  ResetHypLeptons();
-#ifdef DEBUGG
-    cout << " DONE!"<<endl;
-#endif
+	}
+  	ResetHypLeptons();
+	#ifdef DEBUGG
+    	cout << " DONE!"<<endl;
+	#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -697,6 +443,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
         Lepton.clear();
         LooseLepton.clear();
     }
+
     vector<lepton> tmp_lepton;
     vector<lepton> tmp_looselepton;
     vector<lepton> tmp_fakeablelepton;
@@ -709,6 +456,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     nLooseMuon = 0;
     TLorentzVector lep;
     Int_t thetype = 0;
+
 	for (Int_t i=0; i < nLepGood;i++){
 		CoutEvent(evt, Form("---- Lepton %i", i));
 		CoutEvent(evt, Form("   pdgId = %i ", LepGood_pdgId[i]));
