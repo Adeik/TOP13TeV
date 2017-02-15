@@ -176,6 +176,7 @@ void ttHAnalyzer::InsideLoop() {
 		FillDYHistograms();
 	}
 	ResetOriginalObjects();
+	SetEventObjects();
 	// **************************************
 	#ifdef DEBUGG
 		cout << "End of InsideLoop" << endl;
