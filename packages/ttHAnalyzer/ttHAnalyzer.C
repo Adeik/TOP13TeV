@@ -17,7 +17,7 @@
 #include <iostream>
 #include <math.h>
 
-ClassImp(ttHAnalyzer); // ROOT definition as class
+ClassImp(ttHAnalyzer); // PAF definition as class
 
 ////////////////////////////////////////////////////////////////////////////////
 //		Initial definitions
