@@ -10,7 +10,7 @@
 #ifdef DEBUGC++
 	#undef DEBUGC++
 #endif
-//#define DEBUGC++							// Uncomment for C++ debugging
+//#define DEBUGC++								// Uncomment for C++ debugging
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -209,36 +209,6 @@ void ttHAnalyzer::InitialiseYieldsHistos() {
 void ttHAnalyzer::FillYields() {
 	ResetHypLeptons();
 
-	#ifdef DEBUGC++
-		cout << "PassTriggerEMu= " << triggermumuSS() << endl;
-		cout << "Is ElMu/ElEl/MuMu Event= "
-			<< IsElMuEvent() << "/"
-			<< IsElElEvent() << "/"
-			<< IsMuMuEvent() << endl;
-	#endif
-
-  	CoutEvent(evt, Form(" PassTrigEmu: %i", triggermumuSS()));
-	if (triggermumuSS()  && IsElMuEvent()){
-		EventWeight = gWeight * getSF(ElMu);
-		hWeight -> Fill(EventWeight,1.);
-	}
-
-	ResetHypLeptons();
-	if (triggermumuSS() && IsMuMuEvent()){
-		EventWeight = gWeight * getSF(Muon);
-		#ifdef DEBUGC++
-			cout << " pass trigger + mumu, ";
-		#endif
-    }
-
-  	ResetHypLeptons();
-  	if (triggermumuSS() && IsElElEvent()) {
-		EventWeight = gWeight * getSF(Elec);
-		#ifdef DEBUGC++
-			cout << " pass trigger + ee, ";
-		#endif
-	}
-  	ResetHypLeptons();
 	#ifdef DEBUGC++
     	cout << " DONE!"<<endl;
 	#endif
