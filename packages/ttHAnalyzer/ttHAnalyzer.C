@@ -7,10 +7,10 @@
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
 // C++ usual debugging procedures
-#ifdef DEBUGG
-	#undef DEBUGG
+#ifdef DEBUGC++
+	#undef DEBUGC++
 #endif
-//#define DEBUGG							// Uncomment for C++ debugging
+//#define DEBUGC++							// Uncomment for C++ debugging
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -19,9 +19,6 @@
 
 ClassImp(ttHAnalyzer); // ROOT definition as class
 
-
-const Float_t gJetEtCut = 25.;
-
 ////////////////////////////////////////////////////////////////////////////////
 //		Initial definitions
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +26,7 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
 	hWeight = 0;
 
+	// Initialization of histograms that must collect data from different trees
 	for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 		fHyields     [ichan] = 0;
 		fHSSyields   [ichan] = 0;
@@ -39,7 +37,7 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 //------------------------------------------------------------------------------
 void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Preprocess DONE");
-	PAF_INFO("ttHAnalyzer", "======================================== Initialization ");
+	PAF_INFO("ttHAnalyzer", "======================================== Initialization");
 	PAF_INFO("ttHAnalyzer", "+ Initializing parameters");
 	GetParameters();
 
@@ -75,47 +73,31 @@ void ttHAnalyzer::Initialise() {
 }
 
 void ttHAnalyzer::InsideLoop() {
-	#ifdef DEBUGG
-		cout << "Beggining of InsideLoop" << endl;
+	#ifdef DEBUGC++
+		cout << "DEBUGC++ - Beginning of InsideLoop" << endl;
 	#endif
-	fHDummy->Fill(0.5);
-
+	fHDummy->Fill(0.5); // Dummy histogram
     CoutEvent(evt, Form("Event number = %li", evt));
-	// Calculate PU Weight
-	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); //True       //nTruePU
+	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); // PU Weight
 
-	// Init data members
-	#ifdef DEBUGG
-		cout << "PreGetTreeVariables"<< endl;
-	#endif
+	// Get and set data members
 	GetTreeVariables();
-	#ifdef DEBUGG
-		cout << "PreSetOriginalObjects"<< endl;
-	#endif
 	SetOriginalObjects();
-	#ifdef DEBUGG
-		cout << "PreSetEventObjects"<< endl;
-	#endif
 	SetEventObjects();
 
-	#ifdef DEBUGG
-		cout << "N Leptons: " << Lepton.size() << endl;
-		cout << "PassTriggerEMu/EE/MuMu= "
-			<< triggermumuSS() << "/"
-			<< triggermumuSS() << "/"
-			<< triggermumuSS() << endl;
-		cout << "Is ElMu/ElEl/MuMu Event= "
-			<< IsElMuEvent() << "/"
-			<< IsElElEvent() << "/"
-			<< IsMuMuEvent() << endl;
-	#endif
+
+
+
+	// Here goes a big WOLOLO
+
+
+
 
 	// Fill histograms
 	FillYields();
 
-	// **************************************
-	#ifdef DEBUGG
-		cout << "End of InsideLoop" << endl;
+	#ifdef DEBUGC++
+		cout << "DEBUGC++ - End of InsideLoop" << endl;
 	#endif
 }
 
@@ -136,6 +118,9 @@ void ttHAnalyzer::CoutEvent(ULong_t en, TString t){
 //		Tree-related methods
 ////////////////////////////////////////////////////////////////////////////////
 void ttHAnalyzer::GetTreeVariables() {
+	#ifdef DEBUGC++
+		cout << "DEBUGC++ - Beginning of GetTreeVariables"<< endl;
+	#endif
     nLepGood             = Get<Int_t>("nLepGood");
 	nTauGood             = Get<Int_t>("nTauGood");
 	nJet                 = Get<Int_t>("nJet");
@@ -152,22 +137,22 @@ void ttHAnalyzer::GetTreeVariables() {
 	    LepGood_dz[k]      	= Get<Float_t>("LepGood_dz", k);
 	    LepGood_pdgId[k]   	= Get<Int_t>("LepGood_pdgId", k);
 	    LepGood_charge[k]  	= Get<Int_t>("LepGood_charge", k);
-		LepGood_sip3d[k]	= Get<Float_t>("LepGood_sip3d", k);					// NEW
-		LepGood_miniRelIso[k]       = Get<Float_t>("LepGood_miniRelIso", k);	// NEW
-		LepGood_jetBTagCSV[k]		= Get<Float_t>("LepGood_jetBTagCSV", k);	// NEW
-		LepGood_mediumMuonId[k]		= Get<Int_t>("LepGood_mediumMuonId", k);	// NEW
-		LepGood_mvaTTH[k]			= Get<Float_t>("LepGood_mvaTTH", k);		// NEW
-		LepGood_jetPtRatiov2[k]		= Get<Float_t>("LepGood_jetPtRatiov2", k);	// NEW
-		LepGood_mvaIdSpring15[k]	= Get<Float_t>("LepGood_mvaIdSpring15", k);	// NEW
-		LepGood_sigmaIEtaIEta[k]	= Get<Float_t>("LepGood_sigmaIEtaIEta", k);	// NEW
-		LepGood_hadronicOverEm[k]	= Get<Float_t>("LepGood_hadronicOverEm", k);// NEW
-		LepGood_dEtaScTrkIn[k]		= Get<Float_t>("LepGood_dEtaScTrkIn", k);	// NEW
-		LepGood_dPhiScTrkIn[k]		= Get<Float_t>("LepGood_dPhiScTrkIn", k);	// NEW
-		LepGood_eInvMinusPInv[k]	= Get<Float_t>("LepGood_eInvMinusPInv", k);	// NEW
-		LepGood_convVeto[k]			= Get<Float_t>("LepGood_convVeto", k);		// NEW
-		LepGood_lostHits[k]			= Get<Int_t>("LepGood_lostHits", k);		// NEW
-		LepGood_tightCharge[k]		= Get<Int_t>("LepGood_tightCharge", k);		// NEW
-		LepGood_jetDR[k]			= Get<Float_t>("LepGood_jetDR", k);			// NEW
+		LepGood_sip3d[k]	= Get<Float_t>("LepGood_sip3d", k);
+		LepGood_miniRelIso[k]       = Get<Float_t>("LepGood_miniRelIso", k);
+		LepGood_jetBTagCSV[k]		= Get<Float_t>("LepGood_jetBTagCSV", k);
+		LepGood_mediumMuonId[k]		= Get<Int_t>("LepGood_mediumMuonId", k);
+		LepGood_mvaTTH[k]			= Get<Float_t>("LepGood_mvaTTH", k);
+		LepGood_jetPtRatiov2[k]		= Get<Float_t>("LepGood_jetPtRatiov2", k);
+		LepGood_mvaIdSpring15[k]	= Get<Float_t>("LepGood_mvaIdSpring15", k);
+		LepGood_sigmaIEtaIEta[k]	= Get<Float_t>("LepGood_sigmaIEtaIEta", k);
+		LepGood_hadronicOverEm[k]	= Get<Float_t>("LepGood_hadronicOverEm", k);
+		LepGood_dEtaScTrkIn[k]		= Get<Float_t>("LepGood_dEtaScTrkIn", k);
+		LepGood_dPhiScTrkIn[k]		= Get<Float_t>("LepGood_dPhiScTrkIn", k);
+		LepGood_eInvMinusPInv[k]	= Get<Float_t>("LepGood_eInvMinusPInv", k);
+		LepGood_convVeto[k]			= Get<Float_t>("LepGood_convVeto", k);
+		LepGood_lostHits[k]			= Get<Int_t>("LepGood_lostHits", k);
+		LepGood_tightCharge[k]		= Get<Int_t>("LepGood_tightCharge", k);
+		LepGood_jetDR[k]			= Get<Float_t>("LepGood_jetDR", k);
 	}
 	for (Int_t k = 0; k < nJet; k++) {
 		Jet_px[k]          = Get<Float_t>("Jet_px", k);
@@ -178,12 +163,12 @@ void ttHAnalyzer::GetTreeVariables() {
 		Jet_btagCSV[k]     = Get<Float_t>("Jet_btagCSV", k);
 	}
 	for (Int_t k = 0; k < nTauGood; k++) {
-		TauGood_idDecayModeNewDMs[k]	=	Get<Int_t>("TauGood_idDecayModeNewDMs", k);// NEW
-		TauGood_pt[k]					=	Get<Float_t>("TauGood_pt", k);		// NEW
-		TauGood_eta[k]					=	Get<Float_t>("TauGood_eta", k);		// NEW
-		TauGood_phi[k]					=	Get<Float_t>("TauGood_phi", k);		// NEW
-		TauGood_mass[k]					=	Get<Float_t>("TauGood_mass", k);	// NEW
-		TauGood_idCI3hit[k]				=	Get<Int_t>("TauGood_idCI3hit", k);	// NEW
+		TauGood_idDecayModeNewDMs[k]	=	Get<Int_t>("TauGood_idDecayModeNewDMs", k);
+		TauGood_pt[k]					=	Get<Float_t>("TauGood_pt", k);
+		TauGood_eta[k]					=	Get<Float_t>("TauGood_eta", k);
+		TauGood_phi[k]					=	Get<Float_t>("TauGood_phi", k);
+		TauGood_mass[k]					=	Get<Float_t>("TauGood_mass", k);
+		TauGood_idCI3hit[k]				=	Get<Int_t>("TauGood_idCI3hit", k);
 	}
 }
 
@@ -224,7 +209,7 @@ void ttHAnalyzer::InitialiseYieldsHistos() {
 void ttHAnalyzer::FillYields() {
 	ResetHypLeptons();
 
-	#ifdef DEBUGG
+	#ifdef DEBUGC++
 		cout << "PassTriggerEMu= " << triggermumuSS() << endl;
 		cout << "Is ElMu/ElEl/MuMu Event= "
 			<< IsElMuEvent() << "/"
@@ -241,7 +226,7 @@ void ttHAnalyzer::FillYields() {
 	ResetHypLeptons();
 	if (triggermumuSS() && IsMuMuEvent()){
 		EventWeight = gWeight * getSF(Muon);
-		#ifdef DEBUGG
+		#ifdef DEBUGC++
 			cout << " pass trigger + mumu, ";
 		#endif
     }
@@ -249,12 +234,12 @@ void ttHAnalyzer::FillYields() {
   	ResetHypLeptons();
   	if (triggermumuSS() && IsElElEvent()) {
 		EventWeight = gWeight * getSF(Elec);
-		#ifdef DEBUGG
+		#ifdef DEBUGC++
 			cout << " pass trigger + ee, ";
 		#endif
 	}
   	ResetHypLeptons();
-	#ifdef DEBUGG
+	#ifdef DEBUGC++
     	cout << " DONE!"<<endl;
 	#endif
 }
@@ -665,7 +650,7 @@ Bool_t ttHAnalyzer::IsSSEvent() {
 }
 
 Int_t ttHAnalyzer::IsDileptonEvent(){
-#ifdef DEBUGG
+#ifdef DEBUGC++
 	cout << "IsDileptonEvent(): nTightLeptons =" << TightLepton.size()<< endl;
 #endif
 	if (TightLepton.size() != 2) return 0;
@@ -684,7 +669,7 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 	} //fHypLepton1 will ALWAYS be the muon in mu/el events
 
 	result *= select; // Add charge to result
-#ifdef DEBUGG
+#ifdef DEBUGC++
     cout << result;
 	cout << " DONE!" << endl;
 #endif
@@ -875,6 +860,9 @@ Bool_t ttHAnalyzer::trigger3l4l(){
 //	   Set/reset methods
 ////////////////////////////////////////////////////////////////////////////////
 void ttHAnalyzer::SetOriginalObjects(){
+	#ifdef DEBUGC++
+		cout << "DEBUGC++ - Beginning of SetOriginalObjects"<< endl;
+	#endif
 	ResetHypLeptons();
 
 	// SAVING ORIGINAL VALUES FOR MET, JET, LEPTONS for SYST
@@ -923,6 +911,9 @@ void ttHAnalyzer::SetOriginalObjects(){
 }
 
 void ttHAnalyzer::SetEventObjects(){
+	#ifdef DEBUGC++
+		cout << "DEBUGC++ - SetEventObjects"<< endl;
+	#endif
 	ResetHypLeptons();
 
 	EventWeight = 1.;

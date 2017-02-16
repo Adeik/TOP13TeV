@@ -1,6 +1,6 @@
 /*==============================================================================
 
-							ttHAnalyzer selector
+                            ttHAnalyzer selector
 
 ==============================================================================*/
 //------------------------------------------------------------------------------
@@ -37,6 +37,15 @@
 // Physical parameters and mathematical constants
 const Double_t pi = 3.1415926535897932384;
 const Float_t Zm = 91.1876;
+
+// Cuts
+const Float_t gJetEtCut = 25.;
+const Float_t gTightMuonPtCut = 10.;
+const Float_t gFakeableMuonPtCut = 10.;
+const Float_t gLooseMuonPtCut = 5.;
+const Float_t gTightElectronPtCut = 10.;
+const Float_t gFakeableElectronPtCut = 10.;
+const Float_t gLooseElectronPtCut = 7.;
 
 // New variable type definitions and other constants
 enum gChannel {
@@ -140,34 +149,34 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_dz[30];
 		Int_t   LepGood_charge[30];
 		Int_t   LepGood_pdgId[30];
-		Float_t LepGood_sip3d[30];				// NEW
-		Float_t LepGood_miniRelIso[30];			// NEW
-		Float_t LepGood_jetBTagCSV[30];			// NEW
-		Int_t 	LepGood_mediumMuonId[30];		// NEW
-		Float_t LepGood_mvaTTH[30];				// NEW
-		Float_t LepGood_jetPtRatiov2[30];		// NEW
-		Float_t LepGood_mvaIdSpring15[30];		// NEW
-		Float_t LepGood_sigmaIEtaIEta[30];		// NEW
-		Float_t LepGood_hadronicOverEm[30];		// NEW
-		Float_t LepGood_dEtaScTrkIn[30];		// NEW
-		Float_t LepGood_dPhiScTrkIn[30];		// NEW
-		Float_t LepGood_eInvMinusPInv[30];		// NEW
-		Float_t LepGood_convVeto[30];			// NEW
-		Int_t 	LepGood_lostHits[30];			// NEW
-		Int_t 	LepGood_tightCharge[30];		// NEW
-		Float_t LepGood_jetDR[30];				// NEW
+		Float_t LepGood_sip3d[30];
+		Float_t LepGood_miniRelIso[30];
+		Float_t LepGood_jetBTagCSV[30];
+		Int_t 	LepGood_mediumMuonId[30];
+		Float_t LepGood_mvaTTH[30];
+		Float_t LepGood_jetPtRatiov2[30];
+		Float_t LepGood_mvaIdSpring15[30];
+		Float_t LepGood_sigmaIEtaIEta[30];
+		Float_t LepGood_hadronicOverEm[30];
+		Float_t LepGood_dEtaScTrkIn[30];
+		Float_t LepGood_dPhiScTrkIn[30];
+		Float_t LepGood_eInvMinusPInv[30];
+		Float_t LepGood_convVeto[30];
+		Int_t 	LepGood_lostHits[30];
+		Int_t 	LepGood_tightCharge[30];
+		Float_t LepGood_jetDR[30];
 		Float_t Jet_px[50];
 		Float_t Jet_py[50];
 		Float_t Jet_pz[50];
 		Float_t Jet_energy[50];
 		Float_t Jet_eta[50];
 		Float_t Jet_btagCSV[50];
-		Int_t	TauGood_idDecayModeNewDMs[30];	// NEW
-		Float_t	TauGood_pt[30];					// NEW
-		Float_t	TauGood_eta[30];				// NEW
-		Float_t	TauGood_phi[30];				// NEW
-		Float_t	TauGood_mass[30];				// NEW
-		Int_t	TauGood_idCI3hit[30];			// NEW
+		Int_t	TauGood_idDecayModeNewDMs[30];
+		Float_t	TauGood_pt[30];
+		Float_t	TauGood_eta[30];
+		Float_t	TauGood_phi[30];
+		Float_t	TauGood_mass[30];
+		Int_t	TauGood_idCI3hit[30];
 
         ////////////////////////////////////////////////////////////////////////
 		//		Histogram-related methods declarations
@@ -193,15 +202,15 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //  Muons
         //----------------------------------------------------------------------
-		Bool_t	IsTightMuon(UInt_t, Float_t ptcut=20.);
-		Bool_t	IsFakeableMuon(UInt_t, Float_t ptcut=20.);
-		Bool_t	IsLooseMuon(UInt_t, Float_t ptcut=20.);
+		Bool_t	IsTightMuon(UInt_t, Float_t ptcut = gTightMuonPtCut);
+		Bool_t	IsFakeableMuon(UInt_t, Float_t ptcut = gFakeableMuonPtCut);
+		Bool_t	IsLooseMuon(UInt_t, Float_t ptcut = gLooseMuonPtCut);
 
         //  Electrons
         //----------------------------------------------------------------------
-		Bool_t	IsTightElectron(UInt_t,Float_t ptcut=20.,Int_t an=2);
-		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut=20.);
-		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut=20.);
+		Bool_t	IsTightElectron(UInt_t,Float_t ptcut = gTightElectronPtCut, Int_t an=2);
+		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut = gFakeableElectronPtCut);
+		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut = gLooseElectronPtCut);
 
         //  Taus
         //----------------------------------------------------------------------
@@ -250,7 +259,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Int_t   getNBTags();
 		Float_t getMET();
 		Float_t getHT();
-		Float_t getMHT();					                                    // NEW
+		Float_t getMHT();
 		Float_t getMETLD();
 		Float_t getSF(gChannel);
 
@@ -271,7 +280,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 		PUWeight      *fPUWeight;      //The PU weight utility
 		BTagSFUtil    *fBTagSFnom ;
-		BTagSFUtil    *medfBTagSFnom ;				// NEW
+		BTagSFUtil    *medfBTagSFnom ;
 		BTagSFUtil    *losfBTagSFnom ;
 		SusyLeptonSF  *fLeptonSF;
 		TRandom3      *fRand3;
@@ -292,26 +301,26 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 		UInt_t 	nJets;
 		UInt_t 	nBTags;
-		UInt_t 	nTightMuon;					// NEW
-		UInt_t 	nFakeableMuon;				// NEW
-		UInt_t 	nLooseMuon;					// NEW
-		UInt_t 	nTightElec;					// NEW
-		UInt_t 	nFakeableElec;				// NEW
-		UInt_t 	nLooseElec;					// NEW
+		UInt_t 	nTightMuon;
+		UInt_t 	nFakeableMuon;
+		UInt_t 	nLooseMuon;
+		UInt_t 	nTightElec;
+		UInt_t 	nFakeableElec;
+		UInt_t 	nLooseElec;
 		UInt_t 	nElec;
 		UInt_t 	nLeptons;
-		UInt_t 	njpt;						// NEW
+		UInt_t 	njpt;
 
 		Float_t MET;
 		Float_t MET_Phi;
-		Float_t MHT;						// NEW
+		Float_t MHT;
 
 		lepton  fHypLepton1;
 		lepton  fHypLepton2;
 		std::vector<lepton> Lepton;
-		std::vector<lepton> LooseLepton;	// NEW
-		std::vector<lepton> FakeableLepton;	// NEW
-		std::vector<lepton> TightLepton;	// NEW
+		std::vector<lepton> LooseLepton;
+		std::vector<lepton> FakeableLepton;
+		std::vector<lepton> TightLepton;
 		std::vector<jet>    Jet;
 
 		std::vector<Float_t> JetEt;

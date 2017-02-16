@@ -150,7 +150,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	myProject->AddPackage("BTagSFUtil");
 	myProject->AddPackage("SusyLeptonSF");
 
-	// Let's rock!
+	// Start analysis
 	//--------------------------------------------------------------------------
   	PAF_INFO("RunttHAnalysis", Form("+ Starting compilation"));
 	myProject->Run();
