@@ -48,10 +48,10 @@ if [ "$1" == "anal" ]; then
 elif [ "$1" == "plot" ]; then
     echo "Ya lo haré"
 
-else if [ "$1" == "deepAnal" ]; then
+elif [ "$1" == "deepAnal" ]; then
     echo "Ya lo haré"
 
-else if [ "$1" == "datacards" ]; then
+elif [ "$1" == "datacards" ]; then
     echo "Ya lo haré"
 else
     echo "WTF? No se que hacer y es tu culpa.\n"
