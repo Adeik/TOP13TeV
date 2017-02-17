@@ -15,7 +15,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	Bool_t  G_IsData        = false;
 	Float_t G_LumiForPUData = 19468.3;	// luminosity in http://www.hep.uniovi.es/jfernan/PUhistos
 
-	// PAF mode
+	// PAF mode choice and creation of project
 	//--------------------------------------------------------------------------
 	cout << endl;
 	PAFIExecutionEnvironment* pafmode = 0;
@@ -33,11 +33,9 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
     	pafmode = new PAFPoDEnvironment(nSlots);
   	}
 
-	// Create PAF Project whith that environment
-	//--------------------------------------------------------------------------
 	PAFProject* myProject = new PAFProject(pafmode);
 
-	// Input data sample
+	// Input data sample using DatasetManager
 	//--------------------------------------------------------------------------
 	TString userhome = "/mnt_pool/fanae105/user/$USER/";
 	DatasetManager* dm = DatasetManager::GetInstance();
