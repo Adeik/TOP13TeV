@@ -44,8 +44,8 @@ if [ "$1" == "anal" ]; then
         root -l -b -q 'RunTTHAnalysis.C("TTbar_Powheg_mtop1785"             , 15, 0)'
         root -l -b -q 'RunTTHAnalysis.C("TTJets_aMCatNLO"	                , 15, 0)'
         root -l -b -q 'RunTTHAnalysis.C("TTbar_Powheg_Herwig"               , 15, 0)'
-
-else if [ "$1" == "plot" ]; then
+    fi
+elif [ "$1" == "plot" ]; then
     echo "Ya lo haré"
 
 else if [ "$1" == "deepAnal" ]; then
