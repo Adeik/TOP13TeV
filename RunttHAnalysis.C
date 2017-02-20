@@ -43,20 +43,19 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	dm->SetTab("DR80XSummer16asymptoticMiniAODv2");
 
 	// Deal with data samples
-	if ((sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
-    sampleName == "MuonEG"	|| 	sampleName == "SingleEle"	||
-    sampleName == "SingleMu")) {
+	if (sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
+    sampleName == "MuonEG"	|| 	sampleName.BeginsWith("Single")) {
 
     	cout << "   + Data..." << endl;
 		TString datasuffix[] = { // 17.24
-			"Run2016B_PromptReco_v2", // 5.86
-			"Run2016C_PromptReco_v2", // 2.64
-			"Run2016D_PromptReco_v2", // 4.35
-			"Run2016G_PromptReco_v1", // 4.3c
-			//"Run2015D_16Dec"
-			//"Run2015C_05Oct",
-			//"C_7016",
-			//"D_7360"
+      //"Run2016B_PromptReco_v2", // 5.86
+      //"Run2016C_PromptReco_v2", // 2.64
+      //"Run2016D_PromptReco_v2", // 4.35
+      "Run2016G_PromptReco_v1", // 4.39
+      //"Run2015D_16Dec"
+      //"Run2015C_05Oct",
+      //"C_7016",
+      //"D_7360"
     	};
 	    const UInt_t nDataSamples = 4;
 	    for (UInt_t i = 0; i < nDataSamples; i++) {
