@@ -217,7 +217,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //  Taus
         //----------------------------------------------------------------------
-		Bool_t 	IsGoodTau(UInt_t iTau, Float_t ptcut);
+		Bool_t 	IsGoodTau(UInt_t iTau);
 
         //  Jets
         //----------------------------------------------------------------------
