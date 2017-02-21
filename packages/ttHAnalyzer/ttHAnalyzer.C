@@ -203,13 +203,12 @@ void ttHAnalyzer::GetParameters() {
 // Initialising
 //------------------------------------------------------------------------------
 void ttHAnalyzer::InitialiseEventHistos() {
-	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++)
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == 2lSS 	&& ichan > 2lSS) 	continue;
 			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
 			if (icat == Total 	&& ichan != Total) 	continue;
 			fHEvents[icat][ichan] = CreateH1F("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
-			}
 		}
 	}
 }
@@ -267,7 +266,6 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
 		}
 	}
-
 }
 
 // Filling methods
