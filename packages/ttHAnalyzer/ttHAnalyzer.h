@@ -194,7 +194,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //	Filling methods
 		//----------------------------------------------------------------------
-		void 	FillYieldHistos();
 		void 	FillEventHistos();
 		void 	FillYieldHistos();
 		void 	FillKinematicHistos();

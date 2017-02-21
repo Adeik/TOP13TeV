@@ -128,7 +128,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
   	// Parameters for the analysis
   	//--------------------------------------------------------------------------
-  	PAF_INFO("RunttHAnalysis", Form("+ Setting parameters and loading selector and other packages"));
+  	PAF_INFO("RunttHAnalysis", Form("+ Setting parameters"));
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
@@ -138,6 +138,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
 	// Name of selector class
+	PAF_INFO("RunttHAnalysis", "Loading selector and other packages");
 	//--------------------------------------------------------------------------
 	myProject->AddSelectorPackage("ttHAnalyzer");
 
