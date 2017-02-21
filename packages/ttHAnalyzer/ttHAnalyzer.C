@@ -72,7 +72,7 @@ void ttHAnalyzer::InsideLoop() {
 	#endif
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
 	run	= Get<Int_t>("run");
-	//if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) goto endloop; // Comment this for running with ALL the data
+	if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) goto endloop; // Comment this for running with ALL the data
 	fHDummy->Fill(0.5); // Dummy histogram
     CoutEvent(evt, Form("Event number = %li", evt));
 	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); // PU Weight
@@ -93,7 +93,7 @@ void ttHAnalyzer::InsideLoop() {
 	// Fill histograms
 	FillYields();
 
-	//endloop:
+	endloop:;
 	#ifdef DEBUGC
 		cout << "DEBUGC - End of InsideLoop" << endl;
 	#endif
@@ -564,12 +564,12 @@ Int_t ttHAnalyzer::getSelectedJets(){
         Bool_t isloosebtag = false;
         if (gIsData) {
             ismediumbtag 	= medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
-            isloosebtag 	= losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+			if (ismediumbtag) isloosebtag 	= losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
         }
         else {
 			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
             ismediumbtag 	= medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-            isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+			if (ismediumbtag) isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
         }
 		Int_t isbtag = 0;
 		if (isloosebtag) isbtag = -1;
