@@ -47,7 +47,7 @@ const Float_t gTightElectronPtCut = 10.;
 const Float_t gFakeableElectronPtCut = 10.;
 const Float_t gLooseElectronPtCut = 7.;
 
- variable type definitions and other constants
+// Other variable type definitions and other constants
 enum gChannel {
     channels_begin,
     Muon = channels_begin,
