@@ -97,13 +97,13 @@ class lepton {
 class jet {
 	public:
     	jet(){};
-    	jet(TLorentzVector vec, Bool_t btag, Int_t ind){
+    	jet(TLorentzVector vec, Int_t btag, Int_t ind){
     		p = vec;
     		isbtag = btag;
     		index = ind;
     	};
     	TLorentzVector p;
-    	Bool_t isbtag;
+    	Int_t isbtag; // =1 for MEDIUM (~tight) b-tagged jets, =-1 for loose b-tagged jets and 0 for no b-tagged jets.
     	Int_t index;
 };
 

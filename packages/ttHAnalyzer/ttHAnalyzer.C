@@ -7,10 +7,10 @@
 //		Preprocessor directives
 ////////////////////////////////////////////////////////////////////////////////
 // C++ usual debugging procedures
-#ifdef DEBUGC++
-	#undef DEBUGC++
+#ifdef DEBUGC
+	#undef DEBUGC
 #endif
-//#define DEBUGC++								// Uncomment for C++ debugging
+//#define DEBUGC								// Uncomment for C++ debugging
 
 //	Package inclusion
 #include "ttHAnalyzer.h"
@@ -67,8 +67,8 @@ void ttHAnalyzer::Initialise() {
 }
 
 void ttHAnalyzer::InsideLoop() {
-	#ifdef DEBUGC++
-		cout << "DEBUGC++ - Beginning of InsideLoop" << endl;
+	#ifdef DEBUGC
+		cout << "DEBUGC - Beginning of InsideLoop" << endl;
 	#endif
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
 	run	= Get<Int_t>("run");
@@ -95,8 +95,8 @@ void ttHAnalyzer::InsideLoop() {
 	FillYields();
 
 	endloop:
-	#ifdef DEBUGC++
-		cout << "DEBUGC++ - End of InsideLoop" << endl;
+	#ifdef DEBUGC
+		cout << "DEBUGC - End of InsideLoop" << endl;
 	#endif
 }
 
@@ -117,8 +117,8 @@ void ttHAnalyzer::CoutEvent(ULong_t en, TString t){
 //		Tree-related methods
 ////////////////////////////////////////////////////////////////////////////////
 void ttHAnalyzer::GetTreeVariables() {
-	#ifdef DEBUGC++
-		cout << "DEBUGC++ - Beginning of GetTreeVariables"<< endl;
+	#ifdef DEBUGC
+		cout << "DEBUGC - Beginning of GetTreeVariables"<< endl;
 	#endif
     nLepGood             = Get<Int_t>("nLepGood");
 	nTauGood             = Get<Int_t>("nTauGood");
@@ -206,7 +206,7 @@ void ttHAnalyzer::InitialiseYieldsHistos() {
 void ttHAnalyzer::FillYields() {
 	ResetHypLeptons();
 
-	#ifdef DEBUGC++
+	#ifdef DEBUGC
     	cout << " DONE!"<<endl;
 	#endif
 }
@@ -238,7 +238,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     TLorentzVector lep;
     Int_t thetype 	= 0;
 
-	for (UInt_t i = 0; i < nLepGood; i++) {
+	for (Int_t i = 0; i < nLepGood; i++) {
 		CoutEvent(evt, Form("---- Lepton %i", i));
 		CoutEvent(evt, Form("   pdgId = %i ", LepGood_pdgId[i]));
 		CoutEvent(evt, Form("   pT    = %f ", LepGood_pt[i]));
@@ -312,7 +312,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
         tmp_lepton.push_back(tmpLepton);
     }
 
-	for (UInt_t i = 0; i < nTauGood; i++) {
+	for (Int_t i = 0; i < nTauGood; i++) {
 		if (IsGoodTau(i)) nTaus++;
 	}
 
@@ -572,6 +572,9 @@ Int_t ttHAnalyzer::getSelectedJets(){
             ismediumbtag 	= medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
             isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
         }
+		Int_t isbtag = 0;
+		if (isloosebtag) isbtag = -1;
+		if (ismediumbtag) isbtag = 1;
         jet tmpjet(jt, isbtag, i);
         Jet.push_back(tmpjet);
         nj++;
@@ -630,7 +633,7 @@ Bool_t ttHAnalyzer::IsSSEvent() {
 }
 
 Int_t ttHAnalyzer::IsDileptonEvent(){
-#ifdef DEBUGC++
+#ifdef DEBUGC
 	cout << "IsDileptonEvent(): nTightLeptons =" << TightLepton.size()<< endl;
 #endif
 	if (TightLepton.size() != 2) return 0;
@@ -649,7 +652,7 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 	} //fHypLepton1 will ALWAYS be the muon in mu/el events
 
 	result *= select; // Add charge to result
-#ifdef DEBUGC++
+#ifdef DEBUGC
     cout << result;
 	cout << " DONE!" << endl;
 #endif
@@ -840,8 +843,8 @@ Bool_t ttHAnalyzer::trigger3l4l(){
 //	   Set/reset methods
 ////////////////////////////////////////////////////////////////////////////////
 void ttHAnalyzer::SetOriginalObjects(){
-	#ifdef DEBUGC++
-		cout << "DEBUGC++ - Beginning of SetOriginalObjects"<< endl;
+	#ifdef DEBUGC
+		cout << "DEBUGC - Beginning of SetOriginalObjects"<< endl;
 	#endif
 	ResetHypLeptons();
 
@@ -891,8 +894,8 @@ void ttHAnalyzer::SetOriginalObjects(){
 }
 
 void ttHAnalyzer::SetEventObjects(){
-	#ifdef DEBUGC++
-		cout << "DEBUGC++ - SetEventObjects"<< endl;
+	#ifdef DEBUGC
+		cout << "DEBUGC - SetEventObjects"<< endl;
 	#endif
 	ResetHypLeptons();
 
