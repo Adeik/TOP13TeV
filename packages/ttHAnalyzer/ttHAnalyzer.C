@@ -72,7 +72,7 @@ void ttHAnalyzer::InsideLoop() {
 	#endif
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
 	run	= Get<Int_t>("run");
-	if (gIsData && (run < 254227 || (run > 254914 && run < 256630) || run > 260627)) goto endloop; // Comment this for running with ALL the data
+	if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) goto endloop; // Comment this for running with ALL the data
 
 	fHDummy->Fill(0.5); // Dummy histogram
     CoutEvent(evt, Form("Event number = %li", evt));
