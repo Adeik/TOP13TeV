@@ -52,21 +52,15 @@ void ttHAnalyzer::Initialise() {
 	fPUWeight  =   new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
 
 	//PAF_INFO("ttHAnalyzer", "+ Initialise b-tag scale factors...");
-	if (gUseCSVM) {
-		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
-	}
-	else {
-		fBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
-	}
 
-	medfBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
-	losfBTagSFnom = new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
+	medfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
+	losfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
 
 	PAF_INFO("ttHAnalyzer", "+ Initializing lepton scale factors");
-	fLeptonSF = new SusyLeptonSF();
+	fLeptonSF 		= new SusyLeptonSF();
 
 	PAF_INFO("ttHAnalyzer", "+ Initializing random 3");
-	fRand3 = new TRandom3(50);
+	fRand3 			= new TRandom3(50);
 
 	PAF_INFO("ttHAnalyzer", "+ Initialization DONE");
 	PAF_INFO("ttHAnalyzer", "======================================== Analysis");
@@ -76,6 +70,10 @@ void ttHAnalyzer::InsideLoop() {
 	#ifdef DEBUGC++
 		cout << "DEBUGC++ - Beginning of InsideLoop" << endl;
 	#endif
+	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
+	run	= Get<Int_t>("run");
+	if (IsData && (run < 254227 || (run > 254914 && run < 256630) || run > 260627) goto endloop; // Comment this for running with ALL the data
+
 	fHDummy->Fill(0.5); // Dummy histogram
     CoutEvent(evt, Form("Event number = %li", evt));
 	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); // PU Weight
@@ -96,6 +94,7 @@ void ttHAnalyzer::InsideLoop() {
 	// Fill histograms
 	FillYields();
 
+	endloop:
 	#ifdef DEBUGC++
 		cout << "DEBUGC++ - End of InsideLoop" << endl;
 	#endif
@@ -178,14 +177,12 @@ void ttHAnalyzer::GetParameters(){
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
     gLumiForPU     	= 	GetParam<Float_t>("LumiForPU");
     gTotalLumi     	= 	GetParam<Float_t>("TotalLumi");
-    gUseCSVM       	= 	GetParam<Bool_t>("UseCSVM");
 
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
     PAF_INFO("ttHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gUseCSVM = %d",gUseCSVM ));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -231,16 +228,17 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     vector<lepton> tmp_looselepton;
     vector<lepton> tmp_fakeablelepton;
     vector<lepton> tmp_tightlepton;
-    nTightMuon = 0;
-    nFakeableMuon = 0;
-    nLooseMuon = 0;
-    nTightElec = 0;
-    nFakeableMuon = 0;
-    nLooseMuon = 0;
+    nTightMuon 		= 0;
+    nFakeableMuon 	= 0;
+    nLooseMuon 		= 0;
+    nTightElec 		= 0;
+    nFakeableMuon 	= 0;
+    nLooseMuon 		= 0;
+	nTaus			= 0;
     TLorentzVector lep;
-    Int_t thetype = 0;
+    Int_t thetype 	= 0;
 
-	for (Int_t i=0; i < nLepGood;i++){
+	for (UInt_t i = 0; i < nLepGood; i++) {
 		CoutEvent(evt, Form("---- Lepton %i", i));
 		CoutEvent(evt, Form("   pdgId = %i ", LepGood_pdgId[i]));
 		CoutEvent(evt, Form("   pT    = %f ", LepGood_pt[i]));
@@ -314,10 +312,14 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
         tmp_lepton.push_back(tmpLepton);
     }
 
-	TightLepton = SortLeptonsByPt(tmp_tightlepton);
-    FakeableLepton = SortLeptonsByPt(tmp_fakeablelepton);
-    LooseLepton = SortLeptonsByPt(tmp_looselepton);
-    Lepton = SortLeptonsByPt(tmp_lepton);
+	for (UInt_t i = 0; i < nTauGood; i++) {
+		if (IsGoodTau(i)) nTaus++;
+	}
+
+	TightLepton 	= SortLeptonsByPt(tmp_tightlepton);
+    FakeableLepton 	= SortLeptonsByPt(tmp_fakeablelepton);
+    LooseLepton 	= SortLeptonsByPt(tmp_looselepton);
+    Lepton 			= SortLeptonsByPt(tmp_lepton);
 
     CoutEvent(evt, Form("  ---> nselLeps = %li", Lepton.size()));
     CoutEvent(evt, Form("  ---> nselLooseLeps = %li", LooseLepton.size()));
@@ -531,6 +533,10 @@ Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau, Float_t ptcut) {
         if(tau.DeltaR(FakeableLepton[i].p) < 0.5) return false;
     }
     if (TauGood_idCI3hit[iTau] < 1) return false;
+
+    //if (TauGood_idAntiE[iTau] < 1) return false;
+    //if (TauGood_idAntiMu[iTau] < 1) return false;
+
 	return true;
 }
 
@@ -538,18 +544,16 @@ Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau, Float_t ptcut) {
 //------------------------------------------------------------------------------
 Int_t ttHAnalyzer::getSelectedJets(){
 	Int_t nj(0);
-	njpt = 0;
+	njpt 			= 0;
+	nBTags			= 0;
+	nMediumBTags	= 0;
+	nLooseBTags		= 0;
 	if (Jet.size() > 0) {
 		cout << "[WARNING]: you have called this function previously, RESETTING..."<<endl;
 		Jet.clear();
 	}
-	//int btagSys = 0;
-	//TLorentzVector jtDisc;
-	//for (UInt_t i=0; i<nDiscJet; i++) {
-	//  jtDisc.SetPtEtaPhiE(DiscJet_pt[i], DiscJet_eta[i], DiscJet_phi[i], DiscJet_energy[i]);
-	//}
     TLorentzVector jt;
-    for (Int_t i=0; i < nJet; i++) {
+    for (Int_t i = 0; i < nJet; i++) {
         if(!IsGoodJet(i,gJetEtCut)) continue;
 
         Float_t jetbtagi      = Jet_btagCSV[i];
@@ -557,18 +561,24 @@ Int_t ttHAnalyzer::getSelectedJets(){
         Float_t jetenergyi    = Jet_energy[i];
 
         jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
-        Bool_t isbtag = false;
+        Bool_t ismediumbtag = false;
+        Bool_t isloosebtag = false;
         if (gIsData) {
-            isbtag = fBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+            ismediumbtag 	= medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+            isloosebtag 	= losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
         }
         else {
 			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
-            isbtag = fBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            ismediumbtag 	= medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+            isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
         }
         jet tmpjet(jt, isbtag, i);
         Jet.push_back(tmpjet);
         nj++;
         if (IsGoodJetforprecuts(i,gJetEtCut)) 	njpt++;
+		if (ismediumbtag || isloosebtag) nBTags++;
+		if (ismediumbtag) nMediumBTags++;
+		if (isloosebtag) nLooseBTags++;
     }
     return nj;
 }
@@ -886,17 +896,17 @@ void ttHAnalyzer::SetEventObjects(){
 	#endif
 	ResetHypLeptons();
 
-	EventWeight = 1.;
+	EventWeight 	= 1.;
 
 	// Counters initialization
-	nJets       = 0;
-    nTightMuon = 0;
-    nFakeableMuon = 0;
-    nLooseMuon = 0;
-    nTightElec = 0;
-    nFakeableElec = 0;
-    nLooseElec = 0;
-	nLeptons    = 0;
+	nJets       	= 0;
+	nLeptons    	= 0;
+    nTightMuon 		= 0;
+    nFakeableMuon 	= 0;
+    nLooseMuon 		= 0;
+    nTightElec 		= 0;
+    nFakeableElec 	= 0;
+    nLooseElec 		= 0;
 
 	// Read and save objects
 	Jet.clear();
@@ -905,9 +915,8 @@ void ttHAnalyzer::SetEventObjects(){
 	FakeableLepton.clear();
 	TightLepton.clear();
 
-	nLeptons = getSelectedLeptons(); // Also gets n[]Muon/Elec
-	nJets    = getSelectedJets();
-	nBTags   = getNBTags();
+	nLeptons 	= getSelectedLeptons(); // Also gets n[]Muon/Elec
+	nJets    	= getSelectedJets(); // Gets the total number of jets. IMPORTANT: nmedBTags + nlosBTags = nBTags, i.e.: the medium b-tagged jets and the loose b-tagged jets are a partition of the jets set.
 }
 
 void ttHAnalyzer::ResetOriginalObjects(){
@@ -1010,12 +1019,10 @@ Float_t ttHAnalyzer::getSF(gChannel chan) {
   	return (SF);
 }
 
-Int_t ttHAnalyzer::getNJets(){ return nJets;}
-
-Int_t ttHAnalyzer::getNBTags(){
-	Int_t ntags(0);
-	for(UInt_t i = 0; i < Jet.size(); i++) {
-		if (Jet[i].isbtag) ntags++;
+Int_t ttHAnalyzer::getCS(){
+	Int_t cs = 0;
+	for (UInt_t i = 0; i < TightLepton.size(); i++) {
+		cs += TightLepton[i].charge;
 	}
-	return ntags;
+	return cs;
 }

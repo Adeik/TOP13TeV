@@ -47,7 +47,7 @@ const Float_t gTightElectronPtCut = 10.;
 const Float_t gFakeableElectronPtCut = 10.;
 const Float_t gLooseElectronPtCut = 7.;
 
-// New variable type definitions and other constants
+ variable type definitions and other constants
 enum gChannel {
     channels_begin,
     Muon = channels_begin,
@@ -139,6 +139,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
         Int_t   nTauGood;
 		Int_t   nJet;
         Long_t  evt;
+		Int_t   run;
 		Float_t LepGood_px[30];
 		Float_t LepGood_py[30];
 		Float_t LepGood_pz[30];
@@ -177,6 +178,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t	TauGood_phi[30];
 		Float_t	TauGood_mass[30];
 		Int_t	TauGood_idCI3hit[30];
+		//Int_t TauGood_idAntiMu[30];
+		//Int_t TauGood_idAntiE[30];
 
         ////////////////////////////////////////////////////////////////////////
 		//		Histogram-related methods declarations
@@ -226,14 +229,14 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	   Events selection
 		////////////////////////////////////////////////////////////////////////
 		Int_t  	IsDileptonEvent();
-		Bool_t	IsMuMuEvent();                                                  // REDEF
-		Bool_t	IsElMuEvent();                                                  // REDEF
-		Bool_t	IsElElEvent();                                                  // REDEF
-	    Bool_t 	IsSSEvent();					                                // NEw
-	    Bool_t 	Is2lSSEvent();			                                        // NEw
-	    Bool_t 	Is3lSSEvent();			                                        // NEw
+		Bool_t	IsMuMuEvent();
+		Bool_t	IsElMuEvent();
+		Bool_t	IsElElEvent();
+	    Bool_t 	IsSSEvent();
+	    Bool_t 	Is2lSSEvent();
+	    Bool_t 	Is3lSSEvent();
 
-		Bool_t 	PassesPreCuts();					                            // NEw
+		Bool_t 	PassesPreCuts();
 
         ////////////////////////////////////////////////////////////////////////
 		//	   Trigger methods
@@ -255,13 +258,12 @@ class ttHAnalyzer : public PAFChainItemSelector {
         ////////////////////////////////////////////////////////////////////////
 		//	   Get methods
 		////////////////////////////////////////////////////////////////////////
-		Int_t   getNJets();
-		Int_t   getNBTags();
 		Float_t getMET();
 		Float_t getHT();
 		Float_t getMHT();
 		Float_t getMETLD();
 		Float_t getSF(gChannel);
+		Int_t 	getCS();
 
 	protected:
 		////////////////////////////////////////////////////////////////////////
@@ -274,14 +276,12 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t gWeight;
 		Float_t gLumiForPU;
 		Float_t gTotalLumi;
-		Bool_t  gUseCSVM;
 
 		//	PU and SF
 		//----------------------------------------------------------------------
 		PUWeight      *fPUWeight;      //The PU weight utility
-		BTagSFUtil    *fBTagSFnom ;
-		BTagSFUtil    *medfBTagSFnom ;
-		BTagSFUtil    *losfBTagSFnom ;
+		BTagSFUtil    *medfBTagSFnom;
+		BTagSFUtil    *losfBTagSFnom;
 		SusyLeptonSF  *fLeptonSF;
 		TRandom3      *fRand3;
 
@@ -299,16 +299,18 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
 		//	General
 		//----------------------------------------------------------------------
-		UInt_t 	nJets;
-		UInt_t 	nBTags;
+		UInt_t 	nJets;	// nJets = nBtags + n(NOTBTags)
+		UInt_t 	nBTags; // nBTags = nMediumBTags + nLooseBTags
+		UInt_t 	nMediumBTags;
+		UInt_t 	nLooseBTags;
+		UInt_t 	nLeptons; // nLeptons does NOT include taus
 		UInt_t 	nTightMuon;
 		UInt_t 	nFakeableMuon;
 		UInt_t 	nLooseMuon;
 		UInt_t 	nTightElec;
 		UInt_t 	nFakeableElec;
 		UInt_t 	nLooseElec;
-		UInt_t 	nElec;
-		UInt_t 	nLeptons;
+		UInt_t 	nTaus;
 		UInt_t 	njpt;
 
 		Float_t MET;

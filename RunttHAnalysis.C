@@ -17,8 +17,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	// PAF mode choice and creation of project
 	//--------------------------------------------------------------------------
-	cout << endl;
 	PAFIExecutionEnvironment* pafmode = 0;
+    cout << endl;
 	PAF_INFO("RunttHAnalysis", "======================================== Preprocess");
 	if (nSlots <=1 ) {
     	PAF_INFO("RunttHAnalysis", "+ Sequential mode chosen");
@@ -38,67 +38,71 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 	// Input data sample using DatasetManager
 	//--------------------------------------------------------------------------
 	TString userhome = "/mnt_pool/fanae105/user/$USER/";
+	PAF_INFO("RunttHAnalysis", "+ Configuring DatasetManager");
 	DatasetManager* dm = DatasetManager::GetInstance();
 	//dm->SetTab("DR80XasymptoticMiniAODv2");
-	dm->SetTab("DR80XSummer16asymptoticMiniAODv2");
+	dm->SetTab("DR80XSummer16asymptoticMiniAODv2_2");
 
+	cout << endl;
+	PAF_INFO("RunttHAnalysis", "+ Obtaining sample info:");
 	// Deal with data samples
 	if (sampleName == "DoubleEG"   || 	sampleName == "DoubleMuon" ||
     sampleName == "MuonEG"	|| 	sampleName.BeginsWith("Single")) {
 
-    	cout << "   + Data..." << endl;
-		TString datasuffix[] = { // 17.24
-      //"Run2016B_PromptReco_v2", // 5.86
-      //"Run2016C_PromptReco_v2", // 2.64
-      //"Run2016D_PromptReco_v2", // 4.35
-      "Run2016G_PromptReco_v1", // 4.39
-      //"Run2015D_16Dec"
-      //"Run2015C_05Oct",
-      //"C_7016",
-      //"D_7360"
+		PAF_INFO("RunttHAnalysis", "	> The sample is " + sampleName + " DATA");
+		TString datasuffix[] = {
+		"16B_03Feb2017",
+		"16C_03Feb2017",
+		"16D_03Feb2017",
+		"16E_03Feb2017",
+		"16F_03Feb2017",
+		"16G_03Feb2017",
+		"16H_03Feb2017_v2",
+		"16H_03Feb2017_v3"
     	};
-	    const UInt_t nDataSamples = 4;
+	    const UInt_t nDataSamples = 8;
 	    for (UInt_t i = 0; i < nDataSamples; i++) {
 			TString asample = Form("Tree_%s_%s",sampleName.Data(), datasuffix[i].Data());
-			cout << "   + Looking for " << asample << " trees..." << endl;
+			PAF_INFO("RunttHAnalysis", "	> Importing " + asample + " ...");
 			myProject->AddDataFiles(dm->GetRealDataFiles(asample));
 	    }
 	    G_Event_Weight = 1.;
 	    G_IsData = true;
   	}
   	else { // Deal with MC samples
-	    G_IsData = false; //true;  // only for pseudodata
+		PAF_INFO("RunttHAnalysis", "	> The sample is MC SIMULATION ");
+	    G_IsData = false;
 	    dm->LoadDataset(sampleName + "_ext");
-	    if (sampleName != "TestHeppy" && !sampleName.Contains("T2tt")) myProject->AddDataFiles(dm->GetFiles());
-    	if (sampleName == "TTWToLNu"  || sampleName == "TTWToQQ" || sampleName == "TTZToQQ" ||
-	    sampleName == "WWZ" || sampleName == "WZZ" || sampleName == "ZZZ" ||
-		sampleName.Contains("aMCatNLO") || sampleName.Contains("amcatnlo") ) {
-			G_Event_Weight = dm->GetCrossSection() / dm->GetSumWeights();
+
+	    if (sampleName != "TestHeppy") myProject->AddDataFiles(dm->GetFiles());
+
+    	if (sampleName == "TTWToLNu"	|| 	sampleName == "TTWToQQ" ||
+		sampleName == "TTZToQQ" 		||	sampleName == "WWZ" 	||
+		sampleName == "WZZ" 			||	sampleName == "ZZZ" 	||
+		sampleName.Contains("aMCatNLO") || 	sampleName.Contains("amcatnlo") ) {
+			G_Event_Weight 		= dm->GetCrossSection() / dm->GetSumWeights();
 			cout << endl;
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
     	}
-    	else if (sampleName.BeginsWith("T2tt")) {
-      		TString lp = "/pool/ciencias/HeppyTreesSummer16/v1/";
-      		myProject->AddDataFile(lp + "Tree_" + sampleName + "_ext_0.root");
-    	}
     	else if (sampleName == "TestHeppy") {
+			PAF_INFO("RunttHAnalysis", "	> This is a TEST SAMPLE");
 			TString	localpath	=	"/pool/ciencias/users/user/palencia/";
 			TString sample 		= 	"treeTtbar_jan19.root";
 			myProject->AddDataFile(localpath + sample);
-			G_Event_Weight = 1;
+			G_Event_Weight 		= 1;
 		}
 		else {
-			G_Event_Weight = dm->GetCrossSection() / dm->GetEventsInTheSample();
+			G_Event_Weight 		= dm->GetCrossSection() / dm->GetEventsInTheSample();
 		}
 
-    	if (nEvents == 0) nEvents = dm->GetEventsInTheSample();
+    	if (nEvents ==0) nEvents= dm->GetEventsInTheSample();
 
 	    cout << endl;
 	    cout << " #===============================================" 	<< endl;
-	    cout << " #     sampleName = " << sampleName                	<< endl;
+	    cout << " #          sampleName = " << sampleName               << endl;
 		cout << " #	     x-section = " << dm->GetCrossSection()     	<< endl;
 		cout << " #	       nevents = " << dm->GetEventsInTheSample()	<< endl;
-    	cout << " # base file name = " << dm->GetBaseFileName()     	<< endl;
+    	cout << " #      base file name = " << dm->GetBaseFileName()    << endl;
 		cout << " #	        weight = " << G_Event_Weight	        	<< endl;
 		cout << " #	        isData = " << G_IsData	                	<< endl;
     	cout << " #===============================================" 	<< endl;
@@ -107,9 +111,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	// Output file name
   	//--------------------------------------------------------------------------
-	Bool_t G_Use_CSVM = true;
 	TString outputDir = "./temp";
-  	// if(sampleName.BeginsWith("T2tt")) outputDir += "/";
 
 	gSystem->mkdir(outputDir, kTRUE);
 
@@ -127,12 +129,12 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
   	// Parameters for the analysis
   	//--------------------------------------------------------------------------
+  	PAF_INFO("RunttHAnalysis", Form("+ Setting parameters and loading selector and other packages"));
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
 	myProject->SetInputParam("LumiForPU",     G_LumiForPUData  );
 	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
-	myProject->SetInputParam("UseCSVM",       G_Use_CSVM       );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
