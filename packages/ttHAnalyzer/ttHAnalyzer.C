@@ -187,7 +187,7 @@ void ttHAnalyzer::GetParameters() {
 ////////////////////////////////////////////////////////////////////////////////
 // Initialising
 //------------------------------------------------------------------------------
-void ttHAnalyzer::InitialiseYieldHistos() {
+void ttHAnalyzer::InitialiseEventHistos() {
 
 }
 

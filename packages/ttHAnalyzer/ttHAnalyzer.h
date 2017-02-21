@@ -200,11 +200,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		void 	FillMETHistos();
 		void 	FillMiscHistos();
 
-    	// Saving
-		//----------------------------------------------------------------------
-    	//void 	WriteHistos();                                                   // SIN DEFINIR
-    	//void 	WriteValidationsHistos();                                        // SIN DEFINIR
-
 		////////////////////////////////////////////////////////////////////////
 		//	   Leptons and jets selection
 		////////////////////////////////////////////////////////////////////////
