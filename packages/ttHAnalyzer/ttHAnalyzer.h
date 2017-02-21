@@ -186,16 +186,25 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
         // Initialising
 		//----------------------------------------------------------------------
-    	virtual void InitialiseYieldsHistos();
+    	virtual void InitialiseEventHistos();
+    	virtual void InitialiseYieldHistos();
+    	virtual void InitialiseKinematicHistos();
+    	virtual void InitialiseMETHistos();
+    	virtual void InitialiseMiscHistos();
 
         //	Filling methods
 		//----------------------------------------------------------------------
 		void 	FillYields();
+		void 	FillEventHistos();
+		void 	FillYieldHistos();
+		void 	FillKinematicHistos();
+		void 	FillMETHistos();
+		void 	FillMiscHistos();
 
     	// Saving
 		//----------------------------------------------------------------------
-    	void 	WriteHistos();                                                   // SIN DEFINIR
-    	void 	WriteValidationsHistos();                                        // SIN DEFINIR
+    	//void 	WriteHistos();                                                   // SIN DEFINIR
+    	//void 	WriteValidationsHistos();                                        // SIN DEFINIR
 
 		////////////////////////////////////////////////////////////////////////
 		//	   Leptons and jets selection
