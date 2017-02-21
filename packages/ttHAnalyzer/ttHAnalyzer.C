@@ -44,7 +44,7 @@ void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Initializing histograms");
 	TH1::SetDefaultSumw2();
 	fHDummy = CreateH1F("fHDummy","",1,0,1);
-	InitialiseYieldsHistos();
+	InitialiseYieldHistos();
 
 	//	PU Reweight
 	PAF_INFO("ttHAnalyzer", "+ Initializing pile-up reweighting tool and b-tag scale factors");
@@ -193,7 +193,7 @@ void ttHAnalyzer::InitialiseEventHistos() {
 
 void ttHAnalyzer::InitialiseYieldHistos() {
 	hWeight = CreateH1F("hWeight","",200,0,1);
-	//++ Yields histograms
+	//Yield histograms
 	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],""		, 5, 0, 5);
 	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],""		, 5, 0, 5);
 	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],""	, 5, 0, 5);
