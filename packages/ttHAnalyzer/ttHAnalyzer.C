@@ -24,12 +24,27 @@ ClassImp(ttHAnalyzer); // PAF definition as class
 ////////////////////////////////////////////////////////////////////////////////
 ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 	fHDummy = 0;
-	hWeight = 0;
 
-	// Initialization of histograms that must collect data from different trees
-	for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-		fHyields     [ichan] = 0;
-		fHSSyields   [ichan] = 0;
+	// Defining to zero the aim of the histogram pointers
+	for (UInt_t icat = 0; icat < gNCATEGORIES) {
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			fHEvents    		[icat][ichan]	=	0; // Events
+			fHTightLep			[icat][ichan]	=	0; // Yields
+			fHFakeLep			[icat][ichan]	=	0;
+			fHLooseLep			[icat][ichan]	=	0;
+			fHTau				[icat][ichan]	=	0;
+			fHJets				[icat][ichan]	=	0;
+			fHMedBTagJet		[icat][ichan]	=	0;
+			fHLosBTagJet		[icat][ichan]	=	0;
+			fHPtLeading			[icat][ichan]	=	0; // Kinematic
+			fHPtSubLeading		[icat][ichan]	=	0;
+			fHPtSubSubLeading	[icat][ichan]	=	0;
+			fHMET				[icat][ichan]	=	0; // MET
+			fHMHT				[icat][ichan]	=	0;
+			fHMETLD				[icat][ichan]	=	0;
+			fHChargeSum			[icat][ichan]	=	0; // Misc
+			fHMass				[icat][ichan]	=	0;
+		}
 	}
 }
 
@@ -38,20 +53,22 @@ ttHAnalyzer::ttHAnalyzer() : PAFChainItemSelector() {
 void ttHAnalyzer::Initialise() {
 	PAF_INFO("ttHAnalyzer", "+ Preprocess DONE");
 	PAF_INFO("ttHAnalyzer", "======================================== Initialization");
+
 	PAF_INFO("ttHAnalyzer", "+ Initializing parameters");
 	GetParameters();
 
 	PAF_INFO("ttHAnalyzer", "+ Initializing histograms");
 	TH1::SetDefaultSumw2();
-	fHDummy = CreateH1F("fHDummy","",1,0,1);
+	fHDummy 		= CreateH1F("fHDummy","",1,0,1);
+	InitialiseEventHistos();
 	InitialiseYieldHistos();
+	InitialiseKinematicHistos();
+	InitialiseMETHistos();
+	InitialiseMiscHistos();
 
 	//	PU Reweight
 	PAF_INFO("ttHAnalyzer", "+ Initializing pile-up reweighting tool and b-tag scale factors");
-	fPUWeight  =   new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
-
-	//PAF_INFO("ttHAnalyzer", "+ Initialise b-tag scale factors...");
-
+	fPUWeight  		= new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
 	medfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
 	losfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
 
@@ -90,7 +107,11 @@ void ttHAnalyzer::InsideLoop() {
 
 
 	// Fill histograms
+	FillEventHistos();
 	FillYieldHistos();
+	FillKinematicHistos();
+	FillMETHistos();
+	FillMiscHistos();
 
 	#ifdef DEBUGC
 		cout << "DEBUGC - End of InsideLoop" << endl;
@@ -174,12 +195,6 @@ void ttHAnalyzer::GetParameters() {
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
     gLumiForPU     	= 	GetParam<Float_t>("LumiForPU");
     gTotalLumi     	= 	GetParam<Float_t>("TotalLumi");
-
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gSampleName = %s",gSampleName.Data()));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gIsData = %d",gIsData ));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gWeight = %e", gWeight));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gLumiForPU = %f", gLumiForPU));
-    PAF_INFO("ttHAnalyzer::GetParameters()", Form("gTotalLumi = %f", gTotalLumi));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -188,29 +203,70 @@ void ttHAnalyzer::GetParameters() {
 // Initialising
 //------------------------------------------------------------------------------
 void ttHAnalyzer::InitialiseEventHistos() {
-
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++)
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			if (icat == 2lSS 	&& ichan > 2lSS) 	continue;
+			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
+			if (icat == Total 	&& ichan != Total) 	continue;
+			fHEvents[icat][ichan] = CreateH1F("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			}
+		}
+	}
 }
 
 void ttHAnalyzer::InitialiseYieldHistos() {
-	hWeight = CreateH1F("hWeight","",200,0,1);
-	//Yield histograms
-	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],""		, 5, 0, 5);
-	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],""		, 5, 0, 5);
-	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],""	, 5, 0, 5);
-	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],""	, 5, 0, 5);
-	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],""		, 5, 0, 5);
-	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],""	, 5, 0, 5);
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			if (icat == 2lSS 	&& ichan > 2lSS) 	continue;
+			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
+			if (icat == Total 	&& ichan != Total) 	continue;
+			fHTightLep	[icat][ichan] = CreateH1F("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHFakeLep	[icat][ichan] = CreateH1F("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHLooseLep	[icat][ichan] = CreateH1F("H_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHTau		[icat][ichan] = CreateH1F("H_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHJet		[icat][ichan] = CreateH1F("H_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHMedBTagJet[icat][ichan] = CreateH1F("H_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHLosBTagJet[icat][ichan] = CreateH1F("H_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+		}
+	}
 }
 
 void ttHAnalyzer::InitialiseKinematicHistos() {
-
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			if (icat == 2lSS 	&& ichan > 2lSS) 	continue;
+			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
+			if (icat == Total 	&& ichan != Total) 	continue;
+			fHPtLeading			[icat][ichan] = CreateH1F("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHPtSubLeading		[icat][ichan] = CreateH1F("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHPtSubSubLeading	[icat][ichan] = CreateH1F("H_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+		}
+	}
 }
 
 void ttHAnalyzer::InitialiseMETHistos() {
-
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			if (icat == 2lSS 	&& ichan > 2lSS) 	continue;
+			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
+			if (icat == Total 	&& ichan != Total) 	continue;
+			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHMETLD				[icat][ichan] = CreateH1F("H_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+		}
+	}
 }
 
 void ttHAnalyzer::InitialiseMiscHistos() {
+	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+			if (icat == 2lSS 	&& ichan != 2lSS) 	continue;
+			if (icat == 3lSS 	&& ichan != 3lSS) 	continue;
+			if (icat == Total 	|| ichan == Total) 	continue;
+			fHChargeSum				[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],"", 5, 0, 5);
+		}
+	}
 
 }
 

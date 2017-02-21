@@ -5,7 +5,7 @@ R__LOAD_LIBRARY(DatasetManager/DatasetManager.C+)
 /*******************************************************************************
 	* Main function
 *******************************************************************************/
-void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
+void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 					Int_t		nSlots         	=  	1		,
 					Long64_t 	nEvents        	= 	0		) {
 

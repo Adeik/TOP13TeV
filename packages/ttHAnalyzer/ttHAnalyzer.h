@@ -48,14 +48,27 @@ const Float_t gFakeableElectronPtCut = 10.;
 const Float_t gLooseElectronPtCut = 7.;
 
 // Other variable type definitions and other constants
+enum gCategories {
+    categories_begin,
+    2lSS = categories_begin,
+    3lSS,
+    Total,
+    gNCATEGORIES,
+};
+
 enum gChannel {
     channels_begin,
-    Muon = channels_begin,
-    Elec,
+    MuMu = channels_begin,
+    ElEl,
     ElMu,
+    2lSS,
+    3lSS,
+    Total,
     gNCHANNELS,
 };
-const TString gChanLabel[gNCHANNELS] = {"Muon","Elec","ElMu"};
+
+const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","2lSS","3lSS","Total"};
+const TString gCatLabel[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
 
 //	Binning-related constants
 const Int_t gNMuFPtBins = 6;
@@ -66,7 +79,7 @@ const Int_t gNElPPtbins = 10;
 const Int_t gNElEtabins = 5;
 const Int_t gNElCMIdbins = 2;
 
-const Double_t gMuFPtBins[gNMuFPtBins+1]	= {20., 25., 30., 35., 40., 50., 60.};						// Muon binning
+const Double_t gMuFPtBins[gNMuFPtBins+1]	= {20., 25., 30., 35., 40., 50., 60.};					// Muon binning
 const Double_t gMuPPtbins[gNMuPPtbins+1]	= {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
 const Double_t gMuEtabins[gNMuEtabins+1]	= {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
@@ -296,9 +309,22 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	Histograms and trees
 		//----------------------------------------------------------------------
 		TH1F*   fHDummy;
-		TH1F*   hWeight;
-		TH1F*   fHyields     [gNCHANNELS];
-		TH1F*   fHSSyields   [gNCHANNELS];
+		TH1F*   fHEvents    		[gNCATEGORIES][gNCHANNELS]; // Events
+		TH1F*   fHTightLep			[gNCATEGORIES][gNCHANNELS]; // Yields
+		TH1F*   fHFakeLep			[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHLooseLep			[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHTau				[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHJet				[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHMedBTagJet		[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHLosBTagJet		[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHPtLeading			[gNCATEGORIES][gNCHANNELS]; // Kinematic
+		TH1F*   fHPtSubLeading		[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHPtSubSubLeading	[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHMET				[gNCATEGORIES][gNCHANNELS]; // MET
+		TH1F*   fHMHT				[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHMETLD				[gNCATEGORIES][gNCHANNELS];
+		TH1F*   fHChargeSum			[gNCATEGORIES][gNCHANNELS]; // Misc
+		TH1F*   fHMass				[gNCATEGORIES][gNCHANNELS];
 
 		//	General
 		//----------------------------------------------------------------------
