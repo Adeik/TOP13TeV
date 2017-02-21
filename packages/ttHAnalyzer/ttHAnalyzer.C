@@ -523,7 +523,7 @@ Bool_t ttHAnalyzer::IsLooseElectron(UInt_t iElec, Float_t ptcut){
 //	Tau selectors
 //------------------------------------------------------------------------------
 
-Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau, Float_t ptcut) {
+Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau) {
 	if (TauGood_pt[iTau] < 20) return false;
 	if (TMath::Abs(TauGood_eta[iTau]) > 2.3) return false;
 	if (TauGood_idDecayModeNewDMs[iTau] == 0) return false;
