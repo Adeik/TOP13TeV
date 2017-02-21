@@ -72,14 +72,14 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
   	else { // Deal with MC samples
 		PAF_INFO("RunttHAnalysis", "	> The sample is MC SIMULATION ");
 	    G_IsData = false;
-	    dm->LoadDataset(sampleName + "_ext");
+	    dm->LoadDataset(sampleName);
 
 	    if (sampleName != "TestHeppy") myProject->AddDataFiles(dm->GetFiles());
 
-    	if (sampleName.Contains("TTWToLNu")	|| 	sampleName == "TTWToQQ" ||
-		sampleName.Contains("TTZToQQ")		||	sampleName == "WWZ" 	||
-		sampleName == "WZZ" 				||	sampleName == "ZZZ" 	||
-		sampleName.Contains("aMCatNLO") 	|| 	sampleName.Contains("amcatnlo")
+    	if (sampleName.Contains("TTWToLNu")	|| 	sampleName == "TTWToQQ" 		||
+		sampleName.Contains("TTZToQQ")		||	sampleName == "WWZ" 			||
+		sampleName == "WZZ" 				||	sampleName == "ZZZ" 			||
+		sampleName.Contains("aMCatNLO") 	|| 	sampleName.Contains("amcatnlo") ||
 		sampleName.Contains("TTZToLLNuNu")	||	sampleName.Contains("TTGJets") ) {
 			G_Event_Weight 		= dm->GetCrossSection() / dm->GetSumWeights();
 			cout << endl;
@@ -121,12 +121,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ"	,
 
 	TString LumiString = oss.str();
   	TString outputFile = outputDir;
-  	outputFile += "/Tree_" + sampleName + "_ext.root";
-  	if (outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2","");
-  	if (outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext","");
+  	outputFile += "/Tree_" + sampleName + ".root";
 
-	if(outputFile.Contains("_ext2")) outputFile.ReplaceAll("_ext2",""); 
-	if(outputFile.Contains("_ext"))  outputFile.ReplaceAll("_ext",""); 
   	PAF_INFO("RunttHAnalysis", Form("+ Output file = %s", outputFile.Data()));
   	myProject->SetOutputFile(outputFile);
 

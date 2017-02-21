@@ -90,7 +90,7 @@ void ttHAnalyzer::InsideLoop() {
 
 
 	// Fill histograms
-	FillYields();
+	FillYieldHistos();
 
 	#ifdef DEBUGC
 		cout << "DEBUGC - End of InsideLoop" << endl;
@@ -187,20 +187,52 @@ void ttHAnalyzer::GetParameters() {
 ////////////////////////////////////////////////////////////////////////////////
 // Initialising
 //------------------------------------------------------------------------------
-void ttHAnalyzer::InitialiseYieldsHistos() {
+void ttHAnalyzer::InitialiseYieldHistos() {
+
+}
+
+void ttHAnalyzer::InitialiseYieldHistos() {
 	hWeight = CreateH1F("hWeight","",200,0,1);
 	//++ Yields histograms
-	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],"", 5, 0, 5);
-	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],"", 5, 0, 5);
-	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],"", 5, 0, 5);
-	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],"", 5, 0, 5);
-	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],"", 5, 0, 5);
-	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],"", 5, 0, 5);
+	fHyields[Muon] 		= CreateH1F("H_Yields_"+gChanLabel[Muon],""		, 5, 0, 5);
+	fHyields[Elec] 		= CreateH1F("H_Yields_"+gChanLabel[Elec],""		, 5, 0, 5);
+	fHSSyields[Muon] 	= CreateH1F("H_SSYields_"+gChanLabel[Muon],""	, 5, 0, 5);
+	fHSSyields[Elec] 	= CreateH1F("H_SSYields_"+gChanLabel[Elec],""	, 5, 0, 5);
+	fHyields[ElMu] 		= CreateH1F("H_Yields_"+gChanLabel[ElMu],""		, 5, 0, 5);
+	fHSSyields[ElMu] 	= CreateH1F("H_SSYields_"+gChanLabel[ElMu],""	, 5, 0, 5);
+}
+
+void ttHAnalyzer::InitialiseKinematicHistos() {
+
+}
+
+void ttHAnalyzer::InitialiseMETHistos() {
+
+}
+
+void ttHAnalyzer::InitialiseMiscHistos() {
+
 }
 
 // Filling methods
 //------------------------------------------------------------------------------
-void ttHAnalyzer::FillYields() {
+void ttHAnalyzer::FillEventHistos() {
+
+}
+
+void ttHAnalyzer::FillKinematicHistos() {
+
+}
+
+void ttHAnalyzer::FillMETHistos() {
+
+}
+
+void ttHAnalyzer::FillMiscHistos() {
+
+}
+
+void ttHAnalyzer::FillYieldHistos() {
 	ResetHypLeptons();
 
 	#ifdef DEBUGC
