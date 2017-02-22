@@ -50,8 +50,8 @@ const Float_t gLooseElectronPtCut = 7.;
 // Other variable type definitions and other constants
 enum gCategories {
     categories_begin,
-    2lSS = categories_begin,
-    3lSS,
+    twolSS = categories_begin,
+    threelSS,
     Total,
     gNCATEGORIES,
 };
@@ -61,14 +61,12 @@ enum gChannel {
     MuMu = channels_begin,
     ElEl,
     ElMu,
-    2lSS,
-    3lSS,
-    Total,
+    All,
     gNCHANNELS,
 };
 
-const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","2lSS","3lSS","Total"};
 const TString gCatLabel[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 
 //	Binning-related constants
 const Int_t gNMuFPtBins = 6;
