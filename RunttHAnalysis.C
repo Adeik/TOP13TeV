@@ -24,7 +24,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
     	PAF_INFO("RunttHAnalysis", "+ Sequential mode chosen");
     	pafmode = new PAFSequentialEnvironment();
   	}
-  	else if (nSlots <= 8) {
+  	else if (nSlots <= 64) {
     	PAF_INFO("RunttHAnalysis", "+ PROOF Lite mode chosen");
     	pafmode = new PAFPROOFLiteEnvironment(nSlots);
   	}
@@ -97,18 +97,18 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 		}
 
     	if (nEvents ==0) nEvents= dm->GetEventsInTheSample();
-
-	    cout << endl;
-	    cout << " #===============================================" 	<< endl;
-	    cout << " #          sampleName = " << sampleName               << endl;
-		cout << " #	     x-section = " << dm->GetCrossSection()     	<< endl;
-		cout << " #	       nevents = " << dm->GetEventsInTheSample()	<< endl;
-    	cout << " #      base file name = " << dm->GetBaseFileName()    << endl;
-		cout << " #	        weight = " << G_Event_Weight	        	<< endl;
-		cout << " #	        isData = " << G_IsData	                	<< endl;
-    	cout << " #===============================================" 	<< endl;
-		cout << endl;
-  	}
+	}
+	
+    cout << endl;
+    cout << " #===============================================" 	<< endl;
+    cout << " #          sampleName = " << sampleName               << endl;
+	cout << " #	     x-section = " << dm->GetCrossSection()     	<< endl;
+	cout << " #	       nevents = " << dm->GetEventsInTheSample()	<< endl;
+	cout << " #      base file name = " << dm->GetBaseFileName()    << endl;
+	cout << " #	        weight = " << G_Event_Weight	        	<< endl;
+	cout << " #	        isData = " << G_IsData	                	<< endl;
+	cout << " #===============================================" 	<< endl;
+	cout << endl;
 
 	// Output file name
   	//--------------------------------------------------------------------------
@@ -138,7 +138,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
 	// Name of selector class
-	PAF_INFO("RunttHAnalysis", "Loading selector and other packages");
+	PAF_INFO("RunttHAnalysis", "+ Loading selector and other packages");
 	//--------------------------------------------------------------------------
 	myProject->AddSelectorPackage("ttHAnalyzer");
 
