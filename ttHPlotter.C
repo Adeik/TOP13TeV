@@ -1,4 +1,4 @@
-#include <iomanip>
+c#include <iomanip>
 #include "TFile.h"
 #include "TH1F.h"
 #include "TCanvas.h"
@@ -19,9 +19,32 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 
-void TTHPlotter(TString samplename = "ZZ") {
-  TString codepath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV";
-  TString outputpath = "/nfs/fanae/user/vrbouza/Documents/TFG/TOP13TeV/TTHStuff/plots";
+const UInt_t nSamples 		= 25;
+const UInt_t gNCATEGORIES	= 3;
+const UInt_t gNCHANNELS		= 4;
+const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
+const TString sample	[nSamples] 		= {
+  "TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", "TTGJets"	// MC for comparison with data
+  "TTGJets_ext","WW", "WW_ext",
+  "TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
+  "DYJetsToLL_M10to50_aMCatNLO_ext", "TW", "TW_ext", "TbarW", "TbarW_ext",
+  "WZTo3LNu", "WWTo2L2Nu", "ZZ", "ZZ_ext",
+  "TTHonbb",																	// Signal samples
+  "MuonEG", "DoubleMuon", "DoubleEG", "SingleElectron", "SingleMuon"			// Data samples
+};
+TString codepath 	= "/nfs/fanae/user/vrbouza/Documents/TFG/ttHAnalysis";
+TString outputpath 	= "/nfs/fanae/user/vrbouza/Documents/TFG/Results";
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+void ttHPlotter(TString samplename = "ZZ_ext") {
+  TString codepath = "/nfs/fanae/user/vrbouza/Documents/TFG/ttHAnalysis";
+  TString outputpath = "/nfs/fanae/user/vrbouza/Documents/TFG/Results";
   TString filename = "plot_" + samplename + ".pdf";
   TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + samplename + ".root");
   TH1F* h1;

@@ -65,25 +65,8 @@ enum gChannel {
     gNCHANNELS,
 };
 
-const TString gCatLabel[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
 const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
-
-//	Binning-related constants
-const Int_t gNMuFPtBins = 6;
-const Int_t gNMuPPtbins = 10;
-const Int_t gNMuEtabins = 5;
-const Int_t gNElFPtBins = 8;
-const Int_t gNElPPtbins = 10;
-const Int_t gNElEtabins = 5;
-const Int_t gNElCMIdbins = 2;
-
-const Double_t gMuFPtBins[gNMuFPtBins+1]	= {20., 25., 30., 35., 40., 50., 60.};					// Muon binning
-const Double_t gMuPPtbins[gNMuPPtbins+1]	= {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
-const Double_t gMuEtabins[gNMuEtabins+1]	= {0., 0.5, 1.0, 1.479, 2.0, 2.5};
-
-const Double_t gElFPtBins[gNElFPtBins+1]  = {20., 25., 30., 40., 50., 60., 70., 80., 100.};			// Electron binning
-const Double_t gElPPtbins[gNElPPtbins+1]  = {20., 25., 30., 35., 40., 50., 60., 70., 80., 90., 100.};
-const Double_t gElEtabins[gNElEtabins+1]  = {0., 0.5, 1.0, 1.479, 2.0, 2.5};
 
 //------------------------------------------------------------------------------
 //		Classes declarations
