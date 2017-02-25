@@ -29,7 +29,6 @@ void ttHPlotter() {
 	    Total,
 	    gNCATEGORIES,
 	};
-
 	enum gChannel {
 	    channels_begin,
 	    MuMu = channels_begin,
@@ -159,25 +158,25 @@ void ttHPlotter() {
 					fHSChargeSum		[icat][ichan]	-> Add(histChargeSum); // Misc
 					fHSMass				[icat][ichan]	-> Add(histMass);
 				}
-				histEvents				= 0;
-				histTightLep			= 0;
-				histFakeLep				= 0;
-				histLooseLep			= 0;
-				histTau					= 0;
-				histJet					= 0;
-				histMedBTagJet			= 0;
-				histLosBTagJet			= 0;
-				histPtLeading			= 0;
-				histPySubLeading		= 0;
-				histPtSubSubLeading		= 0;
-				histMET					= 0;
-				histMHT					= 0;
-				histMETLD				= 0;
-				histChargeSum			= 0;
-				histMass				= 0;
+				// histEvents				= 0;
+				// histTightLep			= 0;
+				// histFakeLep				= 0;
+				// histLooseLep			= 0;
+				// histTau					= 0;
+				// histJet					= 0;
+				// histMedBTagJet			= 0;
+				// histLosBTagJet			= 0;
+				// histPtLeading			= 0;
+				// histPySubLeading		= 0;
+				// histPtSubSubLeading		= 0;
+				// histMET					= 0;
+				// histMHT					= 0;
+				// histMETLD				= 0;
+				// histChargeSum			= 0;
+				// histMass				= 0;
 			}
 		}
-		f						= 0;
+		// f						= 0;
 	}
 
 	// Drawing
