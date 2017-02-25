@@ -100,7 +100,7 @@ void ttHAnalyzer::InsideLoop() {
 	GetTreeVariables();
 	SetOriginalObjects();
 	SetEventObjects();
-	
+
     if (!PassesPreCuts()) return;
 
 
@@ -110,7 +110,7 @@ void ttHAnalyzer::InsideLoop() {
 
 
 
-	
+
 	// Fill histograms
 	FillEventHistos();
 	FillYieldHistos();

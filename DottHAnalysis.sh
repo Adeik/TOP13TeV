@@ -5,18 +5,22 @@
 #===============================================================================
 
 if [ "$1" == "an" ]; then
-    #------------------------------------ Setting up environment
+    echo ""
+    echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH ANALYSIS EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+    echo ""
+    echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Setting up the environment"
     root6
     source /opt/PoD/PoD_env.sh
     source /opt/PAF/PAF_setup.sh
     resetpaf
 
-    #------------------------------------ Initiating analysis
+    echo "%%%%%> DONE"
+
+    echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis"
     if [ "$2" == "test" ]; then
         root -l -b -q "RunttHAnalysis.C(\"TestHeppy\"							, 1, 0)"
     else
-		# ============== MC
-		# Samples for comparison with data
+    	echo "%%%%%> MC SAMPLES FOR COMPARISON WITH DATA"
         root -l -b -q "RunttHAnalysis.C(\"TTWToLNu_ext2\"						, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"TTZToLLNuNu_ext\"						, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"TTZToLLNuNu_ext2\"					, $2, 0)"
@@ -26,7 +30,7 @@ if [ "$1" == "an" ]; then
         root -l -b -q "RunttHAnalysis.C(\"WW\"									, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"WW_ext\"								, $2, 0)"
 
-		# Samples for control regions
+		echo "%%%%%> MC SAMPLES FOR CONTROL REGIONS"
         root -l -b -q "RunttHAnalysis.C(\"TTJets_aMCatNLO\"						, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"DYJetsToLL_M10to50_aMCatNLO\"			, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"DYJetsToLL_M10to50_aMCatNLO_ext\"		, $2, 0)"
@@ -39,10 +43,10 @@ if [ "$1" == "an" ]; then
         root -l -b -q "RunttHAnalysis.C(\"ZZ\"									, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"ZZ_ext\"								, $2, 0)"
 
-		# Signal samples
+		echo "%%%%%> MC SIGNAL SAMPLES"
         root -l -b -q "RunttHAnalysis.C(\"TTHNonbb\"                       		, $2, 0)"
 
-		# ============== Data
+		echo "%%%%%> DATA SAMPLES"
         root -l -b -q "RunttHAnalysis.C(\"MuonEG\"                            	, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"DoubleMuon\"                        	, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"DoubleEG\"                          	, $2, 0)"
