@@ -41,7 +41,7 @@ void ttHPlotter() {
 	const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample	[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", //"TTGJets",	// MC for comparison with data
-	  	"TTGJets_ext","WW", "WW_ext",
+	  	"TTGJets_ext", "WW_ext",//"WW",
 	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW", "TW_ext", "TbarW", "TbarW_ext",
 	  	"WZTo3LNu", "WWTo2L2Nu", "ZZ", "ZZ_ext",
