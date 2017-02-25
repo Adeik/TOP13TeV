@@ -43,8 +43,8 @@ void ttHPlotter() {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", //"TTGJets",	// MC for comparison with data
 	  	"TTGJets_ext", "WW_ext",//"WW",
 	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
-	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW", "TW_ext", "TbarW", "TbarW_ext",
-	  	"WZTo3LNu", "WWTo2L2Nu", "ZZ", "ZZ_ext",
+	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW_ext", "TbarW_ext", //"TW", "TbarW",
+	  	"WWTo2L2Nu", "ZZ_ext",// "WZTo3LNu", "ZZ",
 	  	"TTHonbb"																	// Signal samples
 	};
 	const TString datasample	[ndataSamples] 		= {
