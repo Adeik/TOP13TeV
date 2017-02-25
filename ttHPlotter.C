@@ -1,4 +1,4 @@
-c#include <iomanip>
+#include <iomanip>
 #include "TFile.h"
 #include "TH1F.h"
 #include "TCanvas.h"
@@ -22,8 +22,22 @@ using namespace std;
 void ttHPlotter() {
 	const UInt_t nmcSamples 	= 20;
 	const UInt_t ndataSamples 	= 5;
-	const UInt_t gNCATEGORIES	= 3;
-	const UInt_t gNCHANNELS		= 4;
+	enum gCategories {
+	    categories_begin,
+	    twolSS = categories_begin,
+	    threelSS,
+	    Total,
+	    gNCATEGORIES,
+	};
+
+	enum gChannel {
+	    channels_begin,
+	    MuMu = channels_begin,
+	    ElEl,
+	    ElMu,
+	    All,
+	    gNCHANNELS,
+	};
 	const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
 	const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample	[nmcSamples] 	= {
