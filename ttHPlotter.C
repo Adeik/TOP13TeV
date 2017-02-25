@@ -114,6 +114,8 @@ void ttHPlotter() {
 	TH1F* histChargeSum;
 	TH1F* histMass;
 
+	cout << "WOLOLOOOOO" << endl;
+
 	for (UInt_t isample = 0; isample < nmcSamples; isample++) {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + mcsample[isample] + ".root");
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
