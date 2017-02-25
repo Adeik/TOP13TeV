@@ -40,7 +40,7 @@ void ttHPlotter() {
 	const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
 	const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample	[nmcSamples] 	= {
-		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", "TTGJets"	// MC for comparison with data
+		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", "TTGJets",	// MC for comparison with data
 	  	"TTGJets_ext","WW", "WW_ext",
 	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW", "TW_ext", "TbarW", "TbarW_ext",
@@ -114,7 +114,7 @@ void ttHPlotter() {
 	TH1F* histChargeSum;
 	TH1F* histMass;
 
-	cout << "WOLOLOOOOO" << endl;
+	cout << "WOLOLOOOOO" << endl; // HASTA AQUÍ BIEN
 
 	for (UInt_t isample = 0; isample < nmcSamples; isample++) {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + mcsample[isample] + ".root");
