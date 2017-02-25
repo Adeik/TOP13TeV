@@ -20,7 +20,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 void ttHPlotter() {
-	const UInt_t nmcSamples 	= 20;
+	const UInt_t nmcSamples 	= 14;
 	const UInt_t ndataSamples 	= 5;
 	enum gCategories {
 	    categories_begin,
