@@ -45,7 +45,7 @@ void ttHPlotter() {
 	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW_ext", "TbarW_ext", //"TW", "TbarW",
 	  	"WWTo2L2Nu", "ZZ_ext",// "WZTo3LNu", "ZZ",
-	  	"TTHonbb"																	// Signal samples
+	  	"TTHNonbb"																	// Signal samples
 	};
 	const TString datasample	[ndataSamples] 		= {
 		"MuonEG", "DoubleMuon", "DoubleEG", "SingleElectron", "SingleMuon"			// Data samples
