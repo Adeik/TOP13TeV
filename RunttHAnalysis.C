@@ -13,7 +13,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
   	Float_t G_Total_Lumi    = 19664.225;
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
-	Float_t G_LumiForPUData = 19468.3;	// luminosity in http://www.hep.uniovi.es/jfernan/PUhistos
 
 	// PAF mode choice and creation of project
 	//--------------------------------------------------------------------------
@@ -132,7 +131,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
-	myProject->SetInputParam("LumiForPU",     G_LumiForPUData  );
 	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);

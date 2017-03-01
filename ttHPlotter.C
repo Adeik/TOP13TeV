@@ -2,6 +2,7 @@
 #include "TFile.h"
 #include "TH1F.h"
 #include "TCanvas.h"
+#include "TColor.h"
 #include "THStack.h"
 #include <iostream>
 #include <sstream>
@@ -37,9 +38,9 @@ void ttHPlotter() {
 	    All,
 	    gNCHANNELS,
 	};
-	const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
-	const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
-	const TString mcsample	[nmcSamples] 	= {
+	const TString gCatLabel			[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
+	const TString mcsample			[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", //"TTGJets",	// MC for comparison with data
 	  	"TTGJets_ext", "WW_ext",//"WW",
 	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
@@ -47,12 +48,20 @@ void ttHPlotter() {
 	  	"WWTo2L2Nu", "ZZ_ext",// "WZTo3LNu", "ZZ",
 	  	"TTHNonbb"																	// Signal samples
 	};
-	const TString datasample	[ndataSamples] 		= {
+	Int_t mcsampleColors	[nmcSamples] 	= {
+		kGreen-5, kSpring+2, kSpring+2, kSpring+2, //"TTGJets",	// MC for comparison with data
+	  	kSpring+1, kViolet+8, //"WW",
+	  	kSpring+2, kCyan+1, 							// MC for control regions
+	  	kCyan+1, kGreen-1, kGreen-1, //"TW", "TbarW",
+	  	kMagenta-7, kYellow,// "WZTo3LNu", "ZZ",
+	  	kOrange+10																	// Signal samples
+	};
+	const TString datasample		[ndataSamples] 	= {
 		"MuonEG", "DoubleMuon", "DoubleEG", "SingleElectron", "SingleMuon"			// Data samples
 	};
 	TString codepath 	= 	"/nfs/fanae/user/vrbouza/Documents/TFG/ttHAnalysis";
-	TString outputpath 	= 	"/nfs/fanae/user/vrbouza/Documents/TFG/Results";
-	TString filename	=	"Results.pdf";
+	TString outputpath 	= 	"/nfs/fanae/user/vrbouza/www/Results";
+	//TString filename	=	"Results.pdf";
 
 	// Initializing THStacks of all the histograms.
 	//------------------------------------------------------------------------------
@@ -141,7 +150,27 @@ void ttHPlotter() {
 					f	->	GetObject("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histChargeSum); // Misc
 					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histMass);
 				}
-
+				
+              	histEvents			->	SetFillColor(mcsampleColors[isample]);
+              	histTightLep		->	SetFillColor(mcsampleColors[isample]);
+              	histFakeLep			->	SetFillColor(mcsampleColors[isample]);
+              	histLooseLep		->	SetFillColor(mcsampleColors[isample]);
+              	histTau				->	SetFillColor(mcsampleColors[isample]);
+              	histJet				->	SetFillColor(mcsampleColors[isample]);
+              	histMedBTagJet		->	SetFillColor(mcsampleColors[isample]);
+              	histLosBTagJet		->	SetFillColor(mcsampleColors[isample]);
+              	histPtLeading		->	SetFillColor(mcsampleColors[isample]);
+              	histPtSubLeading	->	SetFillColor(mcsampleColors[isample]);
+              	histPtSubSubLeading	->	SetFillColor(mcsampleColors[isample]);
+              	histMET				->	SetFillColor(mcsampleColors[isample]);
+              	histMHT				->	SetFillColor(mcsampleColors[isample]);
+              	histMETLD			->	SetFillColor(mcsampleColors[isample]);
+				if (!(icat == twolSS 		&& ichan != All)) {
+		          	histChargeSum		->	SetFillColor(mcsampleColors[isample]);
+		          	histMass			->	SetFillColor(mcsampleColors[isample]);
+				}
+				
+				
 				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
 				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields
 				fHSFakeLep			[icat][ichan]	-> Add(histFakeLep);
@@ -187,15 +216,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> Draw("hist"); // Events
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"Events"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"Events"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"Events"+".pdf");
-			}
+			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -203,15 +228,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSTightLep			[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"TightLep"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"TightLep"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"TightLep"+".pdf");
-			}
+			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -219,15 +240,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSFakeLep			[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"FakeLep"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"FakeLep"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"FakeLep"+".pdf");
-			}
+			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -235,15 +252,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSLooseLep			[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"LooseLep"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"LooseLep"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"LooseLep"+".pdf");
-			}
+			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -251,15 +264,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSTau				[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"Tau"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"Tau"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"Tau"+".pdf");
-			}
+			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -267,15 +276,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSJet				[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"Jet"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"Jet"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"Jet"+".pdf");
-			}
+			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -283,15 +288,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSMedBTagJet		[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"MedBTagJet"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"MedBTagJet"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"MedBTagJet"+".pdf");
-			}
+			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -299,15 +300,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSLosBTagJet		[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"LosBTagJet"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"LosBTagJet"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"LosBTagJet"+".pdf");
-			}
+			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -315,15 +312,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSPtLeading		[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"PtLeading"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"PtLeading"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"PtLeading"+".pdf");
-			}
+			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -331,15 +324,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSPtSubLeading		[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"PtSubLeading"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"PtSubLeading"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"PtSubLeading"+".pdf");
-			}
+			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -347,15 +336,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSPtSubSubLeading	[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"PtSubSubLeading"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"PtSubSubLeading"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"PtSubSubLeading"+".pdf");
-			}
+			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -363,15 +348,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSMET				[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"MET"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"MET"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"MET"+".pdf");
-			}
+			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -379,15 +360,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSMHT				[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"MHT"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"MHT"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"MHT"+".pdf");
-			}
+			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -395,15 +372,11 @@ void ttHPlotter() {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSMETLD			[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"METLD"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"METLD"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"METLD"+".pdf");
-			}
+			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -412,15 +385,11 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSChargeSum		[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"ChargeSum"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"ChargeSum"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"ChargeSum"+".pdf");
-			}
+			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -429,20 +398,13 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			if (icat != threelSS) c -> SetLogy();
 			fHSMass				[icat][ichan]	-> Draw("hist");
-			if (icat == Total && ichan == All) {
-				c->Print(outputpath+"/"+"Mass"+".pdf"+")");
-			} else if (icat == categories_begin && ichan == channels_begin) {
-				c->Print(outputpath+"/"+"Mass"+".pdf"+"(");
-			}
-			else {
-				c->Print(outputpath+"/"+"Mass"+".pdf");
-			}
+			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
+			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
+			delete c;
 		}
 	}
-
-
-
 }
 
 
