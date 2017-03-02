@@ -22,7 +22,7 @@ using namespace std;
 
 void ttHPlotter() {
 	const UInt_t nmcSamples 	= 14;
-	const UInt_t ndataSamples 	= 5;
+	const UInt_t ndataSamples 	= 4;
 	enum gCategories {
 	    categories_begin,
 	    twolSS = categories_begin,
@@ -57,7 +57,7 @@ void ttHPlotter() {
 	  	kOrange+10																	// Signal samples
 	};
 	const TString datasample		[ndataSamples] 	= {
-		"MuonEG", "DoubleMuon", "DoubleEG", "SingleElectron", "SingleMuon"			// Data samples
+		"MuonEG", "DoubleMuon", "DoubleEG", "SingleMuon"//,"SingleElectron"			// Data samples
 	};
 	TString codepath 	= 	"/nfs/fanae/user/vrbouza/Documents/TFG/ttHAnalysis";
 	TString outputpath 	= 	"/nfs/fanae/user/vrbouza/www/Results";
