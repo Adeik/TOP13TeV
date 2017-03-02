@@ -65,22 +65,38 @@ void ttHPlotter() {
 
 	// Initializing THStacks of all the histograms.
 	//------------------------------------------------------------------------------
-	THStack*   fHSEvents    		[gNCATEGORIES][gNCHANNELS]; // Events
-	THStack*   fHSTightLep			[gNCATEGORIES][gNCHANNELS]; // Yields
-	THStack*   fHSFakeLep			[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSLooseLep			[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSTau				[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSJet				[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSMedBTagJet		[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSLosBTagJet		[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSPtLeading			[gNCATEGORIES][gNCHANNELS]; // Kinematic
-	THStack*   fHSPtSubLeading		[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSPtSubSubLeading	[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSMET				[gNCATEGORIES][gNCHANNELS]; // MET
-	THStack*   fHSMHT				[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSMETLD				[gNCATEGORIES][gNCHANNELS];
-	THStack*   fHSChargeSum			[gNCATEGORIES][gNCHANNELS]; // Misc
-	THStack*   fHSMass				[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSEvents    		[gNCATEGORIES][gNCHANNELS]; // Events
+	THStack*   	fHSTightLep			[gNCATEGORIES][gNCHANNELS]; // Yields
+	THStack*   	fHSFakeLep			[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSLooseLep			[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSTau				[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSJet				[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSMedBTagJet		[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSLosBTagJet		[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSPtLeading		[gNCATEGORIES][gNCHANNELS]; // Kinematic
+	THStack*   	fHSPtSubLeading		[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSPtSubSubLeading	[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSMET				[gNCATEGORIES][gNCHANNELS]; // MET
+	THStack*   	fHSMHT				[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSMETLD			[gNCATEGORIES][gNCHANNELS];
+	THStack*   	fHSChargeSum		[gNCATEGORIES][gNCHANNELS]; // Misc
+	THStack*   	fHSMass				[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDEvents    		[gNCATEGORIES][gNCHANNELS]; // Events
+	TH1F*   	fHDTightLep			[gNCATEGORIES][gNCHANNELS]; // Yields
+	TH1F*   	fHDFakeLep			[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDLooseLep			[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDTau				[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDJet				[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDMedBTagJet		[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDLosBTagJet		[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDPtLeading		[gNCATEGORIES][gNCHANNELS]; // Kinematic
+	TH1F*   	fHDPtSubLeading		[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDPtSubSubLeading	[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDMET				[gNCATEGORIES][gNCHANNELS]; // MET
+	TH1F*   	fHDMHT				[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDMETLD			[gNCATEGORIES][gNCHANNELS];
+	TH1F*   	fHDChargeSum		[gNCATEGORIES][gNCHANNELS]; // Misc
+	TH1F*   	fHDMass				[gNCATEGORIES][gNCHANNELS];
 
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
@@ -94,15 +110,31 @@ void ttHPlotter() {
 			fHSJet				[icat][ichan]	=	new THStack("HS_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHSMedBTagJet		[icat][ichan]	=	new THStack("HS_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NMedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHSLosBTagJet		[icat][ichan]	=	new THStack("HS_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
-			fHSPtLeading			[icat][ichan]	=	new THStack("HS_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Kinematic
+			fHSPtLeading		[icat][ichan]	=	new THStack("HS_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Kinematic
 			fHSPtSubLeading		[icat][ichan]	=	new THStack("HS_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHSPtSubSubLeading	[icat][ichan]	=	new THStack("HS_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHSMET				[icat][ichan]	=	new THStack("HS_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // MET
 			fHSMHT				[icat][ichan]	=	new THStack("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
-			fHSMETLD				[icat][ichan]	=	new THStack("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
+			fHSMETLD			[icat][ichan]	=	new THStack("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
+			fHDEvents    		[icat][ichan]	=	new TH1F("HS_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NEvents_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 1, 0, 1); // Events
+			fHDTightLep			[icat][ichan]	=	new TH1F("HS_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10); // Yields
+			fHDFakeLep			[icat][ichan]	=	new TH1F("HS_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NFakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDLooseLep			[icat][ichan]	=	new TH1F("HS_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDTau				[icat][ichan]	=	new TH1F("HS_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDJet				[icat][ichan]	=	new TH1F("HS_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDMedBTagJet		[icat][ichan]	=	new TH1F("HS_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NMedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDLosBTagJet		[icat][ichan]	=	new TH1F("HS_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDPtLeading		[icat][ichan]	=	new TH1F("HS_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300); // Kinematic
+			fHDPtSubLeading		[icat][ichan]	=	new TH1F("HS_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300);
+			fHDPtSubSubLeading	[icat][ichan]	=	new TH1F("HS_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300);
+			fHDMET				[icat][ichan]	=	new TH1F("HS_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 500); // MET
+			fHDMHT				[icat][ichan]	=	new TH1F("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 100, 0, 1000);
+			fHDMETLD			[icat][ichan]	=	new TH1F("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 5, 0, 300);
 			if (icat == twolSS 		&& ichan != All) 	continue;
-			fHSChargeSum			[icat][ichan]	=	new THStack("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Misc
+			fHSChargeSum		[icat][ichan]	=	new THStack("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Misc
 			fHSMass				[icat][ichan]	=	new THStack("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
+			fHDChargeSum		[icat][ichan]	=	new TH1F("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, -5, 5); // Misc
+			fHDMass				[icat][ichan]	=	new TH1F("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 200);
 		}
 	}
 
@@ -121,7 +153,7 @@ void ttHPlotter() {
 	TH1F* histMHT;
 	TH1F* histMETLD;
 	TH1F* histChargeSum;
-	TH1F* histMass;	
+	TH1F* histMass;
 	TH1F* histDEvents;
 	TH1F* histDTightLep;
 	TH1F* histDFakeLep;
@@ -166,7 +198,7 @@ void ttHPlotter() {
 					f	->	GetObject("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histChargeSum); // Misc
 					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histMass);
 				}
-				
+
               	histEvents			->	SetFillColor(mcsampleColors[isample]);
               	histTightLep		->	SetFillColor(mcsampleColors[isample]);
               	histFakeLep			->	SetFillColor(mcsampleColors[isample]);
@@ -185,8 +217,8 @@ void ttHPlotter() {
 		          	histChargeSum		->	SetFillColor(mcsampleColors[isample]);
 		          	histMass			->	SetFillColor(mcsampleColors[isample]);
 				}
-				
-				
+
+
 				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
 				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields
 				fHSFakeLep			[icat][ichan]	-> Add(histFakeLep);
@@ -205,25 +237,8 @@ void ttHPlotter() {
 					fHSChargeSum		[icat][ichan]	-> Add(histChargeSum); // Misc
 					fHSMass				[icat][ichan]	-> Add(histMass);
 				}
-				// histEvents				= 0;
-				// histTightLep			= 0;
-				// histFakeLep				= 0;
-				// histLooseLep			= 0;
-				// histTau					= 0;
-				// histJet					= 0;
-				// histMedBTagJet			= 0;
-				// histLosBTagJet			= 0;
-				// histPtLeading			= 0;
-				// histPySubLeading		= 0;
-				// histPtSubSubLeading		= 0;
-				// histMET					= 0;
-				// histMHT					= 0;
-				// histMETLD				= 0;
-				// histChargeSum			= 0;
-				// histMass				= 0;
 			}
 		}
-		// f						= 0;
 	}
 
 	for (UInt_t isample = 0; isample < ndataSamples; isample++) {
@@ -251,45 +266,28 @@ void ttHPlotter() {
 					f	->	GetObject("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDChargeSum); // Misc
 					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMass);
 				}
-				
-				
-				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
-				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields
-				fHSFakeLep			[icat][ichan]	-> Add(histFakeLep);
-				fHSLooseLep			[icat][ichan]	-> Add(histLooseLep);
-				fHSTau				[icat][ichan]	-> Add(histTau);
-				fHSJet				[icat][ichan]	-> Add(histJet);
-				fHSMedBTagJet		[icat][ichan]	-> Add(histMedBTagJet);
-				fHSLosBTagJet		[icat][ichan]	-> Add(histLosBTagJet);
-				fHSPtLeading		[icat][ichan]	-> Add(histPtLeading); // Kinematic
-				fHSPtSubLeading		[icat][ichan]	-> Add(histPtSubLeading);
-				fHSPtSubSubLeading	[icat][ichan]	-> Add(histPtSubSubLeading);
-				fHSMET				[icat][ichan]	-> Add(histMET); // MET
-				fHSMHT				[icat][ichan]	-> Add(histMHT);
-				fHSMETLD			[icat][ichan]	-> Add(histMETLD);
+
+
+				fHDEvents    		[icat][ichan]	-> Add(histDEvents); // Events
+				fHDTightLep			[icat][ichan]	-> Add(histDTightLep); // Yields
+				fHDFakeLep			[icat][ichan]	-> Add(histDFakeLep);
+				fHDLooseLep			[icat][ichan]	-> Add(histDLooseLep);
+				fHDTau				[icat][ichan]	-> Add(histDTau);
+				fHDJet				[icat][ichan]	-> Add(histDJet);
+				fHDMedBTagJet		[icat][ichan]	-> Add(histDMedBTagJet);
+				fHDLosBTagJet		[icat][ichan]	-> Add(histDLosBTagJet);
+				fHDPtLeading		[icat][ichan]	-> Add(histDPtLeading); // Kinematic
+				fHDPtSubLeading		[icat][ichan]	-> Add(histDPtSubLeading);
+				fHDPtSubSubLeading	[icat][ichan]	-> Add(histDPtSubSubLeading);
+				fHDMET				[icat][ichan]	-> Add(histDMET); // MET
+				fHDMHT				[icat][ichan]	-> Add(histDMHT);
+				fHDMETLD			[icat][ichan]	-> Add(histDMETLD);
 				if (!(icat == twolSS 		&& ichan != All)) {
-					fHSChargeSum		[icat][ichan]	-> Add(histChargeSum); // Misc
-					fHSMass				[icat][ichan]	-> Add(histMass);
+					fHSChargeSum		[icat][ichan]	-> Add(histDChargeSum); // Misc
+					fHSMass				[icat][ichan]	-> Add(histDMass);
 				}
-				// histEvents				= 0;
-				// histTightLep			= 0;
-				// histFakeLep				= 0;
-				// histLooseLep			= 0;
-				// histTau					= 0;
-				// histJet					= 0;
-				// histMedBTagJet			= 0;
-				// histLosBTagJet			= 0;
-				// histPtLeading			= 0;
-				// histPySubLeading		= 0;
-				// histPtSubSubLeading		= 0;
-				// histMET					= 0;
-				// histMHT					= 0;
-				// histMETLD				= 0;
-				// histChargeSum			= 0;
-				// histMass				= 0;
 			}
 		}
-		// f						= 0;
 	}
 
 	// Drawing
@@ -303,6 +301,7 @@ void ttHPlotter() {
 			fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
 			if (icat != threelSS) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
+			fHDEvents    		[icat][ichan]	-> 	Draw("psame"); // Events
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
