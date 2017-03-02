@@ -303,6 +303,7 @@ void ttHPlotter() {
 			//fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
 			if (icat != threelSS) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
+			cout << fHDEvents    		[icat][ichan]	-> 	Integral() << endl;
 			fHDEvents    		[icat][ichan]	-> 	Draw("psame"); // Events
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
