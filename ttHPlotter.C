@@ -285,8 +285,8 @@ void ttHPlotter() {
 				fHDMHT				[icat][ichan]	-> Add(histDMHT);
 				fHDMETLD			[icat][ichan]	-> Add(histDMETLD);
 				if (!(icat == twolSS 		&& ichan != All)) {
-					fHSChargeSum		[icat][ichan]	-> Add(histDChargeSum); // Misc
-					fHSMass				[icat][ichan]	-> Add(histDMass);
+					fHDChargeSum		[icat][ichan]	-> Add(histDChargeSum); // Misc
+					fHDMass				[icat][ichan]	-> Add(histDMass);
 				}
 			}
 		}
@@ -300,7 +300,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			c	->	Divide(1,2);
 			c	->	cd(1);
-			fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
+			//fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
 			if (icat != threelSS) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
 			fHDEvents    		[icat][ichan]	-> 	Draw("psame"); // Events
