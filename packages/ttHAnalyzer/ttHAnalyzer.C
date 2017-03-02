@@ -937,13 +937,13 @@ Bool_t ttHAnalyzer::triggermumuSS() {
     if(!gIsData) return true;
     //return true;
     Bool_t pass = false;
-    if (gIsData){
+    if (!gIsData){
         pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
                 Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
                 Get<Int_t>("HLT_BIT_IsoMu20_v") ||
                 Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
     }else{
-        pass = false;
+        pass = true;
     }
     return pass;
 }
