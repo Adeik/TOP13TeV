@@ -41,17 +41,17 @@ void ttHPlotter() {
 	const TString gCatLabel			[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
 	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample			[nmcSamples] 	= {
-		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToLLNuNu_ext2", "TTZToQQ", //"TTGJets",	// MC for comparison with data
+		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
 	  	"TTGJets_ext", "WW_ext",//"WW",
-	  	"TTJets_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
+	  	"TTJets_aMCatNLO", //"DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW_ext", "TbarW_ext", //"TW", "TbarW",
 	  	"WWTo2L2Nu", "ZZ_ext",// "WZTo3LNu", "ZZ",
 	  	"TTHNonbb"																	// Signal samples
 	};
 	Int_t mcsampleColors	[nmcSamples] 	= {
-		kGreen-5, kSpring+2, kSpring+2, kSpring+2, //"TTGJets",	// MC for comparison with data
+		kGreen-5, kSpring+2, kSpring+2, //kSpring+2, "TTGJets",	// MC for comparison with data
 	  	kSpring+1, kViolet+8, //"WW",
-	  	kSpring+2, kCyan+1, 							// MC for control regions
+	  	kSpring+2, //kCyan+1, 							// MC for control regions
 	  	kCyan+1, kGreen-1, kGreen-1, //"TW", "TbarW",
 	  	kMagenta-7, kYellow,// "WZTo3LNu", "ZZ",
 	  	kOrange+10																	// Signal samples
@@ -121,7 +121,23 @@ void ttHPlotter() {
 	TH1F* histMHT;
 	TH1F* histMETLD;
 	TH1F* histChargeSum;
-	TH1F* histMass;
+	TH1F* histMass;	
+	TH1F* histDEvents;
+	TH1F* histDTightLep;
+	TH1F* histDFakeLep;
+	TH1F* histDLooseLep;
+	TH1F* histDTau;
+	TH1F* histDJet;
+	TH1F* histDMedBTagJet;
+	TH1F* histDLosBTagJet;
+	TH1F* histDPtLeading;
+	TH1F* histDPtSubLeading;
+	TH1F* histDPtSubSubLeading;
+	TH1F* histDMET;
+	TH1F* histDMHT;
+	TH1F* histDMETLD;
+	TH1F* histDChargeSum;
+	TH1F* histDMass;
 
 	cout << "WOLOLOOOOO" << endl; // HASTA AQUÍ BIEN
 
@@ -210,14 +226,83 @@ void ttHPlotter() {
 		// f						= 0;
 	}
 
+	for (UInt_t isample = 0; isample < ndataSamples; isample++) {
+		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + datasample[isample] + ".root");
+		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+				if (icat == threelSS 	&& ichan != All) 	continue;
+				if (icat == Total 		&& ichan != All) 	continue;
+				f	->	GetObject("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDEvents); // Events
+				f	->	GetObject("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDTightLep); // Yields
+				f	->	GetObject("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDFakeLep);
+				f	->	GetObject("H_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDLooseLep);
+				f	->	GetObject("H_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDTau);
+				f	->	GetObject("H_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDJet);
+				f	->	GetObject("H_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMedBTagJet);
+				f	->	GetObject("H_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDLosBTagJet);
+				f	->	GetObject("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDPtLeading); // Kinematic
+				f	->	GetObject("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDPtSubLeading);
+				f	->	GetObject("H_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDPtSubSubLeading);
+				f	->	GetObject("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMET); // MET
+				f	->	GetObject("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMHT);
+				f	->	GetObject("H_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMETLD);
+
+				if (!(icat == twolSS 		&& ichan != All)) {
+					f	->	GetObject("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDChargeSum); // Misc
+					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMass);
+				}
+				
+				
+				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
+				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields
+				fHSFakeLep			[icat][ichan]	-> Add(histFakeLep);
+				fHSLooseLep			[icat][ichan]	-> Add(histLooseLep);
+				fHSTau				[icat][ichan]	-> Add(histTau);
+				fHSJet				[icat][ichan]	-> Add(histJet);
+				fHSMedBTagJet		[icat][ichan]	-> Add(histMedBTagJet);
+				fHSLosBTagJet		[icat][ichan]	-> Add(histLosBTagJet);
+				fHSPtLeading		[icat][ichan]	-> Add(histPtLeading); // Kinematic
+				fHSPtSubLeading		[icat][ichan]	-> Add(histPtSubLeading);
+				fHSPtSubSubLeading	[icat][ichan]	-> Add(histPtSubSubLeading);
+				fHSMET				[icat][ichan]	-> Add(histMET); // MET
+				fHSMHT				[icat][ichan]	-> Add(histMHT);
+				fHSMETLD			[icat][ichan]	-> Add(histMETLD);
+				if (!(icat == twolSS 		&& ichan != All)) {
+					fHSChargeSum		[icat][ichan]	-> Add(histChargeSum); // Misc
+					fHSMass				[icat][ichan]	-> Add(histMass);
+				}
+				// histEvents				= 0;
+				// histTightLep			= 0;
+				// histFakeLep				= 0;
+				// histLooseLep			= 0;
+				// histTau					= 0;
+				// histJet					= 0;
+				// histMedBTagJet			= 0;
+				// histLosBTagJet			= 0;
+				// histPtLeading			= 0;
+				// histPySubLeading		= 0;
+				// histPtSubSubLeading		= 0;
+				// histMET					= 0;
+				// histMHT					= 0;
+				// histMETLD				= 0;
+				// histChargeSum			= 0;
+				// histMass				= 0;
+			}
+		}
+		// f						= 0;
+	}
+
 	// Drawing
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threelSS 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
+			c	->	Divide(1,2);
+			c	->	cd(1);
+			fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
 			if (icat != threelSS) c -> SetLogy();
-			fHSEvents    		[icat][ichan]	-> Draw("hist"); // Events
+			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
