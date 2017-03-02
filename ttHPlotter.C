@@ -269,7 +269,7 @@ void ttHPlotter() {
 					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMass);
 				}
 
-
+				cout<< histDEvents->Integral()<<endl;
 				fHDEvents    		[icat][ichan]	-> Add(histDEvents); // Events
 				fHDTightLep			[icat][ichan]	-> Add(histDTightLep); // Yields
 				fHDFakeLep			[icat][ichan]	-> Add(histDFakeLep);
