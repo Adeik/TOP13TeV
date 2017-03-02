@@ -21,7 +21,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 void ttHPlotter() {
-	const UInt_t nmcSamples 	= 14;
+	const UInt_t nmcSamples 	= 12;
 	const UInt_t ndataSamples 	= 4;
 	enum gCategories {
 	    categories_begin,
