@@ -241,6 +241,8 @@ void ttHPlotter() {
 		}
 	}
 
+	cout<< "jojojojojojo" << endl;
+
 	for (UInt_t isample = 0; isample < ndataSamples; isample++) {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + datasample[isample] + ".root");
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
