@@ -211,7 +211,7 @@ void ttHAnalyzer::GetParameters() {
 void ttHAnalyzer::InitialiseEventHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHEvents[icat][ichan] = CreateH1F("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""						, 1, 0, 1);
 		}
@@ -221,7 +221,7 @@ void ttHAnalyzer::InitialiseEventHistos() {
 void ttHAnalyzer::InitialiseYieldHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHTightLep	[icat][ichan] = CreateH1F("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
 			fHFakeLep	[icat][ichan] = CreateH1F("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""					, 10, 0, 10);
@@ -237,7 +237,7 @@ void ttHAnalyzer::InitialiseYieldHistos() {
 void ttHAnalyzer::InitialiseKinematicHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHPtLeading			[icat][ichan] = CreateH1F("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 20, 0, 300);
 			fHPtSubLeading		[icat][ichan] = CreateH1F("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 20, 0, 300);
@@ -249,7 +249,7 @@ void ttHAnalyzer::InitialiseKinematicHistos() {
 void ttHAnalyzer::InitialiseMETHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 50, 0, 500);
 			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 100, 0, 1000);
@@ -262,7 +262,7 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == twolSS 		&& ichan != All) 	continue;
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 10, -5, 5);
 			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 50, 0, 200);
@@ -279,12 +279,12 @@ void ttHAnalyzer::FillEventHistos() {
 			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
 			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
 			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threelSS 	&& (!Is3lSSEvent() || ichan != All)) continue;
+			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
 			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threelSS		&& !trigger3l4l()) continue;
+			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
 		}
@@ -298,12 +298,12 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
 			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
 			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threelSS 	&& (!Is3lSSEvent() || ichan != All)) continue;
+			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
 			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threelSS		&& !trigger3l4l()) continue;
+			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
@@ -323,12 +323,12 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
 			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
 			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat	== threelSS 	&& (!Is3lSSEvent() || ichan != All)) continue;
+			if (icat	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
 			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threelSS		&& !trigger3l4l()) continue;
+			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
@@ -344,12 +344,12 @@ void ttHAnalyzer::FillMETHistos() {
 			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
 			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
 			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threelSS 	&& (!Is3lSSEvent() || ichan != All)) continue;
+			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
 			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threelSS		&& !trigger3l4l()) continue;
+			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
@@ -362,16 +362,16 @@ void ttHAnalyzer::FillMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& (!Is2lSSEvent() || ichan != All)) continue;
-			if (icat 	== threelSS 	&& (!Is3lSSEvent() || ichan != All)) continue;
+			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
 			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threelSS		&& !trigger3l4l()) continue;
+			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
 			if (icat == twolSS) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
-			if (icat == threelSS) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p+TightLepton[2].p).M(),EventWeight);
+			if (icat == threel) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p+TightLepton[2].p).M(),EventWeight);
 		}
 	}
 }
@@ -845,7 +845,7 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
 	return true;
 }
 
-Bool_t ttHAnalyzer::Is3lSSEvent() {
+Bool_t ttHAnalyzer::Is3lEvent() {
 	if (nTightElec + nTightMuon < 3) return false;
 	if (TightLepton[0].p.Pt() < 20) return false;
 	if (TightLepton[1].p.Pt() < 10 || TightLepton[2].p.Pt() < 10) return false;
@@ -934,74 +934,48 @@ Bool_t ttHAnalyzer::PassesPreCuts(){
 03-03-2016 ("Search for ttH in multilepton final states at 13 TeV").
 */
 Bool_t ttHAnalyzer::triggermumuSS() {
-    if(!gIsData) return true;
-    //return true;
     Bool_t pass = false;
-    if (!gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
-                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
-                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
-    }else{
-        pass = true;
-    }
+    pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
     return pass;
 }
-
 
 Bool_t ttHAnalyzer::triggereeSS(){
-    if(!gIsData) return true;
-    //return true;
     Bool_t pass = false;
-    if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
-               Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
-               Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
-    } else {
-        pass = false;
-    }
+    pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
+           Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
+           Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
     return pass;
 }
 
-
 Bool_t ttHAnalyzer::triggeremuSS(){
-    if(!gIsData) return true;
-    //return true;
     Bool_t pass = false;
-    if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
-                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
-                Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
-    } else {
-        pass = false;
-    }
+    pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
     return pass;
 }
 
 Bool_t ttHAnalyzer::trigger3l4l(){
-    if(!gIsData) return true;
-    //return true;
     Bool_t pass = false;
-    if (gIsData){
-        pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
-                Get<Int_t>("HLT_BIT_IsoMu20_v") ||
-                Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v") ||
-                Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
-                Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") ||
-                Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v"));
-    }else{
-        pass = false;
-    }
+    pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v") ||
+            Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
+            Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v"));
     return pass;
 }
 
@@ -1064,8 +1038,8 @@ void ttHAnalyzer::SetEventObjects(){
 		cout << "DEBUGC - SetEventObjects"<< endl;
 	#endif
 	ResetHypLeptons();
-
 	EventWeight 	= 1.;
+	if (!gIsData) EventWeight = gWeight;
 
 	// Counters initialization
 	nJets       	= 0;

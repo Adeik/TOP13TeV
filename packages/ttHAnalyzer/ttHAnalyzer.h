@@ -51,7 +51,7 @@ const Float_t gLooseElectronPtCut = 7.;
 enum gCategories {
     categories_begin,
     twolSS = categories_begin,
-    threelSS,
+    threel,
     Total,
     gNCATEGORIES,
 };
@@ -65,7 +65,7 @@ enum gChannel {
     gNCHANNELS,
 };
 
-const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+const TString gCatLabel	[gNCATEGORIES] 	= {"2lSS","3l","Total"};
 const TString gChanLabel[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 
 //------------------------------------------------------------------------------
@@ -231,7 +231,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Bool_t	IsElElEvent();
 	    Bool_t 	IsSSEvent();
 	    Bool_t 	Is2lSSEvent();
-	    Bool_t 	Is3lSSEvent();
+	    Bool_t 	Is3lEvent();
 
 		Bool_t 	PassesPreCuts();
 

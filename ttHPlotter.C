@@ -26,7 +26,7 @@ void ttHPlotter() {
 	enum gCategories {
 	    categories_begin,
 	    twolSS = categories_begin,
-	    threelSS,
+	    threel,
 	    Total,
 	    gNCATEGORIES,
 	};
@@ -38,7 +38,7 @@ void ttHPlotter() {
 	    All,
 	    gNCHANNELS,
 	};
-	const TString gCatLabel			[gNCATEGORIES] 	= {"2lSS","3lSS","Total"};
+	const TString gCatLabel			[gNCATEGORIES] 	= {"2lSS","3l","Total"};
 	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample			[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
@@ -100,7 +100,7 @@ void ttHPlotter() {
 
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHSEvents    		[icat][ichan]	=	new THStack("HS_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NEvents_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Events
 			fHSTightLep			[icat][ichan]	=	new THStack("HS_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Yields
@@ -177,7 +177,7 @@ void ttHPlotter() {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + mcsample[isample] + ".root");
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat == threelSS 	&& ichan != All) 	continue;
+				if (icat == threel 	&& ichan != All) 	continue;
 				if (icat == Total 		&& ichan != All) 	continue;
 				f	->	GetObject("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histEvents); // Events
 				f	->	GetObject("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histTightLep); // Yields
@@ -247,7 +247,7 @@ void ttHPlotter() {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + datasample[isample] + ".root");
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat == threelSS 	&& ichan != All) 	continue;
+				if (icat == threel 	&& ichan != All) 	continue;
 				if (icat == Total 		&& ichan != All) 	continue;
 				f	->	GetObject("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDEvents); // Events
 				f	->	GetObject("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDTightLep); // Yields
@@ -295,13 +295,13 @@ void ttHPlotter() {
 	// Drawing
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			c	->	Divide(1,2);
 			c	->	cd(1);
 			//fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
 			cout << fHDEvents    		[icat][ichan]	-> 	Integral() << endl;
 			fHDEvents    		[icat][ichan]	-> 	Draw("psame"); // Events
@@ -312,10 +312,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSTightLep			[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -324,10 +324,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSFakeLep			[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -336,10 +336,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSLooseLep			[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -348,10 +348,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSTau				[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -360,10 +360,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSJet				[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -372,10 +372,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSMedBTagJet		[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -384,10 +384,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSLosBTagJet		[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -396,10 +396,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSPtLeading		[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -408,10 +408,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSPtSubLeading		[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -420,10 +420,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSPtSubSubLeading	[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -432,10 +432,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSMET				[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -444,10 +444,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSMHT				[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -456,10 +456,10 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSMETLD			[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -468,11 +468,11 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSChargeSum		[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
@@ -481,11 +481,11 @@ void ttHPlotter() {
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threelSS 	&& ichan != All) 	continue;
+			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threelSS) c -> SetLogy();
+			if (icat != threel) c -> SetLogy();
 			fHSMass				[icat][ichan]	-> Draw("hist");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
