@@ -68,6 +68,16 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	    }
 	    G_Event_Weight = 1.;
 	    G_IsData = true;
+	    cout << endl;
+		cout << " #===============================================" 	<< endl;
+		cout << " #          sampleName = " << sampleName               << endl;
+		cout << " #	     x-section = " << dm->GetCrossSection()     	<< endl;
+		cout << " #	       nevents = " << dm->GetEventsInTheSample()	<< endl;
+		cout << " #	        weight = " << G_Event_Weight	        	<< endl;
+		cout << " #	        isData = " << G_IsData	                	<< endl;
+		cout << " #===============================================" 	<< endl;
+		cout << endl;
+
   	}
   	else { // Deal with MC samples
 		PAF_INFO("RunttHAnalysis", "	> The sample is MC SIMULATION ");
@@ -97,9 +107,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 		}
 
     	if (nEvents ==0) nEvents= dm->GetEventsInTheSample();
-	}
-
-    cout << endl;
+    	    cout << endl;
     cout << " #===============================================" 	<< endl;
     cout << " #          sampleName = " << sampleName               << endl;
 	cout << " #	     x-section = " << dm->GetCrossSection()     	<< endl;
@@ -109,6 +117,8 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	cout << " #	        isData = " << G_IsData	                	<< endl;
 	cout << " #===============================================" 	<< endl;
 	cout << endl;
+
+	}
 
 	// Output file name
   	//--------------------------------------------------------------------------

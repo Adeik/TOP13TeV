@@ -253,7 +253,7 @@ void ttHAnalyzer::InitialiseMETHistos() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 50, 0, 500);
 			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 100, 0, 1000);
-			fHMETLD				[icat][ichan] = CreateH1F("H_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 5, 0, 300);
+			fHMETLD				[icat][ichan] = CreateH1F("H_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 10, 0, 2);
 		}
 	}
 }
@@ -264,7 +264,7 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
-			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 10, -5, 5);
+			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 7, -3.5, 3.5);
 			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 50, 0, 200);
 		}
 	}
@@ -362,7 +362,7 @@ void ttHAnalyzer::FillMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& (!Is2lSSEvent() || ichan != All)) continue;
-			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
+			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
@@ -370,8 +370,7 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
-			if (icat == twolSS) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
-			if (icat == threel) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p+TightLepton[2].p).M(),EventWeight);
+			if (icat == twolSS || icat == threel || icat == Total) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
 	}
 }
@@ -828,9 +827,8 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 Bool_t ttHAnalyzer::Is2lSSEvent() {
 	if (nTightElec + nTightMuon > 2) return false;
 	if (!IsSSEvent()) return false;
-	if (IsMuMuEvent()) {
-		if (TightLepton[0].p.Pt() < 20) return false;
-	} else if (TightLepton[1].type == 1){
+	if (TightLepton[0].p.Pt() < 20) return false;
+	if (TightLepton[1].type == 1){
 		if (TightLepton[0].p.Pt() < 15) return false;
 	}
 	UInt_t nicejets = 0;
@@ -849,7 +847,7 @@ Bool_t ttHAnalyzer::Is3lEvent() {
 	if (nTightElec + nTightMuon < 3) return false;
 	if (TightLepton[0].p.Pt() < 20) return false;
 	if (TightLepton[1].p.Pt() < 10 || TightLepton[2].p.Pt() < 10) return false;
-	if ((nLooseMuon +nLooseElec) != 0){
+	if ((nLooseMuon + nLooseElec) > 1) {
 		for (UInt_t i = 0; i < nLooseMuon + nLooseElec; i++) {
 			for (UInt_t j = i; j < nLooseMuon + nLooseElec; j++) {
 				if (LooseLepton[i].type != LooseLepton[j].type) continue;
@@ -870,10 +868,7 @@ Bool_t ttHAnalyzer::Is3lEvent() {
 	} else if (nJets < 4) {
 		if (getMETLD() < 0.3) return false;
 	}
-	if (TightLepton[0].charge + TightLepton[1].charge + TightLepton[2].charge != 1 ||
-	TightLepton[0].charge + TightLepton[1].charge + TightLepton[2].charge != -1) {
-		return false;
-	}
+	if (abs(TightLepton[0].charge + TightLepton[1].charge + TightLepton[2].charge) != 1) return false;
 	return true;
 }
 
@@ -935,36 +930,43 @@ Bool_t ttHAnalyzer::PassesPreCuts(){
 */
 Bool_t ttHAnalyzer::triggermumuSS() {
     Bool_t pass = false;
+    //cout<<"COMIENZOMUMUSS"<<endl;
     pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
             Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
             Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
             Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v"));
+    //cout<<"FINMUMUSS"<<endl;
     return pass;
 }
 
 Bool_t ttHAnalyzer::triggereeSS(){
     Bool_t pass = false;
+    //cout<<"COMIENZOEESS"<<endl;
     pass =  (Get<Int_t>("HLT_BIT_HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v") ||
            Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
            Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
+    //cout<<"FINEESS"<<endl;
     return pass;
 }
 
 Bool_t ttHAnalyzer::triggeremuSS(){
     Bool_t pass = false;
+    //cout<<"COMIENZOEMUSS"<<endl;
     pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v") ||
             Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
-            Get<Int_t>("HLT_BIT_HLT_IsoTkMu80_v") ||
+            Get<Int_t>("HLT_BIT_HLT_IsoTkMu20_v") ||
             Get<Int_t>("HLT_BIT_HLT_Ele25_WPTight_Gsf_v") ||
             Get<Int_t>("HLT_BIT_HLT_Ele45_WPLoose_Gsf_v"));
+    //cout<<"FINEMUSS"<<endl;
     return pass;
 }
 
 Bool_t ttHAnalyzer::trigger3l4l(){
     Bool_t pass = false;
+    //cout<<"COMIENZO3L4L"<<endl;
     pass =  (Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v") ||
-            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVl_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v") ||
             Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v") ||
             Get<Int_t>("HLT_BIT_HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v") ||
             Get<Int_t>("HLT_BIT_HLT_IsoMu20_v") ||
@@ -976,6 +978,7 @@ Bool_t ttHAnalyzer::trigger3l4l(){
             Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
             Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") ||
             Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v"));
+    //cout<<"FIN3L4LSS"<<endl;
     return pass;
 }
 

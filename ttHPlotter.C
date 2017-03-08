@@ -21,8 +21,8 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 void ttHPlotter() {
-	const UInt_t nmcSamples 	= 12;
-	const UInt_t ndataSamples 	= 4;
+	const UInt_t nmcSamples 	= 22;
+	const UInt_t ndataSamples 	= 5;
 	enum gCategories {
 	    categories_begin,
 	    twolSS = categories_begin,
@@ -42,22 +42,24 @@ void ttHPlotter() {
 	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample			[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
-	  	"TTGJets_ext", "WW_ext",//"WW",
+	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "TTGJets_ext", "ZZZ", "WWZ", "WW_ext",//"WW",
+	  	"tZq_ll", "TTTT", 
 	  	"TTJets_aMCatNLO", //"DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
-	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "TW_ext", "TbarW_ext", //"TW", "TbarW",
-	  	"WWTo2L2Nu", "ZZ_ext",// "WZTo3LNu", "ZZ",
+	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "WJetsToLNu_MLM", "TW_ext", "TbarW_ext", //"TW", "TbarW",
+	  	"T_tch", "Tbar_tch", "WWTo2L2Nu", "ZZ_ext",//, "TToLeptons_sch_amcatnlo", "WZTo3LNu", "ZZ",
 	  	"TTHNonbb"																	// Signal samples
 	};
 	Int_t mcsampleColors	[nmcSamples] 	= {
 		kGreen-5, kSpring+2, kSpring+2, //kSpring+2, "TTGJets",	// MC for comparison with data
-	  	kSpring+1, kViolet+8, //"WW",
+	  	kAzure-9, kAzure-9, kAzure-9, kSpring+1, kAzure-9, kAzure-9, kAzure-9, //"WW",
+	  	kAzure-9, kAzure-9,
 	  	kSpring+2, //kCyan+1, 							// MC for control regions
-	  	kCyan+1, kGreen-1, kGreen-1, //"TW", "TbarW",
-	  	kMagenta-7, kYellow,// "WZTo3LNu", "ZZ",
+	  	kCyan+1, kGreen-5, kGreen-1, kGreen-1, //"TW", "TbarW",
+	  	kRed, kRed, kAzure-9, kYellow,// "WZTo3LNu", "ZZ",
 	  	kOrange+10																	// Signal samples
 	};
 	const TString datasample		[ndataSamples] 	= {
-		"MuonEG", "DoubleMuon", "DoubleEG", "SingleMuon"//,"SingleElectron"			// Data samples
+		"MuonEG", "DoubleMuon", "DoubleEG", "SingleMuon", "SingleElec"			// Data samples
 	};
 	TString codepath 	= 	"/nfs/fanae/user/vrbouza/Documents/TFG/ttHAnalysis";
 	TString outputpath 	= 	"/nfs/fanae/user/vrbouza/www/Results";
@@ -129,11 +131,11 @@ void ttHPlotter() {
 			fHDPtSubSubLeading	[icat][ichan]	=	new TH1F("HS_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300);
 			fHDMET				[icat][ichan]	=	new TH1F("HS_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 500); // MET
 			fHDMHT				[icat][ichan]	=	new TH1F("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 100, 0, 1000);
-			fHDMETLD			[icat][ichan]	=	new TH1F("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 5, 0, 300);
+			fHDMETLD			[icat][ichan]	=	new TH1F("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 2);
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			fHSChargeSum		[icat][ichan]	=	new THStack("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Misc
 			fHSMass				[icat][ichan]	=	new THStack("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
-			fHDChargeSum		[icat][ichan]	=	new TH1F("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, -5, 5); // Misc
+			fHDChargeSum		[icat][ichan]	=	new TH1F("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 7, -3.5, 3.5); // Misc
 			fHDMass				[icat][ichan]	=	new TH1F("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 200);
 		}
 	}
@@ -298,13 +300,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			c	->	Divide(1,2);
-			c	->	cd(1);
-			//fHSEvents    		[icat][ichan]	->	GetYaxis()	->	SetTitle("Events");
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
-			cout << fHDEvents    		[icat][ichan]	-> 	Integral() << endl;
-			fHDEvents    		[icat][ichan]	-> 	Draw("psame"); // Events
+			fHDEvents    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -315,8 +313,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSTightLep			[icat][ichan]	-> Draw("hist");
+			fHDTightLep    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -327,8 +326,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSFakeLep			[icat][ichan]	-> Draw("hist");
+			fHDFakeLep    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -339,8 +339,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSLooseLep			[icat][ichan]	-> Draw("hist");
+			fHDLooseLep    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -351,8 +352,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSTau				[icat][ichan]	-> Draw("hist");
+			fHDTau    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -363,8 +365,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSJet				[icat][ichan]	-> Draw("hist");
+			fHDJet    		[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -375,8 +378,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSMedBTagJet		[icat][ichan]	-> Draw("hist");
+			fHDMedBTagJet    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -387,8 +391,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSLosBTagJet		[icat][ichan]	-> Draw("hist");
+			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -399,8 +404,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSPtLeading		[icat][ichan]	-> Draw("hist");
+			fHDPtLeading    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -411,8 +417,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSPtSubLeading		[icat][ichan]	-> Draw("hist");
+			fHDPtSubLeading    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -423,8 +430,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSPtSubSubLeading	[icat][ichan]	-> Draw("hist");
+			fHDPtSubSubLeading    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -435,8 +443,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSMET				[icat][ichan]	-> Draw("hist");
+			fHDMET    			[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -447,8 +456,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSMHT				[icat][ichan]	-> Draw("hist");
+			fHDMHT		    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -459,8 +469,9 @@ void ttHPlotter() {
 			if (icat == threel 	&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSMETLD			[icat][ichan]	-> Draw("hist");
+			fHDMETLD	    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -472,8 +483,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSChargeSum		[icat][ichan]	-> Draw("hist");
+			fHDChargeSum    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -485,8 +497,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
-			if (icat != threel) c -> SetLogy();
+			//if (icat != threel) c -> SetLogy();
 			fHSMass				[icat][ichan]	-> Draw("hist");
+			fHDMass		    	[icat][ichan]	-> 	Draw("pesame");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
