@@ -143,13 +143,7 @@ void ttHAnalyzer::Summary() {
 				fHMHT				[icat][ichan]->Scale(gTotalLumi);
 				fHMETLD				[icat][ichan]->Scale(gTotalLumi);
 				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
-				fHMass				[icat][ichan]->Scale(gTotalLumi)
-			}
-		}
-
-		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
-			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat == twolSS || icat == threel || icat == Total)	;
+				fHMass				[icat][ichan]->Scale(gTotalLumi);
 			}
 		}
 	}
