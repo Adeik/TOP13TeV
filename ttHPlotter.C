@@ -327,7 +327,7 @@ void ttHPlotter() {
 			l->SetLineColor(kWhite);
 			l->SetLineWidth(2);
 
-			TObjLink *lnk = EventsList>FirstLink();
+			TObjLink *lnk = EventsList->FirstLink();
 
 			while (lnk) {
 				l->AddEntry(lnk);
