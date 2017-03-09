@@ -128,6 +128,8 @@ void ttHAnalyzer::Summary() {
 
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+				if (icat 	== threel 	&& ichan != All) continue;
+				if (icat 	== Total 	&& ichan != All) continue;
 				fHEvents			[icat][ichan]->Scale(gTotalLumi);
 				fHTightLep			[icat][ichan]->Scale(gTotalLumi);
 				fHFakeLep			[icat][ichan]->Scale(gTotalLumi);
@@ -142,11 +144,21 @@ void ttHAnalyzer::Summary() {
 				fHMET				[icat][ichan]->Scale(gTotalLumi);
 				fHMHT				[icat][ichan]->Scale(gTotalLumi);
 				fHMETLD				[icat][ichan]->Scale(gTotalLumi);
+				if (icat 	== twolSS 		&&  ichan != All) continue;
+				if (icat 	== threel 		&&  ichan != All) continue;
 				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
-				fHMass				[icat][ichan]->Scale(gTotalLumi);
+				if (icat == twolSS || icat == threel || icat == Total) fHMass				[icat][ichan]->Scale(gTotalLumi);
 			}
 		}
 	}
+
+		if (icat 	== Total 		&& ichan != All) continue;
+		fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
+
+
+
+
+
 
 	PAF_INFO("ttHAnalyzer", "+ Analysis DONE");
 	cout << endl;
@@ -310,7 +322,6 @@ void ttHAnalyzer::FillEventHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
-			if (!gIsData) fHEvents[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -330,19 +341,12 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
-			if (!gIsData) fHTightLep	[icat][ichan]->Scale(gTotalLumi);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
-			if (!gIsData) fHFakeLep	[icat][ichan]->Scale(gTotalLumi);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
-			if (!gIsData) fHLooseLep	[icat][ichan]->Scale(gTotalLumi);
 			fHTau		[icat][ichan]->Fill(nTaus,EventWeight);
-			if (!gIsData) fHTau		[icat][ichan]->Scale(gTotalLumi);
 			fHJet		[icat][ichan]->Fill(nJets,EventWeight);
-			if (!gIsData) fHJet		[icat][ichan]->Scale(gTotalLumi);
 			fHMedBTagJet[icat][ichan]->Fill(nMediumBTags,EventWeight);
-			if (!gIsData) fHMedBTagJet[icat][ichan]->Scale(gTotalLumi);
 			fHLosBTagJet[icat][ichan]->Fill(nLooseBTags,EventWeight);
-			if (!gIsData) fHLosBTagJet[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -362,11 +366,8 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
-			if (!gIsData) fHPtLeading			[icat][ichan]->Scale(gTotalLumi);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
-			if (!gIsData) fHPtSubLeading		[icat][ichan]->Scale(gTotalLumi);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
-			if (!gIsData) fHPtSubSubLeading	[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -386,11 +387,8 @@ void ttHAnalyzer::FillMETHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
-			if (!gIsData) fHMET	[icat][ichan]->Scale(gTotalLumi);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
-			if (!gIsData) fHMHT	[icat][ichan]->Scale(gTotalLumi);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
-			if (!gIsData) fHMETLD	[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -407,11 +405,7 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
-			if (!gIsData) fHChargeSum	[icat][ichan]->Scale(gTotalLumi);
-			if (icat == twolSS || icat == threel || icat == Total) {
-			 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
-			 	if (!gIsData) fHMass	[icat][ichan]->Scale(gTotalLumi);
-			 }
+			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
 	}
 }
