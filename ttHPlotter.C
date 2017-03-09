@@ -328,7 +328,7 @@ void ttHPlotter() {
 			l->SetLineColor(kWhite);
 			l->SetLineWidth(2);
 
-			for (TList::iterator ih	= EventsList->First(); ih < EventsList->Last();ih++) {
+			for (TList::MakeIterator() ih	= EventsList->First(); ih < EventsList->Last();ih++) {
 				TH1* h = (TH1*)ih;
 				l->AddEntry(h);
 			}
