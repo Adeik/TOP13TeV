@@ -20,8 +20,9 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 void ttHPlotter() {
-	const UInt_t nmcSamples 	= 25;
-	const UInt_t ndataSamples 	= 5;
+	const Float_t lumi			=	35870;
+	const UInt_t nmcSamples 	= 	25;
+	const UInt_t ndataSamples 	= 	5;
 	enum gCategories {
 	    categories_begin,
 	    twolSS = categories_begin,
@@ -179,7 +180,7 @@ void ttHPlotter() {
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 				if (icat == threel 	&& ichan != All) 	continue;
-				if (icat == Total 		&& ichan != All) 	continue;
+				if (icat == Total 	&& ichan != All) 	continue;
 				f	->	GetObject("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histEvents); // Events
 				f	->	GetObject("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histTightLep); // Yields
 				f	->	GetObject("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histFakeLep);
@@ -233,6 +234,35 @@ void ttHPlotter() {
               	histMET				->	SetTitle(mcsample[isample]);
               	histMHT				->	SetTitle(mcsample[isample]);
               	histMETLD			->	SetTitle(mcsample[isample]);
+				if (!(icat == twolSS 		&& ichan != All)) {
+		          	histChargeSum		->	SetTitle(mcsample[isample]);
+		          	histMass			->	SetTitle(mcsample[isample]);
+				}
+
+				for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+					for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+						if (icat 	== threel 	&& ichan != All) continue;
+						if (icat 	== Total 	&& ichan != All) continue;
+						histEvents			->Scale(lumi);
+						histTightLep		->Scale(lumi);
+						histFakeLep			->Scale(lumi);
+						histLooseLep		->Scale(lumi);
+						histTau				->Scale(lumi);
+						histJet				->Scale(lumi);
+						histMedBTagJet		->Scale(lumi);
+						histLosBTagJet		->Scale(lumi);
+						histPtLeading		->Scale(lumi);
+						histPtSubLeading	->Scale(lumi);
+						histPtSubSubLeading	->Scale(lumi);
+						histMET				->Scale(lumi);
+						histMHT				->Scale(lumi);
+						histMETLD			->Scale(lumi);
+						if (icat 	== twolSS 		&&  ichan != All) continue;
+						if (icat 	== threel 		&&  ichan != All) continue;
+						histChargeSum			->Scale(lumi);
+						if (icat == twolSS || icat == threel || icat == Total) histMass			->Scale(lumi);
+					}
+				}
 
 				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
 				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields

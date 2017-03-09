@@ -122,37 +122,6 @@ void ttHAnalyzer::InsideLoop() {
 }
 
 void ttHAnalyzer::Summary() {
-	gIsData	=	GetParam<Bool_t>("IsData");
-	if (!gIsData) {
-		PAF_INFO("ttHAnalyzer","+ Scaling all the histograms");
-		cout << endl;
-
-		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
-			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat 	== threel 	&& ichan != All) continue;
-				if (icat 	== Total 	&& ichan != All) continue;
-				fHEvents			[icat][ichan]->Scale(gTotalLumi);
-				fHTightLep			[icat][ichan]->Scale(gTotalLumi);
-				fHFakeLep			[icat][ichan]->Scale(gTotalLumi);
-				fHLooseLep			[icat][ichan]->Scale(gTotalLumi);
-				fHTau				[icat][ichan]->Scale(gTotalLumi);
-				fHJet				[icat][ichan]->Scale(gTotalLumi);
-				fHMedBTagJet		[icat][ichan]->Scale(gTotalLumi);
-				fHLosBTagJet		[icat][ichan]->Scale(gTotalLumi);
-				fHPtLeading			[icat][ichan]->Scale(gTotalLumi);
-				fHPtSubLeading		[icat][ichan]->Scale(gTotalLumi);
-				fHPtSubSubLeading	[icat][ichan]->Scale(gTotalLumi);
-				fHMET				[icat][ichan]->Scale(gTotalLumi);
-				fHMHT				[icat][ichan]->Scale(gTotalLumi);
-				fHMETLD				[icat][ichan]->Scale(gTotalLumi);
-				if (icat 	== twolSS 		&&  ichan != All) continue;
-				if (icat 	== threel 		&&  ichan != All) continue;
-				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
-				if (icat == twolSS || icat == threel || icat == Total) fHMass				[icat][ichan]->Scale(gTotalLumi);
-			}
-		}
-	}
-
 	PAF_INFO("ttHAnalyzer", "+ Analysis DONE");
 	cout << endl;
 }
@@ -228,7 +197,6 @@ void ttHAnalyzer::GetParameters() {
     gSampleName		=	GetParam<TString>("sampleName");
     gIsData        	= 	GetParam<Bool_t>("IsData");
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
-    gTotalLumi     	= 	GetParam<Float_t>("TotalLumi");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

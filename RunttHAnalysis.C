@@ -10,7 +10,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 					Long64_t 	nEvents        	= 	0		) {
 
 	// Variables to be used as parameters
-  	Float_t G_Total_Lumi    = 35870;  // (According with 03-03 Draft Note).
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
 
@@ -126,9 +125,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	gSystem->mkdir(outputDir, kTRUE);
 
 	std::ostringstream oss;
-	oss << G_Total_Lumi;
 
-	TString LumiString = oss.str();
   	TString outputFile = outputDir;
   	outputFile += "/Tree_" + sampleName + ".root";
 
@@ -141,7 +138,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
-	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
