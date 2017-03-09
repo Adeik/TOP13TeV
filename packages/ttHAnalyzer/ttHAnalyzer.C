@@ -91,10 +91,9 @@ void ttHAnalyzer::InsideLoop() {
 	#endif
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
 	run	= Get<Int_t>("run");
-	if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) return; 	// Comment this for running with ALL the data
+	//if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) return; 	// Comment this for running with ALL the data
 	fHDummy->Fill(0.5); 																			// Dummy histogram (considers all events from the MC and data samples selected)
     CoutEvent(evt, Form("Event number = %li", evt));
-	if (!gIsData) PUSF = fPUWeight->GetWeight(Get<Float_t>("nTrueInt")); 							// PU Weight
 
 	// Get and set data members
 	GetTreeVariables();
@@ -287,6 +286,7 @@ void ttHAnalyzer::FillEventHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
+			fHEvents[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -306,12 +306,19 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
+			fHTightLep	[icat][ichan]->Scale(gTotalLumi);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
+			fHFakeLep	[icat][ichan]->Scale(gTotalLumi);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
+			fHLooseLep	[icat][ichan]->Scale(gTotalLumi);
 			fHTau		[icat][ichan]->Fill(nTaus,EventWeight);
+			fHTau		[icat][ichan]->Scale(gTotalLumi);
 			fHJet		[icat][ichan]->Fill(nJets,EventWeight);
+			fHJet		[icat][ichan]->Scale(gTotalLumi);
 			fHMedBTagJet[icat][ichan]->Fill(nMediumBTags,EventWeight);
+			fHMedBTagJet[icat][ichan]->Scale(gTotalLumi);
 			fHLosBTagJet[icat][ichan]->Fill(nLooseBTags,EventWeight);
+			fHLosBTagJet[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -331,8 +338,11 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
+			fHPtLeading			[icat][ichan]->Scale(gTotalLumi);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
+			fHPtSubLeading		[icat][ichan]->Scale(gTotalLumi);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
+			fHPtSubSubLeading	[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -344,7 +354,7 @@ void ttHAnalyzer::FillMETHistos() {
 			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
 			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
 			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
+			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
 			if (icat 	== Total 		&& ichan != All) continue;
 			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
 			if (ichan 	== ElEl			&& !triggereeSS()) continue;
@@ -352,8 +362,11 @@ void ttHAnalyzer::FillMETHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
+			fHMET	[icat][ichan]->Scale(gTotalLumi);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
+			fHMHT	[icat][ichan]->Scale(gTotalLumi);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
+			fHMETLD	[icat][ichan]->Scale(gTotalLumi);
 		}
 	}
 }
@@ -370,7 +383,11 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (icat 	== threel		&& !trigger3l4l()) continue;
 			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
-			if (icat == twolSS || icat == threel || icat == Total) 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
+			fHChargeSum	[icat][ichan]->Scale(gTotalLumi);
+			if (icat == twolSS || icat == threel || icat == Total) {
+			 	fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
+			 	fHMass	[icat][ichan]->Scale(gTotalLumi);
+			 }
 		}
 	}
 }
@@ -730,12 +747,12 @@ Int_t ttHAnalyzer::getSelectedJets(){
         Bool_t isloosebtag 	= false;
         if (1) {																										// WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
             ismediumbtag 	= medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
-			if (!ismediumbtag) isloosebtag 	= losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+			isloosebtag 	= losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
         }
         else {
 			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
             ismediumbtag 	= medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-			if (!ismediumbtag) isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+			isloosebtag 	= losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
         }
 		Int_t isbtag = 0;
 		if (isloosebtag) isbtag = -1;
@@ -1129,41 +1146,6 @@ Float_t ttHAnalyzer::getMETLD() {
 }
 
 Float_t ttHAnalyzer::getMET(){ return MET; }
-
-Float_t ttHAnalyzer::getSF(gChannel chan) {
-	if (gIsData)              return 1.; //Don't scale data
-	Float_t id1(1.),id2(1.), trig(1.);
-	Float_t err1(0.), err2(0.), err_trg(0.);
-  	Float_t SF = 0; Float_t FSSF = 0;
-  	Float_t FS1 = 0; Float_t FS2 = 0;
-	if (chan == MuMu){
-		id1  = fLeptonSF->GetTightMuonSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-		id2  = fLeptonSF->GetTightMuonSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-		trig = fLeptonSF->GetDoubleMuSF (fHypLepton1.p.Pt(),fHypLepton1.p.Eta());
-    	FS1  = fLeptonSF->GetFastSimMuonSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-    	FS2  = fLeptonSF->GetFastSimMuonSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-  	}
-  	else if (chan == ElEl){
-	    id1  = fLeptonSF->GetTightElectronSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-	    id2  = fLeptonSF->GetTightElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-	    trig = fLeptonSF->GetDoubleElSF     (fHypLepton1.p.Pt(),fHypLepton1.p.Eta());
-	    FS1  = fLeptonSF->GetFastSimElectronSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-	    FS2  = fLeptonSF->GetFastSimElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-  	}
-  	else if (chan == ElMu){
-	    Float_t leadingPt  = fHypLepton1.p.Pt() > fHypLepton2.p.Pt()? fHypLepton1.p.Pt() : fHypLepton2.p.Pt();
-	    Float_t leadingEta = fHypLepton1.p.Pt() > fHypLepton2.p.Pt()? fHypLepton1.p.Eta() : fHypLepton2.p.Eta();
-	    id1  = fLeptonSF->GetTightMuonSF    (fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-	    id2  = fLeptonSF->GetTightElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-	    trig = fLeptonSF->GetMuEGSF         (leadingPt,leadingEta);
-	    FS1  = fLeptonSF->GetFastSimMuonSF(fHypLepton1.p.Pt(), fHypLepton1.p.Eta());
-	    FS2  = fLeptonSF->GetFastSimElectronSF(fHypLepton2.p.Pt(), fHypLepton2.p.Eta());
-	}
-	SF = PUSF*id1*id2*trig;
-	FSSF = FS1*FS2;
-	if(gSampleName.BeginsWith("T2tt")) SF*= FSSF;
-  	return (SF);
-}
 
 Int_t ttHAnalyzer::getCS(){
 	Int_t cs = 0;

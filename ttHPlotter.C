@@ -1,27 +1,26 @@
 #include <iomanip>
-#include "TFile.h"
-#include "TH1F.h"
-#include "TCanvas.h"
-#include "TColor.h"
-#include "THStack.h"
 #include <iostream>
 #include <sstream>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include <TMath.h>
-#include <TMatrix.h>
-#include <TF1.h>
-#include <TH1F.h>
 #include <string>
+#include "TFile.h"
+#include "TF1.h"
+#include "TH1F.h"
+#include "THStack.h"
+#include "TCanvas.h"
+#include "TColor.h"
+#include "TMath.h"
+#include "TMatrix.h"
 
 using namespace std;
 
 //------------------------------------------------------------------------------
 
 void ttHPlotter() {
-	const UInt_t nmcSamples 	= 22;
+	const UInt_t nmcSamples 	= 25;
 	const UInt_t ndataSamples 	= 5;
 	enum gCategories {
 	    categories_begin,
@@ -42,20 +41,20 @@ void ttHPlotter() {
 	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample			[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
-	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "TTGJets_ext", "ZZZ", "WWZ", "WW_ext",//"WW",
+	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "TTGJets_ext", "WpWpJJ", "ZZZ", "WWZ", "WW_ext",//"WW",
 	  	"tZq_ll", "TTTT", 
 	  	"TTJets_aMCatNLO", //"DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "WJetsToLNu_MLM", "TW_ext", "TbarW_ext", //"TW", "TbarW",
-	  	"T_tch", "Tbar_tch", "WWTo2L2Nu", "ZZ_ext",//, "TToLeptons_sch_amcatnlo", "WZTo3LNu", "ZZ",
+	  	"T_tch", "Tbar_tch", "WZTo3LNu", "WWTo2L2Nu", "ZZ_ext", "TToLeptons_sch_amcatnlo", //"ZZ",
 	  	"TTHNonbb"																	// Signal samples
 	};
 	Int_t mcsampleColors	[nmcSamples] 	= {
 		kGreen-5, kSpring+2, kSpring+2, //kSpring+2, "TTGJets",	// MC for comparison with data
-	  	kAzure-9, kAzure-9, kAzure-9, kSpring+1, kAzure-9, kAzure-9, kAzure-9, //"WW",
+	  	kAzure-9, kAzure-9, kAzure-9, kSpring+1, kOrange-3, kAzure-9, kAzure-9, kAzure-9, //"WW",
 	  	kAzure-9, kAzure-9,
 	  	kSpring+2, //kCyan+1, 							// MC for control regions
 	  	kCyan+1, kGreen-5, kGreen-1, kGreen-1, //"TW", "TbarW",
-	  	kRed, kRed, kAzure-9, kYellow,// "WZTo3LNu", "ZZ",
+	  	kRed, kRed, kAzure-9, kViolet-4, kYellow, kAzure-9,// "ZZ",
 	  	kOrange+10																	// Signal samples
 	};
 	const TString datasample		[ndataSamples] 	= {
@@ -220,6 +219,20 @@ void ttHPlotter() {
 		          	histMass			->	SetFillColor(mcsampleColors[isample]);
 				}
 
+              	histEvents			->	SetTitle(mcsample[isample]);
+              	histTightLep		->	SetTitle(mcsample[isample]);
+              	histFakeLep			->	SetTitle(mcsample[isample]);
+              	histLooseLep		->	SetTitle(mcsample[isample]);
+              	histTau				->	SetTitle(mcsample[isample]);
+              	histJet				->	SetTitle(mcsample[isample]);
+              	histMedBTagJet		->	SetTitle(mcsample[isample]);
+              	histLosBTagJet		->	SetTitle(mcsample[isample]);
+              	histPtLeading		->	SetTitle(mcsample[isample]);
+              	histPtSubLeading	->	SetTitle(mcsample[isample]);
+              	histPtSubSubLeading	->	SetTitle(mcsample[isample]);
+              	histMET				->	SetTitle(mcsample[isample]);
+              	histMHT				->	SetTitle(mcsample[isample]);
+              	histMETLD			->	SetTitle(mcsample[isample]);
 
 				fHSEvents    		[icat][ichan]	-> Add(histEvents); // Events
 				fHSTightLep			[icat][ichan]	-> Add(histTightLep); // Yields
@@ -303,9 +316,34 @@ void ttHPlotter() {
 			//if (icat != threel) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
 			fHDEvents    		[icat][ichan]	-> 	Draw("pesame");
+			
+			TList* EventsList;
+			
+			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
+			
+			
+			TLegend *l = new TLegend(0.76, 0.95 - 0.8 * 2 / 20., 1.0, 0.95);
+			l->SetFillStyle(1001);
+			l->SetFillColor(kWhite);
+			l->SetLineColor(kWhite);
+			l->SetLineWidth(2);
+			
+			for (TList::iterator ih	= EventsList.begin(); ) {
+				l->AddEntry();
+			}
+			
+			l->Draw("same");
+			
+			
+			
+			
+			
+			
+			
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {

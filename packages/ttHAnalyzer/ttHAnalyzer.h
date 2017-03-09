@@ -259,7 +259,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t getHT();
 		Float_t getMHT();
 		Float_t getMETLD();
-		Float_t getSF(gChannel);
 		Int_t 	getCS();
 
 	protected:
@@ -285,7 +284,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	EventWeight
 		//----------------------------------------------------------------------
 		Float_t EventWeight;
-		Float_t PUSF;
 
 		//	Histograms and trees
 		//----------------------------------------------------------------------
