@@ -9,10 +9,7 @@ if [ "$1" == "an" ]; then
     echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH ANALYSIS EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
     echo ""
     echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Setting up the environment"
-    root6
-    source /opt/PoD/PoD_env.sh
-    source /opt/PAF/PAF_setup.sh
-    resetpaf
+    source pre_start.sh
 
     echo "%%%%%> DONE"
 

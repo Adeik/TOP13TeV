@@ -123,7 +123,7 @@ void ttHAnalyzer::InsideLoop() {
 
 void ttHAnalyzer::Summary() {
 	if (!gIsData) {
-		PAF_INFO("ttHAnalyzer","+ Scaling all the histograms")
+		PAF_INFO("ttHAnalyzer","+ Scaling all the histograms");
 		cout << endl;
 
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
