@@ -42,7 +42,7 @@ void ttHPlotter() {
 	const TString mcsample			[nmcSamples] 	= {
 		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
 	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "TTGJets_ext", "WpWpJJ", "ZZZ", "WWZ", "WW_ext",//"WW",
-	  	"tZq_ll", "TTTT", 
+	  	"tZq_ll", "TTTT",
 	  	"TTJets_aMCatNLO", //"DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
 	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "WJetsToLNu_MLM", "TW_ext", "TbarW_ext", //"TW", "TbarW",
 	  	"T_tch", "Tbar_tch", "WZTo3LNu", "WWTo2L2Nu", "ZZ_ext", "TToLeptons_sch_amcatnlo", //"ZZ",
@@ -316,30 +316,24 @@ void ttHPlotter() {
 			//if (icat != threel) c -> SetLogy();
 			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
 			fHDEvents    		[icat][ichan]	-> 	Draw("pesame");
-			
+
 			TList* EventsList;
-			
+
 			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
-			
-			
+
+
 			TLegend *l = new TLegend(0.76, 0.95 - 0.8 * 2 / 20., 1.0, 0.95);
 			l->SetFillStyle(1001);
 			l->SetFillColor(kWhite);
 			l->SetLineColor(kWhite);
 			l->SetLineWidth(2);
-			
-			for (TList::iterator ih	= EventsList.begin(); ) {
-				l->AddEntry();
+
+			for (TList::iterator ih	= EventsList->First(); ih < EventsList->Last();ih++) {
+				TH1* h = (TH1*)ih;
+				l->AddEntry(h);
 			}
-			
 			l->Draw("same");
-			
-			
-			
-			
-			
-			
-			
+
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
