@@ -122,6 +122,7 @@ void ttHAnalyzer::InsideLoop() {
 }
 
 void ttHAnalyzer::Summary() {
+	gIsData	=	GetParam<Bool_t>("IsData");
 	if (!gIsData) {
 		PAF_INFO("ttHAnalyzer","+ Scaling all the histograms");
 		cout << endl;

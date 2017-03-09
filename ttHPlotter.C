@@ -172,7 +172,7 @@ void ttHPlotter() {
 	TH1F* histDChargeSum;
 	TH1F* histDMass;
 
-	cout << "WOLOLOOOOO" << endl; // HASTA AQUÍ BIEN
+	//cout << "WOLOLOOOOO" << endl; // HASTA AQUÍ BIEN
 
 	for (UInt_t isample = 0; isample < nmcSamples; isample++) {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + mcsample[isample] + ".root");
@@ -256,7 +256,7 @@ void ttHPlotter() {
 		}
 	}
 
-	cout<< "jojojojojojo" << endl;
+	//cout<< "jojojojojojo" << endl;
 
 	for (UInt_t isample = 0; isample < ndataSamples; isample++) {
 		TFile* f = TFile::Open(codepath + "/temp/" + "Tree_" + datasample[isample] + ".root");
@@ -284,7 +284,8 @@ void ttHPlotter() {
 					f	->	GetObject("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],histDMass);
 				}
 
-				cout<< histDEvents->Integral()<<endl;
+				//cout<< histDEvents->Integral()<<endl;
+
 				fHDEvents    		[icat][ichan]	-> Add(histDEvents); // Events
 				fHDTightLep			[icat][ichan]	-> Add(histDTightLep); // Yields
 				fHDFakeLep			[icat][ichan]	-> Add(histDFakeLep);
