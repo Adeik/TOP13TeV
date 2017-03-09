@@ -122,6 +122,56 @@ void ttHAnalyzer::InsideLoop() {
 }
 
 void ttHAnalyzer::Summary() {
+	if (!gIsData) {
+		PAF_INFO("ttHAnalyzer","+ Scaling all the histograms")
+		cout << endl;
+
+		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+				if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
+				if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
+				if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
+				if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
+				if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
+				if (icat 	== Total 		&& ichan != All) continue;
+				if (ichan 	== MuMu			&& !triggermumuSS()) continue;
+				if (ichan 	== ElEl			&& !triggereeSS()) continue;
+				if (ichan 	== ElMu			&& !triggeremuSS()) continue;
+				if (icat 	== threel		&& !trigger3l4l()) continue;
+				if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+				fHEvents			[icat][ichan]->Scale(gTotalLumi);
+				fHTightLep			[icat][ichan]->Scale(gTotalLumi);
+				fHFakeLep			[icat][ichan]->Scale(gTotalLumi);
+				fHLooseLep			[icat][ichan]->Scale(gTotalLumi);
+				fHTau				[icat][ichan]->Scale(gTotalLumi);
+				fHJet				[icat][ichan]->Scale(gTotalLumi);
+				fHMedBTagJet		[icat][ichan]->Scale(gTotalLumi);
+				fHLosBTagJet		[icat][ichan]->Scale(gTotalLumi);
+				fHPtLeading			[icat][ichan]->Scale(gTotalLumi);
+				fHPtSubLeading		[icat][ichan]->Scale(gTotalLumi);
+				fHPtSubSubLeading	[icat][ichan]->Scale(gTotalLumi);
+				fHMET				[icat][ichan]->Scale(gTotalLumi);
+				fHMHT				[icat][ichan]->Scale(gTotalLumi);
+				fHMETLD				[icat][ichan]->Scale(gTotalLumi);
+			}
+		}
+
+		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
+			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
+				if (icat 	== twolSS 		&& (!Is2lSSEvent() || ichan != All)) continue;
+				if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
+				if (icat 	== Total 		&& ichan != All) continue;
+				if (ichan 	== MuMu			&& !triggermumuSS()) continue;
+				if (ichan 	== ElEl			&& !triggereeSS()) continue;
+				if (ichan 	== ElMu			&& !triggeremuSS()) continue;
+				if (icat 	== threel		&& !trigger3l4l()) continue;
+				if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
+				if (icat == twolSS || icat == threel || icat == Total)	fHMass	[icat][ichan]->Scale(gTotalLumi);
+			}
+		}
+	}
+
 	PAF_INFO("ttHAnalyzer", "+ Analysis DONE");
 	cout << endl;
 }
