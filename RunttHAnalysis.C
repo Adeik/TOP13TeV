@@ -142,7 +142,6 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
 	myProject->SetInputParam("TotalLumi",     G_Total_Lumi     );
-	myProject->SetInputParam("LumiForPU",     G_LumiForPUData     );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
