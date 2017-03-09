@@ -10,10 +10,9 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 					Long64_t 	nEvents        	= 	0		) {
 
 	// Variables to be used as parameters
-  	Float_t G_Total_Lumi    = 11300;  // (According with 03-03 Draft Note).
+  	Float_t G_Total_Lumi    = 35870;  // (According with 03-03 Draft Note).
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
-    Float_t G_LumiForPUData = 19468.3;
 
 	// PAF mode choice and creation of project
 	//--------------------------------------------------------------------------
