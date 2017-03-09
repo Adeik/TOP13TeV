@@ -330,7 +330,7 @@ void ttHPlotter() {
 			TObjLink *lnk = EventsList->FirstLink();
 
 			while (lnk) {
-				l->AddEntry(lnk);
+				l->AddEntry(lnk->GetObject());
 				lnk = lnk->Next();
 			}
 
