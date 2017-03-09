@@ -69,7 +69,6 @@ void ttHAnalyzer::Initialise() {
 
 	//	PU Reweight
 	PAF_INFO("ttHAnalyzer", "+ Initializing pile-up reweighting tool and b-tag scale factors");
-	fPUWeight  		= new PUWeight(gLumiForPU, Spring2016_25ns_poisson_OOTPU, "2016_ichep");
 	medfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Medium",  0);
 	losfBTagSFnom 	= new BTagSFUtil("mujets", "CSVv2", "Loose",  0);
 
