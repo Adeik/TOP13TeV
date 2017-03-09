@@ -128,17 +128,6 @@ void ttHAnalyzer::Summary() {
 
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
-				if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
-				if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
-				if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-				if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
-				if (icat 	== Total 		&& ichan != All) continue;
-				if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-				if (ichan 	== ElEl			&& !triggereeSS()) continue;
-				if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-				if (icat 	== threel		&& !trigger3l4l()) continue;
-				if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
 				fHEvents			[icat][ichan]->Scale(gTotalLumi);
 				fHTightLep			[icat][ichan]->Scale(gTotalLumi);
 				fHFakeLep			[icat][ichan]->Scale(gTotalLumi);
@@ -153,21 +142,14 @@ void ttHAnalyzer::Summary() {
 				fHMET				[icat][ichan]->Scale(gTotalLumi);
 				fHMHT				[icat][ichan]->Scale(gTotalLumi);
 				fHMETLD				[icat][ichan]->Scale(gTotalLumi);
+				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
+				fHMass				[icat][ichan]->Scale(gTotalLumi)
 			}
 		}
 
 		for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 			for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-				if (icat 	== twolSS 		&& (!Is2lSSEvent() || ichan != All)) continue;
-				if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
-				if (icat 	== Total 		&& ichan != All) continue;
-				if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-				if (ichan 	== ElEl			&& !triggereeSS()) continue;
-				if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-				if (icat 	== threel		&& !trigger3l4l()) continue;
-				if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
-				fHChargeSum			[icat][ichan]->Scale(gTotalLumi);
-				if (icat == twolSS || icat == threel || icat == Total)	fHMass	[icat][ichan]->Scale(gTotalLumi);
+				if (icat == twolSS || icat == threel || icat == Total)	;
 			}
 		}
 	}
