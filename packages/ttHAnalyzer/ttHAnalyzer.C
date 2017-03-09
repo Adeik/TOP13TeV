@@ -152,14 +152,6 @@ void ttHAnalyzer::Summary() {
 		}
 	}
 
-		if (icat 	== Total 		&& ichan != All) continue;
-		fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
-
-
-
-
-
-
 	PAF_INFO("ttHAnalyzer", "+ Analysis DONE");
 	cout << endl;
 }
