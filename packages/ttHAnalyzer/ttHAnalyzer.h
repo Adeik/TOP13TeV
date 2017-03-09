@@ -270,7 +270,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 	    TString gSampleName;
 		Bool_t  gIsData;
 		Float_t gWeight;
-		Float_t gLumiForPU;
 		Float_t gTotalLumi;
 
 		//	PU and SF

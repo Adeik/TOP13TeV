@@ -198,7 +198,6 @@ void ttHAnalyzer::GetParameters() {
     gSampleName		=	GetParam<TString>("sampleName");
     gIsData        	= 	GetParam<Bool_t>("IsData");
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
-    gLumiForPU     	= 	GetParam<Float_t>("LumiForPU");
     gTotalLumi     	= 	GetParam<Float_t>("TotalLumi");
 }
 
