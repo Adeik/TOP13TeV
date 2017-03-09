@@ -327,12 +327,13 @@ void ttHPlotter() {
 			l->SetLineColor(kWhite);
 			l->SetLineWidth(2);
 
-			TIter ih(EventsList);
-			
-			for (ih = EventsList->First(); ih < EventsList->Last();ih++) {
-				TH1* h = (TH1*)ih;
-				l->AddEntry(h);
+			TObjLink *lnk = EventsList>FirstLink();
+
+			while (lnk) {
+				l->AddEntry(lnk);
+				lnk = lnk->Next();
 			}
+
 			l->Draw("same");
 
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
