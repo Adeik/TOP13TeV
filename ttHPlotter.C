@@ -361,8 +361,7 @@ void ttHPlotter() {
 	MyStyle->SetHistLineWidth(1);
 	MyStyle->SetLegendBorderSize(0);
 	MyStyle->SetNdivisions(502, "x");
-	MyStyle->SetMarkerSize(0.7);
-	MyStyle->SetMarkerStyle(20);
+	MyStyle->SetMarkerSize(0.3);
 	MyStyle->SetTickLength(0.03);
 	MyStyle->SetTitleOffset(1.5, "x");
 	MyStyle->SetTitleOffset(1.5, "y");
@@ -386,6 +385,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDEvents    		[icat][ichan]	-> 	SetMinimum(0);
+			fHDEvents    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDEvents    		[icat][ichan]	-> 	Draw("pe");
 			fHSEvents    		[icat][ichan]	-> 	Draw("histsame"); // Events
 
@@ -414,6 +414,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDTightLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDTightLep    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDTightLep    		[icat][ichan]	-> Draw("pe");
 			fHSTightLep			[icat][ichan]	-> Draw("histsame");
 
@@ -442,6 +443,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDFakeLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDFakeLep    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDFakeLep    		[icat][ichan]	-> 	Draw("pe");
 			fHSFakeLep			[icat][ichan]	-> Draw("histsame");
 
@@ -471,6 +473,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDLooseLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDLooseLep    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDLooseLep    		[icat][ichan]	-> 	Draw("pe");
 			fHSLooseLep			[icat][ichan]	-> Draw("histsame");
 
@@ -500,6 +503,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDTau    		[icat][ichan]	-> SetMinimum(0);
+			fHDTau    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDTau    		[icat][ichan]	-> 	Draw("pe");
 			fHSTau				[icat][ichan]	-> Draw("histsame");
 
@@ -528,6 +532,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDJet    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDJet    		[icat][ichan]	-> 	Draw("pe");
 			fHSJet				[icat][ichan]	-> Draw("histsame");
 
@@ -556,6 +561,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMedBTagJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDMedBTagJet    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDMedBTagJet    	[icat][ichan]	-> 	Draw("pe");
 			fHSMedBTagJet		[icat][ichan]	-> Draw("histsame");
 
@@ -584,6 +590,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDLosBTagJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDLosBTagJet    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pe");
 			fHSLosBTagJet		[icat][ichan]	-> Draw("histsame");
 
@@ -612,6 +619,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDPtLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtLeading    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDPtLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtLeading		[icat][ichan]	-> Draw("histsame");
 
@@ -640,6 +648,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDPtSubLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtSubLeading    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDPtSubLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtSubLeading		[icat][ichan]	-> Draw("histsame");
 
@@ -668,6 +677,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDPtSubSubLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtSubSubLeading    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDPtSubSubLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtSubSubLeading	[icat][ichan]	-> Draw("histsame");
 
@@ -696,6 +706,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMET    		[icat][ichan]	-> SetMinimum(0);
+			fHDMET    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDMET    			[icat][ichan]	-> 	Draw("pe");
 			fHSMET				[icat][ichan]	-> Draw("histsame");
 
@@ -753,6 +764,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMETLD    		[icat][ichan]	-> SetMinimum(0);
+			fHDMETLD    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDMETLD	    	[icat][ichan]	-> 	Draw("pe");
 			fHSMETLD			[icat][ichan]	-> Draw("histsame");
 
@@ -782,6 +794,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDChargeSum    		[icat][ichan]	-> SetMinimum(0);
+			fHDChargeSum    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDChargeSum    	[icat][ichan]	-> 	Draw("pe");
 			fHSChargeSum		[icat][ichan]	-> Draw("histsame");
 
@@ -811,6 +824,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMass    		[icat][ichan]	-> SetMinimum(0);
+			fHDMass    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDMass		    	[icat][ichan]	-> 	Draw("pe");
 			fHSMass				[icat][ichan]	-> Draw("histsame");
 
