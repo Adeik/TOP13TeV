@@ -392,20 +392,14 @@ void ttHPlotter() {
 			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
 
 			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
-			/*l->SetFillStyle(1001);
-			l->SetFillColor(kWhite);
-			l->SetLineColor(kWhite);
-			l->SetLineWidth(2);
-			*/
 			TObjLink *lnk = EventsList->FirstLink();
-
 			while (lnk) {
 				l->AddEntry(lnk->GetObject());
 				lnk = lnk->Next();
 			}
-			
-			l->AddEntry(fHDEvents[icat][ichan]);
+						l->AddEntry(fHDEvents[icat][ichan]);
 			l->Draw("same");
+
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -421,9 +415,23 @@ void ttHPlotter() {
 			fHDTightLep    		[icat][ichan]	-> SetMinimum(0);
 			fHDTightLep    		[icat][ichan]	-> Draw("pe");
 			fHSTightLep			[icat][ichan]	-> Draw("histsame");
+
+			TList* TightLepList;
+			TightLepList = fHSTightLep    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = TightLepList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDTightLep[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -435,9 +443,24 @@ void ttHPlotter() {
 			fHDFakeLep    		[icat][ichan]	-> SetMinimum(0);
 			fHDFakeLep    		[icat][ichan]	-> 	Draw("pe");
 			fHSFakeLep			[icat][ichan]	-> Draw("histsame");
+
+			TList* FakeLepList;
+			FakeLepList = fHSFakeLep    		[icat][ichan]	-> 	GetHists(); // Events
+
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = FakeLepList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDFakeLep[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -449,9 +472,24 @@ void ttHPlotter() {
 			fHDLooseLep    		[icat][ichan]	-> SetMinimum(0);
 			fHDLooseLep    		[icat][ichan]	-> 	Draw("pe");
 			fHSLooseLep			[icat][ichan]	-> Draw("histsame");
+
+			TList* LooseLepList;
+			LooseLepList = fHSLooseLep    		[icat][ichan]	-> 	GetHists(); // Events
+
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = LooseLepList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDLooseLep[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -463,9 +501,23 @@ void ttHPlotter() {
 			fHDTau    		[icat][ichan]	-> SetMinimum(0);
 			fHDTau    		[icat][ichan]	-> 	Draw("pe");
 			fHSTau				[icat][ichan]	-> Draw("histsame");
+
+			TList* TauList;
+			TauList = fHSTau    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = TauList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDTau[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -477,9 +529,23 @@ void ttHPlotter() {
 			fHDJet    		[icat][ichan]	-> SetMinimum(0);
 			fHDJet    		[icat][ichan]	-> 	Draw("pe");
 			fHSJet				[icat][ichan]	-> Draw("histsame");
+
+			TList* JetList;
+			JetList = fHSJet    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = JetList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDJet[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -491,9 +557,23 @@ void ttHPlotter() {
 			fHDMedBTagJet    		[icat][ichan]	-> SetMinimum(0);
 			fHDMedBTagJet    	[icat][ichan]	-> 	Draw("pe");
 			fHSMedBTagJet		[icat][ichan]	-> Draw("histsame");
+
+			TList* MedBTagJetList;
+			MedBTagJetList = fHSMedBTagJet    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = MedBTagJetList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDMedBTagJet[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -505,9 +585,23 @@ void ttHPlotter() {
 			fHDLosBTagJet    		[icat][ichan]	-> SetMinimum(0);
 			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pe");
 			fHSLosBTagJet		[icat][ichan]	-> Draw("histsame");
+
+			TList* LosBTagJetList;
+			LosBTagJetList = fHSLosBTagJet    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = LosBTagJetList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDLosBTagJet[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -519,9 +613,23 @@ void ttHPlotter() {
 			fHDPtLeading    		[icat][ichan]	-> SetMinimum(0);
 			fHDPtLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtLeading		[icat][ichan]	-> Draw("histsame");
+
+			TList* PtLeadingList;
+			PtLeadingList = fHSPtLeading    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = PtLeadingList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDPtLeading[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -533,9 +641,23 @@ void ttHPlotter() {
 			fHDPtSubLeading    		[icat][ichan]	-> SetMinimum(0);
 			fHDPtSubLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtSubLeading		[icat][ichan]	-> Draw("histsame");
+
+			TList* PtSubLeadingList;
+			PtSubLeadingList = fHSPtSubLeading    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = PtSubLeadingList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDPtSubLeading[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -547,9 +669,23 @@ void ttHPlotter() {
 			fHDPtSubSubLeading    		[icat][ichan]	-> SetMinimum(0);
 			fHDPtSubSubLeading    	[icat][ichan]	-> 	Draw("pe");
 			fHSPtSubSubLeading	[icat][ichan]	-> Draw("histsame");
+
+			TList* PtSubSubLeadingList;
+			PtSubSubLeadingList = fHSPtSubSubLeading    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = PtSubSubLeadingList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDPtSubSubLeading[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -561,9 +697,23 @@ void ttHPlotter() {
 			fHDMET    		[icat][ichan]	-> SetMinimum(0);
 			fHDMET    			[icat][ichan]	-> 	Draw("pe");
 			fHSMET				[icat][ichan]	-> Draw("histsame");
+
+			TList* METList;
+			METList = fHSMET    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = METList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDMET[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -575,9 +725,23 @@ void ttHPlotter() {
 			fHDMHT    		[icat][ichan]	-> SetMinimum(0);
 			fHDMHT		    	[icat][ichan]	-> 	Draw("pe");
 			fHSMHT				[icat][ichan]	-> Draw("histsame");
+
+			TList* MHTList;
+			MHTList = fHSMHTList    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = MHTList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDMHT[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -589,9 +753,23 @@ void ttHPlotter() {
 			fHDMETLD    		[icat][ichan]	-> SetMinimum(0);
 			fHDMETLD	    	[icat][ichan]	-> 	Draw("pe");
 			fHSMETLD			[icat][ichan]	-> Draw("histsame");
+
+			TList* METLDList;
+			METLDList = fHSMETLD    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = METLDList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDMETLD[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -604,9 +782,23 @@ void ttHPlotter() {
 			fHDChargeSum    		[icat][ichan]	-> SetMinimum(0);
 			fHDChargeSum    	[icat][ichan]	-> 	Draw("pe");
 			fHSChargeSum		[icat][ichan]	-> Draw("histsame");
+
+			TList* ChargeSumList ;
+			ChargeSumList  = fHSChargeSum     		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = ChargeSumList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDChargeSum[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
@@ -619,9 +811,23 @@ void ttHPlotter() {
 			fHDMass    		[icat][ichan]	-> SetMinimum(0);
 			fHDMass		    	[icat][ichan]	-> 	Draw("pe");
 			fHSMass				[icat][ichan]	-> Draw("histsame");
+
+			TList* MassList;
+			MassList = fHSMass    		[icat][ichan]	-> 	GetHists(); // Events
+
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			TObjLink *lnk = MassList->FirstLink();
+			while (lnk) {
+				l->AddEntry(lnk->GetObject());
+				lnk = lnk->Next();
+			}
+			l->AddEntry(fHDMass[icat][ichan]);
+			l->Draw("same");
+
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
+			delete l;
 		}
 	}
 }
