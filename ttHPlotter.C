@@ -361,7 +361,8 @@ void ttHPlotter() {
 	MyStyle->SetHistLineWidth(1);
 	MyStyle->SetLegendBorderSize(0);
 	MyStyle->SetNdivisions(502, "x");
-	MyStyle->SetMarkerSize(5.0);
+	MyStyle->SetMarkerSize(0.7);
+	MyStyle->SetMarkerStyle(20);
 	MyStyle->SetTickLength(0.03);
 	MyStyle->SetTitleOffset(1.5, "x");
 	MyStyle->SetTitleOffset(1.5, "y");
@@ -397,7 +398,7 @@ void ttHPlotter() {
 				l->AddEntry(lnk->GetObject());
 				lnk = lnk->Next();
 			}
-						l->AddEntry(fHDEvents[icat][ichan]);
+			l->AddEntry(fHDEvents[icat][ichan]);
 			l->Draw("same");
 
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
