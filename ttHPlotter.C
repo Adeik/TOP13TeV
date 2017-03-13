@@ -723,9 +723,10 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHDMHT    		[icat][ichan]	-> SetMinimum(0);
+			fHDMHT    			[icat][ichan]	-> 	SetMinimum(0);
+			fHDMHT    			[icat][ichan]	->	SetMarkerStyle(20);
 			fHDMHT		    	[icat][ichan]	-> 	Draw("pe");
-			fHSMHT				[icat][ichan]	-> Draw("histsame");
+			fHSMHT				[icat][ichan]	-> 	Draw("histsame");
 
 			TList* MHTList;
 			MHTList = fHSMHT    		[icat][ichan]	-> 	GetHists(); // Events
