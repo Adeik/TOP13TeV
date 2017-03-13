@@ -727,7 +727,7 @@ void ttHPlotter() {
 			fHSMHT				[icat][ichan]	-> Draw("histsame");
 
 			TList* MHTList;
-			MHTList = fHSMHTList    		[icat][ichan]	-> 	GetHists(); // Events
+			MHTList = fHSMHT    		[icat][ichan]	-> 	GetHists(); // Events
 
 			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
 			TObjLink *lnk = MHTList->FirstLink();
