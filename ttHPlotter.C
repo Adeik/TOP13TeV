@@ -339,19 +339,21 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSEvents    		[icat][ichan]	-> 	Draw("hist"); // Events
-			fHDEvents    		[icat][ichan]	-> 	Draw("pesame");
+			fHDEvents    		[icat][ichan]	-> 	SetMinimum(0);
+			fHDEvents    		[icat][ichan]	-> 	Draw("pe");
+			fHSEvents    		[icat][ichan]	-> 	Draw("histsame"); // Events
+			
 
 			TList* EventsList;
 			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
 
 
-			TLegend *l = new TLegend(0.76, 0.95 - 0.8 * 2 / 20., 1.0, 0.95);
-			l->SetFillStyle(1001);
+			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
+			/*l->SetFillStyle(1001);
 			l->SetFillColor(kWhite);
 			l->SetLineColor(kWhite);
 			l->SetLineWidth(2);
-
+			*/
 			TObjLink *lnk = EventsList->FirstLink();
 
 			while (lnk) {
@@ -373,8 +375,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSTightLep			[icat][ichan]	-> Draw("hist");
-			fHDTightLep    		[icat][ichan]	-> 	Draw("pesame");
+			fHDTightLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDTightLep    		[icat][ichan]	-> Draw("pe");
+			fHSTightLep			[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -386,8 +389,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSFakeLep			[icat][ichan]	-> Draw("hist");
-			fHDFakeLep    		[icat][ichan]	-> 	Draw("pesame");
+			fHDFakeLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDFakeLep    		[icat][ichan]	-> 	Draw("pe");
+			fHSFakeLep			[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -399,8 +403,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSLooseLep			[icat][ichan]	-> Draw("hist");
-			fHDLooseLep    		[icat][ichan]	-> 	Draw("pesame");
+			fHDLooseLep    		[icat][ichan]	-> SetMinimum(0);
+			fHDLooseLep    		[icat][ichan]	-> 	Draw("pe");
+			fHSLooseLep			[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -412,8 +417,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSTau				[icat][ichan]	-> Draw("hist");
-			fHDTau    		[icat][ichan]	-> 	Draw("pesame");
+			fHDTau    		[icat][ichan]	-> SetMinimum(0);
+			fHDTau    		[icat][ichan]	-> 	Draw("pe");
+			fHSTau				[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -425,8 +431,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSJet				[icat][ichan]	-> Draw("hist");
-			fHDJet    		[icat][ichan]	-> 	Draw("pesame");
+			fHDJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDJet    		[icat][ichan]	-> 	Draw("pe");
+			fHSJet				[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -438,8 +445,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSMedBTagJet		[icat][ichan]	-> Draw("hist");
-			fHDMedBTagJet    	[icat][ichan]	-> 	Draw("pesame");
+			fHDMedBTagJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDMedBTagJet    	[icat][ichan]	-> 	Draw("pe");
+			fHSMedBTagJet		[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -451,8 +459,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSLosBTagJet		[icat][ichan]	-> Draw("hist");
-			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pesame");
+			fHDLosBTagJet    		[icat][ichan]	-> SetMinimum(0);
+			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pe");
+			fHSLosBTagJet		[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -464,8 +473,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSPtLeading		[icat][ichan]	-> Draw("hist");
-			fHDPtLeading    	[icat][ichan]	-> 	Draw("pesame");
+			fHDPtLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtLeading    	[icat][ichan]	-> 	Draw("pe");
+			fHSPtLeading		[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -477,8 +487,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSPtSubLeading		[icat][ichan]	-> Draw("hist");
-			fHDPtSubLeading    	[icat][ichan]	-> 	Draw("pesame");
+			fHDPtSubLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtSubLeading    	[icat][ichan]	-> 	Draw("pe");
+			fHSPtSubLeading		[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -490,8 +501,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSPtSubSubLeading	[icat][ichan]	-> Draw("hist");
-			fHDPtSubSubLeading    	[icat][ichan]	-> 	Draw("pesame");
+			fHDPtSubSubLeading    		[icat][ichan]	-> SetMinimum(0);
+			fHDPtSubSubLeading    	[icat][ichan]	-> 	Draw("pe");
+			fHSPtSubSubLeading	[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -503,8 +515,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSMET				[icat][ichan]	-> Draw("hist");
-			fHDMET    			[icat][ichan]	-> 	Draw("pesame");
+			fHDMET    		[icat][ichan]	-> SetMinimum(0);
+			fHDMET    			[icat][ichan]	-> 	Draw("pe");
+			fHSMET				[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -516,8 +529,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSMHT				[icat][ichan]	-> Draw("hist");
-			fHDMHT		    	[icat][ichan]	-> 	Draw("pesame");
+			fHDMHT    		[icat][ichan]	-> SetMinimum(0);
+			fHDMHT		    	[icat][ichan]	-> 	Draw("pe");
+			fHSMHT				[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -529,8 +543,9 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSMETLD			[icat][ichan]	-> Draw("hist");
-			fHDMETLD	    	[icat][ichan]	-> 	Draw("pesame");
+			fHDMETLD    		[icat][ichan]	-> SetMinimum(0);
+			fHDMETLD	    	[icat][ichan]	-> 	Draw("pe");
+			fHSMETLD			[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -543,8 +558,9 @@ void ttHPlotter() {
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSChargeSum		[icat][ichan]	-> Draw("hist");
-			fHDChargeSum    	[icat][ichan]	-> 	Draw("pesame");
+			fHDChargeSum    		[icat][ichan]	-> SetMinimum(0);
+			fHDChargeSum    	[icat][ichan]	-> 	Draw("pe");
+			fHSChargeSum		[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
@@ -557,8 +573,9 @@ void ttHPlotter() {
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHSMass				[icat][ichan]	-> Draw("hist");
-			fHDMass		    	[icat][ichan]	-> 	Draw("pesame");
+			fHDMass    		[icat][ichan]	-> SetMinimum(0);
+			fHDMass		    	[icat][ichan]	-> 	Draw("pe");
+			fHSMass				[icat][ichan]	-> Draw("histsame");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;

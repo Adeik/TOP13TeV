@@ -269,6 +269,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//----------------------------------------------------------------------
 	    TString gSampleName;
 		Bool_t  gIsData;
+		Bool_t  gIsMCatNLO;
 		Float_t gWeight;
 		Float_t gTotalLumi;
 
@@ -283,6 +284,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		//	EventWeight
 		//----------------------------------------------------------------------
 		Float_t EventWeight;
+		Float_t genWeight;
 
 		//	Histograms and trees
 		//----------------------------------------------------------------------

@@ -12,6 +12,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	// Variables to be used as parameters
 	Float_t G_Event_Weight  = 1.0;
 	Bool_t  G_IsData        = false;
+  	Bool_t  G_IsMCatNLO     = false;
 
 	// PAF mode choice and creation of project
 	//--------------------------------------------------------------------------
@@ -92,6 +93,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 			G_Event_Weight 		= dm->GetCrossSection() / dm->GetSumWeights();
 			cout << endl;
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
+		    G_IsMCatNLO = true;
     	}
     	else if (sampleName == "TestHeppy") {
 			PAF_INFO("RunttHAnalysis", "	> This is a TEST SAMPLE");
@@ -138,6 +140,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
+  	myProject->SetInputParam("IsMCatNLO"    , G_IsMCatNLO      );  
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 

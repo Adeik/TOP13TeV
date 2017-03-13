@@ -146,6 +146,10 @@ void ttHAnalyzer::GetTreeVariables() {
 	nTauGood             = Get<Int_t>("nTauGood");
 	nJet                 = Get<Int_t>("nJet");
     evt                  = Get<Long_t>("evt");
+    
+    if (!gIsData){
+		genWeight            = Get<Float_t>("genWeight");
+	}
 
 	for (Int_t k = 0; k < nLepGood; k++) {
 	    LepGood_px[k]      	= Get<Float_t>("LepGood_px", k);
@@ -197,6 +201,7 @@ void ttHAnalyzer::GetParameters() {
     gSampleName		=	GetParam<TString>("sampleName");
     gIsData        	= 	GetParam<Bool_t>("IsData");
     gWeight        	= 	GetParam<Float_t>("weight"); // cross section / events in the sample
+	gIsMCatNLO     	= 	GetParam<Bool_t>("IsMCatNLO");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1038,7 +1043,11 @@ void ttHAnalyzer::SetEventObjects(){
 	#endif
 	ResetHypLeptons();
 	EventWeight 	= 1.;
-	if (!gIsData) EventWeight = gWeight;
+	if (!gIsData) {
+		EventWeight = gWeight;
+		if (gIsMCatNLO) EventWeight *= genWeight;
+	}
+			
 
 	// Counters initialization
 	nJets       	= 0;
