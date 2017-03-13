@@ -361,7 +361,7 @@ void ttHPlotter() {
 	MyStyle->SetHistLineWidth(1);
 	MyStyle->SetLegendBorderSize(0);
 	MyStyle->SetNdivisions(502, "x");
-	MyStyle->SetMarkerSize(0.8);
+	MyStyle->SetMarkerSize(5.0);
 	MyStyle->SetTickLength(0.03);
 	MyStyle->SetTitleOffset(1.5, "x");
 	MyStyle->SetTitleOffset(1.5, "y");
