@@ -64,8 +64,6 @@ if [ "$1" == "an" ]; then
         root -l -b -q "RunttHAnalysis.C(\"SingleElec\"                    		, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"SingleMuon\"                        	, $2, 0)"
     fi
-elif [ "$1" == "plot" ]; then
-    echo "Ya lo haré"
 else
     echo "ERROR - No valid arguments given"
     echo "Please, execute this script with a valid argument"
