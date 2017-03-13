@@ -388,10 +388,8 @@ void ttHPlotter() {
 			fHDEvents    		[icat][ichan]	-> 	Draw("pe");
 			fHSEvents    		[icat][ichan]	-> 	Draw("histsame"); // Events
 
-
 			TList* EventsList;
 			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
-
 
 			TLegend *l = new TLegend(0.76, 0.4, 1.0, 0.8);
 			/*l->SetFillStyle(1001);
@@ -405,9 +403,9 @@ void ttHPlotter() {
 				l->AddEntry(lnk->GetObject());
 				lnk = lnk->Next();
 			}
-
+			
+			l->AddEntry(fHDEvents[icat][ichan]);
 			l->Draw("same");
-
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".pdf");
 			c->Print(outputpath+"/"+"Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan]+".png");
 			delete c;
