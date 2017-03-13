@@ -332,6 +332,51 @@ void ttHPlotter() {
 		}
 	}
 
+	gROOT->Reset();
+	//gROOT->SetStyle("Plain");
+
+	TStyle *MyStyle = new TStyle("MyStyle","My Root Styles");
+	MyStyle->SetStatColor(0);
+	MyStyle->SetCanvasColor(0);
+	MyStyle->SetPadColor(0);
+	MyStyle->SetPadBorderMode(0);
+	MyStyle->SetCanvasBorderMode(0);
+	MyStyle->SetFrameBorderMode(0);
+	MyStyle->SetOptStat(0);
+	MyStyle->SetStatBorderSize(2);
+	MyStyle->SetOptTitle(1);
+	MyStyle->SetPadTickX(1);
+	MyStyle->SetPadTickY(1);
+	MyStyle->SetPadBorderSize(2);
+	MyStyle->SetPalette(51, 0);
+	MyStyle->SetPadBottomMargin(0.15);
+	MyStyle->SetPadTopMargin(0.11);
+	MyStyle->SetPadLeftMargin(0.15);
+	MyStyle->SetPadRightMargin(0.25);
+	MyStyle->SetTitleColor(1);
+	MyStyle->SetTitleFillColor(0);
+	MyStyle->SetTitleFontSize(0.05);
+	MyStyle->SetTitleBorderSize(0);
+	MyStyle->SetLineWidth(1);
+	MyStyle->SetHistLineWidth(1);
+	MyStyle->SetLegendBorderSize(0);
+	MyStyle->SetNdivisions(502, "x");
+	MyStyle->SetMarkerSize(0.8);
+	MyStyle->SetTickLength(0.03);
+	MyStyle->SetTitleOffset(1.5, "x");
+	MyStyle->SetTitleOffset(1.5, "y");
+	MyStyle->SetTitleOffset(1.0, "z");
+	MyStyle->SetLabelSize(0.05, "x");
+	MyStyle->SetLabelSize(0.05, "y");
+	MyStyle->SetLabelSize(0.05, "z");
+	MyStyle->SetLabelOffset(0.03, "x");
+	MyStyle->SetLabelOffset(0.03, "y");
+	MyStyle->SetLabelOffset(0.03, "z");
+	MyStyle->SetTitleSize(0.05, "x");
+	MyStyle->SetTitleSize(0.05, "y");
+	MyStyle->SetTitleSize(0.05, "z");
+	gROOT->SetStyle("MyStyle");
+
 	// Drawing
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
@@ -342,7 +387,7 @@ void ttHPlotter() {
 			fHDEvents    		[icat][ichan]	-> 	SetMinimum(0);
 			fHDEvents    		[icat][ichan]	-> 	Draw("pe");
 			fHSEvents    		[icat][ichan]	-> 	Draw("histsame"); // Events
-			
+
 
 			TList* EventsList;
 			EventsList = fHSEvents    		[icat][ichan]	-> 	GetHists(); // Events
