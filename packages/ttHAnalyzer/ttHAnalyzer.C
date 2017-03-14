@@ -341,6 +341,7 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
 			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
+			cout<<TightLepton.size()<<endl;
 			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
 	}
