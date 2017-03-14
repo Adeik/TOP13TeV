@@ -334,7 +334,7 @@ void ttHAnalyzer::FillMETHistos() {
 void ttHAnalyzer::FillMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (icat 	== twolSS 		&& (!Is2lSSEvent()	|| ichan != All))						continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
