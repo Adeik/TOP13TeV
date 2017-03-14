@@ -273,7 +273,7 @@ void ttHAnalyzer::FillEventHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
 		}
 	}
@@ -287,7 +287,7 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
@@ -307,7 +307,7 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
@@ -323,7 +323,7 @@ void ttHAnalyzer::FillMETHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
@@ -339,7 +339,7 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
 			cout<<TightLepton.size()<<endl;
 			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
@@ -478,7 +478,6 @@ vector<lepton> ttHAnalyzer::SortLeptonsByPt(vector<lepton>& leptons){
 //------------------------------------------------------------------------------
 Bool_t ttHAnalyzer::IsTightMuon(UInt_t iMuon,Float_t ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -496,7 +495,6 @@ Bool_t ttHAnalyzer::IsTightMuon(UInt_t iMuon,Float_t ptcut){
 
 Bool_t ttHAnalyzer::IsFakeableMuon(UInt_t iMuon,Float_t ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -517,7 +515,6 @@ Bool_t ttHAnalyzer::IsFakeableMuon(UInt_t iMuon,Float_t ptcut){
 
 Bool_t ttHAnalyzer::IsLooseMuon(UInt_t iMuon,Float_t ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iMuon])) != 13) return false;
-	if (LepGood_jetDR[iMuon] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iMuon]) > 2.4) return false;
 	if (LepGood_pt[iMuon] < 5) return false;
 	if (TMath::Abs(LepGood_dxy[iMuon]) > 0.05) return false;
@@ -534,7 +531,6 @@ Bool_t ttHAnalyzer::IsLooseMuon(UInt_t iMuon,Float_t ptcut){
 //------------------------------------------------------------------------------
 Bool_t ttHAnalyzer::IsTightElectron(UInt_t iElec, Float_t ptcut, Int_t an){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (an == 2) {
 		if (LepGood_pt[iElec] < 15) return false;
@@ -586,7 +582,6 @@ Bool_t ttHAnalyzer::IsTightElectron(UInt_t iElec, Float_t ptcut, Int_t an){
 
 Bool_t ttHAnalyzer::IsFakeableElectron(UInt_t iElec, Float_t ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 10) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
@@ -637,7 +632,6 @@ Bool_t ttHAnalyzer::IsFakeableElectron(UInt_t iElec, Float_t ptcut){
 
 Bool_t ttHAnalyzer::IsLooseElectron(UInt_t iElec, Float_t ptcut){
 	if ((TMath::Abs(LepGood_pdgId[iElec])) != 11) return false;
-	if (LepGood_jetDR[iElec] > 0.5) return false;
 	if (TMath::Abs(LepGood_eta[iElec]) > 2.5) return false;
 	if (LepGood_pt[iElec] < 7) return false;
 	if (TMath::Abs(LepGood_dxy[iElec]) > 0.05) return false;
@@ -801,7 +795,7 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
 	if (!IsSSEvent()) 					return false;
 	if (TightLepton[0].p.Pt() < 20) 	return false;
 	if (TightLepton[1].type == 1){
-		if (TightLepton[0].p.Pt() < 15) return false;
+		if (TightLepton[1].p.Pt() < 15) return false;
 	}
 	UInt_t nicejets = 0;
     for (Int_t i = 0; i < nJet; i++) {
