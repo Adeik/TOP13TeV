@@ -89,7 +89,7 @@ void ttHAnalyzer::InsideLoop() {
 		cout << "DEBUGC - Beginning of InsideLoop" << endl;
 	#endif
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
-	run	= Get<Int_t>("run");
+	//run	= Get<Int_t>("run");
 	//if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) return; 	// Comment this for running with ALL the data
 	fHDummy->Fill(0.5); 																			// Dummy histogram (considers all events from the MC and data samples selected)
     CoutEvent(evt, Form("Event number = %li", evt));
@@ -100,14 +100,6 @@ void ttHAnalyzer::InsideLoop() {
 	SetEventObjects();
 
     if (!PassesPreCuts()) return;
-
-
-
-
-	// Here goes a big WOLOLO
-
-
-
 
 	// Fill histograms
 	FillEventHistos();
@@ -146,7 +138,7 @@ void ttHAnalyzer::GetTreeVariables() {
 	nTauGood             = Get<Int_t>("nTauGood");
 	nJet                 = Get<Int_t>("nJet");
     evt                  = Get<Long_t>("evt");
-    
+
     if (!gIsData){
 		genWeight            = Get<Float_t>("genWeight");
 	}
@@ -276,17 +268,12 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 void ttHAnalyzer::FillEventHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
-			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
-			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
-			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
-			if (icat 	== Total 		&& ichan != All) continue;
-			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-			if (ichan 	== ElEl			&& !triggereeSS()) continue;
-			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threel		&& !trigger3l4l()) continue;
-			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
+			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
+			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
+			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
 		}
 	}
@@ -295,17 +282,12 @@ void ttHAnalyzer::FillEventHistos() {
 void ttHAnalyzer::FillYieldHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
-			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
-			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
-			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
-			if (icat 	== Total 		&& ichan != All) continue;
-			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-			if (ichan 	== ElEl			&& !triggereeSS()) continue;
-			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threel		&& !trigger3l4l()) continue;
-			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
+			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
+			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
+			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
@@ -320,17 +302,12 @@ void ttHAnalyzer::FillYieldHistos() {
 void ttHAnalyzer::FillKinematicHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
-			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
-			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
-			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat	== threel 	&& (!Is3lEvent() || ichan != All)) continue;
-			if (icat 	== Total 		&& ichan != All) continue;
-			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-			if (ichan 	== ElEl			&& !triggereeSS()) continue;
-			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threel		&& !trigger3l4l()) continue;
-			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
+			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
+			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
+			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
@@ -341,17 +318,12 @@ void ttHAnalyzer::FillKinematicHistos() {
 void ttHAnalyzer::FillMETHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& !Is2lSSEvent()) continue;
-			if (ichan 	== MuMu 		&& !IsMuMuEvent()) continue;
-			if (ichan 	== ElEl 		&& !IsElElEvent()) continue;
-			if (ichan 	== ElMu 		&& !IsElMuEvent()) continue;
-			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
-			if (icat 	== Total 		&& ichan != All) continue;
-			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-			if (ichan 	== ElEl			&& !triggereeSS()) continue;
-			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threel		&& !trigger3l4l()) continue;
-			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
+			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
+			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
+			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
@@ -362,14 +334,12 @@ void ttHAnalyzer::FillMETHistos() {
 void ttHAnalyzer::FillMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat 	== twolSS 		&& (!Is2lSSEvent() || ichan != All)) continue;
-			if (icat 	== threel 		&& (!Is3lEvent() || ichan != All)) continue;
-			if (icat 	== Total 		&& ichan != All) continue;
-			if (ichan 	== MuMu			&& !triggermumuSS()) continue;
-			if (ichan 	== ElEl			&& !triggereeSS()) continue;
-			if (ichan 	== ElMu			&& !triggeremuSS()) continue;
-			if (icat 	== threel		&& !trigger3l4l()) continue;
-			if (icat 	== Total		&& (!triggermumuSS() || !triggereeSS() || !triggeremuSS() || !trigger3l4l())) continue;
+			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
+			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
+			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
+			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
+			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) || ichan != All )) 	continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
 			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
@@ -794,7 +764,7 @@ Bool_t ttHAnalyzer::IsElElEvent(){
 }
 
 Bool_t ttHAnalyzer::IsSSEvent() {
-	if (IsDileptonEvent() < 0) return false;
+	if (IsDileptonEvent() <= 0) return false;
 	return true;
 }
 
@@ -826,9 +796,9 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 }
 
 Bool_t ttHAnalyzer::Is2lSSEvent() {
-	if (nTightElec + nTightMuon > 2) return false;
-	if (!IsSSEvent()) return false;
-	if (TightLepton[0].p.Pt() < 20) return false;
+	if (nTightElec + nTightMuon > 2) 	return false;
+	if (!IsSSEvent()) 					return false;
+	if (TightLepton[0].p.Pt() < 20) 	return false;
 	if (TightLepton[1].type == 1){
 		if (TightLepton[0].p.Pt() < 15) return false;
 	}
@@ -836,7 +806,7 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
     for (Int_t i = 0; i < nJet; i++) {
         if(IsGoodJetforprecuts(i,gJetEtCut)) nicejets++;
 	}
-	if (nicejets < 4) return false;
+	if (nicejets < 4) 					return false;
 	if (IsElElEvent()){
 		if (abs((fHypLepton1.p + fHypLepton2.p).M() - Zm) < 10) return false;
 		if (getMETLD() < 0.2) return false;
@@ -1047,7 +1017,7 @@ void ttHAnalyzer::SetEventObjects(){
 		EventWeight = gWeight;
 		if (gIsMCatNLO) EventWeight *= genWeight;
 	}
-			
+
 
 	// Counters initialization
 	nJets       	= 0;
@@ -1058,6 +1028,12 @@ void ttHAnalyzer::SetEventObjects(){
     nTightElec 		= 0;
     nFakeableElec 	= 0;
     nLooseElec 		= 0;
+	nBTags			= 0;
+	nMediumBTags	= 0;
+	nLooseBTags		= 0;
+	nTaus			= 0;
+	njpt			= 0;
+
 
 	// Read and save objects
 	Jet.clear();
