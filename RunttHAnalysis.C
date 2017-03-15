@@ -89,7 +89,9 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 		sampleName.Contains("TTZToQQ")		||	sampleName == "WWZ" 			||
 		sampleName == "WZZ" 				||	sampleName == "ZZZ" 			||
 		sampleName.Contains("aMCatNLO") 	|| 	sampleName.Contains("amcatnlo") ||
-		sampleName.Contains("TTZToLLNuNu")	||	sampleName.Contains("TTGJets") ) {
+		sampleName.Contains("TTZToLLNuNu")	||	sampleName.Contains("TTGJets") 	||
+		sampleName == "ZGTo2LG" 			||	sampleName.Contains("TGJets")	||
+		sampleName == "tZq_ll"				|| sampleName == "TTTT") {
 			G_Event_Weight 		= dm->GetCrossSection() / dm->GetSumWeights();
 			cout << endl;
 			cout << " weightSum(MC@NLO) = " << dm->GetSumWeights()     << endl;
