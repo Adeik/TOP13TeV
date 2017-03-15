@@ -14,10 +14,7 @@
 
 // Analysis packages inclusion
 //#include "GlobalVariables.h"
-#include "mt2.h"
-#include "PUWeight.h"
 #include "BTagSFUtil.h"
-#include "SusyLeptonSF.h"
 
 // ROOT packages inclusion
 #include "TH1F.h"
@@ -25,7 +22,6 @@
 #include "TEfficiency.h"
 #include "TLorentzVector.h"
 #include "TString.h"
-#include "TRandom3.h"
 
 // C++ packages inclusion
 #include <vector>
@@ -150,7 +146,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Int_t 	LepGood_mediumMuonId[30];
 		Float_t LepGood_mvaTTH[30];
 		Float_t LepGood_jetPtRatiov2[30];
-		Float_t LepGood_mvaIdSpring15[30];
 		Float_t	LepGood_mvaIdSpring16GP[30];
 		Float_t LepGood_sigmaIEtaIEta[30];
 		Float_t LepGood_hadronicOverEm[30];
@@ -276,11 +271,8 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
 		//	PU and SF
 		//----------------------------------------------------------------------
-		PUWeight      *fPUWeight;      //The PU weight utility
 		BTagSFUtil    *medfBTagSFnom;
 		BTagSFUtil    *losfBTagSFnom;
-		SusyLeptonSF  *fLeptonSF;
-		TRandom3      *fRand3;
 
 		//	EventWeight
 		//----------------------------------------------------------------------

@@ -140,7 +140,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 	myProject->SetInputParam("sampleName",    sampleName       );
 	myProject->SetInputParam("IsData",        G_IsData         );
 	myProject->SetInputParam("weight",        G_Event_Weight   );
-  	myProject->SetInputParam("IsMCatNLO"    , G_IsMCatNLO      );  
+  	myProject->SetInputParam("IsMCatNLO"    , G_IsMCatNLO      );
 
 	if(nEvents != 0) myProject->SetNEvents(nEvents);
 
@@ -151,10 +151,7 @@ void RunttHAnalysis(TString		sampleName		=	"ZZ_ext"	,
 
 	// Additional packages
 	//--------------------------------------------------------------------------
-	myProject->AddPackage("mt2");
-	myProject->AddPackage("PUWeight");
 	myProject->AddPackage("BTagSFUtil");
-	myProject->AddPackage("SusyLeptonSF");
 
 	// Start analysis
 	//--------------------------------------------------------------------------
