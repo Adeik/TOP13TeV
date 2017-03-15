@@ -681,7 +681,7 @@ Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau) {
 //	Jets methods
 //------------------------------------------------------------------------------
 Int_t ttHAnalyzer::getSelectedJets(){
-	Int_t nj(0);
+	Int_t nj		= 0;
 	njpt 			= 0;
 	nBTags			= 0;
 	nMediumBTags	= 0;
@@ -1019,7 +1019,6 @@ void ttHAnalyzer::SetEventObjects(){
 		EventWeight = gWeight;
 		if (gIsMCatNLO) EventWeight *= genWeight;
 	}
-	cout<< EventWeight <<endl;
 
 	// Counters initialization
 	nJets       	= 0;
