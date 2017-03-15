@@ -205,7 +205,7 @@ void ttHAnalyzer::GetParameters() {
 void ttHAnalyzer::InitialiseEventHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHEvents[icat][ichan] = CreateH1F("H_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""						, 1, 0, 1);
 		}
@@ -215,7 +215,7 @@ void ttHAnalyzer::InitialiseEventHistos() {
 void ttHAnalyzer::InitialiseYieldHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHTightLep	[icat][ichan] = CreateH1F("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
 			fHFakeLep	[icat][ichan] = CreateH1F("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""					, 10, 0, 10);
@@ -231,7 +231,7 @@ void ttHAnalyzer::InitialiseYieldHistos() {
 void ttHAnalyzer::InitialiseKinematicHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHPtLeading			[icat][ichan] = CreateH1F("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 20, 0, 300);
 			fHPtSubLeading		[icat][ichan] = CreateH1F("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 20, 0, 300);
@@ -243,7 +243,7 @@ void ttHAnalyzer::InitialiseKinematicHistos() {
 void ttHAnalyzer::InitialiseMETHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 50, 0, 500);
 			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 100, 0, 1000);
@@ -256,7 +256,7 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == twolSS 		&& ichan != All) 	continue;
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 7, -3.5, 3.5);
 			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 50, 0, 200);
@@ -274,7 +274,9 @@ void ttHAnalyzer::FillEventHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ichan != All ) 	continue;
+			if (icat 	== Total 		&& (!Is2lSSEvent() || !IsMuMuEvent() || !triggermumuSS()) && (!Is2lSSEvent() || !IsElElEvent() || !triggereeSS()) && (!Is2lSSEvent() || !IsElMuEvent() || !triggeremuSS()) && (!Is3lEvent() ||  !trigger3l4l())) 	continue;
+
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
 		}
 	}
@@ -288,7 +290,8 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ichan != All ) 	continue;
+			if (icat 	== Total 		&& (!Is2lSSEvent() || !IsMuMuEvent() || !triggermumuSS()) && (!Is2lSSEvent() || !IsElElEvent() || !triggereeSS()) && (!Is2lSSEvent() || !IsElMuEvent() || !triggeremuSS()) && (!Is3lEvent() ||  !trigger3l4l())) 	continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
@@ -308,7 +311,8 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ichan != All ) 	continue;
+			if (icat 	== Total 		&& (!Is2lSSEvent() || !IsMuMuEvent() || !triggermumuSS()) && (!Is2lSSEvent() || !IsElElEvent() || !triggereeSS()) && (!Is2lSSEvent() || !IsElMuEvent() || !triggeremuSS()) && (!Is3lEvent() ||  !trigger3l4l())) 	continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
@@ -324,7 +328,8 @@ void ttHAnalyzer::FillMETHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ichan != All ) 	continue;
+			if (icat 	== Total 		&& (!Is2lSSEvent() || !IsMuMuEvent() || !triggermumuSS()) && (!Is2lSSEvent() || !IsElElEvent() || !triggereeSS()) && (!Is2lSSEvent() || !IsElMuEvent() || !triggeremuSS()) && (!Is3lEvent() ||  !trigger3l4l())) 	continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
@@ -340,7 +345,8 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& ichan != All ) 	continue;
+			if (icat 	== Total 		&& (!Is2lSSEvent() || !IsMuMuEvent() || !triggermumuSS()) && (!Is2lSSEvent() || !IsElElEvent() || !triggereeSS()) && (!Is2lSSEvent() || !IsElMuEvent() || !triggeremuSS()) && (!Is3lEvent() ||  !trigger3l4l())) 	continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
 			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
@@ -1034,7 +1040,7 @@ void ttHAnalyzer::SetEventObjects(){
 	TightLepton.clear();
 
 	nLeptons 	= getSelectedLeptons(); // Also gets n[]Muon/Elec
-	nJets    	= getSelectedJets(); // Gets the total number of jets. IMPORTANT: nmedBTags + nlosBTags = nBTags, i.e.: the medium b-tagged jets and the loose b-tagged jets are a partition of the jets set.
+	nJets    	= getSelectedJets(); // Gets the total number of jets.
 }
 
 void ttHAnalyzer::ResetOriginalObjects(){
