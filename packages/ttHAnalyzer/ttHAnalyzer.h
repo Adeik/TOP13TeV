@@ -151,6 +151,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_mvaTTH[30];
 		Float_t LepGood_jetPtRatiov2[30];
 		Float_t LepGood_mvaIdSpring15[30];
+		Float_t	LepGood_mvaIdSpring16GP[30];
 		Float_t LepGood_sigmaIEtaIEta[30];
 		Float_t LepGood_hadronicOverEm[30];
 		Float_t LepGood_dEtaScTrkIn[30];

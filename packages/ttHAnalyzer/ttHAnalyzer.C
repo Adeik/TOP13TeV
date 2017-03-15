@@ -161,6 +161,7 @@ void ttHAnalyzer::GetTreeVariables() {
 		LepGood_mvaTTH[k]			= Get<Float_t>("LepGood_mvaTTH", k);
 		LepGood_jetPtRatiov2[k]		= Get<Float_t>("LepGood_jetPtRatiov2", k);
 		LepGood_mvaIdSpring15[k]	= Get<Float_t>("LepGood_mvaIdSpring15", k);
+		LepGood_mvaIdSpring16GP[k]	= Get<Float_t>("LepGood_mvaIdSpring16GP", k);
 		LepGood_sigmaIEtaIEta[k]	= Get<Float_t>("LepGood_sigmaIEtaIEta", k);
 		LepGood_hadronicOverEm[k]	= Get<Float_t>("LepGood_hadronicOverEm", k);
 		LepGood_dEtaScTrkIn[k]		= Get<Float_t>("LepGood_dEtaScTrkIn", k);
@@ -273,7 +274,7 @@ void ttHAnalyzer::FillEventHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
 			fHEvents[icat][ichan]->Fill(0.5,EventWeight);
 		}
 	}
@@ -287,7 +288,7 @@ void ttHAnalyzer::FillYieldHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
 			fHTightLep	[icat][ichan]->Fill(nTightElec+nTightMuon,EventWeight);
 			fHFakeLep	[icat][ichan]->Fill(nFakeableElec+nFakeableMuon,EventWeight);
 			fHLooseLep	[icat][ichan]->Fill(nLooseElec+nLooseMuon,EventWeight);
@@ -307,7 +308,7 @@ void ttHAnalyzer::FillKinematicHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
 			fHPtLeading			[icat][ichan]->Fill(TightLepton[0].p.Pt(),EventWeight);
 			fHPtSubLeading		[icat][ichan]->Fill(TightLepton[1].p.Pt(),EventWeight);
 			fHPtSubSubLeading	[icat][ichan]->Fill(TightLepton[2].p.Pt(),EventWeight);
@@ -323,7 +324,7 @@ void ttHAnalyzer::FillMETHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
 			fHMET	[icat][ichan]->Fill(MET,EventWeight);
 			fHMHT	[icat][ichan]->Fill(MHT,EventWeight);
 			fHMETLD	[icat][ichan]->Fill(getMETLD(),EventWeight);
@@ -339,7 +340,7 @@ void ttHAnalyzer::FillMiscHistos() {
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
 			if (icat 	== threel 		&& (!Is3lEvent() 	|| !trigger3l4l() 	|| ichan != All)) 	continue;
-			if (icat 	== Total 		&& ((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent()) || ichan != All )) 	continue;
+			if (icat 	== Total 		&& (((!triggermumuSS() && !triggereeSS() && !triggeremuSS() && !trigger3l4l()) && (!Is2lSSEvent() && !Is3lEvent())) || ichan != All )) 	continue;
 			fHChargeSum	[icat][ichan]->Fill(getCS(),EventWeight);
 			if (icat == twolSS || icat == threel || icat == Total) fHMass	[icat][ichan]->Fill((TightLepton[0].p+TightLepton[1].p).M(),EventWeight);
 		}
@@ -637,15 +638,11 @@ Bool_t ttHAnalyzer::IsLooseElectron(UInt_t iElec, Float_t ptcut){
 	if (TMath::Abs(LepGood_dz[iElec]) > 0.1) return false;
 	if (LepGood_sip3d[iElec] > 8) return false;
 	if (LepGood_miniRelIso[iElec] > 0.4) return false;
-	if (TMath::Abs(LepGood_eta[iElec]) < 0.8) {
-		if (LepGood_mvaIdSpring15[iElec] < -0.70) return false;
+    Float_t	 A = -0.86+(-0.85+0.86)*(abs(LepGood_eta[iElec])>0.8)+(-0.81+0.86)*(abs(LepGood_eta[iElec])>1.479);
+	Float_t  B = -0.96+(-0.96+0.96)*(abs(LepGood_eta[iElec])>0.8)+(-0.95+0.96)*(abs(LepGood_eta[iElec])>1.479);
+    if (LepGood_pt[iElec] > 10) {
+	    if (!(LepGood_mvaIdSpring16GP[iElec] > min( A , max( B , A+(B-A)/10*(LepGood_pt[iElec]-15))) )) return false;
 	}
-	else if ((TMath::Abs(LepGood_eta[iElec]) < 1.479) && (TMath::Abs(LepGood_eta[iElec]) >= 0.8)){
-		if (LepGood_mvaIdSpring15[iElec] < -0.83) return false;
-	}
-	else if (TMath::Abs(LepGood_eta[iElec]) >= 1.479) {
-		if (LepGood_mvaIdSpring15[iElec] < -0.92) return false;
-    }
 	if (LepGood_lostHits[iElec] > 2) return false;
 	return true;
 }
