@@ -324,7 +324,7 @@ void ttHPlotter() {
 				fHDMET				[icat][ichan]	-> Add(histDMET); // MET
 				fHDMHT				[icat][ichan]	-> Add(histDMHT);
 				fHDMETLD			[icat][ichan]	-> Add(histDMETLD);
-				if (icat == twolSS 		&& ichan != All) {
+				if (!(icat == twolSS 		&& ichan != All)) {
 					fHDChargeSum		[icat][ichan]	-> Add(histDChargeSum); // Misc
 					fHDMass				[icat][ichan]	-> Add(histDMass);
 				}
