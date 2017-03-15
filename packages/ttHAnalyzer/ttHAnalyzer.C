@@ -270,6 +270,7 @@ void ttHAnalyzer::FillEventHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (icat 	== twolSS 		&& (!triggermumuSS() && !triggereeSS() && !triggeremuSS()))	continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
@@ -286,6 +287,7 @@ void ttHAnalyzer::FillYieldHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (icat 	== twolSS 		&& (!triggermumuSS() && !triggereeSS() && !triggeremuSS()))	continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
@@ -307,6 +309,7 @@ void ttHAnalyzer::FillKinematicHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (icat 	== twolSS 		&& (!triggermumuSS() && !triggereeSS() && !triggeremuSS()))	continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
@@ -324,6 +327,7 @@ void ttHAnalyzer::FillMETHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& !Is2lSSEvent()) 											continue;
+			if (icat 	== twolSS 		&& (!triggermumuSS() && !triggereeSS() && !triggeremuSS()))	continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
@@ -341,6 +345,7 @@ void ttHAnalyzer::FillMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat 	== twolSS 		&& (!Is2lSSEvent()	|| ichan != All))						continue;
+			if (icat 	== twolSS 		&& (!triggermumuSS() && !triggereeSS() && !triggeremuSS()))	continue;
 			if (ichan 	== MuMu 		&& (!IsMuMuEvent() 	|| !triggermumuSS())) 					continue;
 			if (ichan 	== ElEl 		&& (!IsElElEvent() 	|| !triggereeSS())) 					continue;
 			if (ichan 	== ElMu 		&& (!IsElMuEvent() 	|| !triggeremuSS())) 					continue;
@@ -793,7 +798,7 @@ Int_t ttHAnalyzer::IsDileptonEvent(){
 }
 
 Bool_t ttHAnalyzer::Is2lSSEvent() {
-	if (nTightElec + nTightMuon > 2) 	return false;
+	if (nTightElec + nTightMuon != 2) 	return false;
 	if (!IsSSEvent()) 					return false;
 	if (TightLepton[0].p.Pt() < 20) 	return false;
 	if (TightLepton[1].type == 1){
