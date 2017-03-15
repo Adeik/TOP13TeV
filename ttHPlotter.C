@@ -820,7 +820,6 @@ void ttHPlotter() {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
-			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMass    		[icat][ichan]	-> SetMinimum(0);
