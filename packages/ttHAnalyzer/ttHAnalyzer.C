@@ -256,7 +256,7 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 	for (UInt_t icat = 0; icat < gNCATEGORIES; icat++) {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == twolSS 		&& ichan != All) 	continue;
-			if (icat == threel 	&& ichan != All) 	continue;
+			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 7, -3.5, 3.5);
 			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 50, 0, 200);
@@ -1008,7 +1008,7 @@ void ttHAnalyzer::SetEventObjects(){
 		EventWeight = gWeight;
 		if (gIsMCatNLO) EventWeight *= genWeight;
 	}
-
+	cout<< EventWeight <<endl;
 
 	// Counters initialization
 	nJets       	= 0;
