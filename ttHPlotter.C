@@ -324,7 +324,7 @@ void ttHPlotter() {
 				fHDMET				[icat][ichan]	-> Add(histDMET); // MET
 				fHDMHT				[icat][ichan]	-> Add(histDMHT);
 				fHDMETLD			[icat][ichan]	-> Add(histDMETLD);
-				if (icat == twolSS 		&& ichan == All) {
+				if (icat == twolSS 		&& ichan != All) {
 					fHDChargeSum		[icat][ichan]	-> Add(histDChargeSum); // Misc
 					fHDMass				[icat][ichan]	-> Add(histDMass);
 				}
@@ -820,6 +820,7 @@ void ttHPlotter() {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
+			if (icat == twolSS 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDMass    		[icat][ichan]	-> SetMinimum(0);
