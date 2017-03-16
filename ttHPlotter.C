@@ -21,7 +21,7 @@ using namespace std;
 
 void ttHPlotter() {
 	const Float_t lumi			=	35870;
-	const UInt_t nmcSamples 	= 	25;
+	const UInt_t nmcSamples 	= 	27;
 	const UInt_t ndataSamples 	= 	5;
 	enum gCategories {
 	    categories_begin,
@@ -41,22 +41,28 @@ void ttHPlotter() {
 	const TString gCatLabel			[gNCATEGORIES] 	= {"2lSS","3l","Total"};
 	const TString gChanLabel		[gNCHANNELS] 	= {"MuMu","ElEl","ElMu","All"};
 	const TString mcsample			[nmcSamples] 	= {
-		"TTWToLNu_ext2", "TTZToLLNuNu_ext", "TTZToQQ", //"TTZToLLNuNu_ext2", "TTGJets",	// MC for comparison with data
-	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "TTGJets_ext", "WpWpJJ", "ZZZ", "WWZ", "WW_ext",//"WW",
-	  	"tZq_ll", "TTTT",
-	  	"TTJets_aMCatNLO", //"DYJetsToLL_M10to50_aMCatNLO", 							// MC for control regions
-	  	"DYJetsToLL_M10to50_aMCatNLO_ext", "WJetsToLNu_MLM", "TW_ext", "TbarW_ext", //"TW", "TbarW",
-	  	"T_tch", "Tbar_tch", "WZTo3LNu", "WWTo2L2Nu", "ZZ_ext", "TToLeptons_sch_amcatnlo", //"ZZ",
-	  	"TTHNonbb"																	// Signal samples
+		"TTWToLNu_ext2", "TTWToQQ",												// TTW
+		"TTZToLLNuNu_ext", "TTZToQQ",											// TTZ
+		"TTGJets_ext", "TTJets_aMCatNLO",										// TT+
+		"TW_ext", "TbarW_ext", "T_tch", "Tbar_tch", "TToLeptons_sch_amcatnlo",	// T+
+	  	"WGToLNuG", "ZGTo2LG", "TGJets_ext", "ZZZ", "WWZ", "tZq_ll", "TTTT", "WZTo3LNu",// Rares
+		"WW_ext", "WpWpJJ", "WWTo2L2Nu",										// WW/WW+
+		"WJetsToLNu_MLM",														// W+
+		"ZZ_ext",																// ZZ
+		"DYJetsToLL_M50_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO_ext", 			// DY
+	  	"TTHNonbb"																// Signal
 	};
 	Int_t mcsampleColors	[nmcSamples] 	= {
-		kGreen-5, kSpring+2, kSpring+2, //kSpring+2, "TTGJets",	// MC for comparison with data
-	  	kAzure-9, kAzure-9, kAzure-9, kSpring+1, kOrange-3, kAzure-9, kAzure-9, kAzure-9, //"WW",
-	  	kAzure-9, kAzure-9,
-	  	kSpring+2, //kCyan+1, 							// MC for control regions
-	  	kCyan+1, kGreen-5, kGreen-1, kGreen-1, //"TW", "TbarW",
-	  	kRed, kRed, kAzure-9, kViolet-4, kYellow, kAzure-9,// "ZZ",
-	  	kOrange+10																	// Signal samples
+		kGreen-5, kGreen-5,
+		kSpring+2, kSpring+2,
+		kSpring+10, kSpring+10,
+		kViolet-6, kViolet-6, kViolet-6, kViolet-6, kViolet-6,
+	  	kAzure-9, kAzure-9, kAzure-9,  kAzure-9, kAzure-9, kAzure-9, kAzure-9, kAzure-9,
+		kBlue, kBlue, kBlue,
+	  	kCyan+1,
+		kYellow,
+		kOrange, kOrange,
+		kRed
 	};
 	const TString datasample		[ndataSamples] 	= {
 		"MuonEG", "DoubleMuon", "DoubleEG", "SingleMuon", "SingleElec"			// Data samples

@@ -19,6 +19,7 @@ if [ "$1" == "an" ]; then
     else
     	echo "%%%%%> MC SAMPLES FOR COMPARISON WITH DATA"
         root -l -b -q "RunttHAnalysis.C(\"TTWToLNu_ext2\"						, $2, 0)"
+        root -l -b -q "RunttHAnalysis.C(\"TTWToQQ\"								, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"TTZToLLNuNu_ext\"						, $2, 0)"
         #root -l -b -q "RunttHAnalysis.C(\"TTZToLLNuNu_ext2\"					, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"TTZToQQ\"								, $2, 0)"
@@ -38,7 +39,7 @@ if [ "$1" == "an" ]; then
 
 		echo "%%%%%> MC SAMPLES FOR CONTROL REGIONS"
         root -l -b -q "RunttHAnalysis.C(\"TTJets_aMCatNLO\"						, $2, 0)"
-        #root -l -b -q "RunttHAnalysis.C(\"DYJetsToLL_M10to50_aMCatNLO\"			, $2, 0)"
+        root -l -b -q "RunttHAnalysis.C(\"DYJetsToLL_M50_aMCatNLO\"				, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"DYJetsToLL_M10to50_aMCatNLO_ext\"		, $2, 0)"
         root -l -b -q "RunttHAnalysis.C(\"WJetsToLNu_MLM\"						, $2, 0)"	# ***************
         #root -l -b -q "RunttHAnalysis.C(\"WJetsToLNu_MLM_ext2\"					, $2, 0)"	# ***************

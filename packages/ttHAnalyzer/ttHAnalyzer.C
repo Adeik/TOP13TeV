@@ -729,7 +729,6 @@ Bool_t ttHAnalyzer::IsGoodJet(UInt_t ijet, Float_t ptcut){
     if (jet.Pt() < ptcut)     return false;
     if (abs(jet.Eta()) > 2.4) return false;
     if (Get<Int_t>("Jet_id",ijet) <= 0)    return false;
-    //if (Jet_id[ijet] > 0) return true;
     // Remove jets close to all selected leptons...
     for(UInt_t i = 0; i < FakeableLepton.size(); i++){
         if(jet.DeltaR(FakeableLepton[i].p) < minDR) return false;
@@ -744,7 +743,6 @@ Bool_t ttHAnalyzer::IsGoodJetforprecuts(UInt_t ijet, Float_t ptcut){
     if (jet.Pt() < ptcut)     return false;
     if (abs(jet.Eta()) > 2.4) return false;
     if (Get<Int_t>("Jet_id",ijet) <= 0)    return false;
-    //if (Jet_id[ijet] > 0) return true;
     return true;
 }
 
@@ -802,11 +800,15 @@ Bool_t ttHAnalyzer::Is2lSSEvent() {
 	if (TightLepton[1].type == 1){
 		if (TightLepton[1].p.Pt() < 15) return false;
 	}
-	UInt_t nicejets = 0;
-    for (Int_t i = 0; i < nJet; i++) {
-        if(IsGoodJetforprecuts(i,gJetEtCut)) nicejets++;
-	}
-	if (nicejets < 4) 					return false;
+
+	// UInt_t nicejets = 0;
+    // for (Int_t i = 0; i < nJet; i++) {
+    //     if(IsGoodJetforprecuts(i,gJetEtCut)) nicejets++;
+	// }
+	// if (nicejets < 4) 					return false;
+
+	if (nJets < 4) 					return false;
+
 	if (IsElElEvent()){
 		if (abs((fHypLepton1.p + fHypLepton2.p).M() - Zm) < 10) return false;
 		if (getMETLD() < 0.2) return false;
@@ -856,39 +858,47 @@ Bool_t ttHAnalyzer::PassesPreCuts(){
 			if ((tmp_looselep0.p + tmp_looselep1.p).M() < 12) return false;
 		}
 	}
-	if (njpt < 2) return false;
 
-	TLorentzVector jt;
-	UInt_t njloose;
-	UInt_t njmedium;
+	// =========== AQUÍ
 
-    for (Int_t i = 0; i < nJet; i++) {
-        if(!IsGoodJetforprecuts(i,gJetEtCut)) continue;
+	if (nJets < 2) return false;
+	if (nLooseBTags < 2) {
+		if (nMediumBTags < 1) return false;
+	}
 
-        Float_t jetbtagi      = Jet_btagCSV[i];
-        Float_t jetetai       = Jet_eta[i];
-        Float_t jetenergyi    = Jet_energy[i];
-
-        jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
-        Bool_t isbtagm = false;
-        Bool_t isbtagl = false;
-
-        if (1) {																						// WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-            isbtagm = medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
-            isbtagl = losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
-        }
-        else {
-			Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
-            isbtagm = medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-            isbtagl = losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
-        }
-		if (isbtagm) njmedium++;
-		if (isbtagl) njloose++;
-    }
-
-    if (njloose < 2) {
-    	if (njmedium < 1 ) return false;
-    }
+	// if (njpt < 2) return false;
+	//
+	// TLorentzVector jt;
+	// UInt_t njloose;
+	// UInt_t njmedium;
+	//
+    // for (Int_t i = 0; i < nJet; i++) {
+    //     if(!IsGoodJetforprecuts(i,gJetEtCut)) continue;
+	//
+    //     Float_t jetbtagi      = Jet_btagCSV[i];
+    //     Float_t jetetai       = Jet_eta[i];
+    //     Float_t jetenergyi    = Jet_energy[i];
+	//
+    //     jt.SetPtEtaPhiE(JetPt.at(i), jetetai, JetPhi.at(i), jetenergyi);
+    //     Bool_t isbtagm = false;
+    //     Bool_t isbtagl = false;
+	//
+    //     if (1) {																						// WOLOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    //         isbtagm = medfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+    //         isbtagl = losfBTagSFnom->IsTagged(Jet_btagCSV[i], -999999, JetPt.at(i), jetetai);
+    //     }
+    //     else {
+	// 		Int_t jetmcflavouri = Get<Int_t>("Jet_mcFlavour", i);
+    //         isbtagm = medfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+    //         isbtagl = losfBTagSFnom->IsTagged(jetbtagi, jetmcflavouri, JetPt.at(i), jetetai);
+    //     }
+	// 	if (isbtagm) njmedium++;
+	// 	if (isbtagl) njloose++;
+    // }
+	//
+    // if (njloose < 2) {
+    // 	if (njmedium < 1 ) return false;
+    // }
 	return true;
 }
 
