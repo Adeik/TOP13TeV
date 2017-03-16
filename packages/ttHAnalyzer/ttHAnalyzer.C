@@ -396,7 +396,7 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
 	        }
         }
 		if (!IsTightMuon(i) && !IsFakeableMuon(i) && !IsLooseMuon(i) && !IsTightElectron(i) && !IsFakeableElectron(i) && !IsLooseElectron(i)) continue;
-		
+
         lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
         lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		if (thetype == 4 || thetype == 5 || thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
@@ -411,14 +411,14 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
         tmp_lepton.push_back(tmpLepton);
     }
 
-	for (Int_t i = 0; i < nTauGood; i++) {
-		if (IsGoodTau(i)) nTaus++;
-	}
-
 	TightLepton 	= SortLeptonsByPt(tmp_tightlepton);
     FakeableLepton 	= SortLeptonsByPt(tmp_fakeablelepton);
     LooseLepton 	= SortLeptonsByPt(tmp_looselepton);
     Lepton 			= SortLeptonsByPt(tmp_lepton);
+
+	for (Int_t i = 0; i < nTauGood; i++) {
+		if (IsGoodTau(i)) nTaus++;
+	}
 
     return Lepton.size();
 }
@@ -1004,11 +1004,11 @@ void ttHAnalyzer::SetEventObjects(){
 
 	MET     = Get<Float_t>("met_pt"); //met
 	MET_Phi = Get<Float_t>("met_phi"); //met
-	MHT 	= getMHT(); //mht
 
 	nLeptons 	= getSelectedLeptons(); // Also gets n[]Muon/Elec
 	nJets    	= getSelectedJets(); // Gets the total number of jets.
 
+	MHT 	= getMHT(); //mht
 }
 
 void ttHAnalyzer::ResetHypLeptons(){

@@ -421,7 +421,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDTightLep    		[icat][ichan]	-> SetMinimum(0);
-			fHDTightLep    			[icat][ichan]	->	SetMarkerStyle(20);
+			fHDTightLep    		[icat][ichan]	->	SetMarkerStyle(20);
 			fHDTightLep    		[icat][ichan]	-> Draw("pe");
 			fHSTightLep			[icat][ichan]	-> Draw("histsame");
 
@@ -450,7 +450,7 @@ void ttHPlotter() {
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
 			fHDFakeLep    		[icat][ichan]	-> SetMinimum(0);
-			fHDFakeLep    			[icat][ichan]	->	SetMarkerStyle(20);
+			fHDFakeLep    		[icat][ichan]	->	SetMarkerStyle(20);
 			fHDFakeLep    		[icat][ichan]	-> 	Draw("pe");
 			fHSFakeLep			[icat][ichan]	-> Draw("histsame");
 
