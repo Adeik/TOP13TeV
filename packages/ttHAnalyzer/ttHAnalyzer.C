@@ -395,7 +395,8 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
 		        }
 	        }
         }
-		if (!IsTightMuon() && !IsFakeableMuon() && !IsLooseMuon() && !IsTightElectron() && !IsFakeableElectron() && !IsLooseElectron()) continue;
+		if (!IsTightMuon(i) && !IsFakeableMuon(i) && !IsLooseMuon(i) && !IsTightElectron(i) && !IsFakeableElectron(i) && !IsLooseElectron(i)) continue;
+		
         lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
         lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		if (thetype == 4 || thetype == 5 || thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
@@ -952,7 +953,7 @@ void ttHAnalyzer::SetOriginalObjects(){
 			ElEnergy.push_back(LepGood_energy[i]);
 		}
 	}
-	for (Int_t i=0; i<nLepGood; i++){
+	for (Int_t i=0; i < nLepGood; i++){
 		if(TMath::Abs(LepGood_pdgId[i]) == 13){
 			MuPx.push_back(LepGood_px[i]);
 			MuPy.push_back(LepGood_py[i]);
