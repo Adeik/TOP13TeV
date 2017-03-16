@@ -596,10 +596,10 @@ void ttHPlotter() {
 			if (icat == Total 		&& ichan != All) 	continue;
 			TCanvas *c = new TCanvas("c", "c", 800, 600);
 			//if (icat != threel) c -> SetLogy();
-			fHDLosBTagJet    		[icat][ichan]	-> SetMinimum(0);
-			fHDLosBTagJet    			[icat][ichan]	->	SetMarkerStyle(20);
+			fHDLosBTagJet    	[icat][ichan]	-> SetMinimum(0);
+			fHDLosBTagJet    	[icat][ichan]	->	SetMarkerStyle(20);
 			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pe");
-			fHSLosBTagJet		[icat][ichan]	-> Draw("histsame");
+			fHSLosBTagJet		[icat][ichan]	-> Draw("histsameaxis");
 
 			TList* LosBTagJetList;
 			LosBTagJetList = fHSLosBTagJet    		[icat][ichan]	-> 	GetHists(); // Events
