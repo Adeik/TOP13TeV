@@ -403,43 +403,42 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
             CoutEvent(evt, Form("eInvMinusPInv = %f", Get<Float_t>("LepGood_eInvMinusPInv", i)));
             CoutEvent(evt, Form("eInvMinusPInv_tkMom = %f", Get<Float_t>("LepGood_eInvMinusPInv_tkMom", i)));
 	    }
+		if(IsLooseMuon(i)){
+			CoutEvent(evt, "   It's a loose muon!");
+			thetype = 4;
+			nLooseMuon++;
+        }
+		if(IsFakeableMuon(i)){
+			CoutEvent(evt, "   It's a fakeable muon!");
+			thetype = 2;
+			nFakeableMuon++;
+        }
 		if(IsTightMuon(i)){
 			CoutEvent(evt, "   It's a tight muon!");
 			thetype = 0;
 			nTightMuon++;
         }
-		else if(IsFakeableMuon(i)){
-			CoutEvent(evt, "   It's a fakeable muon!");
-			thetype = 2;
-			nFakeableMuon++;
-        }
-		else if(IsLooseMuon(i)){
-			CoutEvent(evt, "   It's a loose muon!");
-			thetype = 4;
-			nLooseMuon++;
-        }
-        else if(IsTightElectron(i)){
-			CoutEvent(evt, "   It's a tight electron!");
-            thetype = 1;
-            nTightElec++;
-        }
-        else if(IsFakeableElectron(i)){
-			CoutEvent(evt, "   It's a fakeable electron!");
-            thetype = 3;
-            nFakeableElec++;
-        }
-        else if(IsLooseElectron(i)){
+        if(IsLooseElectron(i)){
 			CoutEvent(evt, "   It's a loose electron!");
             thetype = 5;
             nLooseElec++;
         }
-        else  continue;
-		if (thetype == 4 || thetype == 5) {
+        if(IsFakeableElectron(i)){
+			CoutEvent(evt, "   It's a fakeable electron!");
+            thetype = 3;
+            nFakeableElec++;
+        }
+        if(IsTightElectron(i)){
+			CoutEvent(evt, "   It's a tight electron!");
+            thetype = 1;
+            nTightElec++;
+        }
+		if (thetype == 4 || thetype == 5 || thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
 		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_looselepton.push_back(tmpLepton);
 		}
-		if (thetype == 2 || thetype == 3) {
+		if (thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
 		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
 		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_fakeablelepton.push_back(tmpLepton);
