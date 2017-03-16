@@ -381,6 +381,7 @@ void ttHPlotter() {
 	MyStyle->SetTitleSize(0.05, "x");
 	MyStyle->SetTitleSize(0.05, "y");
 	MyStyle->SetTitleSize(0.05, "z");
+	MyStyle->SetHistLineColor(kBlack); 	
 	gROOT->SetStyle("MyStyle");
 
 	// Drawing
