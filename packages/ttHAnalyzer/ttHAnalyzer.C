@@ -86,8 +86,7 @@ void ttHAnalyzer::InsideLoop() {
 	// SPECIAL ----- for running with 2015 data (03-03-16 draft note)
 	//run	= Get<Int_t>("run");
 	//if ((gIsData) && ((run < 254227) || (run > 254914 && run < 256630) || (run > 260627))) return; 	// Comment this for running with ALL the data
-	fHDummy->Fill(0.5); 																			// Dummy histogram (considers all events from the MC and data samples selected)
-    CoutEvent(evt, Form("Event number = %li", evt));
+	fHDummy->Fill(0.5);
 
 	// Get and set data members
 	GetTreeVariables();
@@ -111,15 +110,6 @@ void ttHAnalyzer::InsideLoop() {
 void ttHAnalyzer::Summary() {
 	PAF_INFO("ttHAnalyzer", "+ Analysis DONE");
 	cout << endl;
-}
-
-//	For printing details of a specific event
-//------------------------------------------------------------------------------
-void ttHAnalyzer::CoutEvent(ULong_t en, TString t){
-	if (en == 1347253329) {
-		cout << t << endl;
-	}
-	else return;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -211,13 +201,13 @@ void ttHAnalyzer::InitialiseYieldHistos() {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
-			fHTightLep	[icat][ichan] = CreateH1F("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
-			fHFakeLep	[icat][ichan] = CreateH1F("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""					, 10, 0, 10);
-			fHLooseLep	[icat][ichan] = CreateH1F("H_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
-			fHTau		[icat][ichan] = CreateH1F("H_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""						, 10, 0, 10);
+			fHTightLep	[icat][ichan] = CreateH1F("H_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 6, 0, 6);
+			fHFakeLep	[icat][ichan] = CreateH1F("H_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""					, 5, 0, 5);
+			fHLooseLep	[icat][ichan] = CreateH1F("H_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 5, 0, 5);
+			fHTau		[icat][ichan] = CreateH1F("H_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""						, 3, 0, 3);
 			fHJet		[icat][ichan] = CreateH1F("H_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""						, 10, 0, 10);
-			fHMedBTagJet[icat][ichan] = CreateH1F("H_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
-			fHLosBTagJet[icat][ichan] = CreateH1F("H_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 10);
+			fHMedBTagJet[icat][ichan] = CreateH1F("H_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 6, 0, 6);
+			fHLosBTagJet[icat][ichan] = CreateH1F("H_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 6, 0, 6);
 		}
 	}
 }
@@ -227,9 +217,9 @@ void ttHAnalyzer::InitialiseKinematicHistos() {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
-			fHPtLeading			[icat][ichan] = CreateH1F("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 20, 0, 300);
-			fHPtSubLeading		[icat][ichan] = CreateH1F("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 20, 0, 300);
-			fHPtSubSubLeading	[icat][ichan] = CreateH1F("H_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 20, 0, 300);
+			fHPtLeading			[icat][ichan] = CreateH1F("H_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 10, 0, 200);
+			fHPtSubLeading		[icat][ichan] = CreateH1F("H_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 10, 0, 200);
+			fHPtSubSubLeading	[icat][ichan] = CreateH1F("H_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""	, 10, 0, 200);
 		}
 	}
 }
@@ -239,8 +229,8 @@ void ttHAnalyzer::InitialiseMETHistos() {
 		for (UInt_t ichan = 0; ichan < gNCHANNELS; ichan++) {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
-			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 50, 0, 500);
-			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 100, 0, 1000);
+			fHMET				[icat][ichan] = CreateH1F("H_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 400);
+			fHMHT				[icat][ichan] = CreateH1F("H_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""				, 10, 0, 1000);
 			fHMETLD				[icat][ichan] = CreateH1F("H_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 10, 0, 2);
 		}
 	}
@@ -253,7 +243,7 @@ void ttHAnalyzer::InitialiseMiscHistos() {
 			if (icat == threel 		&& ichan != All) 	continue;
 			if (icat == Total 		&& ichan != All) 	continue;
 			fHChargeSum			[icat][ichan] = CreateH1F("H_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""		, 7, -3.5, 3.5);
-			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 50, 0, 200);
+			fHMass				[icat][ichan] = CreateH1F("H_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan],""			, 10, 0, 400);
 		}
 	}
 }
@@ -381,75 +371,42 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     Int_t thetype 	= 0;
 
 	for (Int_t i = 0; i < nLepGood; i++) {
-		CoutEvent(evt, Form("---- Lepton %i", i));
-		CoutEvent(evt, Form("   pdgId = %i ", LepGood_pdgId[i]));
-		CoutEvent(evt, Form("   pT    = %f ", LepGood_pt[i]));
-		CoutEvent(evt, Form("   Eta   = %f ", LepGood_eta[i]));
-		CoutEvent(evt, Form("   Sip3D = %f ", Get<Float_t>("LepGood_sip3d", i)));
-		CoutEvent(evt, Form("     dxy = %f ", LepGood_dxy[i]));
-		CoutEvent(evt, Form("      dz = %f ", LepGood_dz[i]));
-		CoutEvent(evt, Form("   LHits = %i ", Get<Int_t>("LepGood_lostHits", i)));
-		CoutEvent(evt, Form("   mediumMuonId ---> %i", Get<Int_t>("LepGood_mediumMuonId",i)));
-		CoutEvent(evt, Form("   tightElecId  ---> %i", Get<Int_t>("LepGood_tightId", i)));
-		CoutEvent(evt, Form("   MULTIISO VT"));
-		CoutEvent(evt, Form("   miniRelIso (<0.09) : %f", Get<Float_t>("LepGood_miniRelIso", i)));
-		CoutEvent(evt, Form("      ptRatio (>0.84) : %f", Get<Float_t>("LepGood_jetPtRatiov2", i)));
-		CoutEvent(evt, Form("        ptRel (>7.2 ) : %f", Get<Float_t>("LepGood_jetPtRelv2", i)));
-        if(Get<Int_t>("LepGood_tightId", i) <3 && fabs(LepGood_pdgId[i]) == 11){
-            CoutEvent(evt, Form("sigmaIEtaIEta = %f", Get<Float_t>("LepGood_sigmaIEtaIEta", i)));
-            CoutEvent(evt, Form("dEtaScTrkIn = %f", Get<Float_t>("LepGood_dEtaScTrkIn", i)));
-            CoutEvent(evt, Form("dPhiScTrkIn = %f", Get<Float_t>("LepGood_dPhiScTrkIn", i)));
-            CoutEvent(evt, Form("hadronicOverEm = %f", Get<Float_t>("LepGood_hadronicOverEm", i)));
-            CoutEvent(evt, Form("eInvMinusPInv = %f", Get<Float_t>("LepGood_eInvMinusPInv", i)));
-            CoutEvent(evt, Form("eInvMinusPInv_tkMom = %f", Get<Float_t>("LepGood_eInvMinusPInv_tkMom", i)));
-	    }
 		if(IsLooseMuon(i)){
-			CoutEvent(evt, "   It's a loose muon!");
 			thetype = 4;
 			nLooseMuon++;
-        }
-		if(IsFakeableMuon(i)){
-			CoutEvent(evt, "   It's a fakeable muon!");
-			thetype = 2;
-			nFakeableMuon++;
-        }
-		if(IsTightMuon(i)){
-			CoutEvent(evt, "   It's a tight muon!");
-			thetype = 0;
-			nTightMuon++;
+			if(IsFakeableMuon(i)){
+				thetype = 2;
+				nFakeableMuon++;
+				if(IsTightMuon(i)){
+					thetype = 0;
+					nTightMuon++;
+		        }
+	        }
         }
         if(IsLooseElectron(i)){
-			CoutEvent(evt, "   It's a loose electron!");
             thetype = 5;
             nLooseElec++;
+	        if(IsFakeableElectron(i)){
+	            thetype = 3;
+	            nFakeableElec++;
+		        if(IsTightElectron(i)){
+		            thetype = 1;
+		            nTightElec++;
+		        }
+	        }
         }
-        if(IsFakeableElectron(i)){
-			CoutEvent(evt, "   It's a fakeable electron!");
-            thetype = 3;
-            nFakeableElec++;
-        }
-        if(IsTightElectron(i)){
-			CoutEvent(evt, "   It's a tight electron!");
-            thetype = 1;
-            nTightElec++;
-        }
+		if (!IsTightMuon() && !IsFakeableMuon() && !IsLooseMuon() && !IsTightElectron() && !IsFakeableElectron() && !IsLooseElectron()) continue;
+        lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
+        lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		if (thetype == 4 || thetype == 5 || thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
-		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
-		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_looselepton.push_back(tmpLepton);
 		}
 		if (thetype == 2 || thetype == 3 || thetype == 0 || thetype == 1) {
-		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
-		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_fakeablelepton.push_back(tmpLepton);
 		}
 		if (thetype == 0 || thetype == 1) {
-		    lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
-		    lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
 		    tmp_tightlepton.push_back(tmpLepton);
 		}
-        lep.SetPxPyPzE(LepGood_px[i], LepGood_py[i], LepGood_pz[i], LepGood_energy[i]);
-        lepton tmpLepton(lep, LepGood_charge[i], thetype, i);
         tmp_lepton.push_back(tmpLepton);
     }
 
@@ -461,11 +418,6 @@ Int_t ttHAnalyzer::getSelectedLeptons(){
     FakeableLepton 	= SortLeptonsByPt(tmp_fakeablelepton);
     LooseLepton 	= SortLeptonsByPt(tmp_looselepton);
     Lepton 			= SortLeptonsByPt(tmp_lepton);
-
-    CoutEvent(evt, Form("  ---> nselLeps = %li", Lepton.size()));
-    CoutEvent(evt, Form("  ---> nselLooseLeps = %li", LooseLepton.size()));
-    CoutEvent(evt, Form("  ---> nselFakeableLeps = %li", FakeableLepton.size()));
-    CoutEvent(evt, Form("  ---> nselTightLeps = %li", TightLepton.size()));
 
     return Lepton.size();
 }
@@ -983,10 +935,7 @@ void ttHAnalyzer::SetOriginalObjects(){
 	ElPy.clear();
 	ElPz.clear();
 	ElEnergy.clear();
-	MET  = 0.;
-	MET_Phi = 0.;
-	MHT  = 0.;
-	Int_t k = 0;
+
 	// Save original values for MET, Jets and Leptons
 	TLorentzVector j;
 	for (Int_t i=0; i < nJet; i++){
@@ -1011,16 +960,13 @@ void ttHAnalyzer::SetOriginalObjects(){
 			MuEnergy.push_back(LepGood_energy[i]);
 		}
 	}
-	MET     = Get<Float_t>("met_pt"); //met
-	MET_Phi = Get<Float_t>("met_phi"); //met
-	MHT 	= getMHT(); //mht
 }
 
 void ttHAnalyzer::SetEventObjects(){
 	#ifdef DEBUGC
 		cout << "DEBUGC - SetEventObjects"<< endl;
 	#endif
-	ResetHypLeptons();
+
 	EventWeight 	= 1.;
 	if (!gIsData) {
 		EventWeight = gWeight;
@@ -1042,6 +988,10 @@ void ttHAnalyzer::SetEventObjects(){
 	nTaus			= 0;
 	njpt			= 0;
 
+	MET  = 0.;
+	MET_Phi = 0.;
+	MHT  = 0.;
+
 
 	// Read and save objects
 	Jet.clear();
@@ -1050,40 +1000,14 @@ void ttHAnalyzer::SetEventObjects(){
 	FakeableLepton.clear();
 	TightLepton.clear();
 
+
+	MET     = Get<Float_t>("met_pt"); //met
+	MET_Phi = Get<Float_t>("met_phi"); //met
+	MHT 	= getMHT(); //mht
+
 	nLeptons 	= getSelectedLeptons(); // Also gets n[]Muon/Elec
 	nJets    	= getSelectedJets(); // Gets the total number of jets.
-}
 
-void ttHAnalyzer::ResetOriginalObjects(){
-	// Save original values for MET, Jets and Leptons
-	TLorentzVector j;
-	for (Int_t i=0; i < nJet; i++){
-		j.SetPxPyPzE(Jet_px[i],	Jet_py[i], Jet_pz[i],	Jet_energy[i]);
-		JetEt[i]  = j.Et();
-		JetPt[i]  = j.Pt();
-		JetPhi[i] = j.Phi();
-	}
-	Int_t k = 0;
-	for (Int_t i=0; i<nLepGood; i++){
-		if(TMath::Abs(LepGood_pdgId[i]) == 11){
-			ElPx[k] = LepGood_px[i];
-			ElPy[k] = LepGood_py[i];
-			ElPz[k] = LepGood_pz[i];
-			ElEnergy[k] = LepGood_energy[i];
-			k++;
-		}
-	}
-	k = 0;
-	for (Int_t i=0; i<nLepGood; i++){
-		if(TMath::Abs(LepGood_pdgId[i]) == 13){
-			MuPx[k] = LepGood_px[i];
-			MuPy[k] = LepGood_py[i];
-			MuPz[k] = LepGood_pz[i];
-			MuEnergy[k] = LepGood_energy[i];
-			k++;
-		}
-	}
-	setMET(Get<Float_t>("met_pt")); //met
 }
 
 void ttHAnalyzer::ResetHypLeptons(){

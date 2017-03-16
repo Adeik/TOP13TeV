@@ -113,7 +113,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		virtual void Summary();
 
         // For printing
-        void 	CoutEvent(ULong_t en = 0, TString t = " ");
 
 		////////////////////////////////////////////////////////////////////////
 		//		Trees-related declarations
@@ -244,7 +243,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		////////////////////////////////////////////////////////////////////////
 		void 	SetOriginalObjects();
 		void 	SetEventObjects();
-		void 	ResetOriginalObjects();
 		void 	ResetHypLeptons();
         void    setMET(Float_t);
 

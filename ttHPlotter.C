@@ -125,24 +125,24 @@ void ttHPlotter() {
 			fHSMHT				[icat][ichan]	=	new THStack("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHSMETLD			[icat][ichan]	=	new THStack("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHDEvents    		[icat][ichan]	=	new TH1F("HS_Events_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NEvents_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 1, 0, 1); // Events
-			fHDTightLep			[icat][ichan]	=	new TH1F("HS_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10); // Yields
-			fHDFakeLep			[icat][ichan]	=	new TH1F("HS_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NFakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
-			fHDLooseLep			[icat][ichan]	=	new TH1F("HS_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
-			fHDTau				[icat][ichan]	=	new TH1F("HS_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
+			fHDTightLep			[icat][ichan]	=	new TH1F("HS_TightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTightLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 6, 0, 6); // Yields
+			fHDFakeLep			[icat][ichan]	=	new TH1F("HS_FakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NFakeLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 5, 0, 5);
+			fHDLooseLep			[icat][ichan]	=	new TH1F("HS_LooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLooseLep_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 5, 0, 5);
+			fHDTau				[icat][ichan]	=	new TH1F("HS_Tau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NTau_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 3, 0, 3);
 			fHDJet				[icat][ichan]	=	new TH1F("HS_Jet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
-			fHDMedBTagJet		[icat][ichan]	=	new TH1F("HS_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NMedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
-			fHDLosBTagJet		[icat][ichan]	=	new TH1F("HS_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 10);
-			fHDPtLeading		[icat][ichan]	=	new TH1F("HS_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300); // Kinematic
-			fHDPtSubLeading		[icat][ichan]	=	new TH1F("HS_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300);
-			fHDPtSubSubLeading	[icat][ichan]	=	new TH1F("HS_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 20, 0, 300);
-			fHDMET				[icat][ichan]	=	new TH1F("HS_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 500); // MET
-			fHDMHT				[icat][ichan]	=	new TH1F("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 100, 0, 1000);
+			fHDMedBTagJet		[icat][ichan]	=	new TH1F("HS_MedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NMedBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 6, 0, 6);
+			fHDLosBTagJet		[icat][ichan]	=	new TH1F("HS_LosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "NLosBTagJet_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 6, 0, 6);
+			fHDPtLeading		[icat][ichan]	=	new TH1F("HS_PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 200); // Kinematic
+			fHDPtSubLeading		[icat][ichan]	=	new TH1F("HS_PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 200);
+			fHDPtSubSubLeading	[icat][ichan]	=	new TH1F("HS_PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "PtSubSubLeading_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 200);
+			fHDMET				[icat][ichan]	=	new TH1F("HS_MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MET_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 400); // MET
+			fHDMHT				[icat][ichan]	=	new TH1F("HS_MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "MHT_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 1000);
 			fHDMETLD			[icat][ichan]	=	new TH1F("HS_METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "METLD_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 2);
 			if (icat == twolSS 		&& ichan != All) 	continue;
 			fHSChargeSum		[icat][ichan]	=	new THStack("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan]); // Misc
 			fHSMass				[icat][ichan]	=	new THStack("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan]);
 			fHDChargeSum		[icat][ichan]	=	new TH1F("HS_ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "ChargeSum_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 7, -3.5, 3.5); // Misc
-			fHDMass				[icat][ichan]	=	new TH1F("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 50, 0, 200);
+			fHDMass				[icat][ichan]	=	new TH1F("HS_Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], "Mass_"+gCatLabel[icat]+"_"+gChanLabel[ichan], 10, 0, 400);
 		}
 	}
 
@@ -381,7 +381,7 @@ void ttHPlotter() {
 	MyStyle->SetTitleSize(0.05, "x");
 	MyStyle->SetTitleSize(0.05, "y");
 	MyStyle->SetTitleSize(0.05, "z");
-	MyStyle->SetHistLineColor(kBlack); 	
+	MyStyle->SetHistLineColor(kBlack);
 	gROOT->SetStyle("MyStyle");
 
 	// Drawing
