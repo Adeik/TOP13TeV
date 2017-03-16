@@ -599,7 +599,7 @@ void ttHPlotter() {
 			fHDLosBTagJet    	[icat][ichan]	-> SetMinimum(0);
 			fHDLosBTagJet    	[icat][ichan]	->	SetMarkerStyle(20);
 			fHDLosBTagJet    	[icat][ichan]	-> 	Draw("pe");
-			fHSLosBTagJet		[icat][ichan]	-> Draw("histsameaxis");
+			fHSLosBTagJet		[icat][ichan]	-> Draw("histsame");
 
 			TList* LosBTagJetList;
 			LosBTagJetList = fHSLosBTagJet    		[icat][ichan]	-> 	GetHists(); // Events
