@@ -618,7 +618,7 @@ Bool_t ttHAnalyzer::IsGoodTau(UInt_t iTau) {
     TLorentzVector tau;
     tau.SetPtEtaPhiE(TauGood_pt[iTau], TauGood_eta[iTau], TauGood_phi[iTau], sqrt(TauGood_mass[iTau]*TauGood_mass[iTau]+TauGood_pt[iTau]*TauGood_pt[iTau]));
     for (UInt_t i = 0; i < LooseLepton.size(); i++) {
-        if(tau.DeltaR(FakeableLepton[i].p) < 0.5) return false;
+        if(tau.DeltaR(LooseLepton[i].p) < 0.5) return false;
     }
     if (TauGood_idCI3hit[iTau] < 1) return false;
 
