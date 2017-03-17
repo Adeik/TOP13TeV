@@ -990,7 +990,6 @@ void ttHAnalyzer::SetEventObjects(){
 	njpt			= 0;
 
 	MET  = 0.;
-	MET_Phi = 0.;
 	MHT  = 0.;
 
 
@@ -1002,15 +1001,14 @@ void ttHAnalyzer::SetEventObjects(){
 	TightLepton.clear();
 
 
-	MET     = Get<Float_t>("met_pt"); //met
-	MET_Phi = Get<Float_t>("met_phi"); //met
+	MET     =	Get<Float_t>("met_pt"); //met
+	MHT		=	Get<Float_t>("mhtJet25");
 
 	nLeptons 	= getSelectedLeptons(); // Also gets n[]Muon/Elec
 	nJets    	= getSelectedJets(); // Gets the total number of jets.
 
-	MHT 	= getMHT(); //mht
+	//MHT 	= getMHT(); //mht
 }
-
 void ttHAnalyzer::ResetHypLeptons(){
   TLorentzVector vec(0., 0., 0., 0.);
   fHypLepton1 = lepton(vec, 0, -1, -1);

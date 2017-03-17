@@ -314,7 +314,6 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		UInt_t 	njpt;
 
 		Float_t MET;
-		Float_t MET_Phi;
 		Float_t MHT;
 
 		lepton  fHypLepton1;
