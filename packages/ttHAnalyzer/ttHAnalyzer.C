@@ -775,7 +775,7 @@ Bool_t ttHAnalyzer::Is3lEvent() {
 	if ((nLooseMuon + nLooseElec) > 1) {
 		for (UInt_t i = 0; i < nLooseMuon + nLooseElec; i++) {
 			for (UInt_t j = i; j < nLooseMuon + nLooseElec; j++) {
-				if (LooseLepton[i].type != LooseLepton[j].type) continue;
+				if (LooseLepton[i].type + LooseLepton[j].type % 2 != 0) continue;
 				if (LooseLepton[i].charge*LooseLepton[j].charge > 0) continue;
 				if (abs((LooseLepton[i].p+LooseLepton[j].p).M() - Zm) < 10) return false;
 			}
@@ -784,7 +784,7 @@ Bool_t ttHAnalyzer::Is3lEvent() {
 	UInt_t twolds = 0;
 	for (UInt_t i = 0; i < nTightMuon + nTightElec; i++) {
 		for (UInt_t j = i; j < nTightMuon + nTightElec; j++) {
-			if (TightLepton[i].type != TightLepton[j].type) continue;
+			if (TightLepton[i].type + TightLepton[j].type % 2 != 0) continue;
 			if (TightLepton[i].charge*TightLepton[j].charge < 0) twolds = 1;
 		}
 	}
@@ -1010,9 +1010,9 @@ void ttHAnalyzer::SetEventObjects(){
 	//MHT 	= getMHT(); //mht
 }
 void ttHAnalyzer::ResetHypLeptons(){
-  TLorentzVector vec(0., 0., 0., 0.);
-  fHypLepton1 = lepton(vec, 0, -1, -1);
-  fHypLepton2 = lepton(vec, 0, -1, -1);
+	TLorentzVector vec(0., 0., 0., 0.);
+	fHypLepton1 = lepton(vec, 0, -1, -1);
+	fHypLepton2 = lepton(vec, 0, -1, -1);
 }
 
 void ttHAnalyzer::setMET(Float_t newmet) {MET = newmet;}
