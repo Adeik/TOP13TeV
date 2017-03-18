@@ -151,7 +151,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		Float_t LepGood_dEtaScTrkIn[30];
 		Float_t LepGood_dPhiScTrkIn[30];
 		Float_t LepGood_eInvMinusPInv[30];
-		Float_t LepGood_convVeto[30];
+		Int_t 	LepGood_convVeto[30];
 		Int_t 	LepGood_lostHits[30];
 		Int_t 	LepGood_tightCharge[30];
 		Float_t LepGood_jetDR[30];
@@ -203,7 +203,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 
         //  Electrons
         //----------------------------------------------------------------------
-		Bool_t	IsTightElectron(UInt_t,Float_t ptcut = gTightElectronPtCut, Int_t an=2);
+		Bool_t	IsTightElectron(UInt_t, Int_t an=2);
 		Bool_t	IsFakeableElectron(UInt_t,Float_t ptcut = gFakeableElectronPtCut);
 		Bool_t	IsLooseElectron(UInt_t,Float_t ptcut = gLooseElectronPtCut);
 
@@ -308,6 +308,7 @@ class ttHAnalyzer : public PAFChainItemSelector {
 		UInt_t 	nFakeableMuon;
 		UInt_t 	nLooseMuon;
 		UInt_t 	nTightElec;
+		UInt_t 	nTightElec2lss;
 		UInt_t 	nFakeableElec;
 		UInt_t 	nLooseElec;
 		UInt_t 	nTaus;
